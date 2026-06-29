@@ -32,17 +32,10 @@ export async function getAppUrl(requestOrHeaders?: any): Promise<string> {
 
   const candidates: string[] = [];
 
+  if (process.env.NEXT_PUBLIC_APP_URL) candidates.push(process.env.NEXT_PUBLIC_APP_URL);
+  if (process.env.NEXTAUTH_URL) candidates.push(process.env.NEXTAUTH_URL);
+
   if (reqHeaders) {
-    const origin = reqHeaders.get('origin');
-    if (origin) candidates.push(origin);
-
-    const referer = reqHeaders.get('referer');
-    if (referer) {
-      try {
-        candidates.push(new URL(referer).origin);
-      } catch (_) {}
-    }
-
     const forwardedHost = reqHeaders.get('x-forwarded-host') || reqHeaders.get('x-original-host');
     const proto = reqHeaders.get('x-forwarded-proto') || 'https';
     if (forwardedHost) {
@@ -54,6 +47,9 @@ export async function getAppUrl(requestOrHeaders?: any): Promise<string> {
       const hostProto = reqHeaders.get('x-forwarded-proto') || (host.startsWith('localhost') || host.startsWith('127.0.0.1') ? 'http' : 'https');
       candidates.push(`${hostProto}://${host}`);
     }
+    
+    const origin = reqHeaders.get('origin');
+    if (origin) candidates.push(origin);
   }
 
   if (requestOrHeaders && 'url' in requestOrHeaders && typeof requestOrHeaders.url === 'string') {
@@ -69,9 +65,6 @@ export async function getAppUrl(requestOrHeaders?: any): Promise<string> {
     const cVal = cookieStore.get('oauth_app_url')?.value;
     if (cVal) candidates.push(cVal);
   } catch (_) {}
-
-  if (process.env.NEXT_PUBLIC_APP_URL) candidates.push(process.env.NEXT_PUBLIC_APP_URL);
-  if (process.env.NEXTAUTH_URL) candidates.push(process.env.NEXTAUTH_URL);
 
   // 1. Find the first candidate that is NOT localhost / 127.0.0.1
   let bestUrl = candidates.find(c => c && !c.includes('localhost') && !c.includes('127.0.0.1'));

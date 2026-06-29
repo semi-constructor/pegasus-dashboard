@@ -3,7 +3,8 @@ import { cookies } from 'next/headers';
 import { getAppUrl } from '@/lib/api';
 
 export async function GET(request: Request) {
-  const appUrl = await getAppUrl(request);
+  const envAppUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL;
+  const appUrl = envAppUrl ? envAppUrl.replace(/\/+$/, '') : await getAppUrl(request);
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
 
