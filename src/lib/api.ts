@@ -66,13 +66,7 @@ export async function getAppUrl(requestOrHeaders?: any): Promise<string> {
     if (cVal) candidates.push(cVal);
   } catch (_) {}
 
-  // 1. Find the first candidate that is NOT localhost / 127.0.0.1
-  let bestUrl = candidates.find(c => c && !c.includes('localhost') && !c.includes('127.0.0.1'));
-
-  // 2. If all candidates are localhost (e.g. genuine local development), use the first candidate
-  if (!bestUrl) {
-    bestUrl = candidates[0] || 'http://localhost:3000';
-  }
+  let bestUrl = candidates[0] || 'http://localhost:3000';
 
   return bestUrl.replace(/\/+$/, '');
 }

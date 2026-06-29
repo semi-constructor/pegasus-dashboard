@@ -8,8 +8,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Discord Client ID not configured' }, { status: 500 });
   }
 
-  const envAppUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL;
-  const appUrl = envAppUrl ? envAppUrl.replace(/\/+$/, '') : await getAppUrl(request);
+  const appUrl = await getAppUrl(request);
   const redirectUri = `${appUrl}/api/auth/callback/discord`;
 
   const oauthUrl = `https://discord.com/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
