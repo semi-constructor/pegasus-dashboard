@@ -51,3 +51,4 @@ pegasus-bot-schemas/
 GEMINI.md
 .agents/
 TECH.md
+!.env.example
