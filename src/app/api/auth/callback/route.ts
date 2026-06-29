@@ -13,7 +13,7 @@ export async function GET(request: Request) {
 
   const clientId = process.env.DISCORD_CLIENT_ID;
   const clientSecret = process.env.DISCORD_CLIENT_SECRET;
-  const redirectUri = `${appUrl}/api/auth/callback/discord`;
+  const redirectUri = `${appUrl}/api/auth/callback`;
 
   if (!clientId || !clientSecret) {
     console.error('Discord OAuth credentials missing in environment variables');
