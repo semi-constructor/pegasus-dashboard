@@ -42,10 +42,8 @@ next-env.d.ts
 
 # Core
 AGENTS.md
-API_DOC.md
 BOT.md
 CLAUDE.md
-COMMANDS_DOC.md
 pegasus-bot-schemas/
 .gemini/
 GEMINI.md
