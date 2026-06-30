@@ -1,7 +1,7 @@
 'use server';
 
 import { db } from '@/lib/db';
-import * as schema from '@schemas/index';
+import * as schema from '../../../schemas/index';
 import { eq, and } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';

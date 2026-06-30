@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { db } from '@/lib/db';
-import * as schema from '@schemas/index';
+import * as schema from '../../../../schemas/index';
 import { Shield, ArrowRight, Database, CheckCircle2, AlertCircle, Edit, Table as TableIcon, X, Check, Plus, Trash2, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
 import { updateDatabaseEntry, createDatabaseEntry, deleteDatabaseEntry } from '../actions';
