@@ -17,6 +17,24 @@ export default async function GuildDashboardLayout({
   const fallbackGuilds = await getDashboardGuilds();
 
   const allGuilds = adminGuilds || fallbackGuilds;
+
+  const userCookie = cookieStore.get('discord_user')?.value;
+  let userId: string | null = null;
+  if (userCookie) {
+    try {
+      userId = JSON.parse(userCookie).id;
+    } catch (e) {}
+  }
+  let isSystemAdmin = false;
+  if (userId) {
+    let adminIds: string[] = [];
+    try {
+      adminIds = process.env.ADMIN ? JSON.parse(process.env.ADMIN) : [];
+    } catch {
+      adminIds = [process.env.ADMIN || ''];
+    }
+    isSystemAdmin = adminIds.includes(userId);
+  }
   
   const authorizedGuilds = allGuilds.filter((g: any) => 
     g.isAdmin === undefined ? true : (g.isAdmin && g.botInServer)
@@ -30,9 +48,9 @@ export default async function GuildDashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-black text-neutral-100 flex flex-col lg:flex-row w-full">
-      <Sidebar guilds={authorizedGuilds} />
-      <div className="flex-1 flex flex-col min-h-screen bg-black overflow-x-hidden">
+    <div className="flex flex-col lg:flex-row w-full h-full relative z-10">
+      <Sidebar guilds={authorizedGuilds} isSystemAdmin={isSystemAdmin} />
+      <div className="flex-1 flex flex-col min-h-screen bg-transparent overflow-x-hidden">
         {children}
       </div>
     </div>

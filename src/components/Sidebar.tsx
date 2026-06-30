@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
-import { LayoutDashboard, Settings, Coins, ShieldAlert, Ticket, Award, ExternalLink, LogOut, ChevronDown, Server, Gift, Headphones, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { LayoutDashboard, Settings, Coins, ShieldAlert, Ticket, Award, ExternalLink, LogOut, ChevronDown, Server, Gift, Headphones, ChevronRight, Menu, X, Terminal } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
 
 const navigation = [
   { name: 'System Overview', href: '', icon: LayoutDashboard, description: 'Guild dashboard & analytics' },
@@ -16,7 +16,7 @@ const navigation = [
   { name: 'Join to Create (J2C)', href: '/jtc', icon: Headphones, description: 'Dynamic voice channel gen' },
 ];
 
-export function Sidebar({ guilds = [] }: { guilds?: any[] }) {
+export function Sidebar({ guilds = [], isSystemAdmin = false }: { guilds?: any[], isSystemAdmin?: boolean }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -25,6 +25,24 @@ export function Sidebar({ guilds = [] }: { guilds?: any[] }) {
   const pathGuildId = (parts.length > 2 && parts[2] !== 'settings' && parts[2] !== 'economy' && parts[2] !== 'moderation' && parts[2] !== 'tickets' && parts[2] !== 'xp-matrix' && parts[2] !== 'giveaways' && parts[2] !== 'jtc') ? parts[2] : null;
   const currentGuildId = pathGuildId || searchParams.get('guildId') || '12345678901234567';
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const activeGuild = guilds.find(g => g.id === currentGuildId) || {
     id: currentGuildId,
@@ -32,16 +50,36 @@ export function Sidebar({ guilds = [] }: { guilds?: any[] }) {
   };
 
   return (
-    <aside className="w-full lg:w-72 border-r border-white/5 bg-black flex flex-col justify-between select-none h-full min-h-screen lg:sticky lg:top-0 lg:z-50">
-      {/* Header */}
-      <div>
+    <>
+      {/* Mobile Toggle Bar */}
+      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/5 bg-black sticky top-0 z-40">
+        <div className="flex items-center gap-3">
+          <div className="w-2.5 h-2.5 bg-[#5E5CE6] shadow-[0_0_15px_#5E5CE6]" />
+          <span className="font-mono text-sm tracking-widest font-bold uppercase text-white">Pegasus</span>
+        </div>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white p-2">
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
+
+      {/* Backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      <aside className={`w-full max-w-[280px] lg:max-w-none lg:w-72 border-r border-white/5 bg-black flex flex-col justify-between select-none h-[100dvh] lg:h-[calc(100dvh-4rem)] fixed lg:sticky top-0 lg:top-16 left-0 z-50 lg:z-40 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300`}>
+      {/* Header and Nav Container */}
+      <div className="flex flex-col flex-1 min-h-0">
         <div className="h-16 border-b border-white/5 flex items-center px-6 gap-3">
           <div className="w-2.5 h-2.5 bg-[#5E5CE6] shadow-[0_0_15px_#5E5CE6]" />
           <span className="font-mono text-sm tracking-widest font-bold uppercase text-white">Pegasus // Admin</span>
         </div>
 
         {/* Server Context Indicator / Selector */}
-        <div className="relative border-b border-white/5 bg-white/[0.01]">
+        <div className="relative border-b border-white/5 bg-white/[0.01]" ref={dropdownRef}>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="w-full px-6 py-4 flex flex-col text-left hover:bg-white/[0.02] transition-all group"
@@ -97,7 +135,7 @@ export function Sidebar({ guilds = [] }: { guilds?: any[] }) {
         </div>
 
         {/* Navigation Links */}
-        <nav className="p-4 flex-1 space-y-2 font-mono">
+        <nav className="p-4 flex-1 space-y-2 font-mono overflow-y-auto custom-scrollbar">
           <div className="text-[10px] text-neutral-500 uppercase tracking-widest px-3 py-1 font-semibold">
             // Modules
           </div>
@@ -136,6 +174,12 @@ export function Sidebar({ guilds = [] }: { guilds?: any[] }) {
 
       {/* Footer System Info */}
       <div className="p-6 border-t border-white/5 bg-white/[0.01]">
+        {isSystemAdmin && (
+          <Link href="/admin" className="flex items-center gap-3 text-xs font-mono text-emerald-400 hover:text-emerald-300 transition-colors mb-4 group">
+            <Terminal className="w-4 h-4 text-emerald-500 group-hover:text-emerald-300 transition-colors" />
+            <span>Admin Panel</span>
+          </Link>
+        )}
         <Link href="/" className="flex items-center gap-3 text-xs font-mono text-neutral-400 hover:text-[#5E5CE6] transition-colors mb-4 group">
           <ExternalLink className="w-4 h-4 text-neutral-500 group-hover:text-[#5E5CE6] transition-colors" />
           <span>Exit to Main Website</span>
@@ -146,5 +190,6 @@ export function Sidebar({ guilds = [] }: { guilds?: any[] }) {
         </div>
       </div>
     </aside>
+    </>
   );
 }

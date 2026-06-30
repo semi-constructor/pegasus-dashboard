@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Shield, Database, Activity, FileText, Terminal, LogOut, ChevronRight, Server, Cpu, HardDrive, Zap, Home, LayoutDashboard } from 'lucide-react';
+import { Shield, Database, Activity, FileText, Terminal, LogOut, ChevronRight, Server, Cpu, HardDrive, Zap, Home, LayoutDashboard, Menu, X } from 'lucide-react';
 
 interface AdminSidebarProps {
   user: {
@@ -30,6 +30,11 @@ function formatUptime(seconds: number) {
 
 export default function AdminSidebar({ user }: AdminSidebarProps) {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
 
   // Live telemetry state updating every 1s across all pages
   const [telemetry, setTelemetry] = useState<any>(null);
@@ -109,7 +114,27 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
   ];
 
   return (
-    <aside className="w-full lg:w-72 border-r border-white/5 bg-black flex flex-col shrink-0 min-h-screen lg:sticky lg:top-0 lg:z-50">
+    <>
+      {/* Mobile Toggle Bar */}
+      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/5 bg-black sticky top-0 z-40">
+        <div className="flex items-center gap-3">
+          <div className="w-2.5 h-2.5 bg-emerald-500 shadow-[0_0_15px_#10b981]" />
+          <span className="font-mono text-sm tracking-widest font-bold uppercase text-white">Pegasus // Core</span>
+        </div>
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white p-2">
+          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        </button>
+      </div>
+
+      {/* Backdrop */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
+      <aside className={`w-full max-w-[280px] lg:max-w-none lg:w-72 border-r border-white/5 bg-black flex flex-col shrink-0 h-[100dvh] fixed lg:sticky top-0 left-0 z-50 transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 transition-transform duration-300 overflow-y-auto custom-scrollbar`}>
       {/* Top Banner / System Branding */}
       <div className="p-6 border-b border-white/5 bg-white/[0.01]">
         <div className="flex items-center gap-3">
@@ -257,5 +282,6 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
         </a>
       </div>
     </aside>
+    </>
   );
 }

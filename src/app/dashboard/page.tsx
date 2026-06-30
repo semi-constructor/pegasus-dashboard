@@ -1,12 +1,35 @@
 import Link from 'next/link';
 import { cookies, headers } from 'next/headers';
 import { getUserAdminGuilds, NEXT_PUBLIC_DISCORD_CLIENT_ID, getAppUrl } from '@/lib/api';
-import { Shield, Lock, ArrowRight, Server, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Shield, Lock, ArrowRight, Server, CheckCircle2, AlertCircle, Terminal } from 'lucide-react';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default async function DashboardSelectPage() {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('discord_access_token')?.value;
+  const userCookie = cookieStore.get('discord_user')?.value;
   const adminGuilds = await getUserAdminGuilds(accessToken);
+
+  let userId: string | null = null;
+  if (userCookie) {
+    try {
+      const userData = JSON.parse(userCookie);
+      userId = userData.id;
+    } catch (e) {}
+  }
+
+  let isSystemAdmin = false;
+  if (userId) {
+    let adminIds: string[] = [];
+    try {
+      if (process.env.ADMIN) {
+        adminIds = JSON.parse(process.env.ADMIN);
+      }
+    } catch (e) {
+      adminIds = [process.env.ADMIN || ''];
+    }
+    isSystemAdmin = adminIds.includes(userId);
+  }
 
   const clientId = NEXT_PUBLIC_DISCORD_CLIENT_ID || '1375140177961418774';
   const headersList = await headers();
@@ -40,25 +63,39 @@ export default async function DashboardSelectPage() {
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full">
-      {/* Header */}
-      <div className="border-b border-white/5 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div>
-          <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
-            <Shield className="w-3.5 h-3.5 text-[#5E5CE6]" />
-            <span>Administrator Access Verified</span>
+      <StaggerContainer>
+        {/* Header */}
+        <StaggerItem>
+          <div className="border-b border-white/5 pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
+                <Shield className="w-3.5 h-3.5 text-[#5E5CE6]" />
+                <span>Administrator Access Verified</span>
+              </div>
+              <h1 className="text-4xl font-light tracking-tight text-white mb-2">Select Server</h1>
+              <p className="text-sm text-neutral-400 font-mono tracking-wide">
+                Choose a server to configure Pegasus systems. This dashboard categorizes your servers based on bot presence and your administrative permissions.
+              </p>
+            </div>
+            <div className="flex flex-col md:flex-row items-end gap-3 self-start md:self-auto">
+              {isSystemAdmin && (
+                <a
+                  href="/admin"
+                  className="flex items-center gap-2 border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-xs font-mono text-emerald-400 hover:border-emerald-500 hover:bg-emerald-500 hover:text-black transition-colors rounded-none"
+                >
+                  <Terminal className="w-4 h-4" />
+                  <span>Admin Panel</span>
+                </a>
+              )}
+              <a
+                href="/api/auth/logout"
+                className="border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-mono text-neutral-400 hover:border-red-500/40 hover:text-red-400 transition-colors rounded-none"
+              >
+                Disconnect Account
+              </a>
+            </div>
           </div>
-          <h1 className="text-4xl font-light tracking-tight text-white mb-2">Select Server</h1>
-          <p className="text-sm text-neutral-400 font-mono tracking-wide">
-            Choose a server to configure Pegasus systems. This dashboard categorizes your servers based on bot presence and your administrative permissions.
-          </p>
-        </div>
-        <a
-          href="/api/auth/logout"
-          className="border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-mono text-neutral-400 hover:border-red-500/40 hover:text-red-400 transition-colors rounded-none self-start md:self-auto"
-        >
-          Disconnect Account
-        </a>
-      </div>
+        </StaggerItem>
 
       {adminGuilds.length === 0 ? (
         <div className="border border-white/5 bg-white/[0.005] p-12 text-center text-neutral-500 font-mono text-sm">
@@ -67,6 +104,7 @@ export default async function DashboardSelectPage() {
       ) : (
         <div className="space-y-16">
           {/* 1. Authorized Servers */}
+          <StaggerItem>
           <div>
             <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
               <div className="flex items-center gap-3">
@@ -115,8 +153,10 @@ export default async function DashboardSelectPage() {
               </div>
             )}
           </div>
+          </StaggerItem>
 
           {/* 2. Missing Invitation */}
+          <StaggerItem>
           <div>
             <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
               <div className="flex items-center gap-3">
@@ -164,8 +204,10 @@ export default async function DashboardSelectPage() {
               </div>
             )}
           </div>
+          </StaggerItem>
 
           {/* 3. Disabled / Admin Required */}
+          <StaggerItem>
           <div>
             <div className="flex items-center justify-between border-b border-white/5 pb-4 mb-6">
               <div className="flex items-center gap-3">
@@ -213,8 +255,10 @@ export default async function DashboardSelectPage() {
               </div>
             )}
           </div>
+          </StaggerItem>
         </div>
       )}
+      </StaggerContainer>
     </main>
   );
 }

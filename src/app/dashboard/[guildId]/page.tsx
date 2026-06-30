@@ -6,6 +6,7 @@ import * as schema from '../../../../schemas/index';
 import { eq, sql } from 'drizzle-orm';
 import { Shield, TrendingUp, Coins, Ticket, Activity, Clock, CheckCircle2, XCircle } from 'lucide-react';
 import { formatNumber } from '@/lib/utils';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default async function GuildOverviewPage({
   params,
@@ -60,7 +61,9 @@ export default async function GuildOverviewPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
@@ -79,8 +82,10 @@ export default async function GuildOverviewPage({
           Configure Server Settings
         </Link>
       </div>
+      </StaggerItem>
 
       {/* Server Statistics (Rule of Three Minimalism) */}
+      <StaggerItem>
       <div className="mb-16">
         <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// Database Aggregations</div>
         <h2 className="text-2xl font-light tracking-tight text-white mb-6">Real-Time Server Telemetry</h2>
@@ -111,8 +116,10 @@ export default async function GuildOverviewPage({
           </div>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Module Configuration Status */}
+      <StaggerItem>
       <div className="mb-16">
         <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// System State</div>
         <h2 className="text-2xl font-light tracking-tight text-white mb-6">Enabled Server Modules</h2>
@@ -142,8 +149,10 @@ export default async function GuildOverviewPage({
           ))}
         </div>
       </div>
+      </StaggerItem>
 
       {/* Recent Server Activity */}
+      <StaggerItem>
       <div>
         <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// Audit Trail</div>
         <h2 className="text-2xl font-light tracking-tight text-white mb-6">Recent Server Security Activity</h2>
@@ -186,6 +195,8 @@ export default async function GuildOverviewPage({
           )}
         </div>
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

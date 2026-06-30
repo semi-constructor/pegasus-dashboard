@@ -2,6 +2,7 @@ import { getEconomyBalances, updateUserBalance, getShopItems, createShopItem, up
 import { Coins, Plus, Trash2, RefreshCw, Wallet, Store, History, Settings2, Save } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
 import { formatNumber } from '@/lib/utils';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default async function EconomyPage({
   params,
@@ -37,7 +38,9 @@ export default async function EconomyPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-16">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
@@ -59,8 +62,10 @@ export default async function EconomyPage({
           </button>
         </form>
       </div>
+      </StaggerItem>
 
       {/* Section 1: Economy Global Settings CRUD */}
+      <StaggerItem>
       <div className="space-y-6">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <Settings2 className="w-5 h-5 text-[#5E5CE6]" />
@@ -252,8 +257,10 @@ export default async function EconomyPage({
           </form>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Grid Layout for Management Forms */}
+      <StaggerItem>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-8 border-t border-white/5">
         {/* Section 2: Update User Balance CRUD */}
         <div className="space-y-6">
@@ -560,8 +567,10 @@ export default async function EconomyPage({
           </div>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Section 4: Transaction Logs */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <History className="w-5 h-5 text-[#5E5CE6]" />
@@ -604,6 +613,8 @@ export default async function EconomyPage({
           )}
         </div>
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

@@ -1,6 +1,7 @@
 import { getWarnings, deleteWarning, getWarningAutomations, createWarningAutomation, deleteWarningAutomation, getAuditLogs, triggerBotModeration, getModLogSettings, updateModLogSettings, getWordFilterRules, createWordFilterRule, deleteWordFilterRule, getGuildMembers, getGuildChannels } from '@/app/actions';
 import { Shield, ShieldAlert, Zap, Trash2, UserX, AlertOctagon, Plus, FileText, Filter, Eye } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default async function ModerationPage({
   params,
@@ -68,7 +69,9 @@ export default async function ModerationPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-16">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8">
         <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
           <Shield className="w-3.5 h-3.5 text-[#5E5CE6]" />
@@ -79,8 +82,10 @@ export default async function ModerationPage({
           Enforce server rules, execute real-time moderation actions, establish word filter patterns, configure warning thresholds, and inspect audit logs for Guild ({guildId}).
         </p>
       </div>
+      </StaggerItem>
 
       {/* Grid Layout for Action & Filtering */}
+      <StaggerItem>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Section 1: Real-time Moderation Execution */}
         <div className="space-y-6">
@@ -427,8 +432,10 @@ export default async function ModerationPage({
           </div>
         </div>
       </div>
+      </StaggerItem>
 
-      {/* Section 4: Mod Log Settings CRUD */}
+      {/* Section 4: Auto-Moderation Warnings Setup */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <Eye className="w-5 h-5 text-[#5E5CE6]" />
@@ -539,8 +546,10 @@ export default async function ModerationPage({
           </div>
         </div>
       </div>
+      </StaggerItem>
 
-      {/* Section 5: Recent Audit Logs */}
+      {/* Section 5: Audit Logs View */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <FileText className="w-5 h-5 text-[#5E5CE6]" />
@@ -585,6 +594,8 @@ export default async function ModerationPage({
           )}
         </div>
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

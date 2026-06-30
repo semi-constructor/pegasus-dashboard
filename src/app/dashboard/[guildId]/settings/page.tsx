@@ -2,6 +2,7 @@ import { getGuildSettings, updateGuildSettings, getGuildChannels, getGuildRoles 
 import { Settings, Save, Shield, Bell, FileText, Lock, Globe } from 'lucide-react';
 import MultiSelect from '@/components/MultiSelect';
 import SaveButton from '@/components/SaveButton';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default async function GuildSettingsPage({
   params,
@@ -32,7 +33,9 @@ export default async function GuildSettingsPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8">
         <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
           <Settings className="w-3.5 h-3.5 text-[#5E5CE6]" />
@@ -43,9 +46,11 @@ export default async function GuildSettingsPage({
           Configure core bot behaviors, automated welcome/goodbye notifications, logging channels, and active security modules for Guild ({guildId}).
         </p>
       </div>
+      </StaggerItem>
 
       {/* Settings Form */}
-      <div className="border border-white/5 bg-white/[0.01] backdrop-blur-md p-8 rounded-none max-w-5xl">
+      <StaggerItem>
+      <div className="border border-white/5 bg-white/[0.01] backdrop-blur-md p-8 rounded-none max-w-5xl mt-12">
         <form action={updateGuildSettings.bind(null, guildId)} className="space-y-12 font-mono text-xs">
           {/* General Bot Configuration */}
           <div className="space-y-6">
@@ -455,15 +460,16 @@ export default async function GuildSettingsPage({
           {/* Submit Button */}
           <div className="pt-8 border-t border-white/5 flex items-center justify-end">
             <SaveButton
-              label="Save Full Configuration"
-              savingLabel="Saving Configuration..."
-              savedLabel="Configuration Saved!"
-              className="px-10"
-              icon="save"
+              label="Save System Settings"
+              savingLabel="Saving Settings..."
+              savedLabel="Settings Saved!"
+              className="w-full sm:w-auto"
             />
           </div>
         </form>
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

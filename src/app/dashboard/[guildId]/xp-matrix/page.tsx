@@ -3,6 +3,7 @@ import { Award, Plus, Trash2, RefreshCw, Settings2, Save, Trophy } from 'lucide-
 import MultiSelect from '@/components/MultiSelect';
 import SaveButton from '@/components/SaveButton';
 import { formatNumber } from '@/lib/utils';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default async function XpMatrixPage({
   params,
@@ -59,7 +60,9 @@ export default async function XpMatrixPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-16">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
@@ -72,17 +75,20 @@ export default async function XpMatrixPage({
           </p>
         </div>
         <form action={handleResetXp}>
-          <button
-            type="submit"
-            className="flex items-center gap-2 border border-red-500/30 bg-red-500/10 px-6 py-3 text-xs font-mono text-red-400 hover:bg-red-500 hover:text-black transition-all rounded-none"
-          >
-            <RefreshCw className="w-4 h-4" />
-            <span>Reset Guild XP Leaderboard</span>
-          </button>
+          <SaveButton
+            label="Reset Guild XP Leaderboard"
+            savingLabel="Resetting..."
+            savedLabel="Leaderboard Reset!"
+            className="px-6 py-3 border border-red-500/30 bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-black transition-all rounded-none"
+            icon="alert"
+            variant="danger"
+          />
         </form>
       </div>
+      </StaggerItem>
 
       {/* Section 1: XP General Settings CRUD */}
+      <StaggerItem>
       <div className="space-y-6">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <Settings2 className="w-5 h-5 text-[#5E5CE6]" />
@@ -179,8 +185,10 @@ export default async function XpMatrixPage({
           </form>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Section 2: XP Rewards CRUD */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <Award className="w-5 h-5 text-[#5E5CE6]" />
@@ -275,8 +283,10 @@ export default async function XpMatrixPage({
           </div>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Section 3: User XP Leaderboard */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <Trophy className="w-5 h-5 text-[#5E5CE6]" />
@@ -315,6 +325,8 @@ export default async function XpMatrixPage({
           )}
         </div>
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

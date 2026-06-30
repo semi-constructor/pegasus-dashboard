@@ -3,6 +3,7 @@ import * as actions from '@/app/actions';
 import { revalidatePath } from 'next/cache';
 import { Gift, Trash2, RefreshCw, CheckCircle, Clock, Plus, Hash, Trophy, Calendar, Users, FileText } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 // Helper to safely access getGiveaways or use a mock fallback
 async function fetchGiveaways(guildId: string) {
@@ -80,7 +81,9 @@ export default async function GiveawaysPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8">
         <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
           <Gift className="w-3.5 h-3.5 text-[#5E5CE6]" />
@@ -91,9 +94,11 @@ export default async function GiveawaysPage({
           Deploy interactive community giveaways, set prize pools, configure end conditions, and manage active draws for Guild ({guildId}).
         </p>
       </div>
+      </StaggerItem>
 
       {/* Interactive Form to Create New Giveaway */}
-      <div className="border border-white/5 bg-white/[0.01] backdrop-blur-md p-8 rounded-none max-w-5xl">
+      <StaggerItem>
+      <div className="border border-white/5 bg-white/[0.01] backdrop-blur-md p-8 rounded-none max-w-5xl relative overflow-hidden group">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-8">
           <Plus className="w-5 h-5 text-[#5E5CE6]" />
           <div>
@@ -199,8 +204,10 @@ export default async function GiveawaysPage({
           </div>
         </form>
       </div>
+      </StaggerItem>
 
       {/* Active Giveaways Display */}
+      <StaggerItem>
       <div className="space-y-6 max-w-5xl">
         <div className="flex items-center justify-between border-b border-white/5 pb-4">
           <div className="flex items-center gap-3">
@@ -301,6 +308,8 @@ export default async function GiveawaysPage({
           </div>
         )}
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

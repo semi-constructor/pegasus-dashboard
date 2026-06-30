@@ -3,6 +3,7 @@ import * as actions from '@/app/actions';
 import { revalidatePath } from 'next/cache';
 import { Mic, Save, Folder, Hash, FileText, Radio, Settings, Users, Volume2 } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 // Helper to safely access getJtcConfig or use a mock fallback
 async function fetchJtcConfig(guildId: string) {
@@ -74,7 +75,9 @@ export default async function JtcPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8">
         <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
           <Mic className="w-3.5 h-3.5 text-[#5E5CE6]" />
@@ -85,8 +88,10 @@ export default async function JtcPage({
           Deploy and configure automated temporary voice channels, master lobby generators, parent category binding, and control panel routing for Guild ({guildId}).
         </p>
       </div>
+      </StaggerItem>
 
       {/* Interactive Form to Configure JTC Settings */}
+      <StaggerItem>
       <div className="border border-white/5 bg-white/[0.01] backdrop-blur-md p-8 rounded-none max-w-5xl">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-8">
           <Settings className="w-5 h-5 text-[#5E5CE6]" />
@@ -195,8 +200,10 @@ export default async function JtcPage({
           </div>
         </form>
       </div>
+      </StaggerItem>
 
       {/* Active JTC Channels Display */}
+      <StaggerItem>
       <div className="space-y-6 max-w-5xl">
         <div className="flex items-center justify-between border-b border-white/5 pb-4">
           <div className="flex items-center gap-3">
@@ -258,6 +265,8 @@ export default async function JtcPage({
           </div>
         )}
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

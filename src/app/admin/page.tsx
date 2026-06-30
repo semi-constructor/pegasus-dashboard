@@ -1,11 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { Shield, Database, Activity, FileText, Terminal, ArrowRight, Server, Cpu, CpuIcon, CheckCircle2, Zap } from 'lucide-react';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default function AdminWelcomePage() {
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12 font-mono">
+      <StaggerContainer>
       {/* Welcome Banner */}
+      <StaggerItem>
       <div className="border border-white/10 bg-white/[0.01] p-10 relative overflow-hidden backdrop-blur-md">
         <div className="absolute top-0 left-0 w-full h-1 bg-[#5E5CE6]" />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
@@ -28,8 +31,10 @@ export default function AdminWelcomePage() {
           </div>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Quick Specs / Highlight Grid */}
+      <StaggerItem>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="border border-white/5 bg-white/[0.005] p-6 space-y-3 relative group hover:border-white/20 transition-all">
           <div className="flex items-center justify-between text-[#5E5CE6]">
@@ -64,8 +69,10 @@ export default function AdminWelcomePage() {
           </p>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Quick Action Portals */}
+      <StaggerItem>
       <div className="space-y-6">
         <h2 className="text-xs text-neutral-400 uppercase tracking-widest font-semibold flex items-center gap-2">
           <Server className="w-4 h-4 text-[#5E5CE6]" />
@@ -150,6 +157,8 @@ export default function AdminWelcomePage() {
           </Link>
         </div>
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }

@@ -2,6 +2,7 @@ import { getTicketPanels, createTicketPanel, deleteTicketPanel, getActiveTickets
 import { Ticket, Plus, Trash2, Layers, ShieldCheck, CheckCircle, Lock, Snowflake, UserCheck, BarChart3, GitBranch } from 'lucide-react';
 import MultiSelect from '@/components/MultiSelect';
 import SaveButton from '@/components/SaveButton';
+import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 
 export default async function TicketsPage({
   params,
@@ -95,7 +96,9 @@ export default async function TicketsPage({
 
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-16">
+      <StaggerContainer>
       {/* Header */}
+      <StaggerItem>
       <div className="border-b border-white/5 pb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="inline-flex items-center gap-2 border border-white/5 px-3 py-1 bg-white/[0.01] mb-4 text-xs font-mono tracking-wide text-neutral-400">
@@ -108,8 +111,10 @@ export default async function TicketsPage({
           </p>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Ticket Statistics Summary Banner */}
+      <StaggerItem>
       <div className="space-y-4">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <BarChart3 className="w-5 h-5 text-[#5E5CE6]" />
@@ -138,8 +143,10 @@ export default async function TicketsPage({
           </div>
         </div>
       </div>
+      </StaggerItem>
 
       {/* Section 1: Ticket Panels CRUD & Full Schema Setup */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <Layers className="w-5 h-5 text-[#5E5CE6]" />
@@ -368,8 +375,10 @@ export default async function TicketsPage({
           )}
         </div>
       </div>
+      </StaggerItem>
 
       {/* Section 2: Ticket Departments (Multi-Department Workflows) */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <GitBranch className="w-5 h-5 text-[#5E5CE6]" />
@@ -540,8 +549,10 @@ export default async function TicketsPage({
           )}
         </div>
       </div>
+      </StaggerItem>
 
       {/* Section 3: Active Ongoing Tickets & Comprehensive State Management */}
+      <StaggerItem>
       <div className="space-y-6 pt-8 border-t border-white/5">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <ShieldCheck className="w-5 h-5 text-[#5E5CE6]" />
@@ -660,6 +671,8 @@ export default async function TicketsPage({
           )}
         </div>
       </div>
+      </StaggerItem>
+      </StaggerContainer>
     </main>
   );
 }
