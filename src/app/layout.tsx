@@ -13,8 +13,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pegasus | A better Discord experience.",
-  description: "Powerful moderation, seamless management, and fun for your server. All in one place.",
+  metadataBase: new URL("https://pegasus.cptcr.uk"),
+  title: "Pegasus | Automated Discord Bot System & Server Manager",
+  description: "Pegasus provides a fully automated Discord bot architecture for powerful server management, seamless moderation, and fun community features all in one place.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Pegasus | Automated Discord Bot System",
+    description: "Pegasus provides a fully automated Discord bot architecture for powerful server management.",
+    url: "https://pegasus.cptcr.uk",
+    siteName: "Pegasus Discord Bot",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pegasus | Automated Discord Bot System",
+    description: "Pegasus provides a fully automated Discord bot architecture for powerful server management.",
+  },
 };
 
 export default function RootLayout({

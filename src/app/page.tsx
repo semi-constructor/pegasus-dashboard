@@ -25,6 +25,21 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#000000] text-neutral-100 flex flex-col selection:bg-[#5E5CE6]/30 selection:text-white relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Pegasus",
+            "url": "https://pegasus.cptcr.uk",
+            "logo": "https://pegasus.cptcr.uk/favicon.ico",
+            "sameAs": [
+              "https://github.com/semi-constructor/pegasus"
+            ]
+          })
+        }}
+      />
       <AmbientBackground />
       <ScrollHeader user={user} />
 
@@ -39,7 +54,7 @@ export default async function HomePage() {
             </StaggerItem>
             <StaggerItem>
               <h1 className="text-5xl md:text-7xl font-light tracking-tight text-white mb-8 leading-[1.1]">
-                Pegasus is an open-source Discord bot. Our goal is to achieve total transparency and give users the power to fully customize the bot to their exact needs.
+                Pegasus is a fully automated open-source Discord bot system. Our goal is to achieve total transparency and give users the power to customize the bot architecture to their exact server needs.
               </h1>
             </StaggerItem>
             <StaggerItem>
@@ -74,7 +89,7 @@ export default async function HomePage() {
             <StaggerItem>
               <div className="mb-16">
                 <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// TELEMETRY</div>
-                <h2 className="text-3xl font-light tracking-tight text-white">System Diagnostics & Activity</h2>
+                <h2 className="text-3xl font-light tracking-tight text-white">Automated Bot System Diagnostics & Server Activity</h2>
               </div>
             </StaggerItem>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
