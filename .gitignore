@@ -44,7 +44,6 @@ next-env.d.ts
 AGENTS.md
 BOT.md
 CLAUDE.md
-pegasus-bot-schemas/
 .gemini/
 GEMINI.md
 .agents/

@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { getGuildOverview } from '@/lib/api';
 import { getGuildSettings, getGuildMembers } from '@/app/actions';
 import { db } from '@/lib/db';
-import * as schema from '@schemas/index';
+import * as schema from '../../../../schemas/index';
 import { eq, sql } from 'drizzle-orm';
 import { Shield, TrendingUp, Coins, Ticket, Activity, Clock, CheckCircle2, XCircle } from 'lucide-react';
 import { formatNumber } from '@/lib/utils';

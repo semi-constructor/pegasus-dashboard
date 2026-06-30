@@ -3,7 +3,7 @@
 import { db } from '@/lib/db';
 import { eq, and } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
-import * as schema from '@schemas/index';
+import * as schema from '../../schemas/index';
 import * as api from '@/lib/api';
 
 // ==========================================

@@ -20,7 +20,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@schemas/*": ["./pegasus-bot-schemas/*"]
+      "@schemas/*": ["./schemas/*"]
     }
   },
   "include": [

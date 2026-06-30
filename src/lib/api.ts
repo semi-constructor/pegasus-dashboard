@@ -1,5 +1,5 @@
 import { db } from '@/lib/db';
-import * as schema from '@schemas/index';
+import * as schema from '../../schemas/index';
 import { eq, and, sql } from 'drizzle-orm';
 
 // Environment variables from .env
