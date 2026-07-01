@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import { InteractiveCard } from './InteractiveElements';
-import { Mic, Shield, Gavel, Coins, Sparkles, Ticket } from 'lucide-react';
+import { Mic, Shield, Gavel, Coins, Sparkles, Ticket, Terminal } from 'lucide-react';
 
 export function HorizontalFeatures() {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -13,16 +13,17 @@ export function HorizontalFeatures() {
   });
 
   // Maps vertical scroll to horizontal scroll.
-  // With 6 items, we shift to the left by enough to reveal the last items.
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]); 
+  // With 7 items, we shift to the left by enough to reveal the last items.
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-78%"]); 
 
   const features = [
-    { icon: Mic, title: "Join to Create (JTC)", desc: "Dynamic voice channel management that instantly spawns temporary rooms with custom templates and automated cleanup." },
-    { icon: Shield, title: "AutoMod V2 & Quarantine", desc: "Automated server security and proactive message scanning with flexible triggers, custom thresholds, and an isolating Quarantine Vault." },
-    { icon: Gavel, title: "Advanced Moderation", desc: "Comprehensive staff moderation workflows, automated penalty escalation triggers, and immutable audit logging." },
-    { icon: Coins, title: "Comprehensive Economy", desc: "Feature-rich server economy with daily rewards, structured jobs, gambling minigames, and a fully customizable item shop." },
-    { icon: Sparkles, title: "Engagement Gamification", desc: "Dual text and voice activity tracking, visual rank cards, custom leaderboards, automated role rewards, and engagement quests." },
-    { icon: Ticket, title: "Professional Tickets", desc: "Modular support ticketing workflows via interactive panels with dedicated staff routing, transcripts, and advanced analytics." }
+    { icon: Mic, title: "Dynamic Voice Allocation", desc: "Algorithmic voice channel management (JTC) that instantly spawns ephemeral rooms with adaptive bitrate templates and automated lifecycle cleanup." },
+    { icon: Shield, title: "Proactive Threat Mitigation", desc: "Next-generation AutoMod V2 utilizing heuristic message scanning, customizable neural triggers, and a secure Quarantine Vault for isolated threat analysis." },
+    { icon: Gavel, title: "Advanced Moderation Suite", desc: "Enterprise-grade staff workflows featuring automated penalty escalation trees, role-based access control, and cryptographically immutable audit logging." },
+    { icon: Coins, title: "Cryptographic Server Economy", desc: "High-frequency transactional economy engine boasting structured employment tiers, variable-probability minigames, and a dynamic supply-demand item shop." },
+    { icon: Sparkles, title: "Algorithmic Engagement", desc: "Multi-vector activity tracking computing rich visual rank cards, cross-server Elo leaderboards, automated tier progression, and dynamic retention quests." },
+    { icon: Ticket, title: "Enterprise Ticketing", desc: "High-throughput support workflows utilizing interactive routing panels, weighted staff distribution, cryptographically signed transcripts, and real-time SLA analytics." },
+    { icon: Terminal, title: "Programmable Prefix Commands", desc: "Design bespoke custom commands with dynamic prefix resolution. Execute programmable multi-stage macros and tailored automated workflows directly from the chat interface." }
   ];
 
   return (

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { cookies } from 'next/headers';
+import { auth } from '@/auth';
 import { getBotStats } from '@/lib/api';
 import { Terminal, Cpu, Database, Users, ArrowRight, Mic, Shield, Gavel, Coins, Sparkles, Ticket, Gift, Filter, Globe, FileText, Activity } from 'lucide-react';
 import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
@@ -14,14 +14,8 @@ export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const stats = await getBotStats();
-  const cookieStore = await cookies();
-  const userCookie = cookieStore.get('discord_user')?.value;
-  let user: { username?: string; id?: string } | null = null;
-  if (userCookie) {
-    try {
-      user = JSON.parse(userCookie);
-    } catch (e) {}
-  }
+  const session = await auth();
+  const user = session?.user ? { username: session.user.name, id: session.user.id } : null;
 
   return (
     <div className="min-h-screen bg-[#000000] text-neutral-100 flex flex-col selection:bg-[#5E5CE6]/30 selection:text-white relative">
@@ -70,7 +64,7 @@ export default async function HomePage() {
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </InteractiveButton>
                 ) : (
-                  <InteractiveButton href="/api/auth/login" className="flex items-center gap-3 border border-[#5E5CE6]/40 border-l-2 border-l-[#5E5CE6] bg-[#5E5CE6]/10 px-6 py-4 text-[#5E5CE6] rounded-none group">
+                  <InteractiveButton href="/api/auth/signin/discord" className="flex items-center gap-3 border border-[#5E5CE6]/40 border-l-2 border-l-[#5E5CE6] bg-[#5E5CE6]/10 px-6 py-4 text-[#5E5CE6] rounded-none group">
                     <span>Authenticate with Discord</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </InteractiveButton>

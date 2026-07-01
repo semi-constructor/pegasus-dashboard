@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Shield, Database, Activity, FileText, Terminal, LogOut, ChevronRight, Server, Cpu, HardDrive, Zap, Home, LayoutDashboard, Menu, X } from 'lucide-react';
+import { Shield, Database, Activity, FileText, Terminal, LogOut, ChevronRight, Server, Cpu, HardDrive, Zap, Home, LayoutDashboard, Menu, X, Key } from 'lucide-react';
 
 interface AdminSidebarProps {
   user: {
@@ -95,6 +95,13 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
       icon: Terminal,
       exact: false,
       description: 'COMMANDS_DOC.md slash hierarchy'
+    },
+    {
+      name: 'Security Settings',
+      href: '/admin/security-settings',
+      icon: Key,
+      exact: false,
+      description: 'Manage authentication & passkeys'
     },
   ];
 
@@ -273,13 +280,15 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
           </div>
         </div>
 
-        <a
-          href="/api/auth/logout"
-          className="w-full flex items-center justify-center gap-2 border border-white/10 bg-white/[0.02] p-3 text-[10px] text-neutral-400 hover:border-red-500/40 hover:text-red-400 hover:bg-red-500/10 transition-colors uppercase tracking-widest font-semibold"
-        >
-          <LogOut className="w-3.5 h-3.5" />
-          <span>Disconnect Session</span>
-        </a>
+        <div className="flex flex-col gap-2 w-full mt-4">
+          <a
+            href="/api/auth/signout"
+            className="w-full flex items-center justify-center gap-2 border border-white/10 bg-white/[0.02] p-3 text-[10px] text-neutral-400 hover:border-red-500/40 hover:text-red-400 hover:bg-red-500/10 transition-colors uppercase tracking-widest font-semibold"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Disconnect Session</span>
+          </a>
+        </div>
       </div>
     </aside>
     </>

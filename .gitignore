@@ -49,3 +49,4 @@ GEMINI.md
 .agents/
 TECH.md
 !.env.example
+/drizzle

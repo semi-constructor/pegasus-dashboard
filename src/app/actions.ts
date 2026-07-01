@@ -5,6 +5,8 @@ import { eq, and } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import * as schema from '../../schemas/index';
 import * as api from '@/lib/api';
+import { requireGuildAdmin } from '@/lib/auth-utils';
+import { z } from 'zod';
 
 // ==========================================
 // Bot API & Discord Data Helpers
@@ -141,6 +143,7 @@ export async function getGuildSettings(guildId: string) {
 
 export async function updateCustomCommands(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const commandsJson = formData.get('customCommands') as string;
     let parsed;
     try {
@@ -167,6 +170,7 @@ export async function updateCustomCommands(guildId: string, formData: FormData):
 
 export async function updateGuildSettings(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const prefix = (formData.get('prefix') as string) || '!';
     const language = (formData.get('language') as string) || 'en';
     
@@ -288,6 +292,7 @@ export async function getEconomyBalances(guildId: string) {
 
 export async function updateUserBalance(guildId: string, userId: string, balance: number, bankBalance: number): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.insert(schema.economyBalances).values({
       userId,
       guildId,
@@ -314,6 +319,7 @@ export async function getShopItems(guildId: string) {
 
 export async function createShopItem(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
     const price = parseInt(formData.get('price') as string, 10);
@@ -339,6 +345,7 @@ export async function createShopItem(guildId: string, formData: FormData): Promi
 
 export async function deleteShopItem(guildId: string, itemId: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.economyShopItems).where(and(eq(schema.economyShopItems.guildId, guildId), eq(schema.economyShopItems.id, itemId)));
     await api.deleteShopItemApi(guildId, itemId);
   } catch (error) {
@@ -349,6 +356,7 @@ export async function deleteShopItem(guildId: string, itemId: string, formData?:
 
 export async function updateShopItem(guildId: string, itemId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
     const price = parseInt(formData.get('price') as string, 10);
@@ -377,6 +385,7 @@ export async function getEconomyTransactions(guildId: string) {
 
 export async function triggerEconomyReset(guildId: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await api.executeEconomyReset(guildId);
   } catch (error) {
     console.error('Error triggerEconomyReset:', error);
@@ -415,6 +424,7 @@ export async function getEconomySettings(guildId: string) {
 
 export async function updateEconomySettings(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const currencySymbol = formData.get('currencySymbol') as string || '🪙';
     const currencyName = formData.get('currencyName') as string || 'coins';
     const startingBalance = parseInt(formData.get('startingBalance') as string, 10) || 100;
@@ -508,6 +518,7 @@ export async function getWarnings(guildId: string) {
 
 export async function deleteWarning(guildId: string, id: number, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.warnings).where(and(eq(schema.warnings.guildId, guildId), eq(schema.warnings.id, id)));
   } catch (error) {
     console.error('DB delete error deleteWarning:', error);
@@ -526,6 +537,7 @@ export async function getWarningAutomations(guildId: string) {
 
 export async function createWarningAutomation(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const name = formData.get('name') as string;
     const triggerType = formData.get('triggerType') as string;
     const triggerValue = parseInt(formData.get('triggerValue') as string, 10);
@@ -554,6 +566,7 @@ export async function createWarningAutomation(guildId: string, formData: FormDat
 
 export async function deleteWarningAutomation(guildId: string, id: number, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.warningAutomations).where(and(eq(schema.warningAutomations.guildId, guildId), eq(schema.warningAutomations.id, id)));
   } catch (error) {
     console.error('DB delete error deleteWarningAutomation:', error);
@@ -572,6 +585,7 @@ export async function getAuditLogs(guildId: string) {
 
 export async function triggerBotModeration(guildId: string, action: 'warn' | 'ban' | 'kick' | 'mute', formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const userId = formData.get('userId') as string;
     const reason = formData.get('reason') as string;
     await api.executeModerationAction(guildId, action, { userId, reason });
@@ -592,6 +606,7 @@ export async function getModLogSettings(guildId: string) {
 
 export async function updateModLogSettings(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const category = formData.get('category') as string;
     const channelId = formData.get('channelId') as string;
     const enabled = formData.get('enabled') === 'true';
@@ -624,6 +639,7 @@ export async function getWordFilterRules(guildId: string) {
 
 export async function createWordFilterRule(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const pattern = formData.get('pattern') as string;
     const matchType = formData.get('matchType') as string || 'literal';
     const severity = formData.get('severity') as string || 'medium';
@@ -646,6 +662,7 @@ export async function createWordFilterRule(guildId: string, formData: FormData):
 
 export async function deleteWordFilterRule(guildId: string, id: number, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.wordFilterRules).where(and(eq(schema.wordFilterRules.guildId, guildId), eq(schema.wordFilterRules.id, id)));
   } catch (error) {
     console.error('DB delete error deleteWordFilterRule:', error);
@@ -667,6 +684,7 @@ export async function getTicketPanels(guildId: string) {
 
 export async function createTicketPanel(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     const buttonLabel = formData.get('buttonLabel') as string || 'Create Ticket';
@@ -726,6 +744,7 @@ export async function createTicketPanel(guildId: string, formData: FormData): Pr
 
 export async function deleteTicketPanel(guildId: string, id: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.ticketPanels).where(and(eq(schema.ticketPanels.guildId, guildId), eq(schema.ticketPanels.id, id)));
   } catch (error) {
     console.error('DB delete error deleteTicketPanel:', error);
@@ -735,6 +754,7 @@ export async function deleteTicketPanel(guildId: string, id: string, formData?: 
 
 export async function updateTicketPanel(guildId: string, panelId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     const buttonLabel = formData.get('buttonLabel') as string || 'Create Ticket';
@@ -771,6 +791,7 @@ export async function getTicketDepartments(guildId: string) {
 
 export async function createTicketDepartment(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const panelId = formData.get('panelId') as string;
     const name = formData.get('name') as string;
     const description = formData.get('description') as string;
@@ -806,6 +827,7 @@ export async function createTicketDepartment(guildId: string, formData: FormData
 
 export async function deleteTicketDepartment(guildId: string, id: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.ticketDepartments).where(and(eq(schema.ticketDepartments.guildId, guildId), eq(schema.ticketDepartments.id, id)));
   } catch (error) {
     console.error('DB delete error deleteTicketDepartment:', error);
@@ -824,6 +846,7 @@ export async function getActiveTickets(guildId: string) {
 
 export async function triggerTicketClose(guildId: string, ticketId: string, reason: string): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await api.executeTicketAction(guildId, ticketId, 'close', { reason });
     await db.update(schema.tickets).set({ status: 'closed', closedReason: reason, closedAt: new Date(), updatedAt: new Date() }).where(and(eq(schema.tickets.guildId, guildId), eq(schema.tickets.id, ticketId)));
   } catch (error) {
@@ -834,6 +857,7 @@ export async function triggerTicketClose(guildId: string, ticketId: string, reas
 
 export async function triggerTicketClaim(guildId: string, ticketId: string, userId: string): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await api.directTicketClaimApi({ guildId, ticketId, userId });
     await db.update(schema.tickets).set({ status: 'claimed', claimedBy: userId, updatedAt: new Date() }).where(and(eq(schema.tickets.guildId, guildId), eq(schema.tickets.id, ticketId)));
   } catch (error) {
@@ -844,6 +868,7 @@ export async function triggerTicketClaim(guildId: string, ticketId: string, user
 
 export async function triggerTicketLock(guildId: string, ticketId: string, userId: string): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await api.directTicketLockApi({ guildId, ticketId, userId });
     await db.update(schema.tickets).set({ status: 'locked', lockedBy: userId, lockedAt: new Date(), updatedAt: new Date() }).where(and(eq(schema.tickets.guildId, guildId), eq(schema.tickets.id, ticketId)));
   } catch (error) {
@@ -854,6 +879,7 @@ export async function triggerTicketLock(guildId: string, ticketId: string, userI
 
 export async function triggerTicketFreeze(guildId: string, ticketId: string, userId: string): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await api.directTicketFreezeApi({ guildId, ticketId, userId });
     await db.update(schema.tickets).set({ status: 'frozen', frozenBy: userId, frozenAt: new Date(), updatedAt: new Date() }).where(and(eq(schema.tickets.guildId, guildId), eq(schema.tickets.id, ticketId)));
   } catch (error) {
@@ -882,6 +908,7 @@ export async function getXpRewards(guildId: string) {
 
 export async function createXpReward(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const level = parseInt(formData.get('level') as string, 10);
     const roleId = formData.get('roleId') as string;
 
@@ -902,6 +929,7 @@ export async function createXpReward(guildId: string, formData: FormData): Promi
 
 export async function deleteXpReward(guildId: string, level: number, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.xpRewards).where(and(eq(schema.xpRewards.guildId, guildId), eq(schema.xpRewards.level, level)));
     await api.deleteXpRewardApi(guildId, level);
   } catch (error) {
@@ -912,6 +940,7 @@ export async function deleteXpReward(guildId: string, level: number, formData?: 
 
 export async function triggerXpReset(guildId: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await api.executeXpReset(guildId);
   } catch (error) {
     console.error('Error triggerXpReset:', error);
@@ -940,6 +969,7 @@ export async function getXpSettings(guildId: string) {
 
 export async function updateXpSettings(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const ignoredChannels = formData.get('ignoredChannels') as string || '[]';
     const ignoredRoles = formData.get('ignoredRoles') as string || '[]';
     const noXpChannels = formData.get('noXpChannels') as string || '[]';
@@ -995,6 +1025,7 @@ export async function getGiveaways(guildId: string) {
 
 export async function createGiveaway(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const channelId = formData.get('channelId') as string;
     const prize = formData.get('prize') as string;
     const description = (formData.get('description') as string) || '';
@@ -1040,6 +1071,7 @@ export async function createGiveaway(guildId: string, formData: FormData): Promi
 
 export async function deleteGiveaway(guildId: string, giveawayId: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.delete(schema.giveaways).where(and(eq(schema.giveaways.guildId, guildId), eq(schema.giveaways.giveawayId, giveawayId)));
     await api.deleteGiveawayApi(guildId, giveawayId);
   } catch (error) {
@@ -1094,6 +1126,7 @@ export async function getJtcConfig(guildId: string) {
 
 export async function updateJtcConfig(guildId: string, formData: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     const baseVoiceChannelId = (formData.get('baseVoiceChannelId') as string) || '';
     const categoryId = (formData.get('categoryId') as string) || '';
     const panelChannelId = (formData.get('panelChannelId') as string) || '';

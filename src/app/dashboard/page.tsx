@@ -46,7 +46,7 @@ export default async function DashboardSelectPage() {
             Connect your Discord account to authenticate with Pegasus Systems. Only real servers where you hold active Administrator permissions will be displayed.
           </p>
           <a
-            href="/api/auth/login"
+            href="/api/auth/signin"
             className="border border-[#5E5CE6]/40 bg-[#5E5CE6]/10 px-8 py-4 text-xs font-mono text-[#5E5CE6] hover:bg-[#5E5CE6] hover:text-black hover:border-[#5E5CE6] transition-all rounded-none w-full tracking-widest uppercase flex items-center justify-center gap-3 group"
           >
             <span>Login with Discord</span>

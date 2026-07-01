@@ -17,7 +17,7 @@ export function ScrollScrubbedShowcase() {
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
-    <section ref={targetRef} className="relative max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-start justify-between min-h-[200vh]">
+    <section ref={targetRef} className="relative max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-start justify-between min-h-[300vh]">
       
       {/* Background ambient element responding to scroll */}
       <motion.div 
@@ -34,7 +34,7 @@ export function ScrollScrubbedShowcase() {
           <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// ARCHITECTURE</div>
           <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white mb-6">Designed for scale.</h2>
           <p className="text-lg text-neutral-400 font-light leading-relaxed">
-            Pegasus runs entirely on a scalable serverless architecture, dynamically spinning up resources as demand increases. Say goodbye to the slow latency of legacy monolithic discord bots.
+            Pegasus operates on an elastic serverless infrastructure, dynamically provisioning and orchestrating resources as computational demand surges. Experience sub-millisecond latency and high availability, eliminating the bottlenecks of legacy monolithic bot architectures.
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export function ScrollScrubbedShowcase() {
           <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// TRANSPARENCY</div>
           <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white mb-6">Open by default.</h2>
           <p className="text-lg text-neutral-400 font-light leading-relaxed">
-            Every single line of code running on your server is open-source. Fork the repository, modify the modules, and run the system precisely the way you want to. No hidden paywalls.
+            Cryptographically transparent and fully open-source. Fork the entire repository, perform comprehensive code audits, modify core modules, and deploy the system precisely aligned with your security posture. Zero telemetry, no obfuscation, no hidden paywalls.
           </p>
         </div>
 
@@ -50,7 +50,15 @@ export function ScrollScrubbedShowcase() {
           <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// MODULARITY</div>
           <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white mb-6">Completely pluggable.</h2>
           <p className="text-lg text-neutral-400 font-light leading-relaxed">
-            Don't need the economy module? Turn it off. Want to replace the default leveling system with your own algorithm? Swap it out. Pegasus conforms to you.
+            A highly decoupled architecture allows seamless toggling of independent micro-features. Suspend the economy module, inject custom leveling algorithms, or swap out moderation handlers with absolute freedom. Pegasus mathematically conforms to your bespoke requirements.
+          </p>
+        </div>
+
+        <div>
+          <div className="text-xs font-mono tracking-widest text-[#5E5CE6] uppercase mb-3">// PROGRAMMABILITY</div>
+          <h2 className="text-4xl md:text-5xl font-light tracking-tight text-white mb-6">Programmable Custom Commands.</h2>
+          <p className="text-lg text-neutral-400 font-light leading-relaxed">
+            Leverage a robust custom command engine to define dynamic prefix-based logic routines. Construct tailored multi-stage workflows, trigger complex webhooks, and unleash highly automated responses directly from your chat interface.
           </p>
         </div>
         

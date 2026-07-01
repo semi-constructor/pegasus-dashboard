@@ -72,7 +72,7 @@ export function ScrollHeader({ user }: ScrollHeaderProps) {
               </motion.div>
             </Link>
           ) : (
-            <a href="/api/auth/login">
+            <a href="/api/auth/signin">
               <motion.div 
                 whileHover={{ scale: 1.02, backgroundColor: "#5E5CE6", color: "#000" }}
                 whileTap={{ scale: 0.98 }}
