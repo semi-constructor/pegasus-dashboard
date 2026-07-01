@@ -94,6 +94,7 @@ export async function getGuildSettings(guildId: string) {
       antiSpamEnabled: true,
       maxMentions: 5,
       maxDuplicates: 3,
+      customCommands: '[]',
     };
   } catch (error) {
     console.error('DB fetch error getGuildSettings:', error);
@@ -133,8 +134,35 @@ export async function getGuildSettings(guildId: string) {
       antiSpamEnabled: true,
       maxMentions: 5,
       maxDuplicates: 3,
+      customCommands: '[]',
     };
   }
+}
+
+export async function updateCustomCommands(guildId: string, formData: FormData): Promise<void> {
+  try {
+    const commandsJson = formData.get('customCommands') as string;
+    let parsed;
+    try {
+      parsed = JSON.parse(commandsJson);
+      if (!Array.isArray(parsed)) throw new Error('Not an array');
+    } catch {
+      return; // Invalid JSON
+    }
+
+    await db.insert(schema.guilds).values({ id: guildId, prefix: '!', language: 'en' }).onConflictDoNothing();
+    
+    await db.insert(schema.guildSettings).values({
+      guildId,
+      customCommands: commandsJson,
+    }).onConflictDoUpdate({
+      target: schema.guildSettings.guildId,
+      set: { customCommands: commandsJson, updatedAt: new Date() },
+    });
+  } catch (error) {
+    console.error('DB update error updateCustomCommands:', error);
+  }
+  revalidatePath(`/dashboard/${guildId}/custom-commands`);
 }
 
 export async function updateGuildSettings(guildId: string, formData: FormData): Promise<void> {

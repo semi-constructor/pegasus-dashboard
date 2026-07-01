@@ -8,6 +8,7 @@ import { useState, useRef, useEffect } from 'react';
 const navigation = [
   { name: 'System Overview', href: '', icon: LayoutDashboard, description: 'Guild dashboard & analytics' },
   { name: 'Guild Settings', href: '/settings', icon: Settings, description: 'Welcome & autorole config' },
+  { name: 'Custom Commands', href: '/custom-commands', icon: Terminal, description: 'Manage custom bot commands' },
   { name: 'Economy Engine', href: '/economy', icon: Coins, description: 'Balances, jobs & store' },
   { name: 'Moderation & Logs', href: '/moderation', icon: ShieldAlert, description: 'Security rules & audit trail' },
   { name: 'Support Tickets', href: '/tickets', icon: Ticket, description: 'Panels & support routing' },
@@ -22,7 +23,7 @@ export function Sidebar({ guilds = [], isSystemAdmin = false }: { guilds?: any[]
   const router = useRouter();
   
   const parts = pathname.split('/');
-  const pathGuildId = (parts.length > 2 && parts[2] !== 'settings' && parts[2] !== 'economy' && parts[2] !== 'moderation' && parts[2] !== 'tickets' && parts[2] !== 'xp-matrix' && parts[2] !== 'giveaways' && parts[2] !== 'jtc') ? parts[2] : null;
+  const pathGuildId = (parts.length > 2 && parts[2] !== 'settings' && parts[2] !== 'custom-commands' && parts[2] !== 'economy' && parts[2] !== 'moderation' && parts[2] !== 'tickets' && parts[2] !== 'xp-matrix' && parts[2] !== 'giveaways' && parts[2] !== 'jtc') ? parts[2] : null;
   const currentGuildId = pathGuildId || searchParams.get('guildId') || '12345678901234567';
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
