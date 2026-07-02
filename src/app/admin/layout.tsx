@@ -1,13 +1,13 @@
-import React from 'react';
-import { redirect } from 'next/navigation';
-import { AdminTopNav } from '@/components/AdminTopNav';
-import AdminLoginPortal from '@/components/AdminLoginPortal';
-import { AmbientBackground } from '@/components/AmbientBackground';
-import { ScrollHeader } from '@/components/ScrollHeader';
-import { auth } from '@/auth';
-import { db } from '@/lib/db';
-import { accounts, authenticators } from '../../../schemas/auth';
-import { eq } from 'drizzle-orm';
+import React from "react";
+import { redirect } from "next/navigation";
+import { AdminTopNav } from "@/components/AdminTopNav";
+import AdminLoginPortal from "@/components/AdminLoginPortal";
+import { AmbientBackground } from "@/components/AmbientBackground";
+import { ScrollHeader } from "@/components/ScrollHeader";
+import { auth } from "@/auth";
+import { db } from "@/lib/db";
+import { authenticators } from "../../../schemas/auth";
+import { eq } from "drizzle-orm";
 
 export default async function AdminLayout({
   children,
@@ -25,22 +25,23 @@ export default async function AdminLayout({
   // we look up the internal database userId using the verified discordId.
   let internalUserId = session.user.id as string;
   let discordId: string | null = null;
-  
-  const cookieStore = await import('next/headers').then(m => m.cookies());
-  const userCookie = cookieStore.get('discord_user')?.value;
+
+  const cookieStore = await import("next/headers").then((m) => m.cookies());
+  const userCookie = cookieStore.get("discord_user")?.value;
   if (userCookie) {
     try {
       discordId = JSON.parse(userCookie).id;
-    } catch(e) {}
+    } catch (e) {}
   }
 
-  if (!internalUserId || internalUserId === 'undefined') {
+  if (!internalUserId || internalUserId === "undefined") {
     if (discordId) {
       const account = await db.query.accounts.findFirst({
-        where: (accounts, { eq, and }) => and(
-          eq(accounts.providerAccountId, discordId!),
-          eq(accounts.provider, 'discord')
-        )
+        where: (accounts, { eq, and }) =>
+          and(
+            eq(accounts.providerAccountId, discordId!),
+            eq(accounts.provider, "discord"),
+          ),
       });
       if (account) {
         internalUserId = account.userId;
@@ -50,10 +51,11 @@ export default async function AdminLayout({
     // If we have internalUserId, we can fetch discordId if we don't have it
     if (!discordId) {
       const account = await db.query.accounts.findFirst({
-        where: (accounts, { eq, and }) => and(
-          eq(accounts.userId, internalUserId),
-          eq(accounts.provider, 'discord')
-        )
+        where: (accounts, { eq, and }) =>
+          and(
+            eq(accounts.userId, internalUserId),
+            eq(accounts.provider, "discord"),
+          ),
       });
       discordId = account?.providerAccountId || null;
     }
@@ -65,12 +67,12 @@ export default async function AdminLayout({
       adminIds = JSON.parse(process.env.ADMIN);
     }
   } catch (e) {
-    adminIds = [process.env.ADMIN || ''];
+    adminIds = [process.env.ADMIN || ""];
   }
 
   // Logged in, but not admin -> redirect to /dashboard
   if (!discordId || !adminIds.includes(discordId)) {
-    redirect('/dashboard');
+    redirect("/dashboard");
   }
 
   // Admin Verified. Check for Passkeys using the internal userId
@@ -87,11 +89,11 @@ export default async function AdminLayout({
     return <AdminLoginPortal state="register-passkey" />;
   }
 
-  // @ts-ignore
-  const isWebAuthnSession = session.provider === 'webauthn';
+  const webauthnVerifiedCookie: string | undefined =
+    cookieStore.get("webauthn_verified")?.value;
+  const isWebAuthnVerified: boolean = webauthnVerifiedCookie === internalUserId;
 
-  // Prompt to verify passkey if they have one but haven't verified in this session
-  if (!isWebAuthnSession) {
+  if (!isWebAuthnVerified) {
     return <AdminLoginPortal state="verify-passkey" />;
   }
 
@@ -103,7 +105,9 @@ export default async function AdminLayout({
   return (
     <div className="min-h-screen bg-[#000000] text-neutral-100 flex flex-col w-full relative selection:bg-[#5E5CE6]/30 selection:text-white">
       <AmbientBackground />
-      <ScrollHeader user={{ username: session.user.name, id: session.user.id }} />
+      <ScrollHeader
+        user={{ username: session.user.name, id: session.user.id }}
+      />
       <div className="flex-1 flex flex-col min-h-screen bg-transparent relative z-10 pt-16">
         <AdminTopNav user={user} />
         {children}
