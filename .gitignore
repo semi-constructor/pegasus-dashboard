@@ -51,3 +51,4 @@ TECH.md
 !.env.example
 /drizzle
 next-env.d.ts
+skills-lock.json
