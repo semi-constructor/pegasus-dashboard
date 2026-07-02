@@ -27,9 +27,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
     WebAuthn({
       relayingParty: {
-        id: "pegasus.cptcr.uk",
+        id: process.env.NODE_ENV === "development" ? "localhost" : "pegasus.cptcr.uk",
         name: "Pegasus Dashboard",
-        origin: "https://pegasus.cptcr.uk",
+        origin: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://pegasus.cptcr.uk",
       },
     }),
   ],

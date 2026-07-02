@@ -16,8 +16,12 @@ export async function GET() {
       const data = await res.json();
       return NextResponse.json({ success: true, data });
     }
-  } catch (e) {
-    // Silently fallback to mock telemetry if bot API is offline
+
+    // Non-200 response — log the actual status
+    const body = await res.text().catch(() => '');
+    console.error(`[admin/stats] Bot API responded with ${res.status} ${res.statusText}: ${body}`);
+  } catch (e: any) {
+    console.error(`[admin/stats] Bot API fetch failed:`, e?.message || e);
   }
 
   // Calculate dynamic uptime and slight metric variance for realistic fallback simulation

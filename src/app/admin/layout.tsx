@@ -1,7 +1,9 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import AdminSidebar from '@/components/AdminSidebar';
+import { AdminTopNav } from '@/components/AdminTopNav';
 import AdminLoginPortal from '@/components/AdminLoginPortal';
+import { AmbientBackground } from '@/components/AmbientBackground';
+import { ScrollHeader } from '@/components/ScrollHeader';
 import { auth } from '@/auth';
 import { db } from '@/lib/db';
 import { accounts, authenticators } from '../../../schemas/auth';
@@ -93,10 +95,17 @@ export default async function AdminLayout({
     return <AdminLoginPortal state="verify-passkey" />;
   }
 
+  const user = {
+    username: session.user.name || discordId,
+    id: discordId,
+  };
+
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-black text-neutral-100">
-      <AdminSidebar user={{ username: session.user.name || discordId, id: discordId }} />
-      <div className="flex-1 min-w-0 flex flex-col bg-black">
+    <div className="min-h-screen bg-[#000000] text-neutral-100 flex flex-col w-full relative selection:bg-[#5E5CE6]/30 selection:text-white">
+      <AmbientBackground />
+      <ScrollHeader user={{ username: session.user.name, id: session.user.id }} />
+      <div className="flex-1 flex flex-col min-h-screen bg-transparent relative z-10 pt-16">
+        <AdminTopNav user={user} />
         {children}
       </div>
     </div>
