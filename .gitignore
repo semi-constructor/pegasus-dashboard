@@ -50,3 +50,4 @@ GEMINI.md
 TECH.md
 !.env.example
 /drizzle
+next-env.d.ts
