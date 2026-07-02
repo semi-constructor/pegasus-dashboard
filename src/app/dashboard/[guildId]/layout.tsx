@@ -1,5 +1,5 @@
 import { GuildTopNav } from '@/components/GuildTopNav';
-import { cookies } from 'next/headers';
+import { auth } from '@/auth';
 import { getUserAdminGuilds, getDashboardGuilds } from '@/lib/api';
 import { redirect } from 'next/navigation';
 
@@ -11,29 +11,23 @@ export default async function GuildDashboardLayout({
   params: Promise<{ guildId: string }>;
 }) {
   const { guildId } = await params;
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('discord_access_token')?.value;
+  const session = await auth();
+  const accessToken = (session as any)?.accessToken as string | undefined;
   const adminGuilds = await getUserAdminGuilds(accessToken);
   const fallbackGuilds = await getDashboardGuilds();
 
   const allGuilds = adminGuilds || fallbackGuilds;
 
-  const userCookie = cookieStore.get('discord_user')?.value;
-  let userId: string | null = null;
-  if (userCookie) {
-    try {
-      userId = JSON.parse(userCookie).id;
-    } catch (e) {}
-  }
+  const discordId = (session as any)?.discordId as string | undefined;
   let isSystemAdmin = false;
-  if (userId) {
+  if (discordId) {
     let adminIds: string[] = [];
     try {
       adminIds = process.env.ADMIN ? JSON.parse(process.env.ADMIN) : [];
     } catch {
       adminIds = [process.env.ADMIN || ''];
     }
-    isSystemAdmin = adminIds.includes(userId);
+    isSystemAdmin = adminIds.includes(discordId);
   }
   
   const authorizedGuilds = allGuilds.filter((g: any) => 

@@ -8,6 +8,7 @@ import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
 import { AnimatedCounter } from '@/components/AnimatedCounter';
 import { AnimatedNavBar } from '@/components/AnimatedNavBar';
 import { BackgroundScene } from '@/components/BackgroundScene';
+import { signIn } from 'next-auth/react';
 import { InteractiveCard, MagneticButton, CinematicText, CustomCursor } from '@/components/InteractiveElements';
 import { FeatureSection } from '@/components/FeatureSection';
 import { CommandsSection } from '@/components/CommandsSection';
@@ -18,8 +19,8 @@ export default function HomePage() {
 
   useEffect(() => {
     fetch('/api/stats').then(res => res.json()).then(data => setStats(data || { users: { total: 0 }, commands: { total_executed: 0 }, guilds: { total: 0 }, system: { latency: 0 } })).catch(() => {});
-    fetch('/api/auth/session').then(res => res.json()).then(data => {
-      if (data?.user) setUser({ username: data.user.name, id: data.user.id });
+    fetch('/api/auth/session', { cache: 'no-store' }).then(res => res.json()).then(data => {
+      if (data?.user && Object.keys(data.user).length > 0) setUser({ username: data.user.name, id: data.user.id });
     }).catch(() => {});
   }, []);
 
@@ -78,7 +79,7 @@ export default function HomePage() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                 </MagneticButton>
               ) : (
-                <MagneticButton href="/api/auth/signin/discord" className="flex items-center justify-center gap-3 border border-[#5E5CE6]/50 border-t-[#5E5CE6]/70 border-l-[#5E5CE6]/70 bg-[#5E5CE6]/10 backdrop-blur-2xl px-10 py-5 text-[#5E5CE6] rounded-2xl shadow-[0_8px_32px_rgba(94,92,230,0.2)] group hover:bg-[#5E5CE6]/20 transition-colors">
+                <MagneticButton onClick={() => signIn('discord')} className="flex items-center justify-center gap-3 border border-[#5E5CE6]/50 border-t-[#5E5CE6]/70 border-l-[#5E5CE6]/70 bg-[#5E5CE6]/10 backdrop-blur-2xl px-10 py-5 text-[#5E5CE6] rounded-2xl shadow-[0_8px_32px_rgba(94,92,230,0.2)] group hover:bg-[#5E5CE6]/20 transition-colors cursor-pointer">
                   <span className="font-semibold tracking-wider">Authenticate with Discord</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                 </MagneticButton>

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { auth } from "@/auth";
+import { headers } from "next/headers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,11 +36,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+  const h = await headers();
+  console.log('--- ROOT LAYOUT REQUEST ---');
+  console.log('Host header:', h.get('host'));
+  console.log('X-Forwarded-Host:', h.get('x-forwarded-host'));
+  console.log('X-Forwarded-Proto:', h.get('x-forwarded-proto'));
+  console.log('Session:', JSON.stringify(session));
+  console.log('---------------------------');
   return (
     <html
       lang="en"

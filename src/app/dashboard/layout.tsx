@@ -1,19 +1,20 @@
 import { AmbientBackground } from '@/components/AmbientBackground';
 import { ScrollHeader } from '@/components/ScrollHeader';
 import { cookies } from 'next/headers';
+import { auth } from '@/auth';
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const userCookie = cookieStore.get('discord_user')?.value;
+  const session = await auth();
   let user: { username?: string; id?: string } | null = null;
-  if (userCookie) {
-    try {
-      user = JSON.parse(userCookie);
-    } catch (e) {}
+  if (session?.user) {
+    user = { 
+      username: session.user.name || undefined, 
+      id: session.user.id 
+    };
   }
 
   return (

@@ -3,23 +3,42 @@ import { cookies, headers } from 'next/headers';
 import { getUserAdminGuilds, NEXT_PUBLIC_DISCORD_CLIENT_ID, getAppUrl } from '@/lib/api';
 import { Shield, Lock, ArrowRight, Server, CheckCircle2, AlertCircle, Terminal } from 'lucide-react';
 import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
+import { auth, signIn, signOut } from '@/auth';
 
 export default async function DashboardSelectPage() {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('discord_access_token')?.value;
-  const userCookie = cookieStore.get('discord_user')?.value;
+  const session = await auth();
+  const accessToken = (session as any)?.accessToken as string | undefined;
+  if (!session || !accessToken) {
+    return (
+      <main className="flex-1 p-8 max-w-7xl mx-auto w-full flex flex-col items-center justify-center min-h-[70vh]">
+        <div className="border border-white/10 bg-white/[0.01] p-12 max-w-lg w-full rounded-none flex flex-col items-center text-center relative overflow-hidden backdrop-blur-md">
+          <div className="absolute top-0 left-0 w-full h-1 bg-[#5E5CE6]" />
+          <Lock className="w-12 h-12 text-[#5E5CE6] mb-6" />
+          <h1 className="text-3xl font-light tracking-tight text-white mb-4">Authorization Required</h1>
+          <p className="text-sm text-neutral-400 font-mono tracking-wide mb-8 leading-relaxed">
+            Connect your Discord account to authenticate with Pegasus Systems. Only real servers where you hold active Administrator permissions will be displayed.
+          </p>
+          <form action={async () => {
+            'use server';
+            await signIn('discord');
+          }}>
+            <button
+              type="submit"
+              className="border border-[#5E5CE6]/40 bg-[#5E5CE6]/10 px-8 py-4 text-xs font-mono text-[#5E5CE6] hover:bg-[#5E5CE6] hover:text-black hover:border-[#5E5CE6] transition-all rounded-none w-full tracking-widest uppercase flex items-center justify-center gap-3 group"
+            >
+              <span>Login with Discord</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </form>
+        </div>
+      </main>
+    );
+  }
+  const discordId = (session as any)?.discordId as string | null | undefined;
   const adminGuilds = await getUserAdminGuilds(accessToken);
 
-  let userId: string | null = null;
-  if (userCookie) {
-    try {
-      const userData = JSON.parse(userCookie);
-      userId = userData.id;
-    } catch (e) {}
-  }
-
   let isSystemAdmin = false;
-  if (userId) {
+  if (discordId) {
     let adminIds: string[] = [];
     try {
       if (process.env.ADMIN) {
@@ -28,7 +47,7 @@ export default async function DashboardSelectPage() {
     } catch (e) {
       adminIds = [process.env.ADMIN || ''];
     }
-    isSystemAdmin = adminIds.includes(userId);
+    isSystemAdmin = adminIds.includes(discordId);
   }
 
   const clientId = NEXT_PUBLIC_DISCORD_CLIENT_ID || '1375140177961418774';
@@ -45,13 +64,18 @@ export default async function DashboardSelectPage() {
           <p className="text-sm text-neutral-400 font-mono tracking-wide mb-8 leading-relaxed">
             Connect your Discord account to authenticate with Pegasus Systems. Only real servers where you hold active Administrator permissions will be displayed.
           </p>
-          <a
-            href="/api/auth/signin"
-            className="border border-[#5E5CE6]/40 bg-[#5E5CE6]/10 px-8 py-4 text-xs font-mono text-[#5E5CE6] hover:bg-[#5E5CE6] hover:text-black hover:border-[#5E5CE6] transition-all rounded-none w-full tracking-widest uppercase flex items-center justify-center gap-3 group"
-          >
-            <span>Login with Discord</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
+          <form action={async () => {
+            'use server';
+            await signIn('discord');
+          }}>
+            <button
+              type="submit"
+              className="border border-[#5E5CE6]/40 bg-[#5E5CE6]/10 px-8 py-4 text-xs font-mono text-[#5E5CE6] hover:bg-[#5E5CE6] hover:text-black hover:border-[#5E5CE6] transition-all rounded-none w-full tracking-widest uppercase flex items-center justify-center gap-3 group"
+            >
+              <span>Login with Discord</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+          </form>
         </div>
       </main>
     );
@@ -87,12 +111,17 @@ export default async function DashboardSelectPage() {
                   <span>Admin Panel</span>
                 </a>
               )}
-              <a
-                href="/api/auth/logout"
-                className="border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-mono text-neutral-400 hover:border-red-500/40 hover:text-red-400 transition-colors rounded-none"
-              >
-                Disconnect Account
-              </a>
+              <form action={async () => {
+                'use server';
+                await signOut();
+              }}>
+                <button
+                  type="submit"
+                  className="border border-white/10 bg-white/[0.02] px-4 py-2 text-xs font-mono text-neutral-400 hover:border-red-500/40 hover:text-red-400 transition-colors rounded-none"
+                >
+                  Disconnect Account
+                </button>
+              </form>
             </div>
           </div>
         </StaggerItem>

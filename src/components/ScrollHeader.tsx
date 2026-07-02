@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { LogIn } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 
 interface ScrollHeaderProps {
   user: { username?: string | null; id?: string | null } | null;
@@ -73,7 +74,7 @@ export function ScrollHeader({ user }: ScrollHeaderProps) {
               </motion.div>
             </Link>
           ) : (
-            <a href="/api/auth/signin">
+            <button onClick={() => signIn('discord')} className="cursor-pointer">
               <motion.div 
                 whileHover={{ scale: 1.02, backgroundColor: "rgba(94, 92, 230, 0.2)", filter: "brightness(1.1)", boxShadow: "0 5px 15px -5px rgba(94, 92, 230, 0.3)" }}
                 whileTap={{ scale: 0.95 }}
@@ -83,7 +84,7 @@ export function ScrollHeader({ user }: ScrollHeaderProps) {
                 <LogIn className="w-3.5 h-3.5" />
                 <span>Discord Login</span>
               </motion.div>
-            </a>
+            </button>
           )}
         </div>
       </div>

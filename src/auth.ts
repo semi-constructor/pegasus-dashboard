@@ -5,7 +5,12 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { db } from "@/lib/db"
 import { authUsers, accounts, sessions, verificationTokens, authenticators } from "../schemas/auth"
 
+console.log('DISCORD_CLIENT_ID:', process.env.DISCORD_CLIENT_ID);
+console.log('DISCORD_CLIENT_SECRET:', process.env.DISCORD_CLIENT_SECRET ? 'SET' : 'MISSING');
+console.log('AUTH_URL:', process.env.AUTH_URL);
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  secret: process.env.AUTH_SECRET,
   trustHost: true,
   adapter: DrizzleAdapter(db, {
     usersTable: authUsers as any,
@@ -22,7 +27,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     }),
     WebAuthn({
       relayingParty: {
+        id: "pegasus.cptcr.uk",
         name: "Pegasus Dashboard",
+        origin: "https://pegasus.cptcr.uk",
       },
     }),
   ],
@@ -30,10 +37,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, user }) {
       if (account) {
         token.accessToken = account.access_token;
         token.provider = account.provider;
+        token.providerAccountId = account.providerAccountId;
+      }
+      if (user) {
+        token.id = user.id;
       }
       return token;
     },
@@ -42,6 +53,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.accessToken = token.accessToken;
       // @ts-ignore
       session.provider = token.provider;
+      // @ts-ignore
+      session.discordId = token.providerAccountId;
+      if (token.id && session.user) {
+        session.user.id = token.id as string;
+      }
       return session;
     },
   },

@@ -98,7 +98,7 @@ export function InteractiveCard({ children, className = '' }: { children: ReactN
   );
 }
 
-export function MagneticButton({ children, href, className = '', external = false }: { children: ReactNode, href?: string, className?: string, external?: boolean }) {
+export function MagneticButton({ children, href, onClick, className = '', external = false }: { children: ReactNode, href?: string, onClick?: () => void, className?: string, external?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -127,6 +127,7 @@ export function MagneticButton({ children, href, className = '', external = fals
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
+      onClick={onClick}
       style={{ x: xSpring, y: ySpring }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}

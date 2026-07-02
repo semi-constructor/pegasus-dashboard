@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LogIn } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { signIn } from 'next-auth/react';
 
 interface AnimatedNavBarProps {
   user?: { username?: string | null; id?: string | null } | null;
@@ -13,18 +14,42 @@ interface AnimatedNavBarProps {
 export function AnimatedNavBar({ user: initialUser }: AnimatedNavBarProps) {
   const { scrollY } = useScroll();
   const pathname = usePathname();
-  const [user, setUser] = useState(initialUser || null);
+  const [fetchedUser, setFetchedUser] = useState<{ username?: string | null; id?: string | null } | null>(null);
+  const [activeHash, setActiveHash] = useState('');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.location.pathname !== '/') return;
+      const sections = ['features', 'commands'];
+      let current = '';
+      for (const section of sections) {
+        const el = document.getElementById(section);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            current = `/#${section}`;
+          }
+        }
+      }
+      setActiveHash(current);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     if (initialUser === undefined) {
-      fetch('/api/auth/session')
+      fetch('/api/auth/session', { cache: 'no-store' })
         .then(res => res.json())
         .then(data => {
-          if (data?.user) setUser({ username: data.user.name, id: data.user.id });
+          if (data?.user && Object.keys(data.user).length > 0) setFetchedUser({ username: data.user.name, id: data.user.id });
         })
         .catch(() => {});
     }
   }, [initialUser]);
+
+  const user = initialUser !== undefined ? initialUser : fetchedUser;
 
   const backgroundColor = useTransform(
     scrollY,
@@ -64,7 +89,7 @@ export function AnimatedNavBar({ user: initialUser }: AnimatedNavBarProps) {
         
         <nav className="hidden md:flex items-center gap-2">
           {links.map((link) => {
-            const isActive = pathname === link.href || (pathname === '/' && link.href.includes('#')) || (pathname?.startsWith('/docs') && link.href === '/docs');
+            const isActive = pathname === link.href || (pathname === '/' && activeHash === link.href) || (pathname?.startsWith('/docs') && link.href === '/docs');
             return (
               <Link key={link.name} href={link.href} className="relative px-4 py-2 font-mono text-xs tracking-wider text-neutral-300 hover:text-white transition-colors">
                 {isActive && (
@@ -94,7 +119,7 @@ export function AnimatedNavBar({ user: initialUser }: AnimatedNavBarProps) {
               </motion.div>
             </Link>
           ) : (
-            <a href="/api/auth/signin/discord">
+            <button onClick={() => signIn('discord')} className="cursor-pointer">
               <motion.div
                 whileHover={{ scale: 1.02, backgroundColor: 'rgba(94, 92, 230, 0.2)', boxShadow: '0 5px 15px -5px rgba(94, 92, 230, 0.3)' }}
                 whileTap={{ scale: 0.95 }}
@@ -104,7 +129,7 @@ export function AnimatedNavBar({ user: initialUser }: AnimatedNavBarProps) {
                 <LogIn className="w-3.5 h-3.5" />
                 <span>Discord Login</span>
               </motion.div>
-            </a>
+            </button>
           )}
         </div>
       </div>
