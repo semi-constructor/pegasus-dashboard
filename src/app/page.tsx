@@ -18,7 +18,7 @@ export default function HomePage() {
   const [user, setUser] = useState<{ username?: string | null; id?: string | null } | null>(null);
 
   useEffect(() => {
-    fetch('/api/stats').then(res => res.json()).then(data => setStats(data || { users: { total: 0 }, commands: { total_executed: 0 }, guilds: { total: 0 }, system: { latency: 0 } })).catch(() => {});
+    fetch('/api/stats', { cache: 'no-store' }).then(res => res.json()).then(data => setStats(data || { users: { total: 0 }, commands: { total_executed: 0 }, guilds: { total: 0 }, system: { latency: 0 } })).catch(() => {});
     fetch('/api/auth/session', { cache: 'no-store' }).then(res => res.json()).then(data => {
       if (data?.user && Object.keys(data.user).length > 0) setUser({ username: data.user.name, id: data.user.id });
     }).catch(() => {});
