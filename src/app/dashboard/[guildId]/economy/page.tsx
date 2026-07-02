@@ -3,13 +3,18 @@ import { Coins, Plus, Trash2, RefreshCw, Wallet, Store, History, Settings2, Save
 import SaveButton from '@/components/SaveButton';
 import { formatNumber } from '@/lib/utils';
 import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
+import { SectionTabs } from '@/components/SectionTabs';
 
 export default async function EconomyPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ guildId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { guildId } = await params;
+  const sp = await searchParams;
+  const currentTab = (sp.tab as string) || 'settings';
   const balances = await getEconomyBalances(guildId);
   const shopItems = await getShopItems(guildId);
   const transactions = await getEconomyTransactions(guildId);
@@ -64,9 +69,26 @@ export default async function EconomyPage({
       </div>
       </StaggerItem>
 
-      {/* Section 1: Economy Global Settings CRUD */}
+      {/* Navigation Tabs */}
       <StaggerItem>
-      <div className="space-y-6">
+        <SectionTabs 
+          currentTab={currentTab}
+          tabs={[
+            { id: 'settings', label: 'Economy Settings', icon: <Settings2 className="w-4 h-4" /> },
+            { id: 'balances', label: 'User Balances', icon: <Wallet className="w-4 h-4" /> },
+            { id: 'shop', label: 'Shop Items', icon: <Store className="w-4 h-4" /> },
+            { id: 'logs', label: 'Transaction Logs', icon: <History className="w-4 h-4" /> }
+          ]} 
+        />
+      </StaggerItem>
+      </StaggerContainer>
+
+      {/* Conditionally rendered tab content re-animates on switch */}
+      <StaggerContainer key={currentTab}>
+      {/* Section 1: Economy Global Settings CRUD */}
+      {currentTab === 'settings' && (
+      <StaggerItem>
+      <div className="space-y-6 max-w-5xl">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <Settings2 className="w-5 h-5 text-[#5E5CE6]" />
           <div>
@@ -258,12 +280,12 @@ export default async function EconomyPage({
         </div>
       </div>
       </StaggerItem>
+      )}
 
-      {/* Grid Layout for Management Forms */}
+      {/* Section 2: Update User Balance CRUD */}
+      {currentTab === 'balances' && (
       <StaggerItem>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 pt-8 border-t border-white/5">
-        {/* Section 2: Update User Balance CRUD */}
-        <div className="space-y-6">
+      <div className="space-y-6 max-w-5xl">
           <div className="flex items-center gap-3 border-b border-white/5 pb-4">
             <Wallet className="w-5 h-5 text-[#5E5CE6]" />
             <h2 className="text-xl font-light text-white tracking-wide">Update User Balance</h2>
@@ -354,9 +376,13 @@ export default async function EconomyPage({
             )}
           </div>
         </div>
+      </StaggerItem>
+      )}
 
-        {/* Section 3: Manage Shop Items CRUD */}
-        <div className="space-y-6">
+      {/* Section 3: Manage Shop Items CRUD */}
+      {currentTab === 'shop' && (
+      <StaggerItem>
+      <div className="space-y-6 max-w-5xl">
           <div className="flex items-center gap-3 border-b border-white/5 pb-4">
             <Store className="w-5 h-5 text-[#5E5CE6]" />
             <h2 className="text-xl font-light text-white tracking-wide">Marketplace Inventory</h2>
@@ -566,12 +592,13 @@ export default async function EconomyPage({
             )}
           </div>
         </div>
-      </div>
       </StaggerItem>
+      )}
 
       {/* Section 4: Transaction Logs */}
+      {currentTab === 'logs' && (
       <StaggerItem>
-      <div className="space-y-6 pt-8 border-t border-white/5">
+      <div className="space-y-6 max-w-5xl">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4">
           <History className="w-5 h-5 text-[#5E5CE6]" />
           <h2 className="text-xl font-light text-white tracking-wide">Recent Economy Transactions</h2>
@@ -614,6 +641,7 @@ export default async function EconomyPage({
         </div>
       </div>
       </StaggerItem>
+      )}
       </StaggerContainer>
     </main>
   );

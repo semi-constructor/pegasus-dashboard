@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --background: #000000;
+  --background: #020205;
   --foreground: #ededed;
 }
 
@@ -16,8 +16,8 @@
 }
 
 body {
-  background-color: #000000;
-  color: #ededed;
+  background-color: var(--background);
+  color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
   overflow-x: hidden;
 }
@@ -29,7 +29,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -38,5 +38,6 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #5E5CE6;
+  background: var(--color-accent);
 }
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }

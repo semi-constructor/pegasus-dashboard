@@ -17,7 +17,7 @@ export async function requireGuildAdmin(guildId: string) {
 
   // Fetch user's guilds and check permissions
   const adminGuilds = await getUserAdminGuilds(accessToken);
-  const targetGuild = adminGuilds.find((g) => g.id === guildId);
+  const targetGuild = adminGuilds ? adminGuilds.find((g) => g.id === guildId) : null;
 
   if (!targetGuild || !targetGuild.isAdmin) {
     throw new Error("Forbidden: You do not have admin permissions for this server");

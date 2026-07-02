@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { Mic, Save, Folder, Hash, FileText, Radio, Settings, Users, Volume2 } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
 import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
+import { SectionTabs } from '@/components/SectionTabs';
 
 // Helper to safely access getJtcConfig or use a mock fallback
 async function fetchJtcConfig(guildId: string) {
@@ -53,10 +54,14 @@ async function fetchJtcChannels(guildId: string) {
 
 export default async function JtcPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ guildId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { guildId } = await params;
+  const sp = await searchParams;
+  const currentTab = (sp.tab as string) || 'settings';
   const channels = await getGuildChannels(guildId);
   const config = await fetchJtcConfig(guildId);
   const activeChannels = await fetchJtcChannels(guildId);
@@ -90,7 +95,21 @@ export default async function JtcPage({
       </div>
       </StaggerItem>
 
+      {/* Navigation Tabs */}
+      <StaggerItem>
+        <SectionTabs 
+          currentTab={currentTab}
+          tabs={[
+            { id: 'settings', label: 'Generator Settings', icon: <Settings className="w-4 h-4" /> },
+            { id: 'live', label: 'Live Channels', icon: <Radio className="w-4 h-4" /> }
+          ]} 
+        />
+      </StaggerItem>
+      </StaggerContainer>
+
+      <StaggerContainer key={currentTab}>
       {/* Interactive Form to Configure JTC Settings */}
+      {currentTab === 'settings' && (
       <StaggerItem>
       <div className="border border-white/5 bg-white/[0.01] backdrop-blur-md p-8 rounded-none max-w-5xl">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-8">
@@ -201,8 +220,10 @@ export default async function JtcPage({
         </form>
       </div>
       </StaggerItem>
+      )}
 
       {/* Active JTC Channels Display */}
+      {currentTab === 'live' && (
       <StaggerItem>
       <div className="space-y-6 max-w-5xl">
         <div className="flex items-center justify-between border-b border-white/5 pb-4">
@@ -266,6 +287,7 @@ export default async function JtcPage({
         )}
       </div>
       </StaggerItem>
+      )}
       </StaggerContainer>
     </main>
   );

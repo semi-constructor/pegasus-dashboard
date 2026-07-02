@@ -80,6 +80,11 @@ All data returned by the API represents real, live data obtained directly from t
     - [PATCH `/guilds/:guildId/settings`](#patch-guildsguildidsettings)
     - [GET `/guilds/:guildId/settings/export`](#get-guildsguildidsettingsexport)
     - [POST `/guilds/:guildId/settings/import`](#post-guildsguildidsettingsimport)
+13. [Geizhals API (`/geizhals`)](#geizhals-api-geizhals)
+    - [POST / GET `/geizhals/search`](#post--get-geizhalssearch)
+    - [POST / GET `/geizhals/categories`](#post--get-geizhalscategories)
+    - [POST `/geizhals/categorylist`](#post-geizhalscategorylist)
+    - [POST `/geizhals/bestprice_development`](#post-geizhalsbestprice_development)
 14. [Dashboard Direct Management API (`/api`)](#dashboard-direct-management-api-api)
     - [POST / PATCH `/api/tickets/close`](#post--patch-apiticketsclose)
     - [POST / PATCH `/api/tickets/lock`](#post--patch-apiticketslock)
@@ -1632,7 +1637,11 @@ Creates a giveaway, posts an interactive embed with an entry button in Discord, 
     { "roleId": "88877766655544433", "entries": 2 }
   ],
   "allowedRoles": [],
-  "blockedRoles": []
+  "blockedRoles": [],
+  "embedTitle": "Custom Giveaway!",
+  "embedImage": "https://example.com/giveaway-banner.png",
+  "embedThumbnail": "https://example.com/icon.png",
+  "embedColor": "#FF5500"
 }
 ```
 *(Where `duration` is in milliseconds; `86400000` = 1 day).*
@@ -1658,7 +1667,11 @@ Updates properties of an active giveaway and edits the Discord embed message.
 - **Request Body Schema:** *(Any subset of the creation schema)*
 ```json
 {
-  "winnerCount": 3
+  "winnerCount": 3,
+  "embedTitle": "Updated Custom Giveaway!",
+  "embedImage": "https://example.com/new-giveaway-banner.png",
+  "embedThumbnail": "https://example.com/new-icon.png",
+  "embedColor": "#00AAFF"
 }
 ```
 - **Response Schema:**
@@ -1823,6 +1836,115 @@ Imports a previously exported configuration profile into a guild.
   }
 }
 ```
+
+---
+
+## Geizhals API (`/geizhals`)
+
+These endpoints provide direct access to price comparison data via the integrated `GeizhalsService`.
+
+### POST / GET `/geizhals/search`
+Searches for products across Geizhals categories.
+- **Auth Required:** Yes
+- **Request Parameters (POST Body or GET Query Params):**
+```json
+{
+  "query": "RTX 4090",
+  "loc": "de",
+  "lang": "de",
+  "n_offers": 5,
+  "locale": "de_DE"
+}
+```
+- **Response Schema:**
+```json
+{
+  "products": [
+    {
+      "name": "ASUS TUF Gaming GeForce RTX 4090 OC",
+      "category": "Grafikkarten",
+      "bestPrice": 1799.00,
+      "currency": "EUR",
+      "offersCount": 24,
+      "url": "https://geizhals.de/asus-tuf-gaming-geforce-rtx-4090-a2819584.html"
+    }
+  ]
+}
+```
+
+### POST / GET `/geizhals/categories`
+Retrieves available product categories.
+- **Auth Required:** Yes
+- **Request Parameters (POST Body or GET Query Params):**
+```json
+{
+  "loc": "de",
+  "lang": "de"
+}
+```
+- **Response Schema:**
+```json
+{
+  "categories": [
+    {
+      "id": "cat_1",
+      "name": "Hardware",
+      "subcategoriesCount": 15
+    }
+  ]
+}
+```
+
+### POST `/geizhals/categorylist`
+Retrieves the list of products within a specific category ID.
+- **Auth Required:** Yes
+- **Request Body Schema:**
+```json
+{
+  "cat": "cat_1",
+  "loc": "de",
+  "lang": "de"
+}
+```
+- **Response Schema:**
+```json
+{
+  "categoryId": "cat_1",
+  "categoryName": "Hardware",
+  "items": [
+    {
+      "id": "prod_123",
+      "name": "AMD Ryzen 7 7800X3D",
+      "price": 349.00
+    }
+  ]
+}
+```
+
+### POST `/geizhals/bestprice_development`
+Fetches historical best-price development trends for a specific product or category.
+- **Auth Required:** Yes
+- **Request Body Schema:**
+```json
+{
+  "cat": "prod_123",
+  "loc": "de",
+  "lang": "de"
+}
+```
+- **Response Schema:**
+```json
+{
+  "productId": "prod_123",
+  "history": [
+    { "date": "2026-05-01", "price": 369.00 },
+    { "date": "2026-06-01", "price": 355.00 },
+    { "date": "2026-06-25", "price": 349.00 }
+  ]
+}
+```
+
+---
 
 ## Dashboard Direct Management API (`/api`)
 

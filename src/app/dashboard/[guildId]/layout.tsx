@@ -1,4 +1,4 @@
-import { Sidebar } from '@/components/Sidebar';
+import { GuildTopNav } from '@/components/GuildTopNav';
 import { cookies } from 'next/headers';
 import { getUserAdminGuilds, getDashboardGuilds } from '@/lib/api';
 import { redirect } from 'next/navigation';
@@ -48,9 +48,9 @@ export default async function GuildDashboardLayout({
   }
 
   return (
-    <div className="flex flex-col lg:flex-row w-full h-full relative z-10">
-      <Sidebar guilds={authorizedGuilds} isSystemAdmin={isSystemAdmin} />
-      <div className="flex-1 flex flex-col min-h-screen bg-transparent overflow-x-hidden">
+    <div className="flex flex-col w-full h-full relative z-10">
+      <div className="flex-1 flex flex-col min-h-screen bg-transparent">
+        <GuildTopNav guildId={guildId} guilds={authorizedGuilds} isSystemAdmin={isSystemAdmin} />
         {children}
       </div>
     </div>

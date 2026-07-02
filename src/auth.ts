@@ -20,7 +20,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       authorization: "https://discord.com/api/oauth2/authorize?scope=identify+guilds",
     }),
     WebAuthn({
-      relyingParty: {
+      relayingParty: {
         name: "Pegasus Dashboard",
       },
     }),

@@ -34,7 +34,7 @@ interface Command {
 interface CommandCategory {
   id: string;
   name: string;
-  icon: React.ElementType;
+  icon: any;
   description: string;
   commands: Command[];
 }

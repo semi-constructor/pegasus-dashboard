@@ -8,13 +8,13 @@ export function StaggerContainer({ children, className = '', delay = 0 }: { chil
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-10%" }}
+      viewport={{ once: true, margin: "-100px" }}
       variants={{
         hidden: { opacity: 0 },
         visible: {
           opacity: 1,
           transition: {
-            staggerChildren: 0.08,
+            staggerChildren: 0.12,
             delayChildren: delay,
           }
         }
@@ -30,11 +30,13 @@ export function StaggerItem({ children, className = '' }: { children: ReactNode,
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 25 },
+        hidden: { opacity: 0, y: 60, filter: "blur(10px)", scale: 0.95 },
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98] } // Refined ease-out
+          filter: "blur(0px)",
+          scale: 1,
+          transition: { type: "spring", stiffness: 200, damping: 20 }
         }
       }}
       className={className}

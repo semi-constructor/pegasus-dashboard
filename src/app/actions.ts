@@ -1034,6 +1034,8 @@ export async function createGiveaway(guildId: string, formData: FormData): Promi
     const endTime = endTimeStr ? new Date(endTimeStr) : new Date(Date.now() + 86400000);
     const hostedBy = (formData.get('hostedBy') as string) || '98765432101234567';
     const giveawayId = `GA-${Math.floor(Math.random() * 90000 + 10000)}`;
+    const embedTitle = formData.get('embedTitle') as string || null;
+    const embedImage = formData.get('embedImage') as string || null;
 
     await db.insert(schema.guilds).values({ id: guildId, prefix: '!', language: 'en' }).onConflictDoNothing();
     await db.insert(schema.users).values({ id: hostedBy, username: 'Admin', discriminator: '0001' }).onConflictDoNothing();
@@ -1052,6 +1054,8 @@ export async function createGiveaway(guildId: string, formData: FormData): Promi
       requirements: {},
       bonusEntries: {},
       embedColor: 0x0099ff,
+      ...(embedTitle && { embedTitle }),
+      ...(embedImage && { embedImage }),
     });
 
     await api.createGiveawayApi(guildId, {
@@ -1062,9 +1066,52 @@ export async function createGiveaway(guildId: string, formData: FormData): Promi
       description,
       winnerCount,
       endTime: endTime.toISOString(),
+      ...(embedTitle && { embedTitle }),
+      ...(embedImage && { embedImage }),
     });
   } catch (error) {
     console.error('DB insert error createGiveaway:', error);
+  }
+  revalidatePath(`/dashboard/${guildId}/giveaways`);
+}
+
+export async function updateGiveaway(guildId: string, giveawayId: string, formData: FormData): Promise<void> {
+  try {
+    await requireGuildAdmin(guildId);
+    
+    const updates: any = {};
+    const apiPayload: any = {};
+    
+    const prize = formData.get('prize') as string;
+    if (prize) { updates.prize = prize; apiPayload.prize = prize; }
+    
+    const description = formData.get('description') as string;
+    if (description !== null) { updates.description = description; apiPayload.description = description; }
+    
+    const winnerCount = formData.get('winnerCount');
+    if (winnerCount) {
+      const count = parseInt(winnerCount as string, 10);
+      updates.winnerCount = count;
+      apiPayload.winnerCount = count;
+    }
+    
+    const embedTitle = formData.get('embedTitle') as string;
+    if (embedTitle !== null) { updates.embedTitle = embedTitle; apiPayload.embedTitle = embedTitle; }
+    
+    const embedImage = formData.get('embedImage') as string;
+    if (embedImage !== null) { updates.embedImage = embedImage; apiPayload.embedImage = embedImage; }
+
+    updates.updatedAt = new Date();
+
+    if (Object.keys(updates).length > 1) { // More than just updatedAt
+      await db.update(schema.giveaways)
+        .set(updates)
+        .where(and(eq(schema.giveaways.guildId, guildId), eq(schema.giveaways.giveawayId, giveawayId)));
+      
+      await api.updateGiveawayApi(guildId, giveawayId, apiPayload);
+    }
+  } catch (error) {
+    console.error('DB update error updateGiveaway:', error);
   }
   revalidatePath(`/dashboard/${guildId}/giveaways`);
 }

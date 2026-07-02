@@ -1,9 +1,10 @@
 import { getGuildChannels } from '@/app/actions';
 import * as actions from '@/app/actions';
 import { revalidatePath } from 'next/cache';
-import { Gift, Trash2, RefreshCw, CheckCircle, Clock, Plus, Hash, Trophy, Calendar, Users, FileText } from 'lucide-react';
+import { Gift, Trash2, RefreshCw, CheckCircle, Clock, Plus, Hash, Trophy, Calendar, Users, FileText, ImageIcon, Edit } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
 import { StaggerContainer, StaggerItem } from '@/components/StaggerAnimations';
+import { SectionTabs } from '@/components/SectionTabs';
 
 // Helper to safely access getGiveaways or use a mock fallback
 async function fetchGiveaways(guildId: string) {
@@ -35,10 +36,14 @@ async function fetchGiveaways(guildId: string) {
 
 export default async function GiveawaysPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ guildId: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { guildId } = await params;
+  const sp = await searchParams;
+  const currentTab = (sp.tab as string) || 'active';
   const channels = await getGuildChannels(guildId);
   const giveaways = await fetchGiveaways(guildId);
 
@@ -79,6 +84,15 @@ export default async function GiveawaysPage({
     revalidatePath(`/dashboard/${guildId}/giveaways`);
   }
 
+  async function handleUpdateGiveaway(formData: FormData) {
+    'use server';
+    const id = formData.get('id') as string;
+    if ('updateGiveaway' in actions && typeof (actions as any).updateGiveaway === 'function') {
+      await (actions as any).updateGiveaway(guildId, id, formData);
+    }
+    revalidatePath(`/dashboard/${guildId}/giveaways`);
+  }
+
   return (
     <main className="flex-1 p-8 max-w-7xl mx-auto w-full space-y-12">
       <StaggerContainer>
@@ -96,7 +110,21 @@ export default async function GiveawaysPage({
       </div>
       </StaggerItem>
 
+      {/* Navigation Tabs */}
+      <StaggerItem>
+        <SectionTabs 
+          currentTab={currentTab}
+          tabs={[
+            { id: 'active', label: 'Active Giveaways', icon: <Clock className="w-4 h-4" /> },
+            { id: 'create', label: 'Create Giveaway', icon: <Plus className="w-4 h-4" /> }
+          ]} 
+        />
+      </StaggerItem>
+      </StaggerContainer>
+
+      <StaggerContainer key={currentTab}>
       {/* Interactive Form to Create New Giveaway */}
+      {currentTab === 'create' && (
       <StaggerItem>
       <div className="border border-white/5 bg-white/[0.01] backdrop-blur-md p-8 rounded-none max-w-5xl relative overflow-hidden group">
         <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-8">
@@ -164,6 +192,36 @@ export default async function GiveawaysPage({
             <div>
               <label className="block text-neutral-400 uppercase tracking-wider mb-2">
                 <span className="inline-flex items-center gap-2">
+                  <FileText className="w-3.5 h-3.5 text-[#5E5CE6]" /> Embed Title (Optional)
+                </span>
+              </label>
+              <input
+                type="text"
+                name="embedTitle"
+                placeholder="Custom title for the giveaway embed..."
+                className="w-full bg-black border border-white/10 px-4 py-3 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors"
+              />
+            </div>
+
+            <div>
+              <label className="block text-neutral-400 uppercase tracking-wider mb-2">
+                <span className="inline-flex items-center gap-2">
+                  <ImageIcon className="w-3.5 h-3.5 text-[#5E5CE6]" /> Embed Image URL (Optional)
+                </span>
+              </label>
+              <input
+                type="url"
+                name="embedImage"
+                placeholder="https://example.com/image.png"
+                className="w-full bg-black border border-white/10 px-4 py-3 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-neutral-400 uppercase tracking-wider mb-2">
+                <span className="inline-flex items-center gap-2">
                   <Users className="w-3.5 h-3.5 text-[#5E5CE6]" /> Number of Winners
                 </span>
               </label>
@@ -205,8 +263,10 @@ export default async function GiveawaysPage({
         </form>
       </div>
       </StaggerItem>
+      )}
 
       {/* Active Giveaways Display */}
+      {currentTab === 'active' && (
       <StaggerItem>
       <div className="space-y-6 max-w-5xl">
         <div className="flex items-center justify-between border-b border-white/5 pb-4">
@@ -302,6 +362,109 @@ export default async function GiveawaysPage({
                       </button>
                     </form>
                   </div>
+
+                  {/* Edit Form (Hidden by default, pure HTML/CSS toggle) */}
+                  <div className="w-full mt-6 border-t border-white/5 pt-6">
+                    <details className="group/edit">
+                      <summary className="list-none cursor-pointer inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors">
+                        <Edit className="w-3.5 h-3.5" />
+                        <span>Edit Configuration</span>
+                      </summary>
+                      
+                      <div className="mt-6 border border-white/5 bg-black/50 p-6 rounded-none">
+                        <form action={handleUpdateGiveaway} className="space-y-6 font-mono text-xs">
+                          <input type="hidden" name="id" value={giveaway.id} />
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                              <label className="block text-neutral-400 uppercase tracking-wider mb-2">
+                                <span className="inline-flex items-center gap-2">
+                                  <Trophy className="w-3.5 h-3.5 text-[#5E5CE6]" /> Prize Title
+                                </span>
+                              </label>
+                              <input
+                                type="text"
+                                name="prize"
+                                defaultValue={giveaway.prize}
+                                className="w-full bg-black border border-white/10 px-4 py-3 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-neutral-400 uppercase tracking-wider mb-2">
+                                <span className="inline-flex items-center gap-2">
+                                  <Users className="w-3.5 h-3.5 text-[#5E5CE6]" /> Number of Winners
+                                </span>
+                              </label>
+                              <input
+                                type="number"
+                                name="winnerCount"
+                                min="1"
+                                max="50"
+                                defaultValue={giveaway.winnerCount}
+                                className="w-full bg-black border border-white/10 px-4 py-3 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-neutral-400 uppercase tracking-wider mb-2">
+                              <span className="inline-flex items-center gap-2">
+                                <FileText className="w-3.5 h-3.5 text-[#5E5CE6]" /> Giveaway Description
+                              </span>
+                            </label>
+                            <textarea
+                              name="description"
+                              rows={2}
+                              defaultValue={giveaway.description}
+                              className="w-full bg-black border border-white/10 p-4 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors resize-y"
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                              <label className="block text-neutral-400 uppercase tracking-wider mb-2">
+                                <span className="inline-flex items-center gap-2">
+                                  <FileText className="w-3.5 h-3.5 text-[#5E5CE6]" /> Embed Title (Optional)
+                                </span>
+                              </label>
+                              <input
+                                type="text"
+                                name="embedTitle"
+                                defaultValue={giveaway.embedTitle || ''}
+                                placeholder="Custom title..."
+                                className="w-full bg-black border border-white/10 px-4 py-3 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="block text-neutral-400 uppercase tracking-wider mb-2">
+                                <span className="inline-flex items-center gap-2">
+                                  <ImageIcon className="w-3.5 h-3.5 text-[#5E5CE6]" /> Embed Image URL (Optional)
+                                </span>
+                              </label>
+                              <input
+                                type="url"
+                                name="embedImage"
+                                defaultValue={giveaway.embedImage || ''}
+                                placeholder="https://example.com/image.png"
+                                className="w-full bg-black border border-white/10 px-4 py-3 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex justify-end pt-4 border-t border-white/5">
+                            <SaveButton
+                              label="Save Changes"
+                              savingLabel="Saving..."
+                              savedLabel="Saved!"
+                              className="px-8 py-2"
+                              icon="save"
+                            />
+                          </div>
+                        </form>
+                      </div>
+                    </details>
+                  </div>
                 </div>
               );
             })}
@@ -309,6 +472,7 @@ export default async function GiveawaysPage({
         )}
       </div>
       </StaggerItem>
+      )}
       </StaggerContainer>
     </main>
   );

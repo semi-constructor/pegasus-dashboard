@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "local": "next dev",
-    "prod": "next build && next start"
+    "prod": "next build && next start",
+    "prepare": "husky"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.2",
@@ -36,6 +37,7 @@
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "husky": "^9.1.7",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
