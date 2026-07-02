@@ -6,6 +6,7 @@ import { db } from "@/lib/db"
 import { authUsers, accounts, sessions, verificationTokens, authenticators } from "../schemas/auth"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  trustHost: true,
   adapter: DrizzleAdapter(db, {
     usersTable: authUsers as any,
     accountsTable: accounts as any,
@@ -17,7 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Discord({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
-      authorization: "https://discord.com/api/oauth2/authorize?scope=identify+guilds",
+      authorization: { params: { scope: "identify guilds" } },
     }),
     WebAuthn({
       relayingParty: {

@@ -83,7 +83,7 @@ export default function HomePage() {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
                 </MagneticButton>
               )}
-              <MagneticButton href="https://discord.com/oauth2/authorize?client_id=1375140177961418774&permissions=8&scope=bot%20applications.commands" external className="flex items-center justify-center gap-3 border border-white/5 border-t-white/10 border-l-white/10 px-10 py-5 text-neutral-300 rounded-2xl bg-white/[0.01] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] group hover:border-white/20 transition-colors">
+              <MagneticButton href="https://discord.com/oauth2/authorize?client_id=1375140177961418774&permissions=8543201052847575&integration_type=0&scope=bot+applications.commands" external className="flex items-center justify-center gap-3 border border-white/5 border-t-white/10 border-l-white/10 px-10 py-5 text-neutral-300 rounded-2xl bg-white/[0.01] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] group hover:border-white/20 transition-colors">
                 <span className="tracking-wider">Deploy to Server</span>
               </MagneticButton>
             </motion.div>
