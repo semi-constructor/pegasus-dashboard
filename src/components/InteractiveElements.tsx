@@ -167,7 +167,7 @@ export function CinematicText({ text, className = "", delay = 0 }: { text: strin
       y: 0,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 20,
         stiffness: 100,
       },
@@ -177,7 +177,7 @@ export function CinematicText({ text, className = "", delay = 0 }: { text: strin
       y: 40,
       filter: "blur(10px)",
       transition: {
-        type: "spring",
+        type: "spring" as const,
         damping: 20,
         stiffness: 100,
       },
