@@ -29,14 +29,22 @@ export function AdminTopNav({ user }: { user: { username: string; id: string } }
   const [telemetry, setTelemetry] = useState<any>(null);
 
   useEffect(() => {
-    fetch('/api/admin/stats', { cache: 'no-store' })
+    const abortController = new AbortController();
+
+    fetch('/api/admin/stats', { 
+      cache: 'no-store',
+      signal: abortController.signal
+    })
       .then(res => res.json())
       .then(json => setTelemetry(json.data))
       .catch(() => {});
 
     const interval = setInterval(async () => {
       try {
-        const res = await fetch('/api/admin/stats', { cache: 'no-store' });
+        const res = await fetch('/api/admin/stats', { 
+          cache: 'no-store',
+          signal: abortController.signal
+        });
         if (res.ok) {
           const json = await res.json();
           setTelemetry(json.data);
@@ -44,7 +52,10 @@ export function AdminTopNav({ user }: { user: { username: string; id: string } }
       } catch (e) {}
     }, 5000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      abortController.abort();
+    };
   }, []);
 
   return (

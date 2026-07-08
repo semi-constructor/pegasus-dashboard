@@ -118,7 +118,7 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
     if (error?.digest === 'DYNAMIC_SERVER_USAGE') {
       throw error;
     }
-    console.error(`Fetch failure on ${endpoint}:`, error);
+    console.error(`Fetch failure on ${endpoint}:`, error instanceof Error ? error.message : "Unknown error");
     return null;
   }
 }

@@ -1,4 +1,4 @@
-'use server';
+﻿'use server';
 
 import { db } from '@/lib/db';
 import { eq, and } from 'drizzle-orm';
@@ -8,10 +8,32 @@ import * as api from '@/lib/api';
 import { requireGuildAdmin } from '@/lib/auth-utils';
 import { z } from 'zod';
 
+const economySettingsSchema = z.object({
+  currencySymbol: z.string().min(1).max(10).default('🪙'),
+  currencyName: z.string().min(1).max(50).default('coins'),
+  startingBalance: z.coerce.number().min(0).default(100),
+  dailyAmount: z.coerce.number().min(0).default(100),
+  dailyStreak: z.coerce.boolean().default(true),
+  dailyStreakBonus: z.coerce.number().min(0).default(10),
+  workMinAmount: z.coerce.number().min(0).default(50),
+  workMaxAmount: z.coerce.number().min(0).default(200),
+  workCooldown: z.coerce.number().min(0).default(3600),
+  robEnabled: z.coerce.boolean().default(true),
+  robMinAmount: z.coerce.number().min(0).default(100),
+  robSuccessRate: z.coerce.number().min(0).max(100).default(50),
+  robCooldown: z.coerce.number().min(0).default(86400),
+  robProtectionCost: z.coerce.number().min(0).default(1000),
+  robProtectionDuration: z.coerce.number().min(0).default(86400),
+  maxBet: z.coerce.number().min(0).default(10000),
+  minBet: z.coerce.number().min(0).default(10),
+});
+
+
 // ==========================================
 // Bot API & Discord Data Helpers
 // ==========================================
 export async function getGuildChannels(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await api.getGuildChannels(guildId);
   } catch (error) {
@@ -21,6 +43,7 @@ export async function getGuildChannels(guildId: string) {
 }
 
 export async function getGuildRoles(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await api.getGuildRoles(guildId);
   } catch (error) {
@@ -30,6 +53,7 @@ export async function getGuildRoles(guildId: string) {
 }
 
 export async function getGuildMembers(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     const members = await api.getGuildMembers(guildId);
     return members.map(m => ({
@@ -50,6 +74,7 @@ export async function getGuildMembers(guildId: string) {
 // Guild Settings CRUD
 // ==========================================
 export async function getGuildSettings(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     const guildRes = await db.select().from(schema.guilds).where(eq(schema.guilds.id, guildId));
     const settingsRes = await db.select().from(schema.guildSettings).where(eq(schema.guildSettings.guildId, guildId));
@@ -282,6 +307,7 @@ export async function updateGuildSettings(guildId: string, formData: FormData): 
 // Economy CRUD
 // ==========================================
 export async function getEconomyBalances(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.economyBalances).where(eq(schema.economyBalances.guildId, guildId));
   } catch (error) {
@@ -309,6 +335,7 @@ export async function updateUserBalance(guildId: string, userId: string, balance
 }
 
 export async function getShopItems(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.economyShopItems).where(eq(schema.economyShopItems.guildId, guildId));
   } catch (error) {
@@ -375,6 +402,7 @@ export async function updateShopItem(guildId: string, itemId: string, formData: 
 }
 
 export async function getEconomyTransactions(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.economyTransactions).where(eq(schema.economyTransactions.guildId, guildId)).limit(20);
   } catch (error) {
@@ -394,6 +422,7 @@ export async function triggerEconomyReset(guildId: string, formData?: FormData):
 }
 
 export async function getEconomySettings(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     const res = await db.select().from(schema.economySettings).where(eq(schema.economySettings.guildId, guildId));
     if (res.length > 0) return res[0];
@@ -402,7 +431,7 @@ export async function getEconomySettings(guildId: string) {
   }
   return {
     guildId,
-    currencySymbol: '🪙',
+    currencySymbol: 'ðŸª™',
     currencyName: 'coins',
     startingBalance: 100,
     dailyAmount: 100,
@@ -425,7 +454,7 @@ export async function getEconomySettings(guildId: string) {
 export async function updateEconomySettings(guildId: string, formData: FormData): Promise<void> {
   try {
     await requireGuildAdmin(guildId);
-    const currencySymbol = formData.get('currencySymbol') as string || '🪙';
+    const currencySymbol = formData.get('currencySymbol') as string || 'ðŸª™';
     const currencyName = formData.get('currencyName') as string || 'coins';
     const startingBalance = parseInt(formData.get('startingBalance') as string, 10) || 100;
     const dailyAmount = parseInt(formData.get('dailyAmount') as string, 10) || 100;
@@ -508,6 +537,7 @@ export async function updateEconomySettings(guildId: string, formData: FormData)
 // Moderation CRUD & API Actions
 // ==========================================
 export async function getWarnings(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.warnings).where(eq(schema.warnings.guildId, guildId));
   } catch (error) {
@@ -527,6 +557,7 @@ export async function deleteWarning(guildId: string, id: number, formData?: Form
 }
 
 export async function getWarningAutomations(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.warningAutomations).where(eq(schema.warningAutomations.guildId, guildId));
   } catch (error) {
@@ -575,6 +606,7 @@ export async function deleteWarningAutomation(guildId: string, id: number, formD
 }
 
 export async function getAuditLogs(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.auditLogs).where(eq(schema.auditLogs.guildId, guildId)).limit(20);
   } catch (error) {
@@ -596,6 +628,7 @@ export async function triggerBotModeration(guildId: string, action: 'warn' | 'ba
 }
 
 export async function getModLogSettings(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.modLogSettings).where(eq(schema.modLogSettings.guildId, guildId));
   } catch (error) {
@@ -629,6 +662,7 @@ export async function updateModLogSettings(guildId: string, formData: FormData):
 }
 
 export async function getWordFilterRules(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.wordFilterRules).where(eq(schema.wordFilterRules.guildId, guildId));
   } catch (error) {
@@ -674,6 +708,7 @@ export async function deleteWordFilterRule(guildId: string, id: number, formData
 // Tickets & XP CRUD
 // ==========================================
 export async function getTicketPanels(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.ticketPanels).where(eq(schema.ticketPanels.guildId, guildId));
   } catch (error) {
@@ -781,6 +816,7 @@ export async function updateTicketPanel(guildId: string, panelId: string, formDa
 }
 
 export async function getTicketDepartments(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.ticketDepartments).where(eq(schema.ticketDepartments.guildId, guildId));
   } catch (error) {
@@ -836,6 +872,7 @@ export async function deleteTicketDepartment(guildId: string, id: string, formDa
 }
 
 export async function getActiveTickets(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.tickets).where(eq(schema.tickets.guildId, guildId));
   } catch (error) {
@@ -889,6 +926,7 @@ export async function triggerTicketFreeze(guildId: string, ticketId: string, use
 }
 
 export async function getUserXpList(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.userXp).where(eq(schema.userXp.guildId, guildId)).limit(20);
   } catch (error) {
@@ -898,6 +936,7 @@ export async function getUserXpList(guildId: string) {
 }
 
 export async function getXpRewards(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.xpRewards).where(eq(schema.xpRewards.guildId, guildId));
   } catch (error) {
@@ -949,6 +988,7 @@ export async function triggerXpReset(guildId: string, formData?: FormData): Prom
 }
 
 export async function getXpSettings(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     const res = await db.select().from(schema.xpSettings).where(eq(schema.xpSettings.guildId, guildId));
     if (res.length > 0) return res[0];
@@ -1015,6 +1055,7 @@ export async function updateXpSettings(guildId: string, formData: FormData): Pro
 // Giveaways CRUD & API Actions
 // ==========================================
 export async function getGiveaways(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.giveaways).where(eq(schema.giveaways.guildId, guildId));
   } catch (error) {
@@ -1155,6 +1196,7 @@ export async function rerollGiveaway(guildId: string, giveawayId: string, formDa
 // Join to Create (JTC) CRUD & API Actions
 // ==========================================
 export async function getJtcConfig(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     const res = await db.select().from(schema.jtcConfigs).where(eq(schema.jtcConfigs.guildId, guildId));
     if (res.length > 0) return res[0];
@@ -1216,6 +1258,7 @@ export async function updateJtcConfig(guildId: string, formData: FormData): Prom
 }
 
 export async function getJtcChannels(guildId: string) {
+  await requireGuildAdmin(guildId);
   try {
     return await db.select().from(schema.jtcChannels).where(eq(schema.jtcChannels.guildId, guildId));
   } catch (error) {

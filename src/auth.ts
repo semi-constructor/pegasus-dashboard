@@ -5,11 +5,21 @@ import WebAuthn from "next-auth/providers/webauthn"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 import { db } from "@/lib/db"
 import { authUsers, accounts, sessions, verificationTokens, authenticators } from "../schemas/auth"
-import { eq } from "drizzle-orm"
+import { eq, and } from "drizzle-orm"
 
-console.log('DISCORD_CLIENT_ID:', process.env.DISCORD_CLIENT_ID);
-console.log('DISCORD_CLIENT_SECRET:', process.env.DISCORD_CLIENT_SECRET ? 'SET' : 'MISSING');
-console.log('AUTH_URL:', process.env.AUTH_URL);
+import { z } from 'zod';
+
+const envSchema = z.object({
+  DISCORD_CLIENT_ID: z.string().min(1, "Missing DISCORD_CLIENT_ID"),
+  DISCORD_CLIENT_SECRET: z.string().min(1, "Missing DISCORD_CLIENT_SECRET"),
+  AUTH_SECRET: z.string().min(1, "Missing AUTH_SECRET"),
+});
+
+// Validate environment early, but don't log secrets
+const envParsed = envSchema.safeParse(process.env);
+if (!envParsed.success) {
+  console.warn("[AUTH WARN] Missing or invalid environment variables for authentication.", envParsed.error.message);
+}
 
 interface ExtendedSession extends Session {
   accessToken?: string;
@@ -77,7 +87,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           providerAccountId: accounts.providerAccountId,
         })
         .from(accounts)
-        .where(eq(accounts.userId, user.id))
+        .where(and(eq(accounts.userId, user.id), eq(accounts.provider, "discord")))
         .limit(1);
 
       if (discordAccount) {

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { commands } from '@/lib/data/commands';
-import { Terminal } from 'lucide-react';
+import { Terminal, ChevronRight } from 'lucide-react';
 
 export function CommandsSection() {
   const [activeCategory, setActiveCategory] = useState(commands[0].category);
@@ -13,7 +13,7 @@ export function CommandsSection() {
     <section id="commands" className="max-w-[1200px] w-full mx-auto px-6 py-32 relative z-20">
       
       {/* Section Header */}
-      <div className="mb-16 flex flex-col items-center text-center">
+      <div className="mb-20 flex flex-col items-center text-center">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export function CommandsSection() {
         </motion.p>
       </div>
 
-      {/* Boundless Horizontal Category Tabs */}
+      {/* Category Tabs */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ export function CommandsSection() {
           <button
             key={cat.category}
             onClick={() => setActiveCategory(cat.category)}
-            className={`relative px-5 py-2.5 rounded-full font-mono text-sm tracking-wider transition-colors duration-300 ${
+            className={`relative px-5 py-2.5 rounded-full font-mono text-sm tracking-wider transition-colors duration-300 flex items-center gap-2 ${
               activeCategory === cat.category ? 'text-white' : 'text-neutral-500 hover:text-neutral-300 border border-transparent'
             }`}
           >
@@ -64,11 +64,18 @@ export function CommandsSection() {
               />
             )}
             <span className="relative z-10">{cat.category}</span>
+            <span className={`relative z-10 text-[10px] font-mono tabular-nums px-1.5 py-0.5 rounded-md transition-colors duration-300 ${
+              activeCategory === cat.category 
+                ? 'bg-[#5E5CE6]/20 text-[#5E5CE6]' 
+                : 'bg-white/5 text-neutral-600'
+            }`}>
+              {cat.items.length}
+            </span>
           </button>
         ))}
       </motion.div>
 
-      {/* Open Grid Layout for Commands */}
+      {/* Commands Grid */}
       <div className="min-h-[500px] relative">
         <AnimatePresence mode="wait">
           <motion.div
@@ -85,35 +92,39 @@ export function CommandsSection() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {activeCategoryData?.items.map((cmd, idx) => (
                 <motion.div
                   key={cmd.name}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: idx * 0.05 }}
-                  className="group relative bg-[#050508] border border-[#5E5CE6]/10 p-6 rounded-3xl flex flex-col hover:border-[#5E5CE6]/30 transition-all duration-300"
+                  initial={{ opacity: 0, y: 15, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ delay: idx * 0.06, type: "spring", stiffness: 300, damping: 25 }}
+                  className="group relative bg-[#050508]/80 backdrop-blur-sm border border-white/[0.06] p-6 rounded-2xl flex flex-col hover:border-[#5E5CE6]/25 transition-all duration-500"
                 >
-                  {/* Subtle hover accent line */}
-                  <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[#5E5CE6]/0 to-transparent group-hover:via-[#5E5CE6]/50 transition-all duration-500" />
+                  {/* Top gradient line on hover */}
+                  <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#5E5CE6]/0 to-transparent group-hover:via-[#5E5CE6]/40 transition-all duration-700" />
                   
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="w-10 h-10 bg-[#020205] border border-[#5E5CE6]/20 rounded-xl flex items-center justify-center text-[#5E5CE6] shadow-[0_0_15px_rgba(94,92,230,0.1)] group-hover:scale-110 transition-transform duration-300">
+                  {/* Subtle radial glow on hover */}
+                  <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(ellipse_at_top,rgba(94,92,230,0.04),transparent_70%)]" />
+                  
+                  <div className="relative z-10 flex items-center gap-4 mb-4">
+                    <div className="w-10 h-10 bg-[#020205] border border-[#5E5CE6]/15 rounded-xl flex items-center justify-center text-[#5E5CE6] shadow-[0_0_15px_rgba(94,92,230,0.08)] group-hover:scale-110 group-hover:border-[#5E5CE6]/40 transition-all duration-500">
                       <Terminal className="w-4 h-4" />
                     </div>
-                    <h4 className="text-white font-mono text-lg tracking-tight">
+                    <h4 className="text-white font-mono text-lg tracking-tight group-hover:text-[#c8c7ff] transition-colors duration-500">
                       {cmd.name}
                     </h4>
+                    <ChevronRight className="w-4 h-4 text-neutral-700 group-hover:text-[#5E5CE6]/50 ml-auto opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-500" />
                   </div>
                   
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-6 flex-grow group-hover:text-neutral-300 transition-colors">
+                  <p className="relative z-10 text-neutral-400 text-sm leading-relaxed mb-6 flex-grow group-hover:text-neutral-300 transition-colors duration-500">
                     {cmd.description}
                   </p>
 
                   {cmd.options && (
-                    <div className="mt-auto pt-4 border-t border-[#5E5CE6]/10">
-                      <div className="text-[10px] font-mono text-[#5E5CE6]/70 uppercase tracking-widest font-semibold mb-2">Usage</div>
-                      <code className="text-xs font-mono text-neutral-300 break-words block bg-[#020205] px-3 py-2 rounded-lg border border-white/5">
+                    <div className="relative z-10 mt-auto pt-4 border-t border-white/[0.04] group-hover:border-[#5E5CE6]/10 transition-colors duration-500">
+                      <div className="text-[10px] font-mono text-[#5E5CE6]/50 uppercase tracking-widest font-semibold mb-2 group-hover:text-[#5E5CE6]/80 transition-colors duration-500">Usage</div>
+                      <code className="text-xs font-mono text-neutral-400 break-words block bg-[#020205]/60 px-3 py-2 rounded-lg border border-white/[0.03] group-hover:text-neutral-300 group-hover:border-white/[0.06] transition-all duration-500">
                         {cmd.options}
                       </code>
                     </div>

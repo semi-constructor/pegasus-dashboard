@@ -40,12 +40,18 @@ export function AnimatedNavBar({ user: initialUser }: AnimatedNavBarProps) {
 
   useEffect(() => {
     if (initialUser === undefined) {
-      fetch('/api/auth/session', { cache: 'no-store' })
+      const abortController = new AbortController();
+      fetch('/api/auth/session', { 
+        cache: 'no-store',
+        signal: abortController.signal
+      })
         .then(res => res.json())
         .then(data => {
           if (data?.user && Object.keys(data.user).length > 0) setFetchedUser({ username: data.user.name, id: data.user.id });
         })
         .catch(() => {});
+
+      return () => abortController.abort();
     }
   }, [initialUser]);
 

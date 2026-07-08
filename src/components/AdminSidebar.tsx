@@ -40,8 +40,13 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
   const [telemetry, setTelemetry] = useState<any>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     // Initial fetch
-    fetch('/api/admin/stats', { cache: 'no-store' })
+    fetch('/api/admin/stats', { 
+      cache: 'no-store',
+      signal: abortController.signal
+    })
       .then(res => res.json())
       .then(json => setTelemetry(json.data))
       .catch(() => {});
@@ -49,7 +54,10 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
     // Poll every 1s
     const interval = setInterval(async () => {
       try {
-        const res = await fetch('/api/admin/stats', { cache: 'no-store' });
+        const res = await fetch('/api/admin/stats', { 
+          cache: 'no-store',
+          signal: abortController.signal
+        });
         if (res.ok) {
           const json = await res.json();
           setTelemetry(json.data);
@@ -57,7 +65,10 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
       } catch (e) {}
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      abortController.abort();
+    };
   }, []);
 
   const navigation = [

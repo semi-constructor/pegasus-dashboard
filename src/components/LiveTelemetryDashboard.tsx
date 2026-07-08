@@ -31,10 +31,14 @@ export default function LiveTelemetryDashboard({ initialStats, initialIsOnline }
 
   useEffect(() => {
     setLastUpdated(new Date());
+    const abortController = new AbortController();
 
     const interval = setInterval(async () => {
       try {
-        const res = await fetch('/api/admin/stats', { cache: 'no-store' });
+        const res = await fetch('/api/admin/stats', { 
+          cache: 'no-store',
+          signal: abortController.signal
+        });
         if (res.ok) {
           const json = await res.json();
           setStats(json.data);
@@ -44,7 +48,10 @@ export default function LiveTelemetryDashboard({ initialStats, initialIsOnline }
       } catch (e) {}
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      abortController.abort();
+    };
   }, []);
 
   const data = stats;

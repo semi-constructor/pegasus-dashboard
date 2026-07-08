@@ -5,6 +5,7 @@ import * as schema from '../../../schemas/index';
 import { eq, and } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { requireGlobalAdmin } from '@/lib/auth-utils';
 
 const ALL_KNOWN_TABLES = [
   'guilds', 'guildSettings', 'users', 'members', 'modCases', 'warnings',
@@ -16,16 +17,24 @@ const ALL_KNOWN_TABLES = [
   'auditLogs', 'rateLimitViolations', 'securityIncidents', 'apiKeys',
   'jtcConfigs', 'jtcChannels', 'autoModRules', 'autoModInfractions',
   'quarantineVault', 'achievements', 'userAchievements', 'engagementQuests',
-  'userQuestProgress', 'userReputation', 'ticketDepartments', 'ticketRatings'
+  'userQuestProgress', 'userReputation', 'ticketDepartments', 'ticketRatings',
+  'accounts', 'authUsers', 'authenticators', 'sessions', 'verificationTokens'
 ];
 
 export async function updateDatabaseEntry(tableName: string, pkObjStr: string, existingRowJson: string, formData: FormData) {
+  await requireGlobalAdmin();
   if (!ALL_KNOWN_TABLES.includes(tableName)) throw new Error(`Invalid table name: ${tableName}`);
   const table = (schema as any)[tableName];
   if (!table) throw new Error(`Table ${tableName} not found in schema`);
 
-  const pkObj = JSON.parse(pkObjStr);
-  const existingRow = JSON.parse(existingRowJson);
+  let pkObj;
+  let existingRow;
+  try {
+    pkObj = JSON.parse(pkObjStr);
+    existingRow = JSON.parse(existingRowJson);
+  } catch (e) {
+    throw new Error('Invalid JSON input for PK or existing row');
+  }
   
   // Build the where clause
   const conditions = Object.entries(pkObj).map(([colName, colValue]) => {
@@ -77,6 +86,7 @@ export async function updateDatabaseEntry(tableName: string, pkObjStr: string, e
 }
 
 export async function createDatabaseEntry(tableName: string, formData: FormData) {
+  await requireGlobalAdmin();
   if (!ALL_KNOWN_TABLES.includes(tableName)) throw new Error(`Invalid table name: ${tableName}`);
   const table = (schema as any)[tableName];
   if (!table) throw new Error(`Table ${tableName} not found in schema`);
@@ -119,11 +129,17 @@ export async function createDatabaseEntry(tableName: string, formData: FormData)
 }
 
 export async function deleteDatabaseEntry(tableName: string, pkObjStr: string) {
+  await requireGlobalAdmin();
   if (!ALL_KNOWN_TABLES.includes(tableName)) throw new Error(`Invalid table name: ${tableName}`);
   const table = (schema as any)[tableName];
   if (!table) throw new Error(`Table ${tableName} not found in schema`);
 
-  const pkObj = JSON.parse(pkObjStr);
+  let pkObj;
+  try {
+    pkObj = JSON.parse(pkObjStr);
+  } catch (e) {
+    throw new Error('Invalid JSON input for PK');
+  }
   
   const conditions = Object.entries(pkObj).map(([colName, colValue]) => {
     if (!table[colName] || colName === '_' || colName === 'getSQL' || colName === 'config') {
