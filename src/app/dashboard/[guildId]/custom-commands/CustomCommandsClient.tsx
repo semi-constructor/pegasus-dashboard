@@ -29,7 +29,12 @@ export default function CustomCommandsClient({ guildId, initialCommands }: { gui
   };
 
   const handleSaveAction = async (formData: FormData) => {
-    const validCommands = commands.filter(c => c.name.trim() !== '' && c.reply.trim() !== '');
+    const validCommands = commands
+      .filter(c => c.name.trim() !== '' && c.reply.trim() !== '')
+      .map(c => ({
+        ...c,
+        reply: c.reply.replace(/\\n/g, '\n') // Convert typed \n to actual newlines
+      }));
     formData.append('customCommands', JSON.stringify(validCommands));
     await updateCustomCommands(guildId, formData);
     setCommands(validCommands);
@@ -88,13 +93,13 @@ export default function CustomCommandsClient({ guildId, initialCommands }: { gui
                   </div>
                   <div className="w-full flex-grow">
                     <label className="block text-neutral-400 uppercase tracking-wider mb-2 text-[10px]">Reply Text *</label>
-                    <input
-                      type="text"
+                    <textarea
                       value={cmd.reply}
                       onChange={(e) => handleChange(index, 'reply', e.target.value)}
                       required
-                      placeholder="e.g. World!"
-                      className="w-full bg-black border border-white/10 px-3 py-2 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors"
+                      rows={3}
+                      placeholder="e.g. World!\nSupports multiple lines."
+                      className="w-full bg-black border border-white/10 px-3 py-2 text-white rounded-none focus:border-[#5E5CE6] focus:outline-none transition-colors resize-y"
                     />
                   </div>
                   <button
