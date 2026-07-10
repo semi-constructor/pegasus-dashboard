@@ -118,7 +118,12 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
     if (error?.digest === 'DYNAMIC_SERVER_USAGE') {
       throw error;
     }
-    console.error(`Fetch failure on ${endpoint}:`, error instanceof Error ? error.message : "Unknown error");
+    const msg = error instanceof Error ? error.message : "Unknown error";
+    if (msg === 'fetch failed' || error?.code === 'ECONNREFUSED') {
+      console.warn(`[Bot API Offline] Could not connect to ${endpoint}. Falling back to database.`);
+    } else {
+      console.error(`Fetch failure on ${endpoint}:`, msg);
+    }
     return null;
   }
 }

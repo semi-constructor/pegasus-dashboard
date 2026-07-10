@@ -32,7 +32,7 @@ export async function GET(): Promise<NextResponse> {
 
   const allowCredentials: PublicKeyCredentialDescriptorFuture[] = userAuthenticators.map(
     (cred): PublicKeyCredentialDescriptorFuture => ({
-      id: base64urlToBuffer(cred.credentialID),
+      id: cred.credentialID as any,
       type: "public-key",
       transports: cred.transports
         ? (JSON.parse(cred.transports) as AuthenticatorTransport[])

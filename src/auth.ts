@@ -46,13 +46,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       console.debug("[AUTH DEBUG]", code, metadata);
     },
   },
-  adapter: DrizzleAdapter(db, {
-    usersTable: authUsers as any,
-    accountsTable: accounts as any,
-    sessionsTable: sessions as any,
-    verificationTokensTable: verificationTokens as any,
-    authenticatorsTable: authenticators as any,
-  }),
+  adapter: (() => {
+    const defaultAdapter = DrizzleAdapter(db, {
+      usersTable: authUsers as any,
+      accountsTable: accounts as any,
+      sessionsTable: sessions as any,
+      verificationTokensTable: verificationTokens as any,
+      authenticatorsTable: authenticators as any,
+    });
+    return {
+      ...defaultAdapter,
+      async getUserByEmail(email) {
+        if (!email) return null;
+        if (defaultAdapter.getUserByEmail) {
+          return defaultAdapter.getUserByEmail(email);
+        }
+        return null;
+      }
+    };
+  })(),
   providers: [
     Discord({
       clientId: process.env.DISCORD_CLIENT_ID,
@@ -71,6 +83,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     strategy: "database",
   },
   callbacks: {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "discord" && account.providerAccountId) {
+        try {
+          await db.update(accounts)
+            .set({
+              access_token: account.access_token,
+              expires_at: account.expires_at,
+              refresh_token: account.refresh_token,
+            })
+            .where(
+              and(
+                eq(accounts.provider, account.provider),
+                eq(accounts.providerAccountId, account.providerAccountId)
+              )
+            );
+        } catch (error) {
+          console.error("Error updating access token during signIn:", error);
+        }
+      }
+      return true;
+    },
     async session({ session, user }: { session: Session; user: { id: string } }): Promise<ExtendedSession> {
       const extendedSession = session as ExtendedSession;
 
