@@ -77,6 +77,25 @@ export async function requireGuildAdmin(guildId: string) {
     throw new Error("Unauthorized: You must be logged in");
   }
 
+  // Check if system admin
+  const discordId = (session as any).discordId as string | undefined;
+  let isSystemAdmin = false;
+  if (discordId) {
+    let adminIds: string[] = [];
+    try {
+      if (process.env.ADMIN) {
+        adminIds = JSON.parse(process.env.ADMIN);
+      }
+    } catch {
+      adminIds = [process.env.ADMIN || ""];
+    }
+    isSystemAdmin = adminIds.includes(discordId);
+  }
+
+  if (isSystemAdmin) {
+    return session;
+  }
+
   // @ts-ignore
   const accessToken = session.accessToken as string;
   

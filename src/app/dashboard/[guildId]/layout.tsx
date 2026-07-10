@@ -36,8 +36,8 @@ export default async function GuildDashboardLayout({
 
   const isAuthorized = authorizedGuilds.some((g: any) => g.id === guildId);
 
-  // If user is not logged in (!adminGuilds) or not authorized for this guild, redirect
-  if (!adminGuilds || !isAuthorized) {
+  // If user is not logged in (!adminGuilds) or not authorized for this guild, redirect (unless system admin)
+  if (!isSystemAdmin && (!adminGuilds || !isAuthorized)) {
     redirect('/dashboard');
   }
 
