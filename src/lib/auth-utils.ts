@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { getUserAdminGuilds } from "@/lib/api";
 import { db } from "@/lib/db";
 import { cookies } from "next/headers";
+import crypto from "crypto";
 
 export async function requireGlobalAdmin() {
   const session = await auth();
@@ -10,42 +11,17 @@ export async function requireGlobalAdmin() {
     throw new Error("Unauthorized: You must be logged in");
   }
 
-  let internalUserId = session.user.id as string;
+  const internalUserId = session.user.id as string;
   let discordId: string | null = null;
 
-  const cookieStore = await cookies();
-  const userCookie = cookieStore.get("discord_user")?.value;
-  if (userCookie) {
-    try {
-      discordId = JSON.parse(userCookie).id;
-    } catch (e) {}
-  }
-
-  if (!internalUserId || internalUserId === "undefined") {
-    if (discordId) {
-      const account = await db.query.accounts.findFirst({
-        where: (accounts, { eq, and }) =>
-          and(
-            eq(accounts.providerAccountId, discordId!),
-            eq(accounts.provider, "discord"),
-          ),
-      });
-      if (account) {
-        internalUserId = account.userId;
-      }
-    }
-  } else {
-    if (!discordId) {
-      const account = await db.query.accounts.findFirst({
-        where: (accounts, { eq, and }) =>
-          and(
-            eq(accounts.userId, internalUserId),
-            eq(accounts.provider, "discord"),
-          ),
-      });
-      discordId = account?.providerAccountId || null;
-    }
-  }
+  const account = await db.query.accounts.findFirst({
+    where: (accounts, { eq, and }) =>
+      and(
+        eq(accounts.userId, internalUserId),
+        eq(accounts.provider, "discord"),
+      ),
+  });
+  discordId = account?.providerAccountId || null;
 
   let adminIds: string[] = [];
   try {
@@ -60,8 +36,16 @@ export async function requireGlobalAdmin() {
     throw new Error("Forbidden: You do not have global admin permissions");
   }
 
+  const cookieStore = await cookies();
   const webauthnVerifiedCookie = cookieStore.get("webauthn_verified")?.value;
-  const isWebAuthnVerified = webauthnVerifiedCookie === internalUserId;
+  if (!webauthnVerifiedCookie) {
+    throw new Error("Unauthorized: WebAuthn verification required");
+  }
+  const [cookieUserId, cookieSig] = webauthnVerifiedCookie.split('.');
+  const expectedSignature = crypto.createHmac('sha256', process.env.AUTH_SECRET!)
+    .update(internalUserId)
+    .digest('hex');
+  const isWebAuthnVerified = cookieUserId === internalUserId && cookieSig === expectedSignature;
 
   if (!isWebAuthnVerified) {
     throw new Error("Unauthorized: WebAuthn verification required");

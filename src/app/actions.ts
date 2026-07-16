@@ -1,4 +1,4 @@
-﻿'use server';
+'use server';
 
 import { db } from '@/lib/db';
 import { eq, and } from 'drizzle-orm';
@@ -1157,6 +1157,8 @@ export async function updateGiveaway(guildId: string, giveawayId: string, formDa
   revalidatePath(`/dashboard/${guildId}/giveaways`);
 }
 
+
+
 export async function deleteGiveaway(guildId: string, giveawayId: string, formData?: FormData): Promise<void> {
   try {
     await requireGuildAdmin(guildId);
@@ -1170,6 +1172,7 @@ export async function deleteGiveaway(guildId: string, giveawayId: string, formDa
 
 export async function endGiveaway(guildId: string, giveawayId: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.update(schema.giveaways)
       .set({ status: 'ended', endedAt: new Date(), updatedAt: new Date() })
       .where(and(eq(schema.giveaways.guildId, guildId), eq(schema.giveaways.giveawayId, giveawayId)));
@@ -1182,6 +1185,7 @@ export async function endGiveaway(guildId: string, giveawayId: string, formData?
 
 export async function rerollGiveaway(guildId: string, giveawayId: string, formData?: FormData): Promise<void> {
   try {
+    await requireGuildAdmin(guildId);
     await db.update(schema.giveaways)
       .set({ updatedAt: new Date() })
       .where(and(eq(schema.giveaways.guildId, guildId), eq(schema.giveaways.giveawayId, giveawayId)));

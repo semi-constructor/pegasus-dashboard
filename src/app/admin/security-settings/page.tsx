@@ -14,26 +14,7 @@ export default async function SecuritySettingsPage() {
     return null;
   }
 
-  // Look up the internal database userId using Discord ID from cookie if session.user.id is missing
-  let internalUserId = session.user.id as string;
-  if (!internalUserId || internalUserId === 'undefined') {
-    const cookieStore = await import('next/headers').then(m => m.cookies());
-    const userCookie = cookieStore.get('discord_user')?.value;
-    if (userCookie) {
-      try {
-        const discordId = JSON.parse(userCookie).id;
-        const account = await db.query.accounts.findFirst({
-          where: (accounts, { eq, and }) => and(
-            eq(accounts.providerAccountId, discordId),
-            eq(accounts.provider, 'discord')
-          )
-        });
-        if (account) {
-          internalUserId = account.userId;
-        }
-      } catch(e) {}
-    }
-  }
+  const internalUserId = session.user.id as string;
 
   if (!internalUserId) return null;
 

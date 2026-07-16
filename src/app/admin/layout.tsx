@@ -8,6 +8,7 @@ import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { authenticators } from "../../../schemas/auth";
 import { eq } from "drizzle-orm";
+import crypto from "crypto";
 
 export default async function AdminLayout({
   children,
@@ -21,45 +22,19 @@ export default async function AdminLayout({
     return <AdminLoginPortal state="discord" />;
   }
 
-  // If session.user.id is missing or undefined (due to custom NextAuth callbacks),
-  // we look up the internal database userId using the verified discordId.
-  let internalUserId = session.user.id as string;
+  const internalUserId = session.user.id as string;
   let discordId: string | null = null;
 
   const cookieStore = await import("next/headers").then((m) => m.cookies());
-  const userCookie = cookieStore.get("discord_user")?.value;
-  if (userCookie) {
-    try {
-      discordId = JSON.parse(userCookie).id;
-    } catch (e) {}
-  }
 
-  if (!internalUserId || internalUserId === "undefined") {
-    if (discordId) {
-      const account = await db.query.accounts.findFirst({
-        where: (accounts, { eq, and }) =>
-          and(
-            eq(accounts.providerAccountId, discordId!),
-            eq(accounts.provider, "discord"),
-          ),
-      });
-      if (account) {
-        internalUserId = account.userId;
-      }
-    }
-  } else {
-    // If we have internalUserId, we can fetch discordId if we don't have it
-    if (!discordId) {
-      const account = await db.query.accounts.findFirst({
-        where: (accounts, { eq, and }) =>
-          and(
-            eq(accounts.userId, internalUserId),
-            eq(accounts.provider, "discord"),
-          ),
-      });
-      discordId = account?.providerAccountId || null;
-    }
-  }
+  const account = await db.query.accounts.findFirst({
+    where: (accounts, { eq, and }) =>
+      and(
+        eq(accounts.userId, internalUserId),
+        eq(accounts.provider, "discord"),
+      ),
+  });
+  discordId = account?.providerAccountId || null;
 
   let adminIds: string[] = [];
   try {
@@ -91,7 +66,17 @@ export default async function AdminLayout({
 
   const webauthnVerifiedCookie: string | undefined =
     cookieStore.get("webauthn_verified")?.value;
-  const isWebAuthnVerified: boolean = webauthnVerifiedCookie === internalUserId;
+    
+  let isWebAuthnVerified = false;
+  if (webauthnVerifiedCookie) {
+    const [cookieUserId, cookieSig] = webauthnVerifiedCookie.split('.');
+    if (cookieUserId && cookieSig) {
+      const expectedSignature = crypto.createHmac('sha256', process.env.AUTH_SECRET!)
+        .update(internalUserId)
+        .digest('hex');
+      isWebAuthnVerified = cookieUserId === internalUserId && cookieSig === expectedSignature;
+    }
+  }
 
   if (!isWebAuthnVerified) {
     return <AdminLoginPortal state="verify-passkey" />;

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { db } from '@/lib/db';
 import * as schema from '../../../../schemas/index';
+import { sql } from 'drizzle-orm';
 import { Shield, ArrowRight, Database, CheckCircle2, AlertCircle, Edit, Table as TableIcon, X, Check, Plus, Trash2, Search, ChevronLeft, ChevronRight } from 'lucide-react';
 import SaveButton from '@/components/SaveButton';
 import { updateDatabaseEntry, createDatabaseEntry, deleteDatabaseEntry } from '../actions';
@@ -98,17 +99,26 @@ export default async function AdminDatabasePage({
   const tableColumns = getTableColumns(currentTable);
 
   let rows: any[] = [];
+  let totalCount = 0;
   let fetchError: string | null = null;
 
   if (currentTable && ALL_KNOWN_TABLES.includes(currentTable) && (schema as any)[currentTable]) {
     try {
-      rows = await db.select().from((schema as any)[currentTable]);
+      const tableSchema = (schema as any)[currentTable];
+      const countRes = await db.select({ count: sql<number>`count(*)` }).from(tableSchema);
+      totalCount = Number(countRes[0].count);
+
+      const offset = (currentPage - 1) * pageSize;
+      rows = await db.select()
+        .from(tableSchema)
+        .limit(pageSize)
+        .offset(offset);
     } catch (e: any) {
       fetchError = e.message || 'Failed to fetch table rows';
     }
   }
 
-  // Filter rows based on search query
+  // Filter rows based on search query (in-memory for the current page only as a simple fix)
   const filteredRows = rows.filter(row => {
     if (!searchQuery) return true;
     const query = searchQuery.toLowerCase();
@@ -120,9 +130,9 @@ export default async function AdminDatabasePage({
   });
 
   // Calculate Pagination
-  const totalPages = Math.max(1, Math.ceil(filteredRows.length / pageSize));
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
   const validPage = Math.min(Math.max(1, currentPage), totalPages);
-  const paginatedRows = filteredRows.slice((validPage - 1) * pageSize, validPage * pageSize);
+  const paginatedRows = filteredRows;
 
   // Handle Selected Row for Editing
   let selectedRow: any = null;

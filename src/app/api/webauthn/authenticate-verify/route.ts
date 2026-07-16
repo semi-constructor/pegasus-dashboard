@@ -13,6 +13,7 @@ import { db } from "@/lib/db";
 import { authenticators } from "../../../../../schemas/auth";
 import { eq, and } from "drizzle-orm";
 import { cookies } from "next/headers";
+import crypto from "crypto";
 
 const rpID: string = process.env.NODE_ENV === "development" ? "localhost" : "pegasus.cptcr.uk";
 const expectedOrigin: string =
@@ -75,7 +76,10 @@ export async function POST(req: Request): Promise<NextResponse> {
   cookieStore.delete("webauthn_challenge");
 
   const response: NextResponse = NextResponse.json({ verified: true });
-  response.cookies.set("webauthn_verified", session.user.id, {
+  const signature = crypto.createHmac('sha256', process.env.AUTH_SECRET!)
+    .update(session.user.id)
+    .digest('hex');
+  response.cookies.set("webauthn_verified", `${session.user.id}.${signature}`, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",

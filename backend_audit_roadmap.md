@@ -1,0 +1,358 @@
+# Pegasus Dashboard - Backend Audit & Remediation Roadmap
+
+## 1. Critical Errors/Bugs
+
+### BUG-01: Global Admin Check Bypass via Cookie Forgery
+- **Affected File(s)**: 
+  - `src/lib/auth-utils.ts` (Lines 16-48)
+  - `src/app/admin/layout.tsx` (Lines 29-62)
+  - `src/app/admin/security-settings/actions.ts` (Lines 17-31, 53-67)
+  - `src/app/admin/security-settings/page.tsx` (Lines 21-35)
+- **Priority**: High (Critical)
+- **Description & Impact**:
+  The global admin verification logic checks the client-provided, unencrypted, unsigned cookie `discord_user` to retrieve the `discordId`. An attacker can manipulate this cookie to spoof an administrator's Discord ID (e.g. setting the cookie value to `{"id": "ADMIN_DISCORD_ID"}`). The check then skips the secure database lookup and grants the user full global administrator privileges. This exposes the database console and all administrative actions to any authenticated attacker.
+- **Actionable Fix**:
+  Do not parse or trust the client-provided `discord_user` cookie for authorization. Instead, query the database using the verified `userId` directly from NextAuth's secure session object.
+  ```typescript
+  // Replace the cookie resolution with database query in src/lib/auth-utils.ts:
+  const session = await auth();
+  if (!session || !session.user) {
+    throw new Error("Unauthorized");
+  }
+  
+  const account = await db.query.accounts.findFirst({
+    where: (accounts, { eq, and }) =>
+      and(
+        eq(accounts.userId, session.user.id),
+        eq(accounts.provider, "discord")
+      ),
+  });
+  const discordId = account?.providerAccountId || null;
+  ```
+
+---
+
+### BUG-02: WebAuthn MFA Bypass via Client-Side Cookie Tampering
+- **Affected File(s)**:
+  - `src/lib/auth-utils.ts` (Lines 63-68)
+  - `src/app/admin/layout.tsx` (Lines 92-98)
+  - `src/app/api/webauthn/authenticate-verify/route.ts` (Lines 78-85)
+- **Priority**: High (Critical)
+- **Description & Impact**:
+  After successful WebAuthn verification, the endpoint sets an unsigned cookie named `webauthn_verified` containing the user's internal ID. In subsequent route/layout checks, this cookie value is directly compared against the session's user ID. Because the cookie is not signed or encrypted, an attacker can manually create a cookie `webauthn_verified=<their_user_id>`, satisfying the check and bypassing the MFA requirement completely.
+- **Actionable Fix**:
+  Sign or encrypt the verification cookie using `process.env.AUTH_SECRET` (e.g., using a secure HMAC signature) or store it directly in NextAuth's encrypted JWT/session object.
+  ```typescript
+  // In authenticate-verify/route.ts:
+  import crypto from 'crypto';
+  const signature = crypto.createHmac('sha256', process.env.AUTH_SECRET!)
+    .update(userId)
+    .digest('hex');
+  cookieStore.set("webauthn_verified", `${userId}.${signature}`, { httpOnly: true, secure: true });
+
+  // In auth-utils.ts:
+  const webauthnVerifiedCookie = cookieStore.get("webauthn_verified")?.value;
+  if (!webauthnVerifiedCookie) throw new Error("MFA Required");
+  const [cookieUserId, cookieSig] = webauthnVerifiedCookie.split('.');
+  const expectedSignature = crypto.createHmac('sha256', process.env.AUTH_SECRET!)
+    .update(internalUserId)
+    .digest('hex');
+  const isWebAuthnVerified = cookieUserId === internalUserId && cookieSig === expectedSignature;
+  ```
+
+---
+
+### BUG-03: Missing Authorization Checks on Giveaway Server Actions
+- **Affected File(s)**:
+  - `src/app/actions.ts` (Lines 1171-1181 in `endGiveaway` & Lines 1183-1193 in `rerollGiveaway`)
+- **Priority**: High
+- **Description & Impact**:
+  Server actions `endGiveaway` and `rerollGiveaway` expose public Next.js POST endpoints. Unlike other administration actions, these do not verify permissions. Any authenticated user can trigger these actions with arbitrary parameters to end or reroll active giveaways on any server managed by the bot.
+- **Actionable Fix**:
+  Add the standard authorization check `requireGuildAdmin(guildId)` at the beginning of both functions.
+  ```typescript
+  export async function endGiveaway(guildId: string, giveawayId: string, formData?: FormData): Promise<void> {
+    await requireGuildAdmin(guildId);
+    try {
+      // ... database and API updates
+    } catch (error) {
+      console.error('DB update error endGiveaway:', error);
+    }
+  }
+  ```
+
+---
+
+### BUG-04: Severe Schema vs. Migration / Database Inconsistencies
+- **Affected File(s)**:
+  - Application manual schemas: `schemas/members.ts`, `schemas/economy.ts`, `schemas/xp.ts`, `schemas/giveaways.ts`
+  - Introspected schema: `drizzle/schema.ts`
+  - Migration scripts: `drizzle/0000_bouncy_hedge_knight.sql`, `drizzle/0001_last_old_lace.sql`
+- **Priority**: High
+- **Description & Impact**:
+  There is a critical mismatch between schema definitions in the application layer (which define composite primary keys and foreign key constraints) and the actual database schema generated by the migration scripts (which completely omit these keys and relations). This results in a high risk of data corruption, orphaned records on deletes, and degraded performance as PostgreSQL cannot leverage indexes.
+- **Actionable Fix**:
+  Regenerate the migration scripts from scratch using `npx drizzle-kit generate` to capture the manual schemas correctly, verify primary and foreign keys are generated, and re-run migrations against a clean database instance.
+
+---
+
+### BUG-05: Broken Migration History
+- **Affected File(s)**:
+  - `drizzle/0000_bouncy_hedge_knight.sql`
+- **Priority**: High
+- **Description & Impact**:
+  The initial introspected migration file `0000_bouncy_hedge_knight.sql` is completely commented out inside a `/* ... */` block. Running migrations on a fresh PostgreSQL instance does not create any tables, causing subsequent migrations (e.g. `0001_last_old_lace.sql`) to fail when attempting to alter non-existent tables.
+- **Actionable Fix**:
+  Uncomment the table creation SQL blocks in `0000_bouncy_hedge_knight.sql` or recreate the migration folder from the clean schemas.
+
+---
+
+### BUG-06: Out-of-Memory (OOM) Vulnerability in Admin Database Console
+- **Affected File(s)**:
+  - `src/app/admin/database/page.tsx` (Lines 105-125)
+- **Priority**: High
+- **Description & Impact**:
+  The database administration interface fetches all records of a selected table (`db.select().from(...)`) into Next.js server memory and performs sorting, search, and pagination in-memory. For high-volume tables (e.g. audit logs, economy transactions), this will exhaust server memory and cause container crashes or server hangs.
+- **Actionable Fix**:
+  Implement server-side pagination, searching, and filtering using Drizzle's `.where()`, `.limit()`, and `.offset()` queries.
+  ```typescript
+  // Replace: rows = await db.select().from((schema as any)[currentTable]);
+  // With:
+  const offset = (currentPage - 1) * pageSize;
+  rows = await db.select()
+    .from((schema as any)[currentTable])
+    .limit(pageSize)
+    .offset(offset);
+  ```
+
+---
+
+### BUG-07: Telemetry Endpoint Exposing Bot Statistics Without Authentication
+- **Affected File(s)**:
+  - `src/app/api/admin/stats/route.ts` (GET Handler)
+- **Priority**: Medium
+- **Description & Impact**:
+  The API route `/api/admin/stats` returns system diagnostics (system memory, CPU load, active shard telemetry, bot configurations, versions) to any caller. It lacks NextAuth session checks or global admin checks, exposing system information to anonymous users.
+- **Actionable Fix**:
+  Add session check and global administrator check inside the handler.
+  ```typescript
+  import { auth } from "@/auth";
+  import { requireGlobalAdmin } from "@/lib/auth-utils";
+  
+  export async function GET() {
+    try {
+      const session = await auth();
+      if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      await requireGlobalAdmin();
+      
+      // Fetch telemetry data...
+    }
+  ```
+
+---
+
+### BUG-08: Logical Fallback Bug in Guild Members Retrieval
+- **Affected File(s)**:
+  - `src/lib/api.ts` (Lines 661-662 in `getGuildMembers`)
+- **Priority**: Medium
+- **Description & Impact**:
+  If the Discord API call fails, the fallback mechanism fetches the first 50 users from the database across the entire application without filtering by guild membership: `db.select().from(schema.users).limit(50)`. This displays unrelated members on the dashboard, leaking user data.
+- **Actionable Fix**:
+  Perform an inner join between the `members` and `users` tables, filtering by the target `guildId`.
+  ```typescript
+  const dbUsers = await db.select({
+      id: schema.users.id,
+      username: schema.users.username,
+      discriminator: schema.users.discriminator,
+    })
+    .from(schema.members)
+    .innerJoin(schema.users, eq(schema.members.userId, schema.users.id))
+    .where(eq(schema.members.guildId, guildId))
+    .limit(50);
+  ```
+
+---
+
+### BUG-09: Validation Bypass on Economy Settings (Lack of Zod Enforcement)
+- **Affected File(s)**:
+  - `src/app/actions.ts` (Lines 454-534 in `updateEconomySettings`)
+- **Priority**: Medium
+- **Description & Impact**:
+  The application defines `economySettingsSchema` using Zod, but the `updateEconomySettings` server action extracts values using standard `parseInt()` and default values without validating them. Consequently, invalid inputs (e.g. negative balances, percentages above 100) bypass validation and are updated in the database.
+- **Actionable Fix**:
+  Validate inputs using the defined Zod schema before executing the database write.
+  ```typescript
+  const result = economySettingsSchema.safeParse(Object.fromEntries(formData.entries()));
+  if (!result.success) {
+    throw new Error(`Validation failed: ${result.error.message}`);
+  }
+  const data = result.data;
+  // Use validated 'data' in insert/update operations
+  ```
+
+---
+
+### BUG-10: Database Constraint Violations (NOT NULL with ON DELETE SET NULL)
+- **Affected File(s)**:
+  - `schemas/moderation.ts`: `moderatorId` in `modCases` (L24-26) and `warnings` (L43-45); `createdBy` in `warningAutomations` (L70-72)
+  - `schemas/giveaways.ts`: `hostedBy` in `giveaways` (L21-23)
+  - `schemas/engagement.ts`: `senderId` in `userReputation` (L124-126)
+- **Priority**: Medium
+- **Description & Impact**:
+  Columns are configured as `notNull()` but their foreign key constraints specify `{ onDelete: 'set null' }`. When a referenced user is deleted, PostgreSQL attempts to set these columns to `NULL`, triggering constraint violations and preventing deletions.
+- **Actionable Fix**:
+  Make these audit columns nullable in the schema (by removing `.notNull()`), or change the cascade delete rule (e.g. using `onDelete: 'no action'` or `onDelete: 'cascade'`). Nullability is recommended for preserving moderation logs.
+
+---
+
+### BUG-11: WebAuthn Replay Attack Vulnerability in Challenge Cookie
+- **Affected File(s)**:
+  - `src/app/api/webauthn/register-options/route.ts` (Line 61)
+  - `src/app/api/webauthn/authenticate-options/route.ts` (Line 52)
+- **Priority**: Low
+- **Description & Impact**:
+  The WebAuthn challenge generated by the server is sent to the client and saved in a standard cookie named `webauthn_challenge`. Because cookies are not signed or encrypted, an attacker can modify this cookie to inject a static challenge value, rendering the challenge replayable.
+- **Actionable Fix**:
+  Encrypt or sign the challenge cookie, or store it in the database-backed NextAuth session object.
+
+---
+
+## 2. Missing/Incomplete Features
+
+### FEAT-01: Unused Proxy Helper (Missing Middleware Integration)
+- **Affected File(s)**:
+  - `src/proxy.ts` (Requires creation of `src/middleware.ts`)
+- **Priority**: Medium
+- **Description & Impact**:
+  The helper function `proxy` in `src/proxy.ts` is designed to rewrite headers (`x-forwarded-host`, `x-forwarded-proto`) for reverse proxy compatibility and redirect HTTP to HTTPS. However, because `middleware.ts` is missing in the project, the helper is never executed. This causes OAuth callback redirect mismatches and authentication failures when the app is deployed behind a reverse proxy.
+- **Actionable Fix**:
+  Create a Next.js middleware file `src/middleware.ts` in the project source to execute the proxy helper.
+  ```typescript
+  import { NextRequest } from 'next/server';
+  import { proxy } from './proxy';
+  
+  export function middleware(request: NextRequest) {
+    return proxy(request);
+  }
+  
+  export const config = {
+    matcher: ['/((?!api/|_next/static|_next/image|favicon.ico).*)'],
+  };
+  ```
+
+---
+
+### FEAT-02: Hardcoded Administrator IDs in Audit Logging & Actions
+- **Affected File(s)**:
+  - `src/app/actions.ts` (Line 590, Line 1076)
+  - `src/lib/api.ts` (Line 452)
+- **Priority**: Low
+- **Description & Impact**:
+  The panel actions hardcode the moderator or administrator user ID to a placeholder value `'98765432101234567'` when logging warnings, audit logs, or giveaways. This reduces the usefulness of audit logs since all panel actions are attributed to a single mock ID.
+- **Actionable Fix**:
+  Retrieve the active user's Discord ID from the session and pass it dynamically into the database insert statements.
+
+---
+
+## 3. Architectural Enhancements
+
+### ARCH-01: N+1 Discord API Queries in Guild Retrieval
+- **Affected File(s)**:
+  - `src/lib/api.ts` (Lines 775-806 in `getUserAdminGuilds`)
+- **Priority**: Medium
+- **Description & Impact**:
+  When fetching a user's admin guilds, the code loops over the list of guilds and initiates a separate Discord API request for each guild to fetch details. If an admin manages 30 servers, this triggers 30 concurrent outbound requests, causing performance bottlenecks and rate limit issues.
+- **Actionable Fix**:
+  Introduce a caching layer with a 10-15 minute TTL for guild member counts, retrieve details from database fallbacks, or batch queries.
+
+---
+
+### ARCH-02: Missing Database-Level Indexes on Foreign Keys
+- **Affected File(s)**:
+  - `schemas/moderation.ts`, `schemas/tickets.ts`, `schemas/xp.ts`, `schemas/giveaways.ts`
+- **Priority**: Medium
+- **Description & Impact**:
+  Several tables do not define database-level indexes on foreign key columns that are frequently used in queries (e.g. `guildId`, `userId`, `ticketId`). This causes PostgreSQL to perform full sequential scans as the tables grow.
+- **Actionable Fix**:
+  Define explicit indexes on foreign key columns in each schema file.
+  ```typescript
+  // In schemas/moderation.ts (warnings table):
+  table => ({
+    guildIdx: index('warnings_guild_idx').on(table.guildId),
+    userIdx: index('warnings_user_idx').on(table.userId),
+  })
+  ```
+
+---
+
+### ARCH-03: Aggressive Polling of Telemetry API Without Cache Shared State
+- **Affected File(s)**:
+  - `/api/admin/stats/route.ts`
+  - `src/components/AdminSidebar.tsx` (Line 55)
+  - `src/components/LiveTelemetryDashboard.tsx` (Line 36)
+  - `src/components/AdminTopNav.tsx` (Line 42)
+- **Priority**: Medium
+- **Description & Impact**:
+  Three different components (sidebar, top navbar, telemetry panel) poll `/api/admin/stats` at overlapping intervals (every 1-5 seconds) with `cache: 'no-store'`. This causes excessive requests to the internal Express Bot API, which can lead to degradation and thread blocking.
+- **Actionable Fix**:
+  Implement a shared React Context/Provider to share the telemetry state and poll only once, reduce the polling interval (e.g. to 5 or 10 seconds), and implement cache headers or server-side caching.
+
+---
+
+### ARCH-04: Missing Rate Limit & Cache Handling for Discord API
+- **Affected File(s)**:
+  - `src/lib/api.ts` (Lines 584, 639, 676, 711, 764)
+- **Priority**: Medium
+- **Description & Impact**:
+  Outbound requests to Discord API endpoints (`/channels`, `/members`, `/roles`) are configured with `cache: 'no-store'` and contain no rate limit handling or backoff logic. Under high traffic, this will result in immediate Discord rate limiting (HTTP 429), leading to empty results or mock fallback data.
+- **Actionable Fix**:
+  Implement a server-side caching layer with a short TTL (1-2 minutes) for roles, channels, and member lookups. Add check for `res.status === 429` and implement retry logic that respects the `Retry-After` header.
+
+---
+
+### ARCH-05: Non-Atomic Database Operations & Missing Transactions on API Triggers
+- **Affected File(s)**:
+  - `src/lib/api.ts` (L447 in `executeModerationAction`)
+- **Priority**: Medium
+- **Description & Impact**:
+  Moderation actions call the external Bot API, and then perform multiple database inserts (e.g. guilds, users, cases, audit logs) sequentially without transactions. If a database insert fails, the action has already been performed in Discord, but the database logs will remain incomplete, creating inconsistencies.
+- **Actionable Fix**:
+  Wrap all database inserts/updates in a `db.transaction()` block, and implement retry/rollback handlers for API integration synchronization.
+
+---
+
+### ARCH-06: Inconsistent ID Type Constraints in Economy Tables
+- **Affected File(s)**:
+  - `schemas/economy.ts`
+- **Priority**: Low
+- **Description & Impact**:
+  The economy tables define user and guild IDs as `varchar('user_id', { length: 255 })`, whereas the core user and guild tables define them as `varchar('id', { length: 20 })`. This inconsistency violates the database schema standards and wastes dynamic storage space.
+- **Actionable Fix**:
+  Change the column definitions in `schemas/economy.ts` to `varchar('...', { length: 20 })`.
+
+---
+
+### ARCH-07: Serialization of JSON Arrays as Text Columns
+- **Affected File(s)**:
+  - `schemas/guilds.ts` (Lines 50, 53)
+  - `schemas/xp.ts` (Lines 58-62)
+- **Priority**: Low
+- **Description & Impact**:
+  Configuration list arrays (e.g. `ignoredChannels`, `autoroleRoles`) are defined as `text` columns defaulting to `'[]'`. The application must handle serialization/deserialization manually, and no database-level structure validation is performed.
+- **Actionable Fix**:
+  Convert these text columns to PostgreSQL `jsonb` columns inside the Drizzle schema definitions.
+  ```typescript
+  ignoredChannels: jsonb('ignored_channels').default([]).notNull(),
+  ```
+
+---
+
+### ARCH-08: Duplicate Database Updates on Ticket Close
+- **Affected File(s)**:
+  - `src/app/actions.ts` (Lines 884-893 in `triggerTicketClose`)
+  - `src/lib/api.ts` (Lines 403-413 in `executeTicketAction`)
+- **Priority**: Low
+- **Description & Impact**:
+  Both the Server Action `triggerTicketClose` and the API function `executeTicketAction` perform the exact same Drizzle DB update to mark a ticket status as closed. This duplicates database operations and increases write latency.
+- **Actionable Fix**:
+  Remove the duplicate database update from `triggerTicketClose` and let `api.executeTicketAction` handle the database state change.
