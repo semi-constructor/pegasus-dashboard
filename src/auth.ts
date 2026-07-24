@@ -1,138 +1,60 @@
-import NextAuth from "next-auth"
-import type { Session } from "next-auth"
-import Discord from "next-auth/providers/discord"
-import WebAuthn from "next-auth/providers/webauthn"
-import { DrizzleAdapter } from "@auth/drizzle-adapter"
-import { db } from "@/lib/db"
-import { authUsers, accounts, sessions, verificationTokens, authenticators } from "../schemas/auth"
-import { eq, and } from "drizzle-orm"
+import NextAuth, { DefaultSession } from "next-auth";
+import Discord from "next-auth/providers/discord";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { db } from "./lib/db";
+import { eq, and } from "drizzle-orm";
+import {
+  authUsers,
+  accounts,
+  sessions,
+  verificationTokens,
+  authenticators,
+} from "../schemas";
 
-import { z } from 'zod';
-
-const envSchema = z.object({
-  DISCORD_CLIENT_ID: z.string().min(1, "Missing DISCORD_CLIENT_ID"),
-  DISCORD_CLIENT_SECRET: z.string().min(1, "Missing DISCORD_CLIENT_SECRET"),
-  AUTH_SECRET: z.string().min(1, "Missing AUTH_SECRET"),
-});
-
-// Validate environment early, but don't log secrets
-const envParsed = envSchema.safeParse(process.env);
-if (!envParsed.success) {
-  console.warn("[AUTH WARN] Missing or invalid environment variables for authentication.", envParsed.error.message);
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      discordId: string;
+    } & DefaultSession["user"];
+  }
 }
 
-interface ExtendedSession extends Session {
-  accessToken?: string;
-  provider?: string;
-  discordId?: string;
-}
-
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  secret: process.env.AUTH_SECRET,
-  trustHost: true,
-  debug: true,
-  logger: {
-    error(error: Error): void {
-      console.error("[AUTH FULL ERROR]", error.name, error.message);
-      console.error("[AUTH STACK]", error.stack);
-      if ("cause" in error) {
-        console.error("[AUTH CAUSE]", error.cause);
-      }
-    },
-    warn(code: string): void {
-      console.warn("[AUTH WARN]", code);
-    },
-    debug(code: string, metadata?: unknown): void {
-      console.debug("[AUTH DEBUG]", code, metadata);
-    },
-  },
-  adapter: (() => {
-    const defaultAdapter = DrizzleAdapter(db, {
-      usersTable: authUsers as any,
-      accountsTable: accounts as any,
-      sessionsTable: sessions as any,
-      verificationTokensTable: verificationTokens as any,
-      authenticatorsTable: authenticators as any,
-    });
-    return {
-      ...defaultAdapter,
-      async getUserByEmail(email) {
-        if (!email) return null;
-        if (defaultAdapter.getUserByEmail) {
-          return defaultAdapter.getUserByEmail(email);
-        }
-        return null;
-      }
-    };
-  })(),
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  adapter: DrizzleAdapter(db, {
+    usersTable: authUsers,
+    accountsTable: accounts,
+    sessionsTable: sessions,
+    verificationTokensTable: verificationTokens,
+    authenticatorsTable: authenticators,
+  }),
   providers: [
     Discord({
       clientId: process.env.DISCORD_CLIENT_ID,
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
-      authorization: { params: { scope: "identify guilds" } },
-    }),
-    WebAuthn({
-      relayingParty: {
-        id: process.env.NODE_ENV === "development" ? "localhost" : "pegasus.cptcr.uk",
-        name: "Pegasus Dashboard",
-        origin: process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://pegasus.cptcr.uk",
-      },
+      authorization:
+        "https://discord.com/api/oauth2/authorize?scope=identify+email+guilds",
     }),
   ],
-  session: {
-    strategy: "database",
+  pages: {
+    // We can add custom pages here later if needed
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      if (account?.provider === "discord" && account.providerAccountId) {
-        try {
-          await db.update(accounts)
-            .set({
-              access_token: account.access_token,
-              expires_at: account.expires_at,
-              refresh_token: account.refresh_token,
-            })
-            .where(
-              and(
-                eq(accounts.provider, account.provider),
-                eq(accounts.providerAccountId, account.providerAccountId)
-              )
-            );
-        } catch (error) {
-          console.error("Error updating access token during signIn:", error);
-        }
-      }
-      return true;
-    },
-    async session({ session, user }: { session: Session; user: { id: string } }): Promise<ExtendedSession> {
-      const extendedSession = session as ExtendedSession;
-
+    session: async ({ session, user }) => {
       if (session.user) {
         session.user.id = user.id;
+        
+        const [account] = await db
+          .select({ providerAccountId: accounts.providerAccountId })
+          .from(accounts)
+          .where(and(eq(accounts.userId, user.id), eq(accounts.provider, 'discord')))
+          .limit(1);
+          
+        if (account) {
+          session.user.discordId = account.providerAccountId;
+        }
       }
-
-      // Database sessions don't carry account info by default,
-      // so pull the linked Discord account manually
-      const [discordAccount] = await db
-        .select({
-          access_token: accounts.access_token,
-          provider: accounts.provider,
-          providerAccountId: accounts.providerAccountId,
-        })
-        .from(accounts)
-        .where(and(eq(accounts.userId, user.id), eq(accounts.provider, "discord")))
-        .limit(1);
-
-      if (discordAccount) {
-        extendedSession.accessToken = discordAccount.access_token ?? undefined;
-        extendedSession.provider = discordAccount.provider;
-        extendedSession.discordId = discordAccount.providerAccountId;
-      }
-
-      return extendedSession;
+      return session;
     },
   },
-  experimental: {
-    enableWebAuthn: true,
-  },
-})
+});

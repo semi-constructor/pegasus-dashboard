@@ -1,26 +1,25 @@
 # Pegasus Dashboard
 https://pegasus.cptcr.uk
-![Pegasus Dashboard](public/pegasus-icon.png)
 
 **Pegasus Dashboard** is the powerful, modern web dashboard designed for managing and monitoring the **Pegasus Discord Bot**. Built with Next.js, TypeScript, TailwindCSS, and Drizzle ORM, the dashboard seamlessly integrates with Pegasus's built-in Express REST API to provide real-time guild analytics, system diagnostics, and direct module management.
 
 ---
 
-## ✨ Key Features
+## [Features] Key Features
 
-- **📊 Real-Time Monitoring & Analytics**: Track live guild analytics, database query profiling, cache metrics, and hardware health directly from the bot's Express API server.
-- **⚙️ Dynamic Module Management**: Configure and toggle core bot modules on the fly, including:
+- **[Analytics] Real-Time Monitoring & Analytics**: Track live guild analytics, database query profiling, cache metrics, and hardware health directly from the bot's Express API server.
+- **[Management] Dynamic Module Management**: Configure and toggle core bot modules on the fly, including:
   - **Join to Create (J2C)**: Manage dynamic voice channels, lock/unlock status, and user limits.
   - **AutoMod V2 & Moderation**: Set up keyword/regex filtering, spam thresholds, quarantine vaults, and warning automations.
   - **Economy & Marketplace**: Manage custom server item shops, currency settings, and inventory items.
   - **Tickets Support Panels**: Configure multi-department ticketing panels, claim/freeze/lock actions, and routing.
   - **XP & Engagement**: Track leveling progression, configure visual rank cards, manage role rewards, and view leaderboards.
   - **Giveaways**: Host and manage giveaways with custom entry requirements and bonus multipliers.
-- **🔐 Secure Authentication**: Integrated with Discord OAuth2 via NextAuth. Assign developer admin access to specific user IDs for complete control over database records and server configurations.
+- **[Security] Secure Authentication**: Integrated with Discord OAuth2 via NextAuth. Assign developer admin access to specific user IDs for complete control over database records and server configurations.
 
 ---
 
-## 🚀 Tech Stack & Infrastructure
+## [Architecture] Tech Stack & Infrastructure
 
 The Pegasus Dashboard is engineered for performance, type safety, and scalability using modern web standards:
 
@@ -35,18 +34,18 @@ For a full deep-dive into the underlying infrastructure and technologies, check 
 
 ---
 
-## 📖 Complete Documentation
+## [Reference] Complete Documentation
 
 Pegasus maintains comprehensive internal documentation covering every aspect of the ecosystem:
 
-- 📄 **[Tech & Infrastructure Guide (TECH.md)](TECH.md)**: Detailed overview of our cloud infrastructure, database architecture, and technology choices.
-- 🤖 **[Bot Systems Architecture (BOT.md)](BOT.md)**: High-level architectural overview of the core features, automation systems, and module capabilities built into the Pegasus Discord Bot.
-- 🔌 **[REST API Specification (API_DOC.md)](API_DOC.md)**: Exhaustive documentation of all HTTP REST endpoints, request/response schemas, rate limits, caching policies, and error handling.
-- slash **[Commands Documentation (COMMANDS_DOC.md)](COMMANDS_DOC.md)**: Complete reference guide to all slash commands, subcommands, and parameter options available in the bot.
+- **[Guide]** **[Tech & Infrastructure Guide (TECH.md)](TECH.md)**: Detailed overview of our cloud infrastructure, database architecture, and technology choices.
+- **[Architecture]** **[Bot Systems Architecture (BOT.md)](BOT.md)**: High-level architectural overview of the core features, automation systems, and module capabilities built into the Pegasus Discord Bot.
+- **[API]** **[REST API Specification (API_DOC.md)](API_DOC.md)**: Exhaustive documentation of all HTTP REST endpoints, request/response schemas, rate limits, caching policies, and error handling.
+- **[Commands]** **[Commands Documentation (COMMANDS_DOC.md)](COMMANDS_DOC.md)**: Complete reference guide to all slash commands, subcommands, and parameter options available in the bot.
 
 ---
 
-## 🛠️ Getting Started
+## [Quickstart] Getting Started
 
 ### Prerequisites
 
@@ -118,6 +117,6 @@ npm run prod
 
 ---
 
-## 🛡️ License & Contributing
+## [Info] License & Contributing
 
 Contributions, feature requests, and bug reports are welcome! Feel free to check out the issues page or submit a pull request.

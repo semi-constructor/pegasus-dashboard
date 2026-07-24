@@ -1,94 +1,61 @@
-import { ChangelogClient } from '@/components/changelog/ChangelogClient';
+import { Box } from "lucide-react";
+import { MarketingLayout } from "@/components/MarketingLayout";
+import ChangelogClient from "./ChangelogClient";
 
-interface GitHubCommit {
-  sha: string;
-  commit: {
-    message: string;
-    author: {
-      name: string;
-      date: string;
-    };
-  };
-  html_url: string;
-  author?: {
-    avatar_url: string;
-    login: string;
-  };
-}
+export const metadata = {
+  title: "Changelog - Pegasus Bot",
+  description: "New updates, fixes, and improvements to Pegasus ecosystem.",
+};
 
-// In-memory cache to prevent rate-limits during dev reloads
-let cachedCommits: any[] | null = null;
-let lastFetchTime = 0;
-const CACHE_TTL = 1000 * 60 * 5; // 5 minutes explicit memory cache
-
-async function getCommits() {
-  const now = Date.now();
-  if (cachedCommits && (now - lastFetchTime < CACHE_TTL)) {
-    return cachedCommits;
-  }
-
-  const fetchOpts = { next: { revalidate: 3600 } };
-  
-  try {
-    const [botRes, dashRes] = await Promise.all([
-      fetch('https://api.github.com/repos/semi-constructor/pegasus/commits?per_page=20', fetchOpts),
-      fetch('https://api.github.com/repos/semi-constructor/pegasus-dashboard/commits?per_page=20', fetchOpts)
-    ]);
-
-    const botCommits: GitHubCommit[] = botRes.ok ? await botRes.json() : [];
-    const dashCommits: GitHubCommit[] = dashRes.ok ? await dashRes.json() : [];
-
-    if (!Array.isArray(botCommits) || !Array.isArray(dashCommits)) {
-      throw new Error("Rate limited or invalid response");
+async function getChangelog() {
+  const fetchCommits = async (repo: string) => {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}/commits?per_page=15`, {
+        next: { revalidate: 3600 }
+      });
+      if (!res.ok) return [];
+      const data = await res.json();
+      return data.map((commit: any) => ({
+        id: commit.sha,
+        type: 'commit',
+        repo: repo,
+        date: new Date(commit.commit.author.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        timestamp: new Date(commit.commit.author.date).getTime(),
+        title: commit.commit.message.split('\n')[0],
+        hash: commit.sha.substring(0, 7),
+        url: commit.html_url,
+        labels: ['update']
+      }));
+    } catch {
+      return [];
     }
+  };
 
-    const formattedBot = botCommits.map((c) => {
-      const parts = c.commit.message.split('\n');
-      return {
-        id: c.sha,
-        repo: 'Pegasus Core',
-        message: parts[0],
-        fullMessage: parts.length > 1 ? parts.slice(1).join('\n').trim() : '',
-        date: c.commit.author.date,
-        url: c.html_url,
-        authorName: c.commit.author.name,
-        authorAvatar: c.author?.avatar_url
-      };
-    });
+  const [pegasusCommits, dashboardCommits] = await Promise.all([
+    fetchCommits('semi-constructor/pegasus'),
+    fetchCommits('semi-constructor/pegasus-dashboard')
+  ]);
 
-    const formattedDash = dashCommits.map((c) => {
-      const parts = c.commit.message.split('\n');
-      return {
-        id: c.sha,
-        repo: 'Dashboard',
-        message: parts[0],
-        fullMessage: parts.length > 1 ? parts.slice(1).join('\n').trim() : '',
-        date: c.commit.author.date,
-        url: c.html_url,
-        authorName: c.commit.author.name,
-        authorAvatar: c.author?.avatar_url
-      };
-    });
-
-    const allCommits = [...formattedBot, ...formattedDash].sort((a, b) => 
-      new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
-
-    // Update Cache
-    if (allCommits.length > 0) {
-      cachedCommits = allCommits;
-      lastFetchTime = now;
-    }
-
-    return allCommits;
-  } catch (error) {
-    console.error("Failed to fetch changelog:", error);
-    // Return stale cache if available when failing
-    return cachedCommits || [];
-  }
+  return [...pegasusCommits, ...dashboardCommits].sort((a, b) => b.timestamp - a.timestamp);
 }
 
 export default async function ChangelogPage() {
-  const commits = await getCommits();
-  return <ChangelogClient commits={commits} />;
+  const changelogItems = await getChangelog();
+
+  return (
+    <MarketingLayout>
+      <div className="max-w-4xl mx-auto px-8 py-32 space-y-12">
+        <div className="text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+            <Box className="w-4 h-4" />
+            Product Updates
+          </div>
+          <h1 className="text-5xl font-bold tracking-tight text-foreground">Changelog</h1>
+          <p className="text-xl text-muted-foreground">New updates, fixes, and improvements to Pegasus.</p>
+        </div>
+
+        <ChangelogClient items={changelogItems} />
+      </div>
+    </MarketingLayout>
+  );
 }
