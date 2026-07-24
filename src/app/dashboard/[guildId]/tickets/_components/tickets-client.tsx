@@ -1,23 +1,27 @@
 "use client";
 
-import { useState, useTransition } from"react";
+import { useState, useTransition } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import {
- Ticket,
- Plus,
- Trash2,
- Layers,
- MessageSquare,
- Star,
- CheckCircle,
- Lock,
- Snowflake,
- UserCheck,
-} from"lucide-react";
-import { Input } from"@/components/ui/input";
-import { Textarea } from"@/components/ui/textarea";
-import { Button } from"@/components/ui/button";
-import { FormSection } from"@/components/dashboard/forms/FormSection";
-import { ToggleField } from"@/components/dashboard/forms/ToggleField";
+  Ticket,
+  Plus,
+  Trash2,
+  Layers,
+  MessageSquare,
+  Star,
+  CheckCircle,
+  Lock,
+  Snowflake,
+  UserCheck,
+  Save,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { FormSection } from "@/components/dashboard/forms/FormSection";
+import { ToggleField } from "@/components/dashboard/forms/ToggleField";
 import {
  DiscordChannelPicker,
  type ChannelOption,
@@ -29,8 +33,10 @@ import {
 import {
  createTicketPanel,
  deleteTicketPanel,
+ updateTicketPanel,
  createTicketDepartment,
  deleteTicketDepartment,
+ updateTicketDepartment,
  updateTicketStatus,
 } from"../actions";
 
@@ -122,140 +128,205 @@ export default function TicketsClient({
  );
  };
 
- // Actions
- const handleCreatePanel = () => {
- if (!newPanel.panelId || !newPanel.title) return;
- startTransition(async () => {
- await createTicketPanel(guildId, newPanel);
- setNewPanel({
- panelId:"",
- title:"",
- description:"",
- buttonLabel:"Create Ticket",
- buttonStyle: 1,
- supportRoles: [],
- categoryId: null,
- ticketNameFormat:"ticket-{number}",
- maxTicketsPerUser: 1,
- welcomeMessage:"",
- isActive: true,
- });
- });
- };
+  const [editingPanelId, setEditingPanelId] = useState<string | null>(null);
+  const [editingDeptId, setEditingDeptId] = useState<string | null>(null);
 
- const handleCreateDept = () => {
- if (!newDept.panelId || !newDept.departmentId || !newDept.name) return;
- startTransition(async () => {
- await createTicketDepartment(guildId, {
- ...newDept,
- modalFields,
- });
- setNewDept({
- panelId:"",
- departmentId:"",
- name:"",
- description:"",
- emoji:"🎫",
- categoryId: null,
- supportRoles: [],
- welcomeMessage:"",
- slaTimeoutMinutes: 60,
- });
- });
- };
+  const [isPanelDialogOpen, setIsPanelDialogOpen] = useState(false);
+  const [isDeptDialogOpen, setIsDeptDialogOpen] = useState(false);
 
- return (
- <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500 pb-32">
- <div className="flex items-center justify-between border-b border-border pb-4">
- <div>
- <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
- <Ticket className="w-10 h-10 text-primary"/>Tickets Workflows</h1>
- <p className="text-muted-foreground mt-2 text-sm">
- Support panels, multi-department modal field builders, and live ticket management.
- </p>
- </div>
- </div>
+  // Actions
+  const handleSavePanel = () => {
+    if (!newPanel.panelId || !newPanel.title) return;
+    startTransition(async () => {
+      if (editingPanelId) {
+        await updateTicketPanel(guildId, editingPanelId, newPanel);
+      } else {
+        await createTicketPanel(guildId, newPanel);
+      }
+      setEditingPanelId(null);
+      setIsPanelDialogOpen(false);
+      setNewPanel({
+        panelId: "",
+        title: "",
+        description: "",
+        buttonLabel: "Create Ticket",
+        buttonStyle: 1,
+        supportRoles: [],
+        categoryId: null,
+        ticketNameFormat: "ticket-{number}",
+        maxTicketsPerUser: 1,
+        welcomeMessage: "",
+        isActive: true,
+      });
+    });
+  };
 
- {/* Navigation Tabs */}
- <div className="flex flex-wrap gap-2 border-b border-border/50 pb-2">
- {[
- { id:"panels", label:"Ticket Panels", icon: Layers },
- { id:"departments", label:"Departments & Form Builder", icon: Plus },
- { id:"board", label:"Live Ticket Board", icon: Ticket },
- { id:"ratings", label:"Staff Ratings", icon: Star },
- ].map((tab) => (
- <Button
- key={tab.id}
- variant={activeTab === tab.id ?"default":"ghost"}
- onClick={() => setActiveTab(tab.id as any)}
- className="rounded-md border border-border font-medium text-xs"
- >
- <tab.icon className="w-4 h-4 mr-2"/>
- {tab.label}
- </Button>
- ))}
- </div>
+  const handleSaveDept = () => {
+    if (!newDept.panelId || !newDept.departmentId || !newDept.name) return;
+    startTransition(async () => {
+      if (editingDeptId) {
+        await updateTicketDepartment(guildId, editingDeptId, { ...newDept, modalFields });
+      } else {
+        await createTicketDepartment(guildId, { ...newDept, modalFields });
+      }
+      setEditingDeptId(null);
+      setIsDeptDialogOpen(false);
+      setNewDept({
+        panelId: "",
+        departmentId: "",
+        name: "",
+        description: "",
+        emoji: "🎫",
+        categoryId: null,
+        supportRoles: [],
+        welcomeMessage: "",
+        slaTimeoutMinutes: 60,
+      });
+      setModalFields([
+        { id: "1", type: "short", label: "Subject", placeholder: "Brief summary...", required: true },
+        { id: "2", type: "paragraph", label: "Issue Details", placeholder: "Explain your issue...", required: true },
+      ]);
+    });
+  };
+
+  const tabs = [
+    { id: "panels", label: "Ticket Panels", icon: Layers },
+    { id: "departments", label: "Departments", icon: Plus },
+    { id: "board", label: "Live Ticket Board", icon: Ticket },
+    { id: "ratings", label: "Staff Ratings", icon: Star },
+  ];
+
+  return (
+    <div className="text-white p-6 lg:p-10 max-w-[1400px] mx-auto animate-in fade-in duration-500">
+      <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8">
+        <div>
+          <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/60 tracking-tight flex items-center gap-4">
+            <div className="p-3 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+              <Ticket className="w-8 h-8 text-white" />
+            </div>
+            Tickets Workflows
+          </h1>
+          <p className="text-white/40 mt-3 text-sm font-medium tracking-wide">
+            Support panels, multi-department form builders, and live ticket management.
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-2xl shadow-2xl relative overflow-hidden min-h-[600px] flex flex-col backdrop-blur-md">
+        {/* Browser-style Tabs Header */}
+        <div className="flex overflow-x-auto items-end bg-black/40 pt-4 px-4 border-b border-white/10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={cn(
+                "group relative flex items-center gap-2 px-6 py-3 transition-all duration-300 font-bold text-sm tracking-wide rounded-t-xl border-t border-x -mb-[1px]",
+                activeTab === tab.id
+                  ? "bg-white/10 border-white/10 text-white z-10 backdrop-blur-xl"
+                  : "bg-transparent border-transparent text-white/40 hover:bg-white/5 hover:text-white/80 hover:border-white/5 z-0"
+              )}
+            >
+              <tab.icon className={cn("w-4 h-4 transition-colors", activeTab === tab.id ? "text-white" : "text-white/40 group-hover:text-white/60")} />
+              {tab.label}
+              {activeTab === tab.id && (
+                <div className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-[#0c0c0c]" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Main Content Area */}
+        <div className="p-6 md:p-10 relative flex-1">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="relative z-10"
+            >
 
  {/* Tab 1: Panels */}
  {activeTab ==="panels"&& (
  <div className="space-y-6">
- <FormSection title="Create Ticket Panel"icon={Layers} description="Construct interactive support embeds.">
+    <Dialog open={isPanelDialogOpen} onOpenChange={(open) => {
+      setIsPanelDialogOpen(open);
+      if (!open) {
+        setEditingPanelId(null);
+        setNewPanel({
+          panelId: "", title: "", description: "", buttonLabel: "Create Ticket",
+          buttonStyle: 1, supportRoles: [], categoryId: null, ticketNameFormat: "ticket-{number}",
+          maxTicketsPerUser: 1, welcomeMessage: "", isActive: true
+        });
+      }
+    }}>
+      <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[600px]">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+            <Layers className="w-5 h-5 text-primary" />
+            {editingPanelId ? "Edit Ticket Panel" : "Create Ticket Panel"}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto">
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Panel Custom ID</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Panel Custom ID</label>
  <Input
  placeholder="support-main"
  value={newPanel.panelId}
  onChange={(e) => setNewPanel({ ...newPanel, panelId: e.target.value })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  />
  </div>
 
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Panel Embed Title</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Panel Embed Title</label>
  <Input
  placeholder="Need Support? Open a Ticket!"
  value={newPanel.title}
  onChange={(e) => setNewPanel({ ...newPanel, title: e.target.value })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  />
  </div>
 
  <div className="space-y-1 md:col-span-2">
- <label className="text-xs font-bold uppercase">Embed Description</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Embed Description</label>
  <Textarea
  placeholder="Click the button below to get assistance from our staff team."
  value={newPanel.description}
  onChange={(e) => setNewPanel({ ...newPanel, description: e.target.value })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  rows={2}
  />
  </div>
 
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Button Label</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Button Label</label>
  <Input
  placeholder="Open Ticket"
  value={newPanel.buttonLabel}
  onChange={(e) => setNewPanel({ ...newPanel, buttonLabel: e.target.value })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  />
  </div>
 
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Max Tickets Per User</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Max Tickets Per User</label>
  <Input
  type="number"
  min={1}
  max={5}
  value={newPanel.maxTicketsPerUser}
  onChange={(e) => setNewPanel({ ...newPanel, maxTicketsPerUser: Number(e.target.value) })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  />
  </div>
 
  <div className="space-y-1 md:col-span-2">
- <label className="text-xs font-bold uppercase">Default Support Roles</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Default Support Roles</label>
  <DiscordRoleMultiPicker
  roles={roles}
  value={newPanel.supportRoles}
@@ -263,68 +334,139 @@ export default function TicketsClient({
  />
  </div>
  </div>
+        </div>
+        <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
+          <Button variant="ghost" onClick={() => setIsPanelDialogOpen(false)} className="text-white/50 hover:text-white">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSavePanel}
+            disabled={isPending}
+            className="bg-white/10 hover:bg-white/20 text-white border-0"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            {editingPanelId ? "Save Changes" : "Create Panel"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
 
- <Button
- onClick={handleCreatePanel}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
- >
- <Plus className="w-4 h-4 mr-2"/>Create Panel</Button>
- </FormSection>
+    <FormSection
+      title="Active Ticket Panels"
+      icon={Layers}
+      description="Panels registered in database."
+      headerAction={
+        <Button
+          onClick={() => {
+            setEditingPanelId(null);
+            setNewPanel({
+              panelId: "", title: "", description: "", buttonLabel: "Create Ticket",
+              buttonStyle: 1, supportRoles: [], categoryId: null, ticketNameFormat: "ticket-{number}",
+              maxTicketsPerUser: 1, welcomeMessage: "", isActive: true
+            });
+            setIsPanelDialogOpen(true);
+          }}
+          className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+        >
+          <Plus className="w-4 h-4 mr-2" />Add Panel
+        </Button>
+      }
+    >
+            <div className="space-y-3">
+              {initialPanels.length === 0 ? (
+                <p className="text-white/40 text-sm uppercase p-4 border border-white/10 bg-white/5 rounded-xl">
+                  No ticket panels configured.
+                </p>
+              ) : (
+                initialPanels.map((p) => (
+                  <div
+                    key={p.id}
+                    className="p-4 rounded-xl bg-black/20 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-bold text-primary">[{p.panelId}]</span>
+                        <span className="font-bold uppercase">{p.title}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1 text-white/50">
+                        Button: &quot;{p.buttonLabel}&quot; | Max/User: {p.maxTicketsPerUser} | Format: {p.ticketNameFormat}
+                      </p>
+                    </div>
 
- <FormSection title="Active Ticket Panels"icon={Layers} description="Panels registered in database.">
- <div className="space-y-3">
- {initialPanels.length === 0 ? (
- <p className="text-muted-foreground text-sm uppercase p-4 border border-border">
- No ticket panels configured.
- </p>
- ) : (
- initialPanels.map((p) => (
- <div
- key={p.id}
- className="p-4 border border-border bg-card flex justify-between items-center shadow-sm"
- >
- <div>
- <div className="flex items-center gap-2">
- <span className="font-bold text-primary">[{p.panelId}]</span>
- <span className="font-bold uppercase">{p.title}</span>
- </div>
- <p className="text-xs text-muted-foreground mt-1">
- Button: &quot;{p.buttonLabel}&quot; | Max/User: {p.maxTicketsPerUser} | Format: {p.ticketNameFormat}
- </p>
- </div>
-
- <Button
- size="sm"
- variant="destructive"
- onClick={() => startTransition(async () => { await deleteTicketPanel(guildId, p.id); })}
- className="rounded-md border border-destructive text-xs uppercase"
- >
- <Trash2 className="w-3.5 h-3.5"/>
- </Button>
- </div>
- ))
- )}
- </div>
- </FormSection>
- </div>
- )}
+                    <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            setEditingPanelId(p.id);
+                            setNewPanel({
+                              panelId: p.panelId,
+                              title: p.title,
+                              description: p.description,
+                              buttonLabel: p.buttonLabel,
+                              buttonStyle: p.buttonStyle,
+                              supportRoles: p.supportRoles,
+                              categoryId: p.categoryId,
+                              ticketNameFormat: p.ticketNameFormat,
+                              maxTicketsPerUser: p.maxTicketsPerUser,
+                              welcomeMessage: p.welcomeMessage || "",
+                              isActive: p.isActive,
+                            });
+                            setIsPanelDialogOpen(true);
+                          }}
+                          className="rounded-md border border-white/20 bg-transparent text-white hover:bg-white/10 text-xs uppercase"
+                        >
+                          Edit
+                        </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => startTransition(async () => { await deleteTicketPanel(guildId, p.id); })}
+                        className="rounded-md border border-destructive text-xs uppercase"
+                      >
+                        <Trash2 className="w-3.5 h-3.5"/>
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </FormSection>
+        </div>
+      )}
 
  {/* Tab 2: Departments & Modal Field Builder */}
  {activeTab ==="departments"&& (
  <div className="space-y-6">
- <FormSection
- title="Create Ticket Department"
- icon={Plus}
- description="Add specialized departments to panels with custom modal questions."
- >
+    <Dialog open={isDeptDialogOpen} onOpenChange={(open) => {
+      setIsDeptDialogOpen(open);
+      if (!open) {
+        setEditingDeptId(null);
+        setNewDept({
+          panelId: "", departmentId: "", name: "", description: "", emoji: "🎫",
+          categoryId: null, supportRoles: [], welcomeMessage: "", slaTimeoutMinutes: 60
+        });
+        setModalFields([
+          { id: "1", type: "short", label: "Subject", placeholder: "Brief summary...", required: true },
+          { id: "2", type: "paragraph", label: "Issue Details", placeholder: "Explain your issue...", required: true },
+        ]);
+      }
+    }}>
+      <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[700px]">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+            <Plus className="w-5 h-5 text-primary" />
+            {editingDeptId ? "Edit Ticket Department" : "Create Ticket Department"}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Target Panel ID</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Target Panel ID</label>
  <select
  value={newDept.panelId}
  onChange={(e) => setNewDept({ ...newDept, panelId: e.target.value })}
- className="w-full p-2 bg-background border border-border rounded-md text-sm uppercase"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm text-white uppercase [&>option]:bg-neutral-900"
  >
  <option value="">Select Panel...</option>
  {initialPanels.map((p) => (
@@ -336,37 +478,37 @@ export default function TicketsClient({
  </div>
 
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Department ID</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Department ID</label>
  <Input
  placeholder="billing-dept"
  value={newDept.departmentId}
  onChange={(e) => setNewDept({ ...newDept, departmentId: e.target.value })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  />
  </div>
 
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Department Name</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Department Name</label>
  <Input
  placeholder="Billing & Payments"
  value={newDept.name}
  onChange={(e) => setNewDept({ ...newDept, name: e.target.value })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  />
  </div>
 
  <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Emoji</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Emoji</label>
  <Input
  placeholder="💳"
  value={newDept.emoji}
  onChange={(e) => setNewDept({ ...newDept, emoji: e.target.value })}
- className="rounded-md border border-border"
+ className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
  />
  </div>
 
  <div className="space-y-1 md:col-span-2">
- <label className="text-xs font-bold uppercase">Department Support Roles</label>
+ <label className="text-xs font-bold text-white/70 uppercase">Department Support Roles</label>
  <DiscordRoleMultiPicker
  roles={roles}
  value={newDept.supportRoles}
@@ -443,69 +585,125 @@ export default function TicketsClient({
  ))}
  </div>
  </div>
+        </div>
+        <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
+          <Button variant="ghost" onClick={() => setIsDeptDialogOpen(false)} className="text-white/50 hover:text-white">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSaveDept}
+            disabled={isPending}
+            className="bg-white/10 hover:bg-white/20 text-white border-0"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            {editingDeptId ? "Save Changes" : "Create Department"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
 
- <Button
- onClick={handleCreateDept}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
- >
- <Plus className="w-4 h-4 mr-2"/>Create Department</Button>
- </FormSection>
+    <FormSection
+      title="Active Departments"
+      icon={Layers}
+      description="Configured departments with modal fields."
+      headerAction={
+        <Button
+          onClick={() => {
+            setEditingDeptId(null);
+            setNewDept({
+              panelId: "", departmentId: "", name: "", description: "", emoji: "🎫",
+              categoryId: null, supportRoles: [], welcomeMessage: "", slaTimeoutMinutes: 60
+            });
+            setModalFields([
+              { id: "1", type: "short", label: "Subject", placeholder: "Brief summary...", required: true },
+              { id: "2", type: "paragraph", label: "Issue Details", placeholder: "Explain your issue...", required: true },
+            ]);
+            setIsDeptDialogOpen(true);
+          }}
+          className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+        >
+          <Plus className="w-4 h-4 mr-2" />Add Department
+        </Button>
+      }
+    >
+            <div className="space-y-3">
+              {initialDepartments.length === 0 ? (
+                <p className="text-white/40 text-sm uppercase p-4 border border-white/10 bg-white/5 rounded-xl">
+                  No ticket departments created.
+                </p>
+              ) : (
+                initialDepartments.map((d) => (
+                  <div
+                    key={d.id}
+                    className="p-4 rounded-xl bg-black/20 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span>{d.emoji}</span>
+                        <span className="font-bold uppercase text-primary">{d.name}</span>
+                        <span className="text-xs border px-1 border-primary">
+                          [{d.departmentId}]
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1 text-white/50">
+                        Modal Fields: {JSON.stringify(d.modalFields)} | SLA: {d.slaTimeoutMinutes}m
+                      </p>
+                    </div>
 
- <FormSection title="Active Departments"icon={Layers} description="Configured departments with modal fields.">
- <div className="space-y-3">
- {initialDepartments.length === 0 ? (
- <p className="text-muted-foreground text-sm uppercase p-4 border border-border">
- No ticket departments created.
- </p>
- ) : (
- initialDepartments.map((d) => (
- <div
- key={d.id}
- className="p-4 border border-border bg-card flex justify-between items-center shadow-sm"
- >
- <div>
- <div className="flex items-center gap-2">
- <span>{d.emoji}</span>
- <span className="font-bold uppercase text-primary">{d.name}</span>
- <span className="text-xs border px-1 border-primary">
- [{d.departmentId}]
- </span>
- </div>
- <p className="text-xs text-muted-foreground mt-1">
- Modal Fields: {JSON.stringify(d.modalFields)} | SLA: {d.slaTimeoutMinutes}m
- </p>
- </div>
-
- <Button
- size="sm"
- variant="destructive"
- onClick={() => startTransition(async () => { await deleteTicketDepartment(guildId, d.id); })}
- className="rounded-md border border-destructive text-xs uppercase"
- >
- <Trash2 className="w-3.5 h-3.5"/>
- </Button>
- </div>
- ))
- )}
- </div>
- </FormSection>
- </div>
- )}
+                    <div className="flex items-center gap-2">
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        onClick={() => {
+                          setEditingDeptId(d.id);
+                          setNewDept({
+                            panelId: d.panelId,
+                            departmentId: d.departmentId,
+                            name: d.name,
+                            description: d.description,
+                            emoji: d.emoji || "🎫",
+                            categoryId: d.categoryId,
+                            supportRoles: d.supportRoles,
+                            welcomeMessage: d.welcomeMessage || "",
+                            slaTimeoutMinutes: d.slaTimeoutMinutes,
+                          });
+                          setModalFields(d.modalFields || []);
+                          setIsDeptDialogOpen(true);
+                        }}
+                        className="rounded-md border border-white/20 bg-transparent text-white hover:bg-white/10 text-xs uppercase"
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => startTransition(async () => { await deleteTicketDepartment(guildId, d.id); })}
+                        className="rounded-md border border-destructive text-xs uppercase"
+                      >
+                        <Trash2 className="w-3.5 h-3.5"/>
+                      </Button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </FormSection>
+        </div>
+      )}
 
  {/* Tab 3: Live Ticket Board */}
  {activeTab ==="board"&& (
  <FormSection title="Live Ticket Board"icon={Ticket} description="Active and historical user support tickets.">
  <div className="space-y-3">
  {initialTickets.length === 0 ? (
- <p className="text-muted-foreground text-sm uppercase p-4 border border-border">
+ <p className="text-white/40 text-sm uppercase p-4 border border-white/10 bg-white/5 rounded-xl">
  No tickets found in database.
  </p>
  ) : (
  initialTickets.map((t) => (
  <div
  key={t.id}
- className="p-4 border border-border bg-card flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm"
+ className="p-4 rounded-xl bg-black/20 border border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm"
  >
  <div>
  <div className="flex items-center gap-2">
@@ -623,6 +821,10 @@ export default function TicketsClient({
  </div>
  </FormSection>
  )}
- </div>
- );
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
 }

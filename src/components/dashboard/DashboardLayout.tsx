@@ -23,6 +23,8 @@ import {
  Mic,
  Coins,
  Ticket,
+ Terminal,
+ AlertTriangle,
 } from"lucide-react"
 import { signOut } from"next-auth/react"
 
@@ -43,15 +45,13 @@ export function DashboardSidebar({ session, isAdmin = false }: { session: any, i
  contextItems = [
  { name:"Overview", href: `/dashboard/${guildId}`, icon: Activity },
  { name:"Settings", href: `/dashboard/${guildId}/settings`, icon: Settings },
- { name:"Moderation", href: `/dashboard/${guildId}/moderation`, icon: Shield },
- { name:"AutoMod", href: `/dashboard/${guildId}/automod`, icon: Wand2 },
  { name:"Tickets", href: `/dashboard/${guildId}/tickets`, icon: Ticket },
  { name:"Economy", href: `/dashboard/${guildId}/economy`, icon: Coins },
  { name:"XP & Leveling", href: `/dashboard/${guildId}/xp`, icon: Star },
  { name:"Giveaways", href: `/dashboard/${guildId}/giveaways`, icon: Gift },
- { name:"Engagement", href: `/dashboard/${guildId}/engagement`, icon: Trophy },
  { name:"JTC", href: `/dashboard/${guildId}/jtc`, icon: Mic },
- { name:"Logging", href: `/dashboard/${guildId}/logging`, icon: Activity },
+ { name:"Custom Commands", href: `/dashboard/${guildId}/custom-commands`, icon: Terminal },
+ { name:"Warns", href: `/dashboard/${guildId}/warns`, icon: AlertTriangle },
  ]
  } else if (pathname?.startsWith("/dashboard/admin") && isAdmin) {
  contextItems = [

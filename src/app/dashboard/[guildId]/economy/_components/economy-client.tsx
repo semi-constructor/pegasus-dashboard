@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from"react";
+import { useState, useTransition } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import {
  Coins,
  ShoppingBag,
@@ -18,6 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { FormSection } from "@/components/dashboard/forms/FormSection";
 import { ToggleField } from "@/components/dashboard/forms/ToggleField";
 import {
@@ -99,6 +101,9 @@ export default function EconomyClient({
   bankBalance: number;
  } | null>(null);
 
+ const [isUserDialogOpen, setIsUserDialogOpen] = useState(false);
+ const [isShopItemDialogOpen, setIsShopItemDialogOpen] = useState(false);
+
  // ── Pagination and Search State ─────────────────────────────────
  const [balanceSearch, setBalanceSearch] = useState("");
  const [balancePage, setBalancePage] = useState(1);
@@ -155,6 +160,7 @@ export default function EconomyClient({
     enabled: newItem.enabled,
    });
 
+   setIsShopItemDialogOpen(false);
    setNewItem({
     name: "",
     description: "",
@@ -172,24 +178,25 @@ export default function EconomyClient({
   });
  };
 
- const handleSaveBalanceOverride = () => {
-  if (!editingUser) return;
-  startTransition(async () => {
-   await updateUserBalanceOverride(
-    guildId,
-    editingUser.userId,
-    Number(editingUser.balance),
-    Number(editingUser.bankBalance)
-   );
-   setEditingUser(null);
-  });
- };
+  const handleSaveBalanceOverride = () => {
+   if (!editingUser) return;
+   startTransition(async () => {
+    await updateUserBalanceOverride(
+     guildId,
+     editingUser.userId,
+     Number(editingUser.balance),
+     Number(editingUser.bankBalance)
+    );
+    setEditingUser(null);
+    setIsUserDialogOpen(false);
+   });
+  };
 
  return (
   <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500 pb-32">
    <div className="flex items-center justify-between border-b border-border pb-4">
     <div>
-     <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
+     <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
       <Coins className="w-10 h-10 text-primary" />Economy System</h1>
      <p className="text-muted-foreground mt-2 text-sm">
       Currency settings, item shop CRUD with dynamic effect values, balance admin overrides, and transactions.
@@ -321,141 +328,187 @@ export default function EconomyClient({
    {/* Tab 2: Shop Items CRUD */}
    {activeTab === "shop" && (
     <div className="space-y-6">
-     <FormSection title="Create Shop Item" icon={ShoppingBag} description="Add items to guild marketplace with type-adapted effect value forms.">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-       <div className="space-y-1">
-        <label className="text-xs font-bold uppercase">Item Name</label>
-        <Input
-         placeholder="2x XP Booster / Shield"
-         value={newItem.name}
-         onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-         className="rounded-md border border-border"
-        />
-       </div>
-
-       <div className="space-y-1">
-        <label className="text-xs font-bold uppercase">Price ({settings.currencySymbol})</label>
-        <Input
-         type="number"
-         min={1}
-         value={newItem.price}
-         onChange={(e) => setNewItem({ ...newItem, price: Number(e.target.value) })}
-         className="rounded-md border border-border"
-        />
-       </div>
-
-       <div className="space-y-1 md:col-span-2">
-        <label className="text-xs font-bold uppercase">Item Description</label>
-        <Textarea
-         placeholder="Protects you against robbery attempts for 24 hours..."
-         value={newItem.description}
-         onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
-         className="rounded-md border border-border"
-         rows={2}
-        />
-       </div>
-
-       <div className="space-y-1">
-        <label className="text-xs font-bold uppercase">Effect Type</label>
-        <select
-         value={newItem.effectType}
-         onChange={(e) => setNewItem({ ...newItem, effectType: e.target.value })}
-         className="w-full p-2 bg-background border border-border rounded-md text-sm uppercase"
-        >
-         <option value="rob_protection">Robbery Protection Shield</option>
-         <option value="xp_boost">XP Multiplier Booster</option>
-         <option value="role">Assignable Discord Role</option>
-         <option value="custom">Custom Perpetual Effect</option>
-        </select>
-       </div>
-
-       <div className="space-y-1">
-        <label className="text-xs font-bold uppercase">Stock Limit (-1 = Unlimited)</label>
-        <Input
-         type="number"
-         value={newItem.stock}
-         onChange={(e) => setNewItem({ ...newItem, stock: Number(e.target.value) })}
-         className="rounded-md border border-border"
-        />
-       </div>
-      </div>
-
-      <div className="p-4 border border-border bg-primary/5 space-y-4 mt-4">
-       <h4 className="font-bold text-sm uppercase text-primary border-b border-primary/20 pb-1">Effect Value Fields ({newItem.effectType})
-       </h4>
-
-       {newItem.effectType === "rob_protection" && (
+      <Dialog open={isShopItemDialogOpen} onOpenChange={(open) => {
+        setIsShopItemDialogOpen(open);
+        if (!open) {
+          setNewItem({
+            name: "",
+            description: "",
+            price: 500,
+            type: "custom",
+            effectType: "rob_protection",
+            stock: -1,
+            requiresRole: null,
+            enabled: true,
+            effectDuration: 86400,
+            effectMultiplier: 2,
+            effectRoleId: null,
+            effectNote: "",
+          });
+        }
+      }}>
+        <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[600px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+              <ShoppingBag className="w-5 h-5 text-primary" />
+              Create Shop Item
+            </DialogTitle>
+          </DialogHeader>
+          <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
+       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-1">
-         <label className="text-xs font-bold uppercase">Shield Protection Duration (Seconds)</label>
+         <label className="text-xs font-bold uppercase">Item Name</label>
+         <Input
+          placeholder="2x XP Booster / Shield"
+          value={newItem.name}
+          onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
+          className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+         />
+        </div>
+
+        <div className="space-y-1">
+         <label className="text-xs font-bold uppercase">Price ({settings.currencySymbol})</label>
          <Input
           type="number"
-          value={newItem.effectDuration}
-          onChange={(e) => setNewItem({ ...newItem, effectDuration: Number(e.target.value) })}
-          className="rounded-md border border-border"
+          min={1}
+          value={newItem.price}
+          onChange={(e) => setNewItem({ ...newItem, price: Number(e.target.value) })}
+          className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
          />
-         <p className="text-xs text-muted-foreground">
-          86400s = 24 Hours | 604800s = 7 Days
-         </p>
         </div>
-       )}
 
-       {newItem.effectType === "xp_boost" && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-1 md:col-span-2">
+         <label className="text-xs font-bold uppercase">Item Description</label>
+         <Textarea
+          placeholder="Protects you against robbery attempts for 24 hours..."
+          value={newItem.description}
+          onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
+          className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+          rows={2}
+         />
+        </div>
+
+        <div className="space-y-1">
+         <label className="text-xs font-bold uppercase">Effect Type</label>
+         <select
+          value={newItem.effectType}
+          onChange={(e) => setNewItem({ ...newItem, effectType: e.target.value })}
+          className="w-full p-2 bg-white/5 border border-white/10 rounded-md text-sm uppercase text-white [&>option]:bg-neutral-900"
+         >
+          <option value="rob_protection">Robbery Protection Shield</option>
+          <option value="xp_boost">XP Multiplier Booster</option>
+          <option value="role">Assignable Discord Role</option>
+          <option value="custom">Custom Perpetual Effect</option>
+         </select>
+        </div>
+
+        <div className="space-y-1">
+         <label className="text-xs font-bold uppercase">Stock Limit (-1 = Unlimited)</label>
+         <Input
+          type="number"
+          value={newItem.stock}
+          onChange={(e) => setNewItem({ ...newItem, stock: Number(e.target.value) })}
+          className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+         />
+        </div>
+       </div>
+
+       <div className="p-4 border border-border bg-primary/5 space-y-4 mt-4 rounded-md">
+        <h4 className="font-bold text-sm uppercase text-primary border-b border-primary/20 pb-1">Effect Value Fields ({newItem.effectType})
+        </h4>
+
+        {newItem.effectType === "rob_protection" && (
          <div className="space-y-1">
-          <label className="text-xs font-bold uppercase">XP Multiplier Factor</label>
-          <Input
-           type="number"
-           step="0.5"
-           value={newItem.effectMultiplier}
-           onChange={(e) => setNewItem({ ...newItem, effectMultiplier: Number(e.target.value) })}
-           className="rounded-md border border-border"
-          />
-         </div>
-         <div className="space-y-1">
-          <label className="text-xs font-bold uppercase">Booster Duration (Seconds)</label>
+          <label className="text-xs font-bold uppercase">Shield Protection Duration (Seconds)</label>
           <Input
            type="number"
            value={newItem.effectDuration}
            onChange={(e) => setNewItem({ ...newItem, effectDuration: Number(e.target.value) })}
-           className="rounded-md border border-border"
+           className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+          />
+          <p className="text-xs text-white/50 mt-1">
+           86400s = 24 Hours | 604800s = 7 Days
+          </p>
+         </div>
+        )}
+
+        {newItem.effectType === "xp_boost" && (
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-1">
+           <label className="text-xs font-bold uppercase">XP Multiplier Factor</label>
+           <Input
+            type="number"
+            step="0.5"
+            value={newItem.effectMultiplier}
+            onChange={(e) => setNewItem({ ...newItem, effectMultiplier: Number(e.target.value) })}
+            className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+           />
+          </div>
+          <div className="space-y-1">
+           <label className="text-xs font-bold uppercase">Booster Duration (Seconds)</label>
+           <Input
+            type="number"
+            value={newItem.effectDuration}
+            onChange={(e) => setNewItem({ ...newItem, effectDuration: Number(e.target.value) })}
+            className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+           />
+          </div>
+         </div>
+        )}
+
+        {newItem.effectType === "role" && (
+         <div className="space-y-1">
+          <label className="text-xs font-bold uppercase">Role Granted Upon Purchase</label>
+          <DiscordRolePicker
+           roles={roles}
+           value={newItem.effectRoleId}
+           onChange={(r) => setNewItem({ ...newItem, effectRoleId: r })}
           />
          </div>
-        </div>
-       )}
+        )}
 
-       {newItem.effectType === "role" && (
-        <div className="space-y-1">
-         <label className="text-xs font-bold uppercase">Role Granted Upon Purchase</label>
-         <DiscordRolePicker
-          roles={roles}
-          value={newItem.effectRoleId}
-          onChange={(r) => setNewItem({ ...newItem, effectRoleId: r })}
-         />
-        </div>
-       )}
+        {newItem.effectType === "custom" && (
+         <div className="space-y-1">
+          <label className="text-xs font-bold uppercase">Custom Effect Instructions / Metadata</label>
+          <Input
+           placeholder="e.g. VIP Lounge Access Badge"
+           value={newItem.effectNote}
+           onChange={(e) => setNewItem({ ...newItem, effectNote: e.target.value })}
+           className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+          />
+         </div>
+        )}
+       </div>
+          </div>
+          <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
+            <Button variant="ghost" onClick={() => setIsShopItemDialogOpen(false)} className="text-white/50 hover:text-white">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleCreateShopItem}
+              disabled={isPending}
+              className="bg-white/10 hover:bg-white/20 text-white border-0"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Create Shop Item
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
-       {newItem.effectType === "custom" && (
-        <div className="space-y-1">
-         <label className="text-xs font-bold uppercase">Custom Effect Instructions / Metadata</label>
-         <Input
-          placeholder="e.g. VIP Lounge Access Badge"
-          value={newItem.effectNote}
-          onChange={(e) => setNewItem({ ...newItem, effectNote: e.target.value })}
-          className="rounded-md border border-border"
-         />
-        </div>
-       )}
-      </div>
-
-      <Button
-       onClick={handleCreateShopItem}
-       disabled={isPending}
-       className="rounded-md border border-border shadow-sm font-medium text-xs mt-4"
-      >
-       <Plus className="w-4 h-4 mr-2" />Create Shop Item</Button>
-     </FormSection>
-
-     <FormSection title="Guild Marketplace Items" icon={ShoppingBag} description="Configured shop items available for purchase.">
+     <FormSection 
+       title="Guild Marketplace Items" 
+       icon={ShoppingBag} 
+       description="Configured shop items available for purchase."
+       headerAction={
+        <Button
+         onClick={() => setIsShopItemDialogOpen(true)}
+         className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+        >
+         <Plus className="w-4 h-4 mr-2" />Add Item
+        </Button>
+       }
+     >
       <div className="space-y-3">
        {initialShopItems.length === 0 ? (
         <p className="text-muted-foreground text-sm uppercase p-4 border border-border">
@@ -465,7 +518,7 @@ export default function EconomyClient({
         initialShopItems.map((item) => (
          <div
           key={item.id}
-          className="p-4 border border-border bg-card flex justify-between items-center shadow-sm"
+          className="p-4 border border-border bg-card flex items-center gap-3 justify-between shadow-sm"
          >
           <div>
            <div className="flex items-center gap-2">
@@ -473,9 +526,9 @@ export default function EconomyClient({
             <span className="text-xs border px-2 py-0.5 border-primary font-bold text-yellow-500">
              {formatNumber(item.price)} {settings.currencySymbol}
             </span>
-            <span className="text-xs border px-1 border-secondary uppercase">
+            <Badge variant="outline" className="text-xs border-secondary uppercase">
              {item.effectType}
-            </span>
+            </Badge>
            </div>
            <p className="text-xs text-muted-foreground mt-1">
             Description: {item.description} | Stock: {item.stock === -1 ? "Unlimited" : item.stock} | Effect: {JSON.stringify(item.effectValue)}
@@ -500,51 +553,62 @@ export default function EconomyClient({
 
    {/* Tab 3: User Balances Admin Override */}
    {activeTab === "balances" && (
-    <FormSection title="User Balances Admin Override" icon={Users} description="View and directly modify member wallet and bank balances.">
-     {editingUser && (
-      <div className="p-4 border border-border bg-primary/10 mb-4 space-y-4">
-       <h4 className="font-bold text-sm uppercase text-primary">
-        Modify Balance: USER {editingUser.userId}
-       </h4>
-       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-1">
-         <label className="text-xs font-bold uppercase">Wallet Balance</label>
-         <Input
-          type="number"
-          value={editingUser.balance}
-          onChange={(e) => setEditingUser({ ...editingUser, balance: Number(e.target.value) })}
-          className="rounded-md border border-border"
-         />
-        </div>
-        <div className="space-y-1">
-         <label className="text-xs font-bold uppercase">Bank Balance</label>
-         <Input
-          type="number"
-          value={editingUser.bankBalance}
-          onChange={(e) => setEditingUser({ ...editingUser, bankBalance: Number(e.target.value) })}
-          className="rounded-md border border-border"
-         />
-        </div>
-       </div>
-       <div className="flex items-center gap-2">
-        <Button
-         size="sm"
-         onClick={handleSaveBalanceOverride}
-         disabled={isPending}
-         className="rounded-md border border-border text-xs font-medium"
-        >
-         <Save className="w-3.5 h-3.5 mr-1" />Commit Override</Button>
-        <Button
-         size="sm"
-         variant="outline"
-         onClick={() => setEditingUser(null)}
-         className="rounded-md border border-border text-xs uppercase"
-        >
-         Cancel
-        </Button>
-       </div>
-      </div>
-     )}
+    <div className="space-y-6">
+      <Dialog open={isUserDialogOpen} onOpenChange={(open) => {
+        setIsUserDialogOpen(open);
+        if (!open) setEditingUser(null);
+      }}>
+        <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+              <Users className="w-5 h-5 text-primary" />
+              Modify Balance
+            </DialogTitle>
+          </DialogHeader>
+          
+          {editingUser && (
+            <div className="grid gap-4 py-4">
+              <div className="p-3 bg-primary/10 border border-primary/20 rounded-md">
+                <p className="text-sm font-bold text-primary break-all">USER ID: {editingUser.userId}</p>
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold uppercase">Wallet Balance</label>
+                <Input
+                  type="number"
+                  value={editingUser.balance}
+                  onChange={(e) => setEditingUser({ ...editingUser, balance: Number(e.target.value) })}
+                  className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-xs font-bold uppercase">Bank Balance</label>
+                <Input
+                  type="number"
+                  value={editingUser.bankBalance}
+                  onChange={(e) => setEditingUser({ ...editingUser, bankBalance: Number(e.target.value) })}
+                  className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
+            <Button variant="ghost" onClick={() => setIsUserDialogOpen(false)} className="text-white/50 hover:text-white">
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSaveBalanceOverride}
+              disabled={isPending}
+              className="bg-white/10 hover:bg-white/20 text-white border-0"
+            >
+              <Save className="w-4 h-4 mr-2" />
+              Commit Override
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+     <FormSection title="User Balances Admin Override" icon={Users} description="View and directly modify member wallet and bank balances.">
 
      <div className="flex items-center justify-between mb-4 gap-4">
       <div className="relative flex-1 max-w-sm">
@@ -594,17 +658,18 @@ export default function EconomyClient({
             <Button
              size="sm"
              variant="outline"
-             onClick={() =>
+             onClick={() => {
               setEditingUser({
                userId: b.userId,
                balance: b.balance,
                bankBalance: b.bankBalance,
-              })
-             }
+              });
+              setIsUserDialogOpen(true);
+             }}
              className="text-xs"
             >
              <Edit2 className="w-3.5 h-3.5 mr-1" />
-             Override
+             Edit Balance
             </Button>
            </td>
           </tr>
@@ -637,7 +702,8 @@ export default function EconomyClient({
        </Button>
       </div>
      )}
-    </FormSection>
+     </FormSection>
+    </div>
    )}
 
    {/* Tab 4: Transaction History */}

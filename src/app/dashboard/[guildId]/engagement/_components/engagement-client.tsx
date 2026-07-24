@@ -4,8 +4,9 @@ import { useState, useTransition } from"react";
 import { Trophy, Award, Target, ThumbsUp, Plus, Trash2 } from"lucide-react";
 import { Input } from"@/components/ui/input";
 import { Textarea } from"@/components/ui/textarea";
-import { Button } from"@/components/ui/button";
-import { FormSection } from"@/components/dashboard/forms/FormSection";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { FormSection } from "@/components/dashboard/forms/FormSection";
 import {
  createAchievement,
  deleteAchievement,
@@ -28,6 +29,9 @@ export default function EngagementClient({
 }: EngagementClientProps) {
  const [activeTab, setActiveTab] = useState<"achievements"|"quests"|"reputation">("achievements");
  const [isPending, startTransition] = useTransition();
+
+ const [isAchDialogOpen, setIsAchDialogOpen] = useState(false);
+ const [isQuestDialogOpen, setIsQuestDialogOpen] = useState(false);
 
  // ── New Achievement State ─────────────────────────────────────
  const [newAch, setNewAch] = useState({
@@ -66,54 +70,56 @@ export default function EngagementClient({
  rewardCoins: Number(newAch.rewardCoins),
  });
 
- setNewAch({
- achievementId:"",
- title:"",
- description:"",
- requirementType:"messages_sent",
- requirementValue: 100,
- rewardXp: 500,
- rewardCoins: 100,
- });
- });
+   setNewAch({
+    achievementId: "",
+    title: "",
+    description: "",
+    requirementType: "messages_sent",
+    requirementValue: 100,
+    rewardXp: 500,
+    rewardCoins: 100,
+   });
+   setIsAchDialogOpen(false);
+  });
  };
 
  const handleCreateQuest = () => {
- if (!newQuest.questId || !newQuest.title) return;
- const activeUntil = new Date(Date.now() + Number(newQuest.durationDays) * 86400 * 1000);
+  if (!newQuest.questId || !newQuest.title) return;
+  const activeUntil = new Date(Date.now() + Number(newQuest.durationDays) * 86400 * 1000);
 
- startTransition(async () => {
- await createQuest(guildId, {
- questId: newQuest.questId,
- title: newQuest.title,
- description: newQuest.description,
- type: newQuest.type,
- targetType: newQuest.targetType,
- targetValue: Number(newQuest.targetValue),
- rewardXp: Number(newQuest.rewardXp),
- rewardCoins: Number(newQuest.rewardCoins),
- activeUntil,
- });
+  startTransition(async () => {
+   await createQuest(guildId, {
+    questId: newQuest.questId,
+    title: newQuest.title,
+    description: newQuest.description,
+    type: newQuest.type,
+    targetType: newQuest.targetType,
+    targetValue: Number(newQuest.targetValue),
+    rewardXp: Number(newQuest.rewardXp),
+    rewardCoins: Number(newQuest.rewardCoins),
+    activeUntil,
+   });
 
- setNewQuest({
- questId:"",
- title:"",
- description:"",
- type:"daily",
- targetType:"messages_sent",
- targetValue: 20,
- rewardXp: 200,
- rewardCoins: 50,
- durationDays: 1,
- });
- });
+   setNewQuest({
+    questId: "",
+    title: "",
+    description: "",
+    type: "daily",
+    targetType: "messages_sent",
+    targetValue: 20,
+    rewardXp: 200,
+    rewardCoins: 50,
+    durationDays: 1,
+   });
+   setIsQuestDialogOpen(false);
+  });
  };
 
  return (
  <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500 pb-32">
  <div className="flex items-center justify-between border-b border-border pb-4">
  <div>
- <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
+ <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
  <Trophy className="w-10 h-10 text-primary"/>Engagement Hub</h1>
  <p className="text-muted-foreground mt-2 text-sm">
  Achievements CRUD, daily quests, and member peer reputation history.
@@ -140,99 +146,123 @@ export default function EngagementClient({
  ))}
  </div>
 
- {/* Tab 1: Achievements */}
- {activeTab ==="achievements"&& (
- <div className="space-y-6">
- <FormSection title="Create Achievement"icon={Award} description="Configure unlockable server achievements.">
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Achievement ID</label>
- <Input
- placeholder="chatty-100"
- value={newAch.achievementId}
- onChange={(e) => setNewAch({ ...newAch, achievementId: e.target.value })}
- className="rounded-md border border-border"
- />
- </div>
+  {/* Achievement Creation Dialog */}
+  <Dialog open={isAchDialogOpen} onOpenChange={setIsAchDialogOpen}>
+   <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[700px]">
+    <DialogHeader>
+     <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+      <Award className="w-5 h-5 text-primary" />
+      Create Achievement
+     </DialogTitle>
+    </DialogHeader>
+    <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
+     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Achievement ID</label>
+       <Input
+        placeholder="chatty-100"
+        value={newAch.achievementId}
+        onChange={(e) => setNewAch({ ...newAch, achievementId: e.target.value })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white font-mono"
+       />
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Title</label>
- <Input
- placeholder="Chatterbox Tier 1"
- value={newAch.title}
- onChange={(e) => setNewAch({ ...newAch, title: e.target.value })}
- className="rounded-md border border-border"
- />
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Title</label>
+       <Input
+        placeholder="Chatterbox Tier 1"
+        value={newAch.title}
+        onChange={(e) => setNewAch({ ...newAch, title: e.target.value })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
 
- <div className="space-y-1 md:col-span-2">
- <label className="text-xs font-bold uppercase">Description</label>
- <Textarea
- placeholder="Send 100 messages in server text channels..."
- value={newAch.description}
- onChange={(e) => setNewAch({ ...newAch, description: e.target.value })}
- className="rounded-md border border-border"
- rows={2}
- />
- </div>
+      <div className="space-y-1 md:col-span-2">
+       <label className="text-xs font-bold uppercase text-white/70">Description</label>
+       <Textarea
+        placeholder="Send 100 messages in server text channels..."
+        value={newAch.description}
+        onChange={(e) => setNewAch({ ...newAch, description: e.target.value })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+        rows={2}
+       />
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Requirement Type</label>
- <select
- value={newAch.requirementType}
- onChange={(e) => setNewAch({ ...newAch, requirementType: e.target.value })}
- className="w-full p-2 bg-background border border-border rounded-md text-sm uppercase"
- >
- <option value="messages_sent">Messages Sent</option>
- <option value="voice_minutes">Voice Minutes</option>
- <option value="level_reached">Level Reached</option>
- <option value="tickets_opened">Tickets Opened</option>
- </select>
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Requirement Type</label>
+       <select
+        value={newAch.requirementType}
+        onChange={(e) => setNewAch({ ...newAch, requirementType: e.target.value })}
+        className="w-full p-2 bg-white/5 border border-white/10 rounded-md text-sm uppercase text-white [&>option]:bg-neutral-900 focus-visible:ring-0"
+       >
+        <option value="messages_sent">Messages Sent</option>
+        <option value="voice_minutes">Voice Minutes</option>
+        <option value="level_reached">Level Reached</option>
+        <option value="tickets_opened">Tickets Opened</option>
+       </select>
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Requirement Target Value</label>
- <Input
- type="number"
- min={1}
- value={newAch.requirementValue}
- onChange={(e) => setNewAch({ ...newAch, requirementValue: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Requirement Target Value</label>
+       <Input
+        type="number"
+        min={1}
+        value={newAch.requirementValue}
+        onChange={(e) => setNewAch({ ...newAch, requirementValue: Number(e.target.value) })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Reward XP</label>
- <Input
- type="number"
- min={0}
- value={newAch.rewardXp}
- onChange={(e) => setNewAch({ ...newAch, rewardXp: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Reward XP</label>
+       <Input
+        type="number"
+        min={0}
+        value={newAch.rewardXp}
+        onChange={(e) => setNewAch({ ...newAch, rewardXp: Number(e.target.value) })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Reward Coins</label>
- <Input
- type="number"
- min={0}
- value={newAch.rewardCoins}
- onChange={(e) => setNewAch({ ...newAch, rewardCoins: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Reward Coins</label>
+       <Input
+        type="number"
+        min={0}
+        value={newAch.rewardCoins}
+        onChange={(e) => setNewAch({ ...newAch, rewardCoins: Number(e.target.value) })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
+     </div>
+    </div>
+    <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
+     <Button variant="ghost" onClick={() => setIsAchDialogOpen(false)} className="text-white/50 hover:text-white">
+      Cancel
+     </Button>
+     <Button onClick={handleCreateAchievement} disabled={isPending} className="bg-white/10 hover:bg-white/20 text-white border-0">
+      <Plus className="w-4 h-4 mr-2" />Create Achievement
+     </Button>
+    </div>
+   </DialogContent>
+  </Dialog>
 
- <Button
- onClick={handleCreateAchievement}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
- >
- <Plus className="w-4 h-4 mr-2"/>Create Achievement</Button>
- </FormSection>
-
- <FormSection title="Active Achievements"icon={Award} description="Unlockable achievements.">
+  {/* Tab 1: Achievements */}
+  {activeTab ==="achievements"&& (
+   <div className="space-y-6">
+    <FormSection 
+     title="Active Achievements" 
+   icon={Award} 
+   description="Unlockable achievements."
+   headerAction={
+    <Button
+     onClick={() => setIsAchDialogOpen(true)}
+     className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+    >
+     <Plus className="w-4 h-4 mr-2" />New Achievement
+    </Button>
+   }
+  >
  <div className="space-y-3">
  {initialAchievements.length === 0 ? (
  <p className="text-muted-foreground text-sm uppercase p-4 border border-border">
@@ -272,65 +302,111 @@ export default function EngagementClient({
  </div>
  )}
 
- {/* Tab 2: Quests */}
- {activeTab ==="quests"&& (
- <div className="space-y-6">
- <FormSection title="Create Quest"icon={Target} description="Create timed quests for server members.">
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Quest ID</label>
- <Input
- placeholder="daily-msg-20"
- value={newQuest.questId}
- onChange={(e) => setNewQuest({ ...newQuest, questId: e.target.value })}
- className="rounded-md border border-border"
- />
- </div>
+  {/* Quest Creation Dialog */}
+  <Dialog open={isQuestDialogOpen} onOpenChange={setIsQuestDialogOpen}>
+   <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[700px]">
+    <DialogHeader>
+     <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+      <Target className="w-5 h-5 text-primary" />
+      Create Quest
+     </DialogTitle>
+    </DialogHeader>
+    <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
+     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Quest ID</label>
+       <Input
+        placeholder="daily-msg-20"
+        value={newQuest.questId}
+        onChange={(e) => setNewQuest({ ...newQuest, questId: e.target.value })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white font-mono"
+       />
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Quest Title</label>
- <Input
- placeholder="Daily Conversationalist"
- value={newQuest.title}
- onChange={(e) => setNewQuest({ ...newQuest, title: e.target.value })}
- className="rounded-md border border-border"
- />
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Quest Title</label>
+       <Input
+        placeholder="Daily Conversationalist"
+        value={newQuest.title}
+        onChange={(e) => setNewQuest({ ...newQuest, title: e.target.value })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Quest Type</label>
- <select
- value={newQuest.type}
- onChange={(e) => setNewQuest({ ...newQuest, type: e.target.value })}
- className="w-full p-2 bg-background border border-border rounded-md text-sm uppercase"
- >
- <option value="daily">Daily Quest</option>
- <option value="weekly">Weekly Quest</option>
- <option value="event">Special Event Quest</option>
- </select>
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Quest Type</label>
+       <select
+        value={newQuest.type}
+        onChange={(e) => setNewQuest({ ...newQuest, type: e.target.value })}
+        className="w-full p-2 bg-white/5 border border-white/10 rounded-md text-sm uppercase text-white [&>option]:bg-neutral-900 focus-visible:ring-0"
+       >
+        <option value="daily">Daily Quest</option>
+        <option value="weekly">Weekly Quest</option>
+        <option value="event">Special Event Quest</option>
+       </select>
+      </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Active Duration (Days)</label>
- <Input
- type="number"
- min={1}
- value={newQuest.durationDays}
- onChange={(e) => setNewQuest({ ...newQuest, durationDays: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
- </div>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Active Duration (Days)</label>
+       <Input
+        type="number"
+        min={1}
+        value={newQuest.durationDays}
+        onChange={(e) => setNewQuest({ ...newQuest, durationDays: Number(e.target.value) })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
 
- <Button
- onClick={handleCreateQuest}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
- >
- <Plus className="w-4 h-4 mr-2"/>Create Quest</Button>
- </FormSection>
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Target Value</label>
+       <Input
+        type="number"
+        min={1}
+        value={newQuest.targetValue}
+        onChange={(e) => setNewQuest({ ...newQuest, targetValue: Number(e.target.value) })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
+      
+      <div className="space-y-1">
+       <label className="text-xs font-bold uppercase text-white/70">Reward XP</label>
+       <Input
+        type="number"
+        min={0}
+        value={newQuest.rewardXp}
+        onChange={(e) => setNewQuest({ ...newQuest, rewardXp: Number(e.target.value) })}
+        className="rounded-md border border-white/10 bg-white/5 focus-visible:ring-0 text-white"
+       />
+      </div>
+     </div>
+    </div>
+    <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
+     <Button variant="ghost" onClick={() => setIsQuestDialogOpen(false)} className="text-white/50 hover:text-white">
+      Cancel
+     </Button>
+     <Button onClick={handleCreateQuest} disabled={isPending} className="bg-white/10 hover:bg-white/20 text-white border-0">
+      <Plus className="w-4 h-4 mr-2" />Create Quest
+     </Button>
+    </div>
+   </DialogContent>
+  </Dialog>
 
- <FormSection title="Active Quests"icon={Target} description="Currently active quests.">
+  {/* Tab 2: Quests */}
+  {activeTab ==="quests"&& (
+   <div className="space-y-6">
+    <FormSection 
+     title="Active Quests" 
+   icon={Target} 
+   description="Currently active quests."
+   headerAction={
+    <Button
+     onClick={() => setIsQuestDialogOpen(true)}
+     className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+    >
+     <Plus className="w-4 h-4 mr-2" />New Quest
+    </Button>
+   }
+  >
  <div className="space-y-3">
  {initialQuests.length === 0 ? (
  <p className="text-muted-foreground text-sm uppercase p-4 border border-border">

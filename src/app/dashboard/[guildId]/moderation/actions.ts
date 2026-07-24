@@ -68,7 +68,7 @@ export async function createWarning(
  proof: data.proof || null,
  active: true,
  });
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to create warning:", error);
@@ -87,7 +87,7 @@ export async function toggleWarningStatus(guildId: string, warningId: number, ac
  editedBy: session.user.discordId,
  })
  .where(and(eq(warnings.id, warningId), eq(warnings.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to update warning status:", error);
@@ -101,7 +101,7 @@ export async function deleteWarning(guildId: string, warningId: number) {
  await db
  .delete(warnings)
  .where(and(eq(warnings.id, warningId), eq(warnings.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to delete warning:", error);
@@ -152,7 +152,7 @@ export async function createWarningAutomation(
  enabled: true,
  createdBy: session.user.discordId,
  });
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to create warning automation:", error);
@@ -166,7 +166,7 @@ export async function deleteWarningAutomation(guildId: string, id: number) {
  await db
  .delete(warningAutomations)
  .where(and(eq(warningAutomations.id, id), eq(warningAutomations.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to delete warning automation"};
@@ -215,7 +215,7 @@ export async function createWordFilterRule(
  actions: data.actions,
  createdBy: session.user.discordId,
  });
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to create word filter rule:", error);
@@ -229,7 +229,7 @@ export async function deleteWordFilterRule(guildId: string, id: number) {
  await db
  .delete(wordFilterRules)
  .where(and(eq(wordFilterRules.id, id), eq(wordFilterRules.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to delete word filter rule"};
@@ -285,7 +285,7 @@ export async function saveModLogSetting(
  });
  }
 
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to save mod log setting:", error);

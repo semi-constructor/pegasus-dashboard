@@ -23,7 +23,7 @@ export function ToggleField({
  return (
  <div
  className={cn(
-"flex items-center justify-between rounded-xl border border-border bg-card p-4 shadow-sm",
+"flex items-center gap-3 justify-between rounded-xl border border-border bg-card p-4 shadow-sm",
  className
  )}
  >

@@ -12,6 +12,8 @@ import {
  Gift,
  Trophy,
  Mic,
+ Terminal,
+ AlertTriangle,
 } from"lucide-react";
 
 export function GuildSidebar({ guildId }: { guildId: string }) {
@@ -34,43 +36,35 @@ export function GuildSidebar({ guildId }: { guildId: string }) {
  <p className="px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">Features</p>
  </div>
  
- <Link href={`/dashboard/${guildId}/moderation`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Shield className="w-4 h-4"/>
- Moderation
- </Link>
- <Link href={`/dashboard/${guildId}/automod`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Wand2 className="w-4 h-4"/>
- AutoMod
- </Link>
- <Link href={`/dashboard/${guildId}/tickets`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Ticket className="w-4 h-4"/>
- Tickets
- </Link>
- <Link href={`/dashboard/${guildId}/economy`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Coins className="w-4 h-4"/>
- Economy
- </Link>
- <Link href={`/dashboard/${guildId}/xp`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Star className="w-4 h-4"/>
- XP System
- </Link>
- <Link href={`/dashboard/${guildId}/giveaways`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Gift className="w-4 h-4"/>
- Giveaways
- </Link>
- <Link href={`/dashboard/${guildId}/engagement`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Trophy className="w-4 h-4"/>
- Engagement
- </Link>
- <Link href={`/dashboard/${guildId}/jtc`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Mic className="w-4 h-4"/>
- Join to Create
- </Link>
- <Link href={`/dashboard/${guildId}/logging`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
- <Activity className="w-4 h-4"/>
- Logging
- </Link>
- </nav>
+        <Link href={`/dashboard/${guildId}/tickets`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Ticket className="w-4 h-4"/>
+          Tickets
+        </Link>
+        <Link href={`/dashboard/${guildId}/economy`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Coins className="w-4 h-4"/>
+          Economy
+        </Link>
+        <Link href={`/dashboard/${guildId}/xp`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Star className="w-4 h-4"/>
+          XP System
+        </Link>
+        <Link href={`/dashboard/${guildId}/giveaways`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Gift className="w-4 h-4"/>
+          Giveaways
+        </Link>
+        <Link href={`/dashboard/${guildId}/jtc`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Mic className="w-4 h-4"/>
+          Join to Create
+        </Link>
+        <Link href={`/dashboard/${guildId}/custom-commands`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Terminal className="w-4 h-4"/>
+          Custom Commands
+        </Link>
+        <Link href={`/dashboard/${guildId}/warns`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <AlertTriangle className="w-4 h-4"/>
+          Warns
+        </Link>
+      </nav>
  
  <div className="p-4 border-t border-border/50">
  <Link href={`/dashboard/${guildId}/settings`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">

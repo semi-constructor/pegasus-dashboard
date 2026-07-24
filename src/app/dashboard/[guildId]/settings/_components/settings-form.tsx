@@ -179,7 +179,7 @@ export default function SettingsForm({
  {/* Header */}
  <div className="flex items-center justify-between border-b border-border pb-4">
  <div>
- <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
+ <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
  <Settings className="w-10 h-10 text-primary"/>Server Config</h1>
  <p className="text-muted-foreground mt-2 text-sm">
  Manage all guild modules and configuration.

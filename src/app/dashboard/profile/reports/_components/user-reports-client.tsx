@@ -43,7 +43,7 @@ export default function UserBugReportsClient({
  <div className="p-8 max-w-5xl mx-auto space-y-8 animate-in fade-in duration-500 pb-32">
  <div className="flex items-center justify-between border-b border-border pb-4">
  <div>
- <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
+ <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
  <Bug className="w-10 h-10 text-primary"/>My Bug Reports</h1>
  <p className="text-muted-foreground mt-2 text-sm">
  Report issues, track triage status, and communicate with developers.

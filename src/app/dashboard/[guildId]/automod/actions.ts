@@ -52,7 +52,7 @@ export async function createAutoModRule(
  enabled: data.enabled,
  createdBy: session.user.discordId,
  });
- revalidatePath(`/dashboard/${guildId}/automod`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to create automod rule:", error);
@@ -67,7 +67,7 @@ export async function toggleAutoModRule(guildId: string, ruleId: string, enabled
  .update(autoModRules)
  .set({ enabled, updatedAt: new Date() })
  .where(and(eq(autoModRules.id, ruleId), eq(autoModRules.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/automod`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to toggle rule"};
@@ -80,7 +80,7 @@ export async function deleteAutoModRule(guildId: string, ruleId: string) {
  await db
  .delete(autoModRules)
  .where(and(eq(autoModRules.id, ruleId), eq(autoModRules.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/automod`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to delete rule"};
@@ -129,7 +129,7 @@ export async function releaseFromQuarantine(guildId: string, vaultId: string) {
  releasedAt: new Date(),
  })
  .where(and(eq(quarantineVault.id, vaultId), eq(quarantineVault.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/automod`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to release from quarantine:", error);

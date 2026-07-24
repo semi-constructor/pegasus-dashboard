@@ -79,13 +79,31 @@ export async function deleteTicketPanel(guildId: string, panelId: string) {
  }
 }
 
-export async function updateTicketPanel(guildId: string, data: any) {
-  return createTicketPanel(guildId, {
-    ...data,
-    panelId: data.panelId || "default",
-    supportRoles: data.supportRoles || [],
-    buttonStyle: data.buttonStyle || 1,
-  });
+export async function updateTicketPanel(guildId: string, panelId: string, data: any) {
+  await requireGuildAdmin(guildId);
+  try {
+    await db
+      .update(ticketPanels)
+      .set({
+        title: data.title,
+        description: data.description,
+        buttonLabel: data.buttonLabel,
+        buttonStyle: data.buttonStyle,
+        supportRoles: data.supportRoles,
+        categoryId: data.categoryId,
+        ticketNameFormat: data.ticketNameFormat,
+        maxTicketsPerUser: data.maxTicketsPerUser,
+        welcomeMessage: data.welcomeMessage,
+        isActive: data.isActive,
+        updatedAt: new Date(),
+      })
+      .where(and(eq(ticketPanels.id, panelId), eq(ticketPanels.guildId, guildId)));
+    revalidatePath(`/dashboard/${guildId}/tickets`);
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update ticket panel:", error);
+    return { success: false, error: "Failed to update ticket panel" };
+  }
 }
 
 // ── Ticket Departments CRUD ────────────────────────────────────
@@ -139,6 +157,31 @@ export async function createTicketDepartment(
  console.error("Failed to create department:", error);
  return { success: false, error:"Failed to create ticket department"};
  }
+}
+
+export async function updateTicketDepartment(guildId: string, deptId: string, data: any) {
+  await requireGuildAdmin(guildId);
+  try {
+    await db
+      .update(ticketDepartments)
+      .set({
+        name: data.name,
+        description: data.description,
+        emoji: data.emoji,
+        categoryId: data.categoryId,
+        supportRoles: data.supportRoles,
+        modalFields: data.modalFields,
+        welcomeMessage: data.welcomeMessage,
+        slaTimeoutMinutes: data.slaTimeoutMinutes,
+        updatedAt: new Date(),
+      })
+      .where(and(eq(ticketDepartments.id, deptId), eq(ticketDepartments.guildId, guildId)));
+    revalidatePath(`/dashboard/${guildId}/tickets`);
+    return { success: true };
+  } catch (error) {
+    console.error("Failed to update department:", error);
+    return { success: false, error: "Failed to update ticket department" };
+  }
 }
 
 export async function deleteTicketDepartment(guildId: string, deptId: string) {

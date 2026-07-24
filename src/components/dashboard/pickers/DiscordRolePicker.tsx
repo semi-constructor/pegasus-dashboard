@@ -74,8 +74,8 @@ export function DiscordRolePicker({
  aria-expanded={open}
  disabled={disabled}
  className={cn(
-"w-full justify-between bg-background text-sm shadow-sm",
- !value &&"text-muted-foreground",
+ "w-full justify-between bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white transition-all backdrop-blur-md shadow-sm",
+ !value && "text-white/50",
  className
  )}
  >
@@ -167,17 +167,17 @@ export function DiscordRoleMultiPicker({
  return (
  <Popover open={open} onOpenChange={setOpen}>
  <PopoverTrigger asChild>
- <Button
- variant="outline"
- role="combobox"
- aria-expanded={open}
- disabled={disabled}
- className={cn(
-"w-full justify-between bg-background text-sm min-h-[40px] h-auto shadow-sm",
- !value.length &&"text-muted-foreground",
- className
- )}
- >
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          disabled={disabled}
+          className={cn(
+            "w-full justify-between bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white transition-all min-h-[40px] h-auto backdrop-blur-md shadow-sm",
+            !value.length && "text-white/50",
+            className
+          )}
+        >
  <span className="flex flex-wrap gap-1 items-center">
  {selectedRoles.length > 0 ? (
  selectedRoles.map((role) => {

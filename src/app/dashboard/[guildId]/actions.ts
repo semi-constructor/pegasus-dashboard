@@ -21,7 +21,7 @@ export async function updateLoggingSettings(guildId: string, data: { logsEnabled
  }
  });
  await invalidateCache(`guild:${guildId}:settings`);
- revalidatePath(`/dashboard/${guildId}/logging`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  revalidatePath(`/dashboard/${guildId}`);
  return { success: true };
  } catch (error) {
@@ -43,7 +43,7 @@ export async function updateModerationSettings(guildId: string, data: { security
  }
  });
  await invalidateCache(`guild:${guildId}:settings`);
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  revalidatePath(`/dashboard/${guildId}`);
  return { success: true };
  } catch (error) {
@@ -166,7 +166,7 @@ export async function createWordFilter(guildId: string, data: { pattern: string,
  guildId,
  ...data,
  });
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to create word filter"};
@@ -177,7 +177,7 @@ export async function deleteWordFilter(guildId: string, id: number) {
  const { wordFilterRules } = await import("schemas/moderation");
  try {
  await db.delete(wordFilterRules).where(eq(wordFilterRules.id, id));
- revalidatePath(`/dashboard/${guildId}/moderation`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to delete word filter"};

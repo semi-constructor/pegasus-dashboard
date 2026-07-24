@@ -37,7 +37,7 @@ export default function JtcForm({ guildId, initialData, channels }: { guildId: s
  <div className="flex flex-col gap-8 p-6 lg:p-10 max-w-5xl mx-auto w-full animate-in fade-in duration-500">
  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-4">
  <div>
- <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
+ <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
  <Mic className="w-10 h-10 text-primary"/>Voice Provisioning</h1>
  <p className="text-muted-foreground mt-2 text-sm">
  Dynamic Voice Channel Allocation (Join-to-Create)

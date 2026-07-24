@@ -45,7 +45,7 @@ export async function createAchievement(
  rewardXp: data.rewardXp || 0,
  rewardCoins: data.rewardCoins || 0,
  });
- revalidatePath(`/dashboard/${guildId}/engagement`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to create achievement:", error);
@@ -59,7 +59,7 @@ export async function deleteAchievement(guildId: string, id: string) {
  await db
  .delete(achievements)
  .where(and(eq(achievements.id, id), eq(achievements.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/engagement`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to delete achievement"};
@@ -109,7 +109,7 @@ export async function createQuest(
  rewardCoins: data.rewardCoins || 0,
  activeUntil: data.activeUntil,
  });
- revalidatePath(`/dashboard/${guildId}/engagement`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  console.error("Failed to create quest:", error);
@@ -123,7 +123,7 @@ export async function deleteQuest(guildId: string, id: string) {
  await db
  .delete(engagementQuests)
  .where(and(eq(engagementQuests.id, id), eq(engagementQuests.guildId, guildId)));
- revalidatePath(`/dashboard/${guildId}/engagement`);
+ revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
  return { success: false, error:"Failed to delete quest"};

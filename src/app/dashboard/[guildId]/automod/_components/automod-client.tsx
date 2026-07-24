@@ -15,6 +15,7 @@ import {
 import { Input } from"@/components/ui/input";
 import { Textarea } from"@/components/ui/textarea";
 import { Button } from"@/components/ui/button";
+import { Badge } from"@/components/ui/badge";
 import { FormSection } from"@/components/dashboard/forms/FormSection";
 import { ToggleField } from"@/components/dashboard/forms/ToggleField";
 import {
@@ -149,7 +150,7 @@ export default function AutoModClient({
  <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500 pb-32">
  <div className="flex items-center justify-between border-b border-border pb-4">
  <div>
- <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
+ <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
  <Wand2 className="w-10 h-10 text-primary"/>
  AUTOMOD_V2
  </h1>
@@ -337,7 +338,7 @@ export default function AutoModClient({
  initialRules.map((rule) => (
  <div
  key={rule.id}
- className="p-4 border border-border bg-card flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm"
+ className="p-4 border border-border bg-card flex items-center gap-3 justify-between shadow-sm"
  >
  <div>
  <div className="flex items-center gap-2">
@@ -349,7 +350,7 @@ export default function AutoModClient({
  {rule.triggerType}
  </span>
  {!rule.enabled && (
- <span className="text-xs border px-1 border-destructive text-destructive uppercase">Disabled</span>
+ <Badge variant="destructive" className="text-xs uppercase">Disabled</Badge>
  )}
  </div>
  <p className="text-xs text-muted-foreground mt-1">
@@ -441,16 +442,16 @@ export default function AutoModClient({
  initialVault.map((item) => (
  <div
  key={item.id}
- className="p-4 border border-destructive bg-destructive/10 flex justify-between items-center shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]"
+ className="p-4 border border-destructive bg-destructive/10 flex items-center gap-3 justify-between shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]"
  >
  <div>
  <div className="flex items-center gap-2">
  <Lock className="w-4 h-4 text-destructive"/>
  <span className="font-bold uppercase text-destructive">User: {item.userId}</span>
  {item.released ? (
- <span className="text-xs border px-1 border-primary bg-primary/20 font-bold uppercase">Released</span>
+ <Badge variant="outline" className="text-xs border-primary font-bold uppercase">Released</Badge>
  ) : (
- <span className="text-xs border px-1 border-destructive bg-destructive/20 text-destructive font-bold uppercase">Jailed</span>
+ <Badge variant="destructive" className="text-xs font-bold uppercase">Jailed</Badge>
  )}
  </div>
  <p className="text-xs text-muted-foreground mt-1">

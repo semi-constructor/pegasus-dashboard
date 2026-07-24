@@ -1,318 +1,352 @@
 "use client";
 
-import { useState, useTransition } from"react";
+import { useState, useTransition } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import {
- Star,
- Award,
- Zap,
- Users,
- Plus,
- Trash2,
- Edit2,
- Save,
- CheckCircle,
- ChevronLeft,
- ChevronRight,
- Search,
+  Star,
+  Award,
+  Zap,
+  Users,
+  Plus,
+  Trash2,
+  Edit2,
+  Save,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Search,
 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { FormSection } from "@/components/dashboard/forms/FormSection";
 import { ToggleField } from "@/components/dashboard/forms/ToggleField";
 import {
- DiscordChannelMultiPicker,
- type ChannelOption,
+  DiscordChannelMultiPicker,
+  type ChannelOption,
 } from "@/components/dashboard/pickers/DiscordChannelPicker";
 import {
- DiscordRolePicker,
- DiscordRoleMultiPicker,
- type RoleOption,
+  DiscordRolePicker,
+  DiscordRoleMultiPicker,
+  type RoleOption,
 } from "@/components/dashboard/pickers/DiscordRolePicker";
 import {
- saveXpSettings,
- createXpReward,
- deleteXpReward,
- createXpMultiplier,
- deleteXpMultiplier,
- updateUserXpOverride,
+  saveXpSettings,
+  createXpReward,
+  deleteXpReward,
+  createXpMultiplier,
+  deleteXpMultiplier,
+  updateUserXpOverride,
 } from "../actions";
 import { formatNumber } from "@/lib/utils";
 
 interface XpClientProps {
- guildId: string;
- initialSettings: any;
- initialRewards: any[];
- initialMultipliers: any[];
- initialUserXp: any[];
- channels: ChannelOption[];
- roles: RoleOption[];
+  guildId: string;
+  initialSettings: any;
+  initialRewards: any[];
+  initialMultipliers: any[];
+  initialUserXp: any[];
+  channels: ChannelOption[];
+  roles: RoleOption[];
 }
 
 export default function XpClient({
- guildId,
- initialSettings,
- initialRewards,
- initialMultipliers,
- initialUserXp,
- channels,
- roles,
+  guildId,
+  initialSettings,
+  initialRewards,
+  initialMultipliers,
+  initialUserXp,
+  channels,
+  roles,
 }: XpClientProps) {
- const [activeTab, setActiveTab] = useState<
-"user_xp"|"rewards"|"multipliers"|"settings"
- >("user_xp");
- const [isPending, startTransition] = useTransition();
+  const [activeTab, setActiveTab] = useState<"user_xp" | "rewards" | "multipliers" | "settings">("user_xp");
+  const [isPending, startTransition] = useTransition();
 
- // ── Settings State ─────────────────────────────────────────────
- const [settings, setSettings] = useState({
- levelUpRewardsEnabled: initialSettings?.levelUpRewardsEnabled ?? true,
- stackRoleRewards: initialSettings?.stackRoleRewards ?? false,
- ignoredChannels: initialSettings?.ignoredChannels ?? "[]",
- ignoredRoles: initialSettings?.ignoredRoles ?? "[]",
- });
+  const [editingRewardLevel, setEditingRewardLevel] = useState<number | null>(null);
+  const [editingMultId, setEditingMultId] = useState<{ id: string; type: string } | null>(null);
+  
+  const [isUserDialogOpen, setIsUserDialogOpen] = useState(false);
+  const [isRewardDialogOpen, setIsRewardDialogOpen] = useState(false);
+  const [isMultDialogOpen, setIsMultDialogOpen] = useState(false);
 
- // ── New Reward Form State ──────────────────────────────────────
- const [newReward, setNewReward] = useState({
- level: 5,
- roleId: null as string | null,
- });
+  const [settings, setSettings] = useState({
+    levelUpRewardsEnabled: initialSettings?.levelUpRewardsEnabled ?? true,
+    stackRoleRewards: initialSettings?.stackRoleRewards ?? false,
+    ignoredChannels: initialSettings?.ignoredChannels ?? "[]",
+    ignoredRoles: initialSettings?.ignoredRoles ?? "[]",
+  });
 
- // ── New Multiplier Form State ──────────────────────────────────
- const [newMult, setNewMult] = useState({
- targetId: "",
- targetType: "role",
- multiplier: 150,
- });
+  const [newReward, setNewReward] = useState({
+    level: 5,
+    roleId: null as string | null,
+  });
 
- // ── User XP Management & Admin Override State ──────────────────
- const [editingUser, setEditingUser] = useState<{
- userId: string;
- xp: number;
- level: number;
- prestigeLevel: number;
- } | null>(null);
+  const [newMult, setNewMult] = useState({
+    targetId: "",
+    targetType: "role",
+    multiplier: 150,
+  });
 
- const [newUserXp, setNewUserXp] = useState({
- userId: "",
- xp: 100,
- level: 1,
- prestigeLevel: 0,
- });
+  const [editingUser, setEditingUser] = useState<{
+    userId: string;
+    xp: number;
+    level: number;
+    prestigeLevel: number;
+  } | null>(null);
 
- // ── Pagination and Search State ─────────────────────────────────
- const [xpSearch, setXpSearch] = useState("");
- const [xpPage, setXpPage] = useState(1);
- const ITEMS_PER_PAGE = 10;
+  const [newUserXp, setNewUserXp] = useState({
+    userId: "",
+    xp: 100,
+    level: 1,
+    prestigeLevel: 0,
+  });
 
- const filteredUserXp = initialUserXp.filter(u => u.userId.includes(xpSearch));
- const totalXpPages = Math.max(1, Math.ceil(filteredUserXp.length / ITEMS_PER_PAGE));
- const currentUserXp = filteredUserXp.slice((xpPage - 1) * ITEMS_PER_PAGE, xpPage * ITEMS_PER_PAGE);
+  const [xpSearch, setXpSearch] = useState("");
+  const [xpPage, setXpPage] = useState(1);
+  const ITEMS_PER_PAGE = 10;
 
- const handleSaveSettings = () => {
- startTransition(async () => {
- await saveXpSettings(guildId, settings);
- });
- };
+  const filteredUserXp = initialUserXp.filter((u) => u.userId.includes(xpSearch));
+  const totalXpPages = Math.max(1, Math.ceil(filteredUserXp.length / ITEMS_PER_PAGE));
+  const currentUserXp = filteredUserXp.slice((xpPage - 1) * ITEMS_PER_PAGE, xpPage * ITEMS_PER_PAGE);
 
- const handleCreateReward = () => {
- if (!newReward.roleId) return;
- startTransition(async () => {
- await createXpReward(guildId, Number(newReward.level), newReward.roleId!);
- setNewReward({ level: 5, roleId: null });
- });
- };
+  const handleSaveSettings = () => {
+    startTransition(async () => {
+      await saveXpSettings(guildId, settings);
+    });
+  };
 
- const handleCreateMultiplier = () => {
- if (!newMult.targetId) return;
- startTransition(async () => {
- await createXpMultiplier(
- guildId,
- newMult.targetId,
- newMult.targetType,
- Number(newMult.multiplier)
- );
- setNewMult({ targetId: "", targetType: "role", multiplier: 150 });
- });
- };
+  const handleSaveReward = () => {
+    if (!newReward.roleId) return;
+    startTransition(async () => {
+      if (editingRewardLevel !== null && editingRewardLevel !== newReward.level) {
+        await deleteXpReward(guildId, editingRewardLevel, newReward.roleId!);
+      }
+      await createXpReward(guildId, Number(newReward.level), newReward.roleId!);
+      setEditingRewardLevel(null);
+      setNewReward({ level: 5, roleId: null });
+      setIsRewardDialogOpen(false);
+    });
+  };
 
- const handleSaveUserXpOverride = () => {
- if (!editingUser) return;
- startTransition(async () => {
- await updateUserXpOverride(
- guildId,
- editingUser.userId,
- Number(editingUser.xp),
- Number(editingUser.level),
- Number(editingUser.prestigeLevel)
- );
- setEditingUser(null);
- });
- };
+  const handleSaveMultiplier = () => {
+    if (!newMult.targetId) return;
+    startTransition(async () => {
+      if (editingMultId) {
+        if (editingMultId.id !== newMult.targetId || editingMultId.type !== newMult.targetType) {
+          await deleteXpMultiplier(guildId, editingMultId.id, editingMultId.type);
+        }
+      }
+      await createXpMultiplier(guildId, newMult.targetId, newMult.targetType, Number(newMult.multiplier));
+      setEditingMultId(null);
+      setNewMult({ targetId: "", targetType: "role", multiplier: 150 });
+      setIsMultDialogOpen(false);
+    });
+  };
 
- const handleCreateUserXpOverride = () => {
- if (!newUserXp.userId) return;
- startTransition(async () => {
- await updateUserXpOverride(
- guildId,
- newUserXp.userId,
- Number(newUserXp.xp),
- Number(newUserXp.level),
- Number(newUserXp.prestigeLevel)
- );
- setNewUserXp({ userId: "", xp: 100, level: 1, prestigeLevel: 0 });
- });
- };
+  const handleSaveUserXpOverride = () => {
+    if (!editingUser) return;
+    startTransition(async () => {
+      await updateUserXpOverride(
+        guildId,
+        editingUser.userId,
+        Number(editingUser.xp),
+        Number(editingUser.level),
+        Number(editingUser.prestigeLevel)
+      );
+      setEditingUser(null);
+      setIsUserDialogOpen(false);
+    });
+  };
 
- return (
- <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500 pb-32">
- <div className="flex items-center justify-between border-b border-border pb-4">
- <div>
- <h1 className="text-4xl font-black text-primary tracking-tighter uppercase flex items-center gap-3">
- <Star className="w-10 h-10 text-primary"/>Xp And Member Levels</h1>
- <p className="text-muted-foreground mt-2 text-sm">
- Manage user XP/levels, role rewards, multipliers, and leveling rules.
- </p>
- </div>
- </div>
+  const handleCreateUserXpOverride = () => {
+    if (!newUserXp.userId) return;
+    startTransition(async () => {
+      await updateUserXpOverride(
+        guildId,
+        newUserXp.userId,
+        Number(newUserXp.xp),
+        Number(newUserXp.level),
+        Number(newUserXp.prestigeLevel)
+      );
+      setNewUserXp({ userId: "", xp: 100, level: 1, prestigeLevel: 0 });
+      setIsUserDialogOpen(false);
+    });
+  };
 
- {/* Navigation Tabs */}
- <div className="flex flex-wrap gap-2 border-b border-border/50 pb-2">
- {[
- { id: "user_xp", label: "User XP & Level Management", icon: Users },
- { id: "rewards", label: "Level Role Rewards", icon: Award },
- { id: "multipliers", label: "XP Multipliers", icon: Zap },
- { id: "settings", label: "XP Rules & Ignored", icon: Star },
- ].map((tab) => (
- <Button
- key={tab.id}
- variant={activeTab === tab.id ? "default" : "ghost"}
- onClick={() => setActiveTab(tab.id as any)}
- className="rounded-md border border-border font-medium text-xs"
- >
- <tab.icon className="w-4 h-4 mr-2"/>
- {tab.label}
- </Button>
- ))}
- </div>
+  const tabs = [
+    { id: "user_xp", label: "User XP & Management", icon: Users },
+    { id: "rewards", label: "Level Role Rewards", icon: Award },
+    { id: "multipliers", label: "XP Multipliers", icon: Zap },
+    { id: "settings", label: "XP Rules & Settings", icon: Star },
+  ];
+
+  return (
+    <div className="text-white p-6 lg:p-10 max-w-[1400px] mx-auto animate-in fade-in duration-500">
+      <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-8">
+        <div>
+          <h1 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/60 tracking-tight flex items-center gap-4">
+            <div className="p-3 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
+              <Star className="w-8 h-8 text-white" />
+            </div>
+            XP & Member Levels
+          </h1>
+          <p className="text-white/40 mt-3 text-sm font-medium tracking-wide">
+            Manage user XP, level milestones, role rewards, and server multipliers.
+          </p>
+        </div>
+      </div>
+
+      <div className="bg-white/5 border border-white/10 rounded-2xl shadow-2xl relative overflow-hidden min-h-[600px] flex flex-col backdrop-blur-md">
+        {/* Browser-style Tabs Header */}
+        <div className="flex overflow-x-auto items-end bg-black/40 pt-4 px-4 border-b border-white/10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as any)}
+              className={cn(
+                "group relative flex items-center gap-2 px-6 py-3 transition-all duration-300 font-bold text-sm tracking-wide rounded-t-xl border-t border-x -mb-[1px]",
+                activeTab === tab.id
+                  ? "bg-white/10 border-white/10 text-white z-10 backdrop-blur-xl"
+                  : "bg-transparent border-transparent text-white/40 hover:bg-white/5 hover:text-white/80 hover:border-white/5 z-0"
+              )}
+            >
+              <tab.icon className={cn("w-4 h-4 transition-colors", activeTab === tab.id ? "text-white" : "text-white/40 group-hover:text-white/60")} />
+              {tab.label}
+              {activeTab === tab.id && (
+                <div className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-[#0c0c0c]" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Main Content Area */}
+        <div className="p-6 md:p-10 relative flex-1 overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="relative z-10"
+            >
 
  {/* Tab 1: User XP & Level Management */}
  {activeTab === "user_xp" && (
  <div className="space-y-6">
- <FormSection
- title="Set User Xp Or Level"
- icon={Users}
- description="Directly assign XP, level, or prestige to a specific user."
- >
- <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Target User ID</label>
- <Input
- placeholder="Discord User ID"
- value={newUserXp.userId}
- onChange={(e) => setNewUserXp({ ...newUserXp, userId: e.target.value })}
- className="rounded-md border border-border"
- />
- </div>
+ <Dialog open={isUserDialogOpen} onOpenChange={(open) => {
+   setIsUserDialogOpen(open);
+   if (!open) {
+     setEditingUser(null);
+     setNewUserXp({ userId: "", xp: 100, level: 1, prestigeLevel: 0 });
+   }
+ }}>
+   <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[500px]">
+     <DialogHeader>
+       <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+         <Users className="w-5 h-5 text-primary" />
+         {editingUser ? "Edit User Progress" : "Assign User XP"}
+       </DialogTitle>
+     </DialogHeader>
+     
+     <div className="grid gap-4 py-4">
+       <div className="space-y-1">
+         <label className="text-xs font-bold text-white/70 uppercase">Target User ID</label>
+         <Input
+           placeholder="Discord User ID"
+           value={editingUser ? editingUser.userId : newUserXp.userId}
+           onChange={(e) => 
+             editingUser 
+               ? setEditingUser({ ...editingUser, userId: e.target.value }) 
+               : setNewUserXp({ ...newUserXp, userId: e.target.value })
+           }
+           disabled={!!editingUser}
+           className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30 disabled:opacity-50"
+         />
+       </div>
+       <div className="space-y-1">
+         <label className="text-xs font-bold text-white/70 uppercase">Total XP</label>
+         <Input
+           type="number"
+           min={0}
+           value={editingUser ? editingUser.xp : newUserXp.xp}
+           onChange={(e) => 
+             editingUser
+               ? setEditingUser({ ...editingUser, xp: Number(e.target.value) })
+               : setNewUserXp({ ...newUserXp, xp: Number(e.target.value) })
+           }
+           className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
+         />
+       </div>
+       <div className="grid grid-cols-2 gap-4">
+         <div className="space-y-1">
+           <label className="text-xs font-bold text-white/70 uppercase">Level</label>
+           <Input
+             type="number"
+             min={0}
+             value={editingUser ? editingUser.level : newUserXp.level}
+             onChange={(e) => 
+               editingUser
+                 ? setEditingUser({ ...editingUser, level: Number(e.target.value) })
+                 : setNewUserXp({ ...newUserXp, level: Number(e.target.value) })
+             }
+             className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
+           />
+         </div>
+         <div className="space-y-1">
+           <label className="text-xs font-bold text-white/70 uppercase">Prestige</label>
+           <Input
+             type="number"
+             min={0}
+             value={editingUser ? editingUser.prestigeLevel : newUserXp.prestigeLevel}
+             onChange={(e) => 
+               editingUser
+                 ? setEditingUser({ ...editingUser, prestigeLevel: Number(e.target.value) })
+                 : setNewUserXp({ ...newUserXp, prestigeLevel: Number(e.target.value) })
+             }
+             className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
+           />
+         </div>
+       </div>
+     </div>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Total XP</label>
- <Input
- type="number"
- min={0}
- value={newUserXp.xp}
- onChange={(e) => setNewUserXp({ ...newUserXp, xp: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
-
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Level</label>
- <Input
- type="number"
- min={0}
- value={newUserXp.level}
- onChange={(e) => setNewUserXp({ ...newUserXp, level: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
-
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Prestige Level</label>
- <Input
- type="number"
- min={0}
- value={newUserXp.prestigeLevel}
- onChange={(e) => setNewUserXp({ ...newUserXp, prestigeLevel: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
- </div>
-
- <Button
- onClick={handleCreateUserXpOverride}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
- >
- <Plus className="w-4 h-4 mr-2"/>Assign User Xp</Button>
- </FormSection>
+     <div className="flex justify-end gap-2">
+       <Button variant="ghost" onClick={() => setIsUserDialogOpen(false)} className="text-white/50 hover:text-white">
+         Cancel
+       </Button>
+       <Button
+         onClick={editingUser ? handleSaveUserXpOverride : handleCreateUserXpOverride}
+         disabled={isPending}
+         className="bg-white/10 hover:bg-white/20 text-white border-0"
+       >
+         <Save className="w-4 h-4 mr-2" />
+         {editingUser ? "Save Changes" : "Assign XP"}
+       </Button>
+     </div>
+   </DialogContent>
+ </Dialog>
 
  <FormSection
  title="Guild Xp Leaderboard And Management"
  icon={Users}
  description="View member rankings and override individual scores."
+ headerAction={
+   <Button
+     onClick={() => {
+       setEditingUser(null);
+       setNewUserXp({ userId: "", xp: 100, level: 1, prestigeLevel: 0 });
+       setIsUserDialogOpen(true);
+     }}
+     className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+   >
+     <Plus className="w-4 h-4 mr-2" />Assign XP
+   </Button>
+ }
  >
- {editingUser && (
- <div className="p-4 border border-border bg-primary/10 mb-4 space-y-4">
- <h4 className="font-bold text-sm uppercase text-primary">
- EDIT_USER_PROGRESS: {editingUser.userId}
- </h4>
- <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">XP</label>
- <Input
- type="number"
- value={editingUser.xp}
- onChange={(e) => setEditingUser({ ...editingUser, xp: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Level</label>
- <Input
- type="number"
- value={editingUser.level}
- onChange={(e) => setEditingUser({ ...editingUser, level: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Prestige Level</label>
- <Input
- type="number"
- value={editingUser.prestigeLevel}
- onChange={(e) => setEditingUser({ ...editingUser, prestigeLevel: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
- </div>
- <div className="flex items-center gap-2">
- <Button
- size="sm"
- onClick={handleSaveUserXpOverride}
- disabled={isPending}
- className="rounded-md border border-border text-xs font-medium"
- >
- <Save className="w-3.5 h-3.5 mr-1"/>Commit Changes</Button>
- <Button
- size="sm"
- variant="outline"
- onClick={() => setEditingUser(null)}
- className="rounded-md border border-border text-xs uppercase"
- >
- Cancel
- </Button>
- </div>
- </div>
- )}
 
   <div className="flex items-center justify-between mb-4 gap-4">
     <div className="relative flex-1 max-w-sm">
@@ -361,21 +395,17 @@ export default function XpClient({
   </td>
   <td className="p-3 text-yellow-500 font-medium">P{u.prestigeLevel}</td>
   <td className="p-3">
-  <Button
-  size="sm"
-  variant="outline"
-  onClick={() =>
-  setEditingUser({
-  userId: u.userId,
-  xp: u.xp,
-  level: u.level,
-  prestigeLevel: u.prestigeLevel,
-  })
-  }
-  className="text-xs"
+   <Button
+    size="sm"
+    variant="outline"
+    onClick={() => {
+      setEditingUser(u);
+      setIsUserDialogOpen(true);
+    }}
+    className="rounded-md border border-white/20 bg-transparent text-white hover:bg-white/10 text-xs uppercase"
   >
-  <Edit2 className="w-3.5 h-3.5 mr-1"/>
-  Manage
+    <Edit2 className="w-3.5 h-3.5 mr-1"/>
+    Edit
   </Button>
   </td>
   </tr>
@@ -415,45 +445,76 @@ export default function XpClient({
  {/* Tab 2: Level Rewards */}
  {activeTab ==="rewards"&& (
  <div className="space-y-6">
- <FormSection
- title="Create Level Role Reward"
- icon={Award}
- description="Automatically assign roles when users hit level milestones."
- >
- <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Required Level</label>
- <Input
- type="number"
- min={1}
- value={newReward.level}
- onChange={(e) => setNewReward({ ...newReward, level: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
+    <Dialog open={isRewardDialogOpen} onOpenChange={(open) => {
+      setIsRewardDialogOpen(open);
+      if (!open) {
+        setEditingRewardLevel(null);
+        setNewReward({ level: 5, roleId: null });
+      }
+    }}>
+      <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[400px]">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+            <Award className="w-5 h-5 text-primary" />
+            {editingRewardLevel !== null ? "Edit Level Reward" : "Create Level Reward"}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-white/70 uppercase">Required Level</label>
+            <Input
+              type="number"
+              min={1}
+              value={newReward.level}
+              onChange={(e) => setNewReward({ ...newReward, level: Number(e.target.value) })}
+              className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-white/70 uppercase">Reward Role</label>
+            <DiscordRolePicker
+              roles={roles}
+              value={newReward.roleId}
+              onChange={(r) => setNewReward({ ...newReward, roleId: r })}
+            />
+          </div>
+        </div>
+        <div className="flex justify-end gap-2">
+          <Button variant="ghost" onClick={() => setIsRewardDialogOpen(false)} className="text-white/50 hover:text-white">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSaveReward}
+            disabled={isPending}
+            className="bg-white/10 hover:bg-white/20 text-white border-0"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            {editingRewardLevel !== null ? "Save Changes" : "Add Reward Role"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Reward Role</label>
- <DiscordRolePicker
- roles={roles}
- value={newReward.roleId}
- onChange={(r) => setNewReward({ ...newReward, roleId: r })}
- />
- </div>
- </div>
-
- <Button
- onClick={handleCreateReward}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
- >
- <Plus className="w-4 h-4 mr-2"/>Add Reward Role</Button>
- </FormSection>
-
- <FormSection title="Active Level Rewards"icon={Award} description="Configured role milestones.">
+    <FormSection
+      title="Active Level Rewards"
+      icon={Award}
+      description="Configured role milestones."
+      headerAction={
+        <Button
+          onClick={() => {
+            setEditingRewardLevel(null);
+            setNewReward({ level: 5, roleId: null });
+            setIsRewardDialogOpen(true);
+          }}
+          className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+        >
+          <Plus className="w-4 h-4 mr-2" />Add Reward
+        </Button>
+      }
+    >
  <div className="space-y-3">
  {initialRewards.length === 0 ? (
- <p className="text-muted-foreground text-sm uppercase p-4 border border-border">
+ <p className="text-white/40 text-sm uppercase p-4 border border-white/10 bg-white/5 rounded-xl">
  No level rewards configured.
  </p>
  ) : (
@@ -462,25 +523,38 @@ export default function XpClient({
  return (
  <div
  key={`${r.level}-${r.roleId}`}
- className="p-4 border border-border bg-card flex justify-between items-center shadow-sm"
+ className="p-4 rounded-xl bg-black/20 border border-white/5 flex items-center gap-3 justify-between shadow-sm"
  >
  <div className="flex items-center gap-3">
  <span className="font-bold text-primary text-lg">
  Level {r.level}
  </span>
- <span className="text-xs border px-2 py-1 border-primary font-bold uppercase">
+ <Badge variant="outline" className="text-xs border-primary font-bold uppercase">
  Role: {roleObj ? roleObj.name : r.roleId}
- </span>
+ </Badge>
  </div>
-
- <Button
- size="sm"
- variant="destructive"
- onClick={() => startTransition(async () => { await deleteXpReward(guildId, r.level, r.roleId); })}
- className="rounded-md border border-destructive text-xs uppercase"
- >
- <Trash2 className="w-3.5 h-3.5"/>
- </Button>
+ <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            setEditingRewardLevel(r.level);
+                            setNewReward({ level: r.level, roleId: r.roleId });
+                            setIsRewardDialogOpen(true);
+                          }}
+                          className="rounded-md border border-white/20 bg-transparent text-white hover:bg-white/10 text-xs uppercase"
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() => startTransition(async () => { await deleteXpReward(guildId, r.level, r.roleId); })}
+                          className="rounded-md border border-destructive text-xs uppercase"
+                        >
+                          <Trash2 className="w-3.5 h-3.5"/>
+                        </Button>
+ </div>
  </div>
  );
  })
@@ -490,100 +564,143 @@ export default function XpClient({
  </div>
  )}
 
- {/* Tab 3: XP Multipliers */}
- {activeTab ==="multipliers"&& (
- <div className="space-y-6">
- <FormSection
- title="Create Xp Multiplier"
- icon={Zap}
- description="Assign boosted XP gain to specific roles or channels."
- >
- <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Target Type</label>
- <select
- value={newMult.targetType}
- onChange={(e) => setNewMult({ ...newMult, targetType: e.target.value })}
- className="w-full p-2 bg-background border border-border rounded-md text-sm uppercase"
- >
- <option value="role">Role Multiplier</option>
- <option value="channel">Channel Multiplier</option>
- </select>
- </div>
+  {/* Tab 3: XP Multipliers */}
+  {activeTab === "multipliers" && (
+  <div className="space-y-6">
+    <Dialog open={isMultDialogOpen} onOpenChange={(open) => {
+      setIsMultDialogOpen(open);
+      if (!open) {
+        setEditingMultId(null);
+        setNewMult({ targetId: "", targetType: "role", multiplier: 150 });
+      }
+    }}>
+      <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[400px]">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-xl font-bold">
+            <Zap className="w-5 h-5 text-primary" />
+            {editingMultId ? "Edit XP Multiplier" : "Create XP Multiplier"}
+          </DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-white/70 uppercase">Target Type</label>
+            <select
+              value={newMult.targetType}
+              onChange={(e) => setNewMult({ ...newMult, targetType: e.target.value })}
+              className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm text-white uppercase [&>option]:bg-neutral-900"
+            >
+              <option value="role">Role Multiplier</option>
+              <option value="channel">Channel Multiplier</option>
+            </select>
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-white/70 uppercase">Target ID (Role or Channel)</label>
+            {newMult.targetType === "role" ? (
+              <DiscordRolePicker
+                roles={roles}
+                value={newMult.targetId || null}
+                onChange={(r) => setNewMult({ ...newMult, targetId: r || "" })}
+              />
+            ) : (
+              <Input
+                placeholder="Channel Snowflake ID"
+                value={newMult.targetId}
+                onChange={(e) => setNewMult({ ...newMult, targetId: e.target.value })}
+                className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
+              />
+            )}
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-white/70 uppercase">Multiplier % (150 = 1.5x)</label>
+            <Input
+              type="number"
+              min={50}
+              max={500}
+              step={10}
+              value={newMult.multiplier}
+              onChange={(e) => setNewMult({ ...newMult, multiplier: Number(e.target.value) })}
+              className="w-full bg-white/5 border border-white/10 rounded-md px-4 py-2 text-sm focus-visible:ring-0 text-white placeholder:text-white/30"
+            />
+          </div>
+        </div>
+        <div className="flex justify-end gap-2">
+          <Button variant="ghost" onClick={() => setIsMultDialogOpen(false)} className="text-white/50 hover:text-white">
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSaveMultiplier}
+            disabled={isPending}
+            className="bg-white/10 hover:bg-white/20 text-white border-0"
+          >
+            <Save className="w-4 h-4 mr-2" />
+            {editingMultId ? "Save Changes" : "Create Multiplier"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
 
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Target ID (Role or Channel)</label>
- {newMult.targetType ==="role"? (
- <DiscordRolePicker
- roles={roles}
- value={newMult.targetId || null}
- onChange={(r) => setNewMult({ ...newMult, targetId: r ||""})}
- />
- ) : (
- <Input
- placeholder="Channel Snowflake ID"
- value={newMult.targetId}
- onChange={(e) => setNewMult({ ...newMult, targetId: e.target.value })}
- className="rounded-md border border-border"
- />
- )}
- </div>
-
- <div className="space-y-1">
- <label className="text-xs font-bold uppercase">Multiplier % (150 = 1.5x)</label>
- <Input
- type="number"
- min={50}
- max={500}
- step={10}
- value={newMult.multiplier}
- onChange={(e) => setNewMult({ ...newMult, multiplier: Number(e.target.value) })}
- className="rounded-md border border-border"
- />
- </div>
- </div>
-
- <Button
- onClick={handleCreateMultiplier}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
- >
- <Plus className="w-4 h-4 mr-2"/>Create Multiplier</Button>
- </FormSection>
-
- <FormSection title="Active Xp Multipliers"icon={Zap} description="Configured boosts.">
+    <FormSection 
+      title="Active Xp Multipliers" 
+      icon={Zap} 
+      description="Configured boosts."
+      headerAction={
+        <Button
+          onClick={() => {
+            setEditingMultId(null);
+            setNewMult({ targetId: "", targetType: "role", multiplier: 150 });
+            setIsMultDialogOpen(true);
+          }}
+          className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+        >
+          <Plus className="w-4 h-4 mr-2" />Add Multiplier
+        </Button>
+      }
+    >
  <div className="space-y-3">
  {initialMultipliers.length === 0 ? (
- <p className="text-muted-foreground text-sm uppercase p-4 border border-border">
+ <p className="text-white/40 text-sm uppercase p-4 border border-white/10 bg-white/5 rounded-xl">
  No custom XP multipliers configured.
  </p>
  ) : (
  initialMultipliers.map((m) => (
  <div
  key={`${m.targetId}-${m.targetType}`}
- className="p-4 border border-border bg-card flex justify-between items-center shadow-sm"
+ className="p-4 rounded-xl bg-black/20 border border-white/5 flex items-center gap-3 justify-between shadow-sm"
  >
  <div>
  <div className="flex items-center gap-2">
- <span className="font-bold uppercase text-primary">
- {m.targetType.toUpperCase()}: {m.targetId}
- </span>
+ <Badge variant="outline" className="font-bold uppercase border-primary text-primary">
+ {m.targetType}: {m.targetId}
+ </Badge>
  <span className="text-xs border px-2 py-0.5 border-primary font-bold text-emerald-500">
  {m.multiplier}% ({ (m.multiplier / 100).toFixed(1) }x)
  </span>
  </div>
  </div>
-
- <Button
- size="sm"
- variant="destructive"
- onClick={() =>
- startTransition(async () => { await deleteXpMultiplier(guildId, m.targetId, m.targetType); })
- }
- className="rounded-md border border-destructive text-xs uppercase"
- >
- <Trash2 className="w-3.5 h-3.5"/>
- </Button>
+ <div className="flex items-center gap-2">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => {
+                            setEditingMultId({ id: m.targetId, type: m.targetType });
+                            setNewMult({ targetId: m.targetId, targetType: m.targetType, multiplier: m.multiplier });
+                            setIsMultDialogOpen(true);
+                          }}
+                          className="rounded-md border border-white/20 bg-transparent text-white hover:bg-white/10 text-xs uppercase"
+                        >
+                          Edit
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="destructive"
+                          onClick={() =>
+                            startTransition(async () => { await deleteXpMultiplier(guildId, m.targetId, m.targetType); })
+                          }
+                          className="rounded-md border border-destructive text-xs uppercase"
+                        >
+                          <Trash2 className="w-3.5 h-3.5"/>
+                        </Button>
+ </div>
  </div>
  ))
  )}
@@ -612,12 +729,16 @@ export default function XpClient({
  <Button
  onClick={handleSaveSettings}
  disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs"
+ className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
  >
  <Save className="w-4 h-4 mr-2"/>Save Xp Rules</Button>
  </div>
  </FormSection>
  )}
- </div>
- );
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>
+  );
 }
