@@ -1,0 +1,52 @@
+{
+  "title": "Système d'Avertissements",
+  "description": "Suivez les infractions des utilisateurs et créez des sanctions automatisées.",
+  "tabs": {
+    "warnings": "Avertissements Actifs",
+    "automations": "Automatisations d'Avertissement"
+  },
+  "dialog": {
+    "issueTitle": "Émettre un Avertissement Manuel",
+    "userId": "ID de l'Utilisateur Discord",
+    "warnTitle": "Titre de l'Avertissement / Motif",
+    "description": "Description Détaillée (Optionnel)",
+    "level": "Niveau de Sévérité (Points)",
+    "proof": "Preuve / URL de l'Image (Optionnel)",
+    "cancel": "Annuler",
+    "issueWarn": "Émettre l'Avertissement",
+    "createAutoTitle": "Créer une Automatisation",
+    "autoName": "Nom de l'Automatisation",
+    "triggerMetric": "Métrique de Déclenchement",
+    "warnCount": "Nombre d'Avertissements",
+    "warnPoints": "Points d'Avertissement (Somme des niveaux)",
+    "threshold": "Valeur du Seuil",
+    "actionToExecute": "Action à Exécuter",
+    "timeout": "Exclure l'Utilisateur (Timeout)",
+    "kick": "Expulser l'Utilisateur",
+    "ban": "Bannir l'Utilisateur",
+    "timeoutDuration": "Durée de l'Exclusion (Secondes)",
+    "notificationSettings": "Paramètres de Notification",
+    "notifyChannel": "Salon de Notification (Optionnel)",
+    "notifyMessage": "Message de Notification",
+    "saveRule": "Sauvegarder la Règle"
+  },
+  "warningsList": {
+    "title": "Registre des Avertissements",
+    "description": "Visualisez et gérez les infractions actives.",
+    "issueWarn": "Émettre un Avertissement",
+    "noWarnings": "Aucun avertissement enregistré.",
+    "user": "Utilisateur: {id}",
+    "resolved": "Résolu",
+    "level": "Niveau: {level}",
+    "resolveBtn": "Résoudre",
+    "reopenBtn": "Rouvrir"
+  },
+  "automationsList": {
+    "title": "Voies d'Escalade",
+    "description": "Sanctions automatisées lorsque les seuils sont atteints.",
+    "addRule": "Ajouter une Règle",
+    "noAutomations": "Aucune automatisation configurée.",
+    "triggerDesc": "Si {type} >= {value}",
+    "actions": "Actions"
+  }
+}

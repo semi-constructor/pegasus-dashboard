@@ -1,0 +1,93 @@
+{
+  "tabs": {
+    "cases": "Active Cases",
+    "warnings": "Issue Warning",
+    "automations": "Automations",
+    "filters": "Word Filters",
+    "logging": "Mod Logs"
+  },
+  "cases": {
+    "title": "Moderation Cases",
+    "description": "Read-only history of staff actions.",
+    "empty": "No moderation cases recorded yet.",
+    "number": "Case #",
+    "action": "Action",
+    "target": "Target User ID",
+    "mod": "Moderator ID",
+    "reason": "Reason",
+    "date": "Date",
+    "noReason": "No reason"
+  },
+  "issueWarning": {
+    "title": "Issue New Warning",
+    "description": "Assign a warning to a guild user.",
+    "userId": "Target User ID",
+    "warnTitle": "Warning Title",
+    "desc": "Description / Details",
+    "level": "Severity Level (1-5)",
+    "proof": "Proof Attachment URL",
+    "btn": "Issue Warning"
+  },
+  "activeWarnings": {
+    "title": "Active Warnings",
+    "description": "Manage guild warnings.",
+    "empty": "No warnings registered in database.",
+    "level": "Level {level}",
+    "inactive": "Inactive",
+    "info": "User: {user} | Mod: {mod} | {date}",
+    "activate": "Activate",
+    "deactivate": "Deactivate"
+  },
+  "createAuto": {
+    "title": "Create Warning Automation",
+    "description": "Configure automated escalations upon reaching warning thresholds.",
+    "name": "Rule Name",
+    "triggerType": "Trigger Type",
+    "warnCount": "Total Warning Count",
+    "warnLevel": "Cumulative Warn Level",
+    "triggerValue": "Trigger Threshold Value",
+    "action": "Escalation Action",
+    "timeout": "Timeout / Mute",
+    "kick": "Kick User",
+    "ban": "Ban User",
+    "notify": "Notification Channel",
+    "btn": "Create Automation"
+  },
+  "activeAutos": {
+    "title": "Active Automations",
+    "description": "Configured penalty escalations.",
+    "empty": "No automated warning escalations active.",
+    "info": "Trigger: {type} >= {value} | Action: {actions}"
+  },
+  "createFilter": {
+    "title": "Create Word Filter",
+    "description": "Blacklist explicit words or patterns.",
+    "pattern": "Pattern / Keyword",
+    "matchType": "Match Type",
+    "literal": "Literal Substring",
+    "regex": "Regular Expression",
+    "severity": "Severity",
+    "sevLow": "Low",
+    "sevMed": "Medium",
+    "sevHigh": "High",
+    "sevCrit": "Critical",
+    "notify": "Alert Channel",
+    "autoDelete": "Auto Delete",
+    "caseSensitive": "Case Sensitive",
+    "wholeWord": "Whole Word",
+    "btn": "Add Filter Rule"
+  },
+  "activeFilters": {
+    "title": "Active Word Filters",
+    "description": "Monitored words and expressions.",
+    "empty": "No word filter rules defined.",
+    "info": "Auto Delete: {del} | Whole Word: {word}",
+    "yes": "YES",
+    "no": "NO"
+  },
+  "logs": {
+    "title": "Moderation Log Routing",
+    "description": "Route specific event categories to targeted channels.",
+    "saveBtn": "Save Routing"
+  }
+}

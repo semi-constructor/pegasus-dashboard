@@ -1,0 +1,22 @@
+{
+  "saveBar": {
+    "unsavedChanges": "Unsaved changes",
+    "discard": "Discard",
+    "saving": "Saving...",
+    "saveChanges": "Save changes"
+  },
+  "pickers": {
+    "selectChannel": "Select channel...",
+    "selectChannels": "Select channels...",
+    "searchChannels": "Search channels...",
+    "noChannelsFound": "No channels found.",
+    "clearSelection": "Clear selection",
+    "selectRole": "Select role...",
+    "selectRoles": "Select roles...",
+    "searchRoles": "Search roles...",
+    "noRolesFound": "No roles found.",
+    "searchUsername": "Search username...",
+    "searching": "Searching...",
+    "noUsersFound": "No users found."
+  }
+}

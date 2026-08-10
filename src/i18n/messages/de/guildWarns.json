@@ -1,0 +1,52 @@
+{
+  "title": "Warnsystem",
+  "description": "Verfolge Verstöße von Benutzern und erstelle automatisierte Eskalationen.",
+  "tabs": {
+    "warnings": "Aktive Warnungen",
+    "automations": "Warnungs-Automatisierungen"
+  },
+  "dialog": {
+    "issueTitle": "Manuelle Warnung ausgeben",
+    "userId": "Discord-Benutzer-ID",
+    "warnTitle": "Titel der Warnung / Grund",
+    "description": "Detaillierte Beschreibung (Optional)",
+    "level": "Schweregrad (Punkte)",
+    "proof": "Beweis / Bild-URL (Optional)",
+    "cancel": "Abbrechen",
+    "issueWarn": "Warnung ausgeben",
+    "createAutoTitle": "Warnungs-Automatisierung erstellen",
+    "autoName": "Name der Automatisierung",
+    "triggerMetric": "Auslöser-Metrik",
+    "warnCount": "Anzahl der Warnungen",
+    "warnPoints": "Warnpunkte (Summe der Level)",
+    "threshold": "Schwellenwert",
+    "actionToExecute": "Auszuführende Aktion",
+    "timeout": "Benutzer stummschalten (Timeout)",
+    "kick": "Benutzer kicken",
+    "ban": "Benutzer bannen",
+    "timeoutDuration": "Dauer der Stummschaltung (Sekunden)",
+    "notificationSettings": "Benachrichtigungseinstellungen",
+    "notifyChannel": "Benachrichtigungskanal (Optional)",
+    "notifyMessage": "Benachrichtigungstext",
+    "saveRule": "Regel speichern"
+  },
+  "warningsList": {
+    "title": "Registerkarte für Benutzerwarnungen",
+    "description": "Aktive Verstöße anzeigen und verwalten.",
+    "issueWarn": "Warnung ausgeben",
+    "noWarnings": "Keine Warnungen verzeichnet.",
+    "user": "Benutzer: {id}",
+    "resolved": "Erledigt",
+    "level": "Level: {level}",
+    "resolveBtn": "Erledigen",
+    "reopenBtn": "Wiedereröffnen"
+  },
+  "automationsList": {
+    "title": "Eskalationspfade",
+    "description": "Automatisierte Bestrafungen bei Erreichen von Warn-Schwellenwerten.",
+    "addRule": "Regel hinzufügen",
+    "noAutomations": "Keine Automatisierungen konfiguriert.",
+    "triggerDesc": "Wenn {type} >= {value}",
+    "actions": "Aktionen"
+  }
+}

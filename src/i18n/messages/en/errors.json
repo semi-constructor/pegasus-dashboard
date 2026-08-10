@@ -1,0 +1,23 @@
+{
+  "notFound": {
+    "title": "This page has flown away",
+    "description": "The page you're looking for doesn't exist or may have been moved.",
+    "lines": [
+      "Our carrier pigeon took a wrong turn.",
+      "A rogue bot command appears to have misplaced this page.",
+      "We checked behind the Discord sofa. Nothing."
+    ]
+  },
+  "unexpected": {
+    "title": "Something went wrong",
+    "description": "We couldn't load this page right now. Please try again, or return home.",
+    "lines": [
+      "The hamsters are rebooting the server wheel.",
+      "A gremlin pressed a button it definitely shouldn't have.",
+      "Our error goblin has been notified. Politely."
+    ]
+  },
+  "goHome": "Go home",
+  "viewDocs": "View documentation",
+  "tryAgain": "Try again"
+}

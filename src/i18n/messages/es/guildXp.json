@@ -1,0 +1,85 @@
+{
+  "title": "XP y Niveles",
+  "subtitle": "Gestiona la XP de usuarios, logros de nivel, recompensas de rol y multiplicadores.",
+  "tabs": {
+    "userXp": "User XP & Management",
+    "rewards": "Recompensas por Nivel",
+    "multipliers": "Multiplicadores de XP",
+    "settings": "XP Rules & Settings"
+  },
+  "userDialog": {
+    "editTitle": "Edit User Progress",
+    "assignTitle": "Assign User XP",
+    "targetUserId": "Target User ID",
+    "totalXp": "Total XP",
+    "level": "Level",
+    "prestige": "Prestige",
+    "cancel": "Cancel",
+    "saveChanges": "Guardar cambios",
+    "assignXp": "Assign XP"
+  },
+  "leaderboard": {
+    "title": "Guild XP Leaderboard And Management",
+    "description": "View member rankings and override individual scores.",
+    "assignXpBtn": "Assign XP",
+    "searchPlaceholder": "Search by User ID...",
+    "rank": "Rank",
+    "userId": "User ID",
+    "totalXp": "Total XP",
+    "level": "Level",
+    "prestige": "Prestige",
+    "actions": "Actions",
+    "noData": "No member XP data found.",
+    "edit": "Edit",
+    "page": "Page {current} of {total}",
+    "lvl": "Lvl {level}",
+    "xp": "{xp} XP"
+  },
+  "rewardDialog": {
+    "editTitle": "Edit Level Reward",
+    "createTitle": "Create Level Reward",
+    "requiredLevel": "Required Level",
+    "rewardRole": "Reward Role",
+    "cancel": "Cancel",
+    "saveChanges": "Guardar cambios",
+    "addRewardRole": "Add Reward Role"
+  },
+  "activeRewards": {
+    "title": "Active Level Rewards",
+    "description": "Configured role milestones.",
+    "addRewardBtn": "Add Reward",
+    "noRewards": "No level rewards configured.",
+    "level": "Level {level}",
+    "role": "Role: {role}",
+    "edit": "Edit"
+  },
+  "multiplierDialog": {
+    "editTitle": "Edit XP Multiplier",
+    "createTitle": "Create XP Multiplier",
+    "targetType": "Target Type",
+    "roleMultiplier": "Role Multiplier",
+    "channelMultiplier": "Channel Multiplier",
+    "targetId": "Target ID (Role or Channel)",
+    "multiplierPercent": "Multiplier % (150 = 1.5x)",
+    "cancel": "Cancel",
+    "saveChanges": "Guardar cambios",
+    "createMultiplier": "Create Multiplier"
+  },
+  "activeMultipliers": {
+    "title": "Active XP Multipliers",
+    "description": "Configured boosts.",
+    "addMultiplierBtn": "Add Multiplier",
+    "noMultipliers": "No custom XP multipliers configured.",
+    "edit": "Edit",
+    "multiplierDetails": "{multiplier}% ({x}x)"
+  },
+  "progressionRules": {
+    "title": "XP Progression Rules",
+    "description": "Global leveling policies and reward behavior.",
+    "levelUpRewards": "Level Up Role Rewards",
+    "levelUpRewardsDesc": "Automatically grant roles when members level up",
+    "stackRewards": "Stack Role Rewards",
+    "stackRewardsDesc": "Keep previous level roles when unlocking higher tier roles",
+    "saveRules": "Save XP Rules"
+  }
+}

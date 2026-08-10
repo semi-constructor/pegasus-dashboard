@@ -1,0 +1,45 @@
+{
+  "title": "Comandos Personalizados",
+  "description": "Define respuestas automáticas programáticas con soporte para embeds.",
+  "syncing": "Sincronizando...",
+  "saveRegistry": "Guardar Registro",
+  "generalSettings": {
+    "title": "Configuración General",
+    "description": "Restricciones globales para comandos personalizados",
+    "restrictChannelLabel": "Restringir todos los comandos al ID del Canal (Opcional)",
+    "leaveEmptyText": "Dejar vacío para permitir comandos en todos los canales."
+  },
+  "dialog": {
+    "editTitle": "Editar Comando Personalizado",
+    "createTitle": "Crear Comando Personalizado",
+    "triggerName": "Nombre del Activador",
+    "responseType": "Tipo de Respuesta",
+    "plainText": "Texto Plano",
+    "richEmbed": "Embed Enriquecido",
+    "restrictChannel": "Restringir al ID del Canal (Opcional)",
+    "restrictChannelDesc": "Opcional. Vincula este comando a un canal específico.",
+    "plainTextResponse": "Respuesta de Texto Plano",
+    "embedSettings": "Configuración del Embed",
+    "embedTitleLabel": "Título",
+    "embedColorHex": "Color Hex",
+    "embedDescriptionLabel": "Descripción (Opcional)",
+    "embedFooterText": "Texto del Pie (Opcional)",
+    "embedThumbnailUrl": "URL de Miniatura (Opcional)",
+    "embedImageUrl": "URL de Imagen (Opcional)",
+    "cancel": "Cancelar",
+    "saveChanges": "Guardar Cambios",
+    "createCommand": "Crear Comando"
+  },
+  "registered": {
+    "title": "Comandos Registrados",
+    "description": "Todas las respuestas automáticas configuradas para este servidor.",
+    "newCommand": "Nuevo Comando",
+    "noCommands": "No hay comandos registrados",
+    "embed": "Embed",
+    "text": "Texto",
+    "channel": "# Canal {id}",
+    "untitledEmbed": "Embed sin título",
+    "noDescription": "Sin descripción",
+    "emptyResponse": "Respuesta vacía"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "servers": "Server",
+  "selectServer": "Server auswählen",
+  "system": "System",
+  "adminDashboard": "Admin-Dashboard",
+  "securityCenter": "Sicherheitscenter",
+  "databaseBrowser": "Datenbank-Browser",
+  "bugReports": "Fehlerberichte",
+  "apiMetrics": "API-Metriken",
+  "auditLogs": "Audit-Protokolle",
+  "passkeys": "Passkeys",
+  "profileSettings": "Profileinstellungen"
+}

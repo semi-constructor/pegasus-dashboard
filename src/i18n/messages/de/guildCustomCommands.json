@@ -1,0 +1,45 @@
+{
+  "title": "Benutzerdefinierte Befehle",
+  "description": "Definiere programmierbare Auto-Antworten mit Embed-Unterstützung.",
+  "syncing": "Synchronisiere...",
+  "saveRegistry": "Registrierung speichern",
+  "generalSettings": {
+    "title": "Allgemeine Einstellungen",
+    "description": "Globale Einschränkungen für benutzerdefinierte Befehle",
+    "restrictChannelLabel": "Alle Befehle auf Kanal-ID beschränken (Optional)",
+    "leaveEmptyText": "Leer lassen, um Befehle in allen Kanälen zu erlauben."
+  },
+  "dialog": {
+    "editTitle": "Benutzerdefinierten Befehl bearbeiten",
+    "createTitle": "Benutzerdefinierten Befehl erstellen",
+    "triggerName": "Auslöser-Name",
+    "responseType": "Antworttyp",
+    "plainText": "Klartext",
+    "richEmbed": "Rich Embed",
+    "restrictChannel": "Auf Kanal-ID beschränken (Optional)",
+    "restrictChannelDesc": "Optional. Bindet diesen Befehl an einen Kanal.",
+    "plainTextResponse": "Klartext-Antwort",
+    "embedSettings": "Embed-Einstellungen",
+    "embedTitleLabel": "Titel",
+    "embedColorHex": "Farb-Hex",
+    "embedDescriptionLabel": "Beschreibung (Optional)",
+    "embedFooterText": "Fußzeilen-Text (Optional)",
+    "embedThumbnailUrl": "Thumbnail-URL (Optional)",
+    "embedImageUrl": "Bild-URL (Optional)",
+    "cancel": "Abbrechen",
+    "saveChanges": "Änderungen speichern",
+    "createCommand": "Befehl erstellen"
+  },
+  "registered": {
+    "title": "Registrierte Befehle",
+    "description": "Alle konfigurierten Auto-Antworten für diesen Server.",
+    "newCommand": "Neuer Befehl",
+    "noCommands": "Keine Befehle registriert",
+    "embed": "Embed",
+    "text": "Text",
+    "channel": "# Kanal {id}",
+    "untitledEmbed": "Unbenanntes Embed",
+    "noDescription": "Keine Beschreibung angegeben",
+    "emptyResponse": "Leere Antwort"
+  }
+}

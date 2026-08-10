@@ -1,0 +1,12 @@
+{
+  "commandsReference": "Referencia de comandos",
+  "subtitle": "Documentación del Bot de Discord Pegasus",
+  "categories": "Categorías",
+  "searchPlaceholder": "Buscar comandos...",
+  "noCommandsFound": "No se encontraron comandos que coincidan con \"{query}\" en {category}.",
+  "options": "Opciones",
+  "subcommands": "{count} Subcomandos",
+  "group": "Grupo",
+  "required": "Req.",
+  "optional": "Opc."
+}

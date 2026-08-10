@@ -1,0 +1,63 @@
+{
+  "backToHome": "Back to Home",
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated: July 23, 2026",
+    "sections": {
+      "1": {
+        "title": "1. Information We Collect",
+        "p1": "When you use Pegasus, we collect and store the following information:",
+        "l1": "Discord User IDs and Guild IDs for operation and configuration storage.",
+        "l2": "Messages logged specifically by the server administrator (only when the Logging module is active).",
+        "l3": "Economy and XP balances associated with your User ID.",
+        "l4": "Anonymous website usage data and analytics via Google Analytics and Google Search Console (subject to your cookie consent)."
+      },
+      "2": {
+        "title": "2. How We Use Information",
+        "p1": "The information we collect is strictly used to provide the bot's functionality, such as maintaining economy leaderboards, creating moderation logs for your server, and ensuring the stability of the platform. We do not sell your data to third parties."
+      },
+      "3": {
+        "title": "3. Data Retention",
+        "p1": "We retain your data as long as your Discord server has Pegasus installed. When the bot is removed from a server, all associated configuration data is scheduled for automated deletion within 30 days. Individual user data (XP, Economy) can be wiped upon request."
+      },
+      "4": {
+        "title": "4. Your Rights",
+        "p1": "You have the right to request an export of all your data or request complete deletion of your data from our systems. You can initiate these requests directly through the Dashboard or by contacting support."
+      },
+      "5": {
+        "title": "5. Analytics and Tracking",
+        "p1": "We use Google Analytics and Google Search Console to understand website traffic and improve the user experience. These services may use cookies to collect anonymous usage data. You are in full control and can manage your cookie preferences through our cookie consent banner."
+      }
+    }
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "lastUpdated": "Last updated: July 23, 2026",
+    "sections": {
+      "1": {
+        "title": "1. Acceptance of Terms",
+        "p1": "By accessing and using the Pegasus Discord Bot and Dashboard (\"Service\"), you accept and agree to be bound by the terms and provision of this agreement."
+      },
+      "2": {
+        "title": "2. Description of Service",
+        "p1": "Pegasus provides enterprise-level Discord server management tools including economy systems, moderation utilities, ticketing, and logging through a Discord bot and web dashboard."
+      },
+      "3": {
+        "title": "3. User Conduct",
+        "p1": "You agree to not use the Service to:",
+        "l1": "Violate any Discord Terms of Service or Community Guidelines.",
+        "l2": "Abuse the economy or XP systems through automated macros or bots.",
+        "l3": "Use the moderation tools to maliciously harm server communities.",
+        "l4": "Attempt to bypass rate limits or authentication mechanisms."
+      },
+      "4": {
+        "title": "4. Data and Privacy",
+        "p1": "Our data collection and use practices are governed by our Privacy Policy. By using the Service, you consent to the collection and use of this information as detailed in the Privacy Policy."
+      },
+      "5": {
+        "title": "5. Modifications to Service",
+        "p1": "We reserve the right at any time to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice."
+      }
+    }
+  }
+}

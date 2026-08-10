@@ -1,0 +1,154 @@
+{
+  "title": "Explore Pegasus Modules",
+  "description": "Discover the powerful features built into Pegasus. Click on any module below to learn how it works and how you can set it up on your server.",
+  "backToModules": "Back to Modules",
+  "keyFeatures": "Key Features",
+  "howToSetUp": "How to Set Up",
+  "configureInDashboard": "Configure in Dashboard",
+  "modules": {
+    "automod": {
+      "title": "Auto-Moderation",
+      "description": "Automatically filter spam, bad words, and malicious content.",
+      "fullDescription": "Keep your server safe automatically with advanced filtering.",
+      "features": [
+        "Filter bad words, links, and spam.",
+        "Automatically warn, mute, or kick offenders.",
+        "Customizable whitelist for specific roles and channels.",
+        "Detailed logs of all auto-mod actions."
+      ],
+      "setup": "Enable Auto-Moderation in the dashboard. Configure your word filters, spam thresholds, and select what punishments should be applied automatically. You can also specify channels to ignore."
+    },
+    "economy": {
+      "title": "Economy System",
+      "description": "Virtual economy with shops, wallets, daily rewards, and betting.",
+      "fullDescription": "A rich virtual economy to boost server activity and engagement.",
+      "features": [
+        "Custom currency name and symbol.",
+        "Daily rewards, working, and robbing commands.",
+        "Customizable shop with items that can grant roles or multipliers.",
+        "Leaderboards to see the wealthiest members."
+      ],
+      "setup": "Set your currency symbol and starting balance. Add items to your server shop, configure work/rob cooldowns, and let your members start earning!"
+    },
+    "engagement": {
+      "title": "Engagement",
+      "description": "Reward active members, track messages and voice activity.",
+      "fullDescription": "Track and reward member activity across your server.",
+      "features": [
+        "Track messages sent and voice time.",
+        "Reward active members with economy coins.",
+        "View detailed statistics and analytics.",
+        "Reset stats weekly or monthly."
+      ],
+      "setup": "Enable engagement tracking and set how many coins should be awarded per message or per minute in voice chat."
+    },
+    "giveaways": {
+      "title": "Giveaways",
+      "description": "Host giveaways with requirements, roles, and automated winners.",
+      "fullDescription": "Host interactive giveaways to reward your community.",
+      "features": [
+        "Create, edit, and end giveaways easily.",
+        "Set role requirements to enter.",
+        "Multiple winners support.",
+        "Automatic winner selection and rerolling."
+      ],
+      "setup": "You can start a giveaway directly from the dashboard or using the /giveaway command. Set the prize, duration, and number of winners."
+    },
+    "jtc": {
+      "title": "Join to Create (JTC)",
+      "description": "Dynamic temporary voice channels created when users join a hub.",
+      "fullDescription": "Dynamic voice channels for a cleaner server layout.",
+      "features": [
+        "Users join a hub channel to create their own temp channel.",
+        "Channel owner can rename, lock, or limit users.",
+        "Channels are automatically deleted when empty.",
+        "Keeps your server voice category neat."
+      ],
+      "setup": "Select a 'Hub' voice channel in the dashboard. Whenever a user joins this channel, a temporary voice channel will be created for them."
+    },
+    "moderation": {
+      "title": "Moderation",
+      "description": "Essential commands to ban, kick, mute, and manage users.",
+      "fullDescription": "Essential tools for your staff to manage the community.",
+      "features": [
+        "Ban, kick, timeout, and warn commands.",
+        "Purge messages in bulk.",
+        "Detailed audit logging.",
+        "Role-based permission checks."
+      ],
+      "setup": "Configure your 'Moderator' roles and specify a log channel so your staff can keep track of all moderation actions taken."
+    },
+    "schedule": {
+      "title": "Scheduled Events",
+      "description": "Plan automated messages, reminders, and regular announcements.",
+      "fullDescription": "Automate messages and reminders for your server.",
+      "features": [
+        "Send recurring messages (e.g., weekly announcements).",
+        "Set one-time reminders.",
+        "Support for complex cron schedules.",
+        "Embed message support."
+      ],
+      "setup": "Create a new scheduled task in the dashboard. Write your message, choose the channel, and set the interval or exact time."
+    },
+    "tickets": {
+      "title": "Tickets",
+      "description": "Private support ticket channels, transcripts, and management.",
+      "fullDescription": "Provide private 1-on-1 support for your members.",
+      "features": [
+        "Customizable ticket panels with buttons or dropdowns.",
+        "Claim, close, and delete tickets.",
+        "Auto-saving transcripts sent to a log channel.",
+        "Support for multiple ticket categories."
+      ],
+      "setup": "Create a ticket panel in the dashboard, assign a support role, and send the panel to a channel. Members can click to open a private thread/channel."
+    },
+    "warns": {
+      "title": "Warnings",
+      "description": "Track user infractions with automated punishments on threshold.",
+      "fullDescription": "A comprehensive strike system with automated punishments.",
+      "features": [
+        "Keep track of user infractions permanently.",
+        "Set thresholds (e.g., 3 warns = timeout, 5 = kick).",
+        "Allow users to check their own warns.",
+        "Pardon/remove warns if needed."
+      ],
+      "setup": "Define your punishment thresholds in the dashboard. When a moderator warns a user, the bot will check if they reached a threshold and act accordingly."
+    },
+    "xp": {
+      "title": "Leveling & XP",
+      "description": "Award XP for chatting, custom role rewards, and leaderboards.",
+      "fullDescription": "Gamify your server by rewarding members with XP.",
+      "features": [
+        "Gain XP for sending messages.",
+        "Custom rank cards.",
+        "Level up announcements.",
+        "Role rewards for reaching specific levels."
+      ],
+      "setup": "Enable the leveling system. Configure the XP rate, set up role rewards, and customize the level up message channel."
+    },
+    "custom-commands": {
+      "title": "Custom Commands",
+      "description": "Create your own commands and auto-responses tailored to your server.",
+      "fullDescription": "Add your own text commands to the bot.",
+      "features": [
+        "Create simple auto-responders.",
+        "Support for variables (e.g., {user}).",
+        "Choose between slash commands or prefix commands.",
+        "Embed responses."
+      ],
+      "setup": "Click 'Add Command', choose a trigger name, and type the response. The bot will instantly learn the new command."
+    },
+    "settings": {
+      "title": "Core Settings",
+      "description": "Manage prefix, language, logging, and general bot configuration.",
+      "fullDescription": "General configuration for your server.",
+      "features": [
+        "Custom prefix.",
+        "Language selection.",
+        "Admin role configuration.",
+        "Logging channels."
+      ],
+      "setup": "Review these settings first to ensure the bot behaves exactly how you want it to on your server."
+    }
+  }
+}

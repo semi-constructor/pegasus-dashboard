@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pegasus-dashboard
+    restart: unless-stopped
+    env_file:
+      - .env.production
+    ports:
+      - "3000:3000"
+    # Enables connection to the host machine (so it can reach the bot/db if they are on the same machine)
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

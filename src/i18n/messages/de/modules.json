@@ -1,0 +1,154 @@
+{
+  "title": "Pegasus-Module entdecken",
+  "description": "Entdecke die leistungsstarken Funktionen von Pegasus. Klicke auf ein Modul, um mehr zu erfahren.",
+  "backToModules": "Zurück zu Modulen",
+  "keyFeatures": "Hauptfunktionen",
+  "howToSetUp": "Einrichtung",
+  "configureInDashboard": "Im Dashboard konfigurieren",
+  "modules": {
+    "automod": {
+      "title": "Auto-Moderation",
+      "description": "Filtert Spam und böse Wörter automatisch.",
+      "fullDescription": "Halte deinen Server mit erweiterten Filtern sicher.",
+      "features": [
+        "Böse Wörter, Links und Spam filtern.",
+        "Automatisches Verwarnen, Stummschalten oder Kicken.",
+        "Ausnahmen für bestimmte Rollen.",
+        "Detaillierte Protokolle."
+      ],
+      "setup": "Aktiviere Auto-Mod im Dashboard. Konfiguriere Wortfilter und automatische Bestrafungen."
+    },
+    "economy": {
+      "title": "Wirtschaft",
+      "description": "Virtuelle Wirtschaft mit Shops und täglichen Belohnungen.",
+      "fullDescription": "Eine Wirtschaft, um die Serveraktivität zu steigern.",
+      "features": [
+        "Eigene Währung.",
+        "Arbeiten, Rauben, tägliche Belohnungen.",
+        "Anpassbarer Shop.",
+        "Bestenlisten."
+      ],
+      "setup": "Lege deine Währung fest und erstelle Shop-Artikel."
+    },
+    "engagement": {
+      "title": "Aktivitätstracking",
+      "description": "Belohne aktive Mitglieder und verfolge Nachrichten.",
+      "fullDescription": "Belohne die Server-Aktivität der Mitglieder.",
+      "features": [
+        "Nachrichten und Voice-Zeit tracken.",
+        "Münzen als Belohnung vergeben.",
+        "Detaillierte Statistiken.",
+        "Wöchentlicher Reset möglich."
+      ],
+      "setup": "Aktiviere das Tracking und lege fest, wie viele Münzen pro Nachricht/Minute vergeben werden."
+    },
+    "giveaways": {
+      "title": "Giveaways",
+      "description": "Veranstalte Giveaways mit Rollen-Anforderungen.",
+      "fullDescription": "Interaktive Gewinnspiele für deine Community.",
+      "features": [
+        "Giveaways erstellen und bearbeiten.",
+        "Rollen-Voraussetzungen festlegen.",
+        "Mehrere Gewinner.",
+        "Automatisches Auslosen."
+      ],
+      "setup": "Starte ein Giveaway im Dashboard oder per Befehl."
+    },
+    "jtc": {
+      "title": "Join to Create (JTC)",
+      "description": "Temporäre Sprachkanäle bei Betreten eines Hubs.",
+      "fullDescription": "Dynamische Sprachkanäle für mehr Ordnung.",
+      "features": [
+        "Eigene Kanäle beim Betreten eines Hubs.",
+        "Kanäle sperren oder umbenennen.",
+        "Kanäle löschen sich selbst, wenn leer.",
+        "Hält die Kanalliste sauber."
+      ],
+      "setup": "Wähle einen Hub-Kanal im Dashboard. Danach funktioniert alles automatisch."
+    },
+    "moderation": {
+      "title": "Moderation",
+      "description": "Grundlegende Werkzeuge zum Bannen, Kicken etc.",
+      "fullDescription": "Essentielle Tools für dein Team.",
+      "features": [
+        "Bannen, Kicken, Timeout und Warnen.",
+        "Massenhaftes Löschen von Nachrichten.",
+        "Audit-Logging.",
+        "Rollenbasierte Rechte."
+      ],
+      "setup": "Lege deine Mod-Rollen und Log-Kanäle im Dashboard fest."
+    },
+    "schedule": {
+      "title": "Zeitpläne",
+      "description": "Plane automatisierte Nachrichten und Erinnerungen.",
+      "fullDescription": "Automatisiere Ankündigungen für den Server.",
+      "features": [
+        "Wiederkehrende Nachrichten.",
+        "Einmalige Erinnerungen.",
+        "Cron-Schedules unterstützt.",
+        "Embed-Nachrichten."
+      ],
+      "setup": "Erstelle eine neue Aufgabe im Dashboard, wähle Kanal und Zeit aus."
+    },
+    "tickets": {
+      "title": "Tickets",
+      "description": "Private Support-Kanäle für Mitglieder.",
+      "fullDescription": "Private 1-zu-1 Hilfe auf deinem Server.",
+      "features": [
+        "Anpassbare Ticket-Panels.",
+        "Tickets beanspruchen, schließen.",
+        "Automatische Transkripte.",
+        "Mehrere Kategorien."
+      ],
+      "setup": "Erstelle ein Ticket-Panel und sende es in einen Kanal."
+    },
+    "warns": {
+      "title": "Verwarnungen",
+      "description": "Verfolge Regelverstöße mit Auto-Strafen.",
+      "fullDescription": "Ein Strike-System mit automatischen Konsequenzen.",
+      "features": [
+        "Regelverstöße dauerhaft speichern.",
+        "Schwellenwerte festlegen (3 Warns = Timeout).",
+        "Warns entfernen.",
+        "Eigene Warn-Historie einsehen."
+      ],
+      "setup": "Definiere Schwellenwerte im Dashboard."
+    },
+    "xp": {
+      "title": "Level & XP",
+      "description": "Belohne Chatten mit XP und Rollen.",
+      "fullDescription": "Gamification für den Server.",
+      "features": [
+        "XP für Nachrichten.",
+        "Eigene Rang-Karten.",
+        "Level-Up Nachrichten.",
+        "Rollenbelohnungen."
+      ],
+      "setup": "Aktiviere das Level-System und stelle XP-Rate und Rollenbelohnungen ein."
+    },
+    "custom-commands": {
+      "title": "Eigene Befehle",
+      "description": "Eigene Textbefehle und Auto-Antworten.",
+      "fullDescription": "Erstelle eigene Commands.",
+      "features": [
+        "Einfache Auto-Responder.",
+        "Variablen (z.B. {user}) unterstützt.",
+        "Slash- oder Prefix-Befehle.",
+        "Embeds möglich."
+      ],
+      "setup": "Klicke auf Befehl hinzufügen, wähle Auslöser und Antwort."
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "description": "Bot-Konfiguration wie Prefix und Sprache.",
+      "fullDescription": "Allgemeine Server-Einstellungen.",
+      "features": [
+        "Eigenes Präfix.",
+        "Sprache wählen.",
+        "Admin-Rollen festlegen.",
+        "Log-Kanäle."
+      ],
+      "setup": "Überprüfe diese Einstellungen zuerst."
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "title": "XP & Mitglieder-Level",
+  "subtitle": "Verwalte Benutzer-XP, Level-Meilensteine, Rollen-Belohnungen und Server-Multiplikatoren.",
+  "tabs": {
+    "userXp": "Benutzer-XP & Verwaltung",
+    "rewards": "Level-Rollenbelohnungen",
+    "multipliers": "XP-Multiplikatoren",
+    "settings": "XP-Regeln & Einstellungen"
+  },
+  "userDialog": {
+    "editTitle": "Benutzerfortschritt bearbeiten",
+    "assignTitle": "Benutzer-XP zuweisen",
+    "targetUserId": "Ziel-Benutzer-ID",
+    "totalXp": "Gesamt-XP",
+    "level": "Level",
+    "prestige": "Prestige",
+    "cancel": "Abbrechen",
+    "saveChanges": "Änderungen speichern",
+    "assignXp": "XP zuweisen"
+  },
+  "leaderboard": {
+    "title": "Gilden-XP-Bestenliste und Verwaltung",
+    "description": "Sieh dir Mitglieder-Rankings an und überschreibe individuelle Werte.",
+    "assignXpBtn": "XP zuweisen",
+    "searchPlaceholder": "Nach Benutzer-ID suchen...",
+    "rank": "Rang",
+    "userId": "Benutzer-ID",
+    "totalXp": "Gesamt-XP",
+    "level": "Level",
+    "prestige": "Prestige",
+    "actions": "Aktionen",
+    "noData": "Keine Mitglieder-XP-Daten gefunden.",
+    "edit": "Bearbeiten",
+    "page": "Seite {current} von {total}",
+    "lvl": "Lvl {level}",
+    "xp": "{xp} XP"
+  },
+  "rewardDialog": {
+    "editTitle": "Level-Belohnung bearbeiten",
+    "createTitle": "Level-Belohnung erstellen",
+    "requiredLevel": "Benötigtes Level",
+    "rewardRole": "Belohnungsrolle",
+    "cancel": "Abbrechen",
+    "saveChanges": "Änderungen speichern",
+    "addRewardRole": "Belohnungsrolle hinzufügen"
+  },
+  "activeRewards": {
+    "title": "Aktive Level-Belohnungen",
+    "description": "Konfigurierte Rollen-Meilensteine.",
+    "addRewardBtn": "Belohnung hinzufügen",
+    "noRewards": "Keine Level-Belohnungen konfiguriert.",
+    "level": "Level {level}",
+    "role": "Rolle: {role}",
+    "edit": "Bearbeiten"
+  },
+  "multiplierDialog": {
+    "editTitle": "XP-Multiplikator bearbeiten",
+    "createTitle": "XP-Multiplikator erstellen",
+    "targetType": "Zieltyp",
+    "roleMultiplier": "Rollen-Multiplikator",
+    "channelMultiplier": "Kanal-Multiplikator",
+    "targetId": "Ziel-ID (Rolle oder Kanal)",
+    "multiplierPercent": "Multiplikator % (150 = 1.5x)",
+    "cancel": "Abbrechen",
+    "saveChanges": "Änderungen speichern",
+    "createMultiplier": "Multiplikator erstellen"
+  },
+  "activeMultipliers": {
+    "title": "Aktive XP-Multiplikatoren",
+    "description": "Konfigurierte Boosts.",
+    "addMultiplierBtn": "Multiplikator hinzufügen",
+    "noMultipliers": "Keine benutzerdefinierten XP-Multiplikatoren konfiguriert.",
+    "edit": "Bearbeiten",
+    "multiplierDetails": "{multiplier}% ({x}x)"
+  },
+  "progressionRules": {
+    "title": "XP-Fortschrittsregeln",
+    "description": "Globale Level-Richtlinien und Belohnungsverhalten.",
+    "levelUpRewards": "Level-Up Rollenbelohnungen",
+    "levelUpRewardsDesc": "Vergib automatisch Rollen, wenn Mitglieder ein neues Level erreichen",
+    "stackRewards": "Rollenbelohnungen stapeln",
+    "stackRewardsDesc": "Behalte vorherige Level-Rollen, wenn höhere Rollen freigeschaltet werden",
+    "saveRules": "XP-Regeln speichern"
+  }
+}

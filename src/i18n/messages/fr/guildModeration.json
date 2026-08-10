@@ -1,0 +1,93 @@
+{
+  "tabs": {
+    "cases": "Cas Actifs",
+    "warnings": "Avertir",
+    "automations": "Automatisations",
+    "filters": "Filtres de Mots",
+    "logging": "Logs de Mod"
+  },
+  "cases": {
+    "title": "Cas de Modération",
+    "description": "Historique en lecture seule des actions du staff.",
+    "empty": "Aucun cas de modération enregistré pour le moment.",
+    "number": "Cas n°",
+    "action": "Action",
+    "target": "ID de l'Utilisateur",
+    "mod": "ID du Modérateur",
+    "reason": "Motif",
+    "date": "Date",
+    "noReason": "Aucun motif"
+  },
+  "issueWarning": {
+    "title": "Émettre un Avertissement",
+    "description": "Assigner un avertissement à un utilisateur.",
+    "userId": "ID de l'Utilisateur",
+    "warnTitle": "Titre de l'Avertissement",
+    "desc": "Description / Détails",
+    "level": "Niveau de Sévérité (1-5)",
+    "proof": "URL de la Preuve",
+    "btn": "Émettre l'Avertissement"
+  },
+  "activeWarnings": {
+    "title": "Avertissements Actifs",
+    "description": "Gérer les avertissements du serveur.",
+    "empty": "Aucun avertissement dans la base de données.",
+    "level": "Niveau {level}",
+    "inactive": "Inactif",
+    "info": "Utilisateur: {user} | Mod: {mod} | {date}",
+    "activate": "Activer",
+    "deactivate": "Désactiver"
+  },
+  "createAuto": {
+    "title": "Créer une Automatisation",
+    "description": "Configurez des escalades automatiques selon les avertissements.",
+    "name": "Nom de la Règle",
+    "triggerType": "Type de Déclencheur",
+    "warnCount": "Nombre Total",
+    "warnLevel": "Niveau Cumulé",
+    "triggerValue": "Valeur du Seuil",
+    "action": "Action d'Escalade",
+    "timeout": "Exclure / Rendre Muet",
+    "kick": "Expulser",
+    "ban": "Bannir",
+    "notify": "Salon de Notification",
+    "btn": "Créer l'Automatisation"
+  },
+  "activeAutos": {
+    "title": "Automatisations Actives",
+    "description": "Escalades de pénalité configurées.",
+    "empty": "Aucune automatisation active.",
+    "info": "Déclencheur: {type} >= {value} | Action: {actions}"
+  },
+  "createFilter": {
+    "title": "Créer un Filtre de Mot",
+    "description": "Bannissez les mots ou motifs explicites.",
+    "pattern": "Motif / Mot-clé",
+    "matchType": "Type de Correspondance",
+    "literal": "Texte Litéral",
+    "regex": "Expression Régulière",
+    "severity": "Sévérité",
+    "sevLow": "Basse",
+    "sevMed": "Moyenne",
+    "sevHigh": "Haute",
+    "sevCrit": "Critique",
+    "notify": "Salon d'Alerte",
+    "autoDelete": "Suppression Auto",
+    "caseSensitive": "Sensible à la Casse",
+    "wholeWord": "Mot Entier",
+    "btn": "Ajouter la Règle"
+  },
+  "activeFilters": {
+    "title": "Filtres Actifs",
+    "description": "Mots et expressions sous surveillance.",
+    "empty": "Aucun filtre défini.",
+    "info": "Suppression Auto: {del} | Mot Entier: {word}",
+    "yes": "OUI",
+    "no": "NON"
+  },
+  "logs": {
+    "title": "Routage des Logs",
+    "description": "Dirigez les événements vers les salons cibles.",
+    "saveBtn": "Sauvegarder le Routage"
+  }
+}

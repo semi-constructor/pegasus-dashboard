@@ -1,0 +1,28 @@
+{
+  "title": "Join To Create",
+  "subtitle": "Dynamic temporary voice channel generator configuration.",
+  "config": {
+    "title": "JTC System Config",
+    "description": "Set up master trigger channel and destination category.",
+    "baseChannel": "Base Voice Channel (Trigger)",
+    "baseChannelDesc": "Joining this channel spawns a new room.",
+    "category": "Destination Category",
+    "categoryDesc": "Where temp channels are created.",
+    "panelChannel": "Panel Interface Text Channel",
+    "panelChannelDesc": "Where owner control panel is posted.",
+    "nameFormat": "Channel Naming Template",
+    "nameFormatDesc": "Variable: {user}",
+    "save": "Save JTC Config"
+  },
+  "active": {
+    "title": "Active Temporary Channels",
+    "description": "Live spawned user voice channels.",
+    "noData": "No active temporary JTC channels online.",
+    "channelId": "Channel ID: {id}",
+    "locked": "Locked",
+    "open": "Open",
+    "details": "Owner: {owner} | User Limit: {limit} | Created: {time}",
+    "unlimited": "Unlimited",
+    "terminate": "Terminate Room"
+  }
+}

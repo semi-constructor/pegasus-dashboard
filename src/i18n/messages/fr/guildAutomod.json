@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "rules": "Règles AutoMod",
+    "infractions": "Journal des Infractions",
+    "vault": "Salle de Quarantaine"
+  },
+  "createRule": {
+    "title": "Créer une Règle AutoMod",
+    "description": "Créez des règles de modération automatisées avec déclencheurs spécialisés.",
+    "name": "Nom de la Règle",
+    "eventType": "Type d'Événement",
+    "triggerType": "Type de Déclencheur",
+    "actionType": "Action à Prendre",
+    "metadataConfig": "Configuration des Métadonnées ({type})",
+    "keywords": "Mots-clés (Séparés par des virgules)",
+    "regex": "Modèle Regex",
+    "mentionLimit": "Limite de Mentions",
+    "attachmentLimit": "Limite de Fichiers",
+    "exemptRoles": "Rôles Exemptés (Optionnel)",
+    "exemptChannels": "Salons Exemptés (Optionnel)",
+    "btn": "Créer la Règle AutoMod",
+    "events": {
+      "msgSend": "Envoi de Message",
+      "msgEdit": "Édition de Message",
+      "memberJoin": "Rejoint le Serveur",
+      "memberUpdate": "Mise à Jour du Profil"
+    },
+    "triggers": {
+      "keyword": "Correspondance de Mot-clé",
+      "regex": "Correspondance Regex",
+      "mention": "Spam de Mentions",
+      "attachment": "Spam de Fichiers / Liens"
+    },
+    "actions": {
+      "delete": "Supprimer le Message",
+      "warn": "Avertir l'Utilisateur",
+      "timeout": "Exclure l'Utilisateur (Timeout)",
+      "quarantine": "Envoyer en Quarantaine",
+      "infraction": "Ajouter des Points d'Infraction"
+    }
+  },
+  "activeRules": {
+    "title": "Règles Actives",
+    "description": "Règles d'inspection configurées.",
+    "empty": "Aucune règle AutoMod configurée.",
+    "disabled": "Désactivé",
+    "enableBtn": "Activer",
+    "disableBtn": "Désactiver",
+    "metadata": "Métadonnées",
+    "actions": "Actions"
+  },
+  "infractions": {
+    "title": "Journal des Infractions AutoMod",
+    "description": "Historique des infractions automatisées.",
+    "empty": "Aucune infraction enregistrée.",
+    "userId": "ID Utilisateur",
+    "points": "Points",
+    "action": "Action Prise",
+    "reason": "Raison",
+    "active": "Actif",
+    "date": "Date",
+    "yes": "OUI",
+    "expired": "EXPIRÉ"
+  },
+  "vault": {
+    "title": "Salle de Quarantaine",
+    "description": "Comptes isolés en attente de révision.",
+    "empty": "La salle est vide. Aucun compte isolé.",
+    "user": "Utilisateur: {id}",
+    "releasedBadge": "Libéré",
+    "jailedBadge": "Isolé",
+    "reason": "Raison: {reason}",
+    "jailedAt": "Isolé Le",
+    "releaseBtn": "Libérer l'Utilisateur",
+    "defaultReason": "Quarantaine de Sécurité AutoMod"
+  }
+}

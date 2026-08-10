@@ -1,0 +1,22 @@
+{
+  "saveBar": {
+    "unsavedChanges": "Ungespeicherte Änderungen",
+    "discard": "Verwerfen",
+    "saving": "Speichere...",
+    "saveChanges": "Änderungen speichern"
+  },
+  "pickers": {
+    "selectChannel": "Kanal auswählen...",
+    "selectChannels": "Kanäle auswählen...",
+    "searchChannels": "Kanäle suchen...",
+    "noChannelsFound": "Keine Kanäle gefunden.",
+    "clearSelection": "Auswahl aufheben",
+    "selectRole": "Rolle auswählen...",
+    "selectRoles": "Rollen auswählen...",
+    "searchRoles": "Rollen suchen...",
+    "noRolesFound": "Keine Rollen gefunden.",
+    "searchUsername": "Benutzernamen suchen...",
+    "searching": "Suche...",
+    "noUsersFound": "Keine Benutzer gefunden."
+  }
+}

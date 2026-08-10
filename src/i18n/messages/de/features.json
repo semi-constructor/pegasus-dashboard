@@ -1,0 +1,157 @@
+{
+  "moderation": {
+    "title": "Erweiterte Moderation & AutoMod",
+    "description": "Schütze deine Community mit blitzschneller automatischer Moderation, erweiterter Wortfilterung und einem umfassenden Audit-Log.",
+    "automod": {
+      "title": "AutoMod V2",
+      "desc": "Regex-, Mention-Spam- und Anhang-Spam-Trigger stellen verdächtige Accounts sofort unter Quarantäne."
+    },
+    "warning": {
+      "title": "Verwarnungseskalation",
+      "desc": "Kicke, mute oder banne Nutzer automatisch, die zu viele Verwarnungen ansammeln."
+    },
+    "auditing": {
+      "title": "Detaillierte Protokollierung",
+      "desc": "Jede Aktion wird in übersichtlichen Discord-Embeds protokolliert."
+    },
+    "quarantineTriggered": "AutoMod: Quarantäne ausgelöst",
+    "userQuarantined": "Nutzer <username>spammer_99</username> wurde unter Quarantäne gestellt.",
+    "reason": "Grund",
+    "reasonText": "Mention-Spam-Schwelle überschritten (15+ Erwähnungen)",
+    "actionTaken": "Ergriffene Maßnahme",
+    "actionText": "Rollen entzogen, @Quarantäne zugewiesen"
+  },
+  "economy": {
+    "title": "Wirtschaft, XP & Leveling",
+    "description": "Verwandle deinen Server in ein fesselndes RPG. Belohne Aktivität mit Währung, Levels und individuellen Rangkarten.",
+    "rankCards": {
+      "title": "Dynamische Rangkarten",
+      "desc": "Wunderschön generierte Bilder, die Level, Rang und Fortschritt zeigen."
+    },
+    "globalEconomy": {
+      "title": "Globale & lokale Wirtschaft",
+      "desc": "Arbeite, raube, spiele und hole dir tägliche Belohnungen, um in der Rangliste aufzusteigen."
+    },
+    "roleRewards": {
+      "title": "Rollenbelohnungen",
+      "desc": "Weise Discord-Rollen automatisch zu, wenn Nutzer bestimmte Level erreichen."
+    },
+    "rank": "Rang",
+    "level": "Level",
+    "reputationHigh": "Reputation: Hoch"
+  },
+  "tickets": {
+    "title": "Professionelles Ticketsystem",
+    "description": "Optimiere den Community-Support mit Mehrabteilungs-Ticketpanels, Zuweisungen und vollständigen Transkripten.",
+    "multiDepartment": {
+      "title": "Mehrabteilungs-Panels",
+      "desc": "Lass Nutzer auswählen, wobei sie Hilfe brauchen (z. B. Support, Abrechnung, Bewerbungen)."
+    },
+    "staffTooling": {
+      "title": "Team-Werkzeuge",
+      "desc": "Übernehmen, Einfrieren, Sperren und Schließen für dein Moderationsteam."
+    },
+    "webTranscripts": {
+      "title": "Web-Transkripte",
+      "desc": "Erstelle und speichere automatisch HTML-Transkripte, wenn ein Ticket geschlossen wird."
+    },
+    "supportCenter": "Support-Center",
+    "supportCenterDesc": "Brauchst du Hilfe? Klicke auf den passenden Button, um einen privaten Thread mit unserem Team zu öffnen.",
+    "generalSupport": "Allgemeiner Support",
+    "billingInquiry": "Rechnungsanfrage",
+    "staffApplication": "Team-Bewerbung"
+  },
+  "giveaways": {
+    "title": "Gewinnspiele & Events",
+    "description": "Veranstalte hochgradig konfigurierbare Gewinnspiele, um das Engagement zu steigern und deine aktivsten Community-Mitglieder zu belohnen.",
+    "multiWinner": {
+      "title": "Mehrere Gewinner",
+      "desc": "Wähle automatisch mehrere Gewinner aus, wenn der Timer abläuft."
+    },
+    "entryReqs": {
+      "title": "Teilnahmevoraussetzungen",
+      "desc": "Fordere eine bestimmte Rolle oder ein Mindestlevel für die Teilnahme."
+    },
+    "bonusEntries": {
+      "title": "Bonusteilnahmen",
+      "desc": "Gib Server-Boostern oder VIP-Mitgliedern eine höhere Gewinnchance."
+    },
+    "giveawayTitle": "GEWINNSPIEL: Discord Nitro (1 Monat)",
+    "reactToEnter": "Reagiere mit 🎉 zum Teilnehmen!",
+    "ends": "Endet",
+    "endsIn": "in 2 Tagen (48h)",
+    "hostedBy": "Veranstaltet von",
+    "entries": "Teilnahmen"
+  },
+  "fun": {
+    "title": "Spaß & Minispiele",
+    "description": "Halte deinen Chat aktiv, auch wenn es nichts zu besprechen gibt. Eingebaute Minispiele, die direkt ins Wirtschaftssystem integriert sind.",
+    "interactiveGames": {
+      "title": "Interaktive Spiele",
+      "desc": "Spiele Tic-Tac-Toe, Trivia oder Russisches Roulette direkt in Discord-Kanälen."
+    },
+    "bettingWagers": {
+      "title": "Wetten & Einsätze",
+      "desc": "Lass Nutzer ihre Münzen in Spielen gegen den Bot oder gegeneinander einsetzen."
+    },
+    "socialCommands": {
+      "title": "Soziale Befehle",
+      "desc": "Umarme, klatsche, küsse oder streichle andere Nutzer mit generierten Anime-GIFs."
+    },
+    "triviaChallenge": "Trivia-Challenge!",
+    "triviaQuestion": "In welchem Jahr wurde Discord offiziell veröffentlicht?",
+    "triviaDifficulty": "Schwierigkeit: Mittel • Belohnung: 🪙 500",
+    "triviaCorrect": "Richtig! Du hast 🪙 500 gewonnen."
+  },
+  "infrastructure": {
+    "title": "Server-Infrastruktur",
+    "description": "Automatisiere die Sprachkanäle deines Servers. Join-to-Create sorgt dafür, dass du nie wieder eine überladene, leere Sprachkanalliste hast.",
+    "dynamicVoice": {
+      "title": "Dynamische Sprachkanäle",
+      "desc": "Ein neuer Kanal wird sofort erstellt, wenn ein Nutzer dem Hauptkanal beitritt."
+    },
+    "autoCleanup": {
+      "title": "Auto-Bereinigung",
+      "desc": "Der Kanal löscht sich automatisch, sobald die letzte Person ihn verlässt."
+    },
+    "ownerControls": {
+      "title": "Ersteller-Steuerung",
+      "desc": "Kanalersteller erhalten Zugriff auf ein Panel zum Sperren, Begrenzen oder Umbenennen ihres temporären Kanals."
+    },
+    "voiceChannels": "Sprachkanäle",
+    "joinToCreate": "Join to Create",
+    "channelOwner": "Kanalbesitzer"
+  },
+  "engagement": {
+    "title": "Engagement & Statistiken",
+    "description": "Verfolge die Aktivität der Benutzer und belohne deine aktivsten Mitglieder.",
+    "voiceTracking": {
+      "title": "Voice Tracking",
+      "desc": "Überwache die Zeit in Sprachkanälen."
+    },
+    "messageTracking": {
+      "title": "Nachrichten Tracking",
+      "desc": "Finde heraus, wer am meisten schreibt."
+    },
+    "rewards": {
+      "title": "Aktivitätsbelohnungen",
+      "desc": "Vergib Währung basierend auf der Aktivität."
+    }
+  },
+  "customCommands": {
+    "title": "Eigene Befehle",
+    "description": "Erstelle deine eigenen Befehle und automatischen Antworten.",
+    "autoResponders": {
+      "title": "Auto-Responder",
+      "desc": "Der Bot antwortet automatisch auf Schlüsselwörter."
+    },
+    "variables": {
+      "title": "Dynamische Variablen",
+      "desc": "Nutze Variablen wie {user} in deinen Antworten."
+    },
+    "embeds": {
+      "title": "Embeds",
+      "desc": "Formatiere deine Antworten mit Discord Embeds."
+    }
+  }
+}

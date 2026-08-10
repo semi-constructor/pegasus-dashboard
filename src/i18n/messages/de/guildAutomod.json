@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "rules": "AutoMod Regeln",
+    "infractions": "Verstoß-Protokoll",
+    "vault": "Quarantäne-Tresor"
+  },
+  "createRule": {
+    "title": "AutoMod Regel Erstellen",
+    "description": "Erstelle ereignisgesteuerte, automatisierte Moderationsregeln mit speziellen Auslösern.",
+    "name": "Name der Regel",
+    "eventType": "Ereignistyp",
+    "triggerType": "Auslösertyp",
+    "actionType": "Auszuführende Aktion",
+    "metadataConfig": "Metadaten-Konfiguration ({type})",
+    "keywords": "Schlüsselwörter (Kommagetrennt)",
+    "regex": "Regex-Muster",
+    "mentionLimit": "Max. Erwähnungen",
+    "attachmentLimit": "Max. Anhänge",
+    "exemptRoles": "Ausgenommene Rollen (Optional)",
+    "exemptChannels": "Ausgenommene Kanäle (Optional)",
+    "btn": "AutoMod Regel Erstellen",
+    "events": {
+      "msgSend": "Nachricht senden",
+      "msgEdit": "Nachricht bearbeiten",
+      "memberJoin": "Mitglied tritt bei",
+      "memberUpdate": "Profil-Update eines Mitglieds"
+    },
+    "triggers": {
+      "keyword": "Schlüsselwort-Übereinstimmung",
+      "regex": "Regex-Muster-Übereinstimmung",
+      "mention": "Erwähnungs-Spam-Limit",
+      "attachment": "Anhang- / Link-Spam"
+    },
+    "actions": {
+      "delete": "Nachricht löschen",
+      "warn": "Benutzer warnen",
+      "timeout": "Benutzer stummschalten (Timeout)",
+      "quarantine": "In Quarantäne senden",
+      "infraction": "Verstoß-Punkte hinzufügen"
+    }
+  },
+  "activeRules": {
+    "title": "Aktive Regeln",
+    "description": "Konfigurierte AutoMod V2 Überprüfungsregeln.",
+    "empty": "Keine AutoMod V2 Regeln konfiguriert.",
+    "disabled": "Deaktiviert",
+    "enableBtn": "Aktivieren",
+    "disableBtn": "Deaktivieren",
+    "metadata": "Metadaten",
+    "actions": "Aktionen"
+  },
+  "infractions": {
+    "title": "AutoMod Verstoß-Protokoll",
+    "description": "Verlauf der automatisierten Verstöße.",
+    "empty": "Keine Verstöße verzeichnet.",
+    "userId": "Benutzer-ID",
+    "points": "Punkte",
+    "action": "Durchgeführte Aktion",
+    "reason": "Grund",
+    "active": "Aktiv",
+    "date": "Datum",
+    "yes": "JA",
+    "expired": "ABGELAUFEN"
+  },
+  "vault": {
+    "title": "Quarantäne-Tresor",
+    "description": "Isolierte Konten mit entfernten Rollen, die auf Überprüfung warten.",
+    "empty": "Quarantäne-Tresor ist leer. Keine Konten isoliert.",
+    "user": "Benutzer: {id}",
+    "releasedBadge": "Freigelassen",
+    "jailedBadge": "Eingesperrt",
+    "reason": "Grund: {reason}",
+    "jailedAt": "Eingesperrt am",
+    "releaseBtn": "Benutzer Freilassen",
+    "defaultReason": "AutoMod Sicherheitsquarantäne"
+  }
+}

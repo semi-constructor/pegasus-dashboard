@@ -1,0 +1,22 @@
+{
+  "saveBar": {
+    "unsavedChanges": "Cambios no guardados",
+    "discard": "Descartar",
+    "saving": "Guardando...",
+    "saveChanges": "Guardar cambios"
+  },
+  "pickers": {
+    "selectChannel": "Seleccionar canal...",
+    "selectChannels": "Seleccionar canales...",
+    "searchChannels": "Buscar canales...",
+    "noChannelsFound": "No se encontraron canales.",
+    "clearSelection": "Borrar selección",
+    "selectRole": "Seleccionar rol...",
+    "selectRoles": "Seleccionar roles...",
+    "searchRoles": "Buscar roles...",
+    "noRolesFound": "No se encontraron roles.",
+    "searchUsername": "Buscar nombre de usuario...",
+    "searching": "Buscando...",
+    "noUsersFound": "No se encontraron usuarios."
+  }
+}

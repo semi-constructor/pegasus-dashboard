@@ -1,0 +1,93 @@
+{
+  "tabs": {
+    "cases": "Aktive Fälle",
+    "warnings": "Warnung ausgeben",
+    "automations": "Automatisierungen",
+    "filters": "Wortfilter",
+    "logging": "Mod-Protokolle"
+  },
+  "cases": {
+    "title": "Moderationsfälle",
+    "description": "Schreibgeschützter Verlauf von Team-Aktionen.",
+    "empty": "Noch keine Moderationsfälle verzeichnet.",
+    "number": "Fall-Nr.",
+    "action": "Aktion",
+    "target": "Ziel-Benutzer-ID",
+    "mod": "Moderator-ID",
+    "reason": "Grund",
+    "date": "Datum",
+    "noReason": "Kein Grund"
+  },
+  "issueWarning": {
+    "title": "Neue Warnung ausgeben",
+    "description": "Einem Benutzer auf dem Server eine Warnung erteilen.",
+    "userId": "Ziel-Benutzer-ID",
+    "warnTitle": "Titel der Warnung",
+    "desc": "Beschreibung / Details",
+    "level": "Schweregrad (1-5)",
+    "proof": "Beweis-URL",
+    "btn": "Warnung ausgeben"
+  },
+  "activeWarnings": {
+    "title": "Aktive Warnungen",
+    "description": "Server-Warnungen verwalten.",
+    "empty": "Keine Warnungen in der Datenbank registriert.",
+    "level": "Level {level}",
+    "inactive": "Inaktiv",
+    "info": "Benutzer: {user} | Mod: {mod} | {date}",
+    "activate": "Aktivieren",
+    "deactivate": "Deaktivieren"
+  },
+  "createAuto": {
+    "title": "Warnungs-Automatisierung erstellen",
+    "description": "Automatische Eskalationen bei Erreichen von Schwellenwerten konfigurieren.",
+    "name": "Regel-Name",
+    "triggerType": "Auslösertyp",
+    "warnCount": "Gesamte Anzahl Warnungen",
+    "warnLevel": "Kumuliertes Warn-Level",
+    "triggerValue": "Schwellenwert des Auslösers",
+    "action": "Eskalationsaktion",
+    "timeout": "Timeout / Stummschalten",
+    "kick": "Benutzer kicken",
+    "ban": "Benutzer bannen",
+    "notify": "Benachrichtigungskanal",
+    "btn": "Automatisierung erstellen"
+  },
+  "activeAutos": {
+    "title": "Aktive Automatisierungen",
+    "description": "Konfigurierte Straf-Eskalationen.",
+    "empty": "Keine automatisierten Eskalationen aktiv.",
+    "info": "Auslöser: {type} >= {value} | Aktion: {actions}"
+  },
+  "createFilter": {
+    "title": "Wortfilter erstellen",
+    "description": "Blacklist für explizite Wörter oder Muster.",
+    "pattern": "Muster / Schlüsselwort",
+    "matchType": "Übereinstimmungstyp",
+    "literal": "Genauer Textabschnitt",
+    "regex": "Regulärer Ausdruck (Regex)",
+    "severity": "Schweregrad",
+    "sevLow": "Niedrig",
+    "sevMed": "Mittel",
+    "sevHigh": "Hoch",
+    "sevCrit": "Kritisch",
+    "notify": "Alarm-Kanal",
+    "autoDelete": "Automatisch löschen",
+    "caseSensitive": "Groß-/Kleinschreibung",
+    "wholeWord": "Ganzes Wort",
+    "btn": "Filterregel hinzufügen"
+  },
+  "activeFilters": {
+    "title": "Aktive Wortfilter",
+    "description": "Überwachte Wörter und Ausdrücke.",
+    "empty": "Keine Wortfilter-Regeln definiert.",
+    "info": "Automatisch löschen: {del} | Ganzes Wort: {word}",
+    "yes": "JA",
+    "no": "NEIN"
+  },
+  "logs": {
+    "title": "Mod-Protokoll-Routing",
+    "description": "Leite bestimmte Ereigniskategorien in ausgewählte Kanäle weiter.",
+    "saveBtn": "Routing speichern"
+  }
+}

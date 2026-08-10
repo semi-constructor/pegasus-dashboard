@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "rules": "Reglas AutoMod",
+    "infractions": "Registro de Infracciones",
+    "vault": "Bóveda de Cuarentena"
+  },
+  "createRule": {
+    "title": "Crear Regla AutoMod",
+    "description": "Crea reglas de moderación automáticas con activadores especializados.",
+    "name": "Nombre de la Regla",
+    "eventType": "Tipo de Evento",
+    "triggerType": "Tipo de Activador",
+    "actionType": "Acción a Tomar",
+    "metadataConfig": "Configuración de Metadatos ({type})",
+    "keywords": "Palabras Clave (Separadas por comas)",
+    "regex": "Patrón Regex",
+    "mentionLimit": "Límite Máx. de Menciones",
+    "attachmentLimit": "Límite Máx. de Archivos",
+    "exemptRoles": "Roles Excluidos (Opcional)",
+    "exemptChannels": "Canales Excluidos (Opcional)",
+    "btn": "Crear Regla AutoMod",
+    "events": {
+      "msgSend": "Enviar Mensaje",
+      "msgEdit": "Editar Mensaje",
+      "memberJoin": "Miembro se Une",
+      "memberUpdate": "Actualización de Perfil"
+    },
+    "triggers": {
+      "keyword": "Coincidencia de Palabras Clave",
+      "regex": "Coincidencia de Regex",
+      "mention": "Límite de Spam de Menciones",
+      "attachment": "Spam de Archivos / Enlaces"
+    },
+    "actions": {
+      "delete": "Borrar Mensaje",
+      "warn": "Advertir Usuario",
+      "timeout": "Aislar Usuario (Timeout)",
+      "quarantine": "Enviar a Cuarentena",
+      "infraction": "Añadir Puntos de Infracción"
+    }
+  },
+  "activeRules": {
+    "title": "Reglas Activas",
+    "description": "Reglas de inspección configuradas.",
+    "empty": "No hay reglas de AutoMod configuradas.",
+    "disabled": "Desactivado",
+    "enableBtn": "Activar",
+    "disableBtn": "Desactivar",
+    "metadata": "Metadatos",
+    "actions": "Acciones"
+  },
+  "infractions": {
+    "title": "Registro de Infracciones AutoMod",
+    "description": "Historial de infracciones automatizadas.",
+    "empty": "No hay infracciones registradas.",
+    "userId": "ID de Usuario",
+    "points": "Puntos",
+    "action": "Acción Tomada",
+    "reason": "Motivo",
+    "active": "Activo",
+    "date": "Fecha",
+    "yes": "SÍ",
+    "expired": "EXPIRADO"
+  },
+  "vault": {
+    "title": "Bóveda de Cuarentena",
+    "description": "Cuentas aisladas pendientes de revisión por el equipo.",
+    "empty": "La bóveda de cuarentena está vacía.",
+    "user": "Usuario: {id}",
+    "releasedBadge": "Liberado",
+    "jailedBadge": "Aislado",
+    "reason": "Motivo: {reason}",
+    "jailedAt": "Aislado En",
+    "releaseBtn": "Liberar Usuario",
+    "defaultReason": "Cuarentena de Seguridad AutoMod"
+  }
+}

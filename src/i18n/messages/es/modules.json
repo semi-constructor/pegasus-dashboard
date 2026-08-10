@@ -1,0 +1,154 @@
+{
+  "title": "Explorar Módulos de Pegasus",
+  "description": "Descubre las potentes funciones integradas en Pegasus. Haz clic en cualquier módulo para ver cómo funciona y cómo configurarlo.",
+  "backToModules": "Volver a Módulos",
+  "keyFeatures": "Características Principales",
+  "howToSetUp": "Cómo Configurar",
+  "configureInDashboard": "Configurar en el Panel",
+  "modules": {
+    "automod": {
+      "title": "Auto-Moderación",
+      "description": "Filtra spam, malas palabras y contenido malicioso automáticamente.",
+      "fullDescription": "Mantén tu servidor seguro automáticamente con filtros avanzados.",
+      "features": [
+        "Filtrar malas palabras, enlaces y spam.",
+        "Advertir, silenciar o expulsar infractores automáticamente.",
+        "Lista blanca personalizable para roles y canales específicos.",
+        "Registros detallados de todas las acciones."
+      ],
+      "setup": "Activa la Auto-Moderación en el panel. Configura filtros de palabras, umbrales de spam y selecciona castigos automáticos."
+    },
+    "economy": {
+      "title": "Sistema de Economía",
+      "description": "Economía virtual con tiendas, recompensas diarias y apuestas.",
+      "fullDescription": "Una rica economía virtual para aumentar la actividad del servidor.",
+      "features": [
+        "Nombre y símbolo de moneda personalizados.",
+        "Recompensas diarias, comandos para trabajar y robar.",
+        "Tienda personalizable con artículos que otorgan roles.",
+        "Tablas de clasificación de los más ricos."
+      ],
+      "setup": "Establece el símbolo de moneda y saldo inicial. Añade artículos a la tienda y permite que tus miembros empiecen a ganar dinero."
+    },
+    "engagement": {
+      "title": "Participación",
+      "description": "Recompensa a los miembros activos, rastrea mensajes y actividad de voz.",
+      "fullDescription": "Rastrea y recompensa la actividad de los miembros en tu servidor.",
+      "features": [
+        "Rastrear mensajes enviados y tiempo en voz.",
+        "Recompensar a miembros activos con monedas.",
+        "Ver estadísticas detalladas y análisis.",
+        "Restablecer estadísticas semanal o mensualmente."
+      ],
+      "setup": "Activa el rastreo de participación y establece cuántas monedas se otorgarán por mensaje o por minuto de chat de voz."
+    },
+    "giveaways": {
+      "title": "Sorteos",
+      "description": "Organiza sorteos con requisitos, roles y ganadores automáticos.",
+      "fullDescription": "Organiza sorteos interactivos para recompensar a tu comunidad.",
+      "features": [
+        "Crear, editar y finalizar sorteos fácilmente.",
+        "Establecer requisitos de roles para participar.",
+        "Soporte para múltiples ganadores.",
+        "Selección automática de ganadores y relanzamientos."
+      ],
+      "setup": "Puedes iniciar un sorteo directamente desde el panel o usando el comando /giveaway. Establece el premio, la duración y los ganadores."
+    },
+    "jtc": {
+      "title": "Join to Create (JTC)",
+      "description": "Canales de voz temporales dinámicos cuando los usuarios se unen al hub.",
+      "fullDescription": "Canales de voz dinámicos para un servidor más limpio.",
+      "features": [
+        "Los usuarios se unen al hub para crear un canal temporal.",
+        "El propietario puede renombrar, bloquear o limitar usuarios.",
+        "Los canales se eliminan automáticamente al vaciarse.",
+        "Mantiene limpia la categoría de voz de tu servidor."
+      ],
+      "setup": "Selecciona un canal 'Hub' en el panel. Cada vez que un usuario se una a este canal, se creará un canal temporal para él."
+    },
+    "moderation": {
+      "title": "Moderación",
+      "description": "Comandos esenciales para banear, expulsar, silenciar y gestionar usuarios.",
+      "fullDescription": "Herramientas esenciales para que tu equipo administre la comunidad.",
+      "features": [
+        "Comandos para banear, expulsar, aislar y advertir.",
+        "Eliminar mensajes de forma masiva.",
+        "Registro detallado de auditoría.",
+        "Verificaciones de permisos basadas en roles."
+      ],
+      "setup": "Configura tus roles de 'Moderador' y especifica un canal de registro para que tu equipo pueda rastrear las acciones de moderación."
+    },
+    "schedule": {
+      "title": "Eventos Programados",
+      "description": "Planifica mensajes automatizados, recordatorios y anuncios regulares.",
+      "fullDescription": "Automatiza mensajes y recordatorios para tu servidor.",
+      "features": [
+        "Enviar mensajes recurrentes.",
+        "Establecer recordatorios únicos.",
+        "Soporte para horarios complejos tipo cron.",
+        "Soporte para mensajes embebidos."
+      ],
+      "setup": "Crea una tarea programada en el panel. Escribe tu mensaje, elige el canal y establece el intervalo o la hora exacta."
+    },
+    "tickets": {
+      "title": "Tickets",
+      "description": "Canales privados de soporte, transcripciones y gestión.",
+      "fullDescription": "Proporciona soporte privado a tus miembros.",
+      "features": [
+        "Paneles de tickets personalizables con botones.",
+        "Reclamar, cerrar y eliminar tickets.",
+        "Transcripciones automáticas enviadas a un registro.",
+        "Soporte para múltiples categorías de tickets."
+      ],
+      "setup": "Crea un panel de tickets, asigna un rol de soporte y envíalo a un canal. Los miembros harán clic para abrir un hilo privado."
+    },
+    "warns": {
+      "title": "Advertencias",
+      "description": "Rastrea infracciones de usuarios con castigos automáticos por límite.",
+      "fullDescription": "Un sistema de faltas completo con castigos automáticos.",
+      "features": [
+        "Mantén un registro de infracciones permanentemente.",
+        "Establece límites (ej. 3 advertencias = aislamiento).",
+        "Permite a los usuarios comprobar sus advertencias.",
+        "Perdonar/eliminar advertencias si es necesario."
+      ],
+      "setup": "Define los límites de castigo en el panel. El bot actuará automáticamente cuando se alcance un límite."
+    },
+    "xp": {
+      "title": "Niveles y XP",
+      "description": "Premia XP por chatear, recompensas de roles y tablas de clasificación.",
+      "fullDescription": "Ludifica tu servidor recompensando a los miembros con XP.",
+      "features": [
+        "Ganar XP por enviar mensajes.",
+        "Tarjetas de rango personalizadas.",
+        "Anuncios de subida de nivel.",
+        "Recompensas de roles al alcanzar niveles."
+      ],
+      "setup": "Activa el sistema de niveles. Configura la tasa de XP, las recompensas de roles y el canal para mensajes de subida de nivel."
+    },
+    "custom-commands": {
+      "title": "Comandos Personalizados",
+      "description": "Crea tus propios comandos y respuestas para tu servidor.",
+      "fullDescription": "Añade tus propios comandos de texto al bot.",
+      "features": [
+        "Crear respuestas automáticas simples.",
+        "Soporte para variables (ej. {user}).",
+        "Elige entre comandos de barra o de prefijo.",
+        "Respuestas embebidas."
+      ],
+      "setup": "Haz clic en 'Añadir Comando', elige un activador y escribe la respuesta. El bot aprenderá el nuevo comando al instante."
+    },
+    "settings": {
+      "title": "Ajustes Principales",
+      "description": "Gestiona el prefijo, idioma, registros y la configuración general.",
+      "fullDescription": "Configuración general de tu servidor.",
+      "features": [
+        "Prefijo personalizado.",
+        "Selección de idioma.",
+        "Configuración de roles de administrador.",
+        "Canales de registro."
+      ],
+      "setup": "Revisa estos ajustes para asegurarte de que el bot se comporte exactamente como deseas en tu servidor."
+    }
+  }
+}

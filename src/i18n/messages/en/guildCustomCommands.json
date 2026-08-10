@@ -1,0 +1,45 @@
+{
+  "title": "Custom Commands",
+  "description": "Define programmatic auto-responses with embed support.",
+  "syncing": "Syncing...",
+  "saveRegistry": "Save Registry",
+  "generalSettings": {
+    "title": "General Settings",
+    "description": "Global restrictions for custom commands",
+    "restrictChannelLabel": "Restrict all custom commands to Channel ID (Optional)",
+    "leaveEmptyText": "Leave empty to allow commands in all channels."
+  },
+  "dialog": {
+    "editTitle": "Edit Custom Command",
+    "createTitle": "Create Custom Command",
+    "triggerName": "Trigger Name",
+    "responseType": "Response Type",
+    "plainText": "Plain Text",
+    "richEmbed": "Rich Embed",
+    "restrictChannel": "Restrict to Channel ID (Optional)",
+    "restrictChannelDesc": "Optional. Binds this specific command to one channel.",
+    "plainTextResponse": "Plain Text Response",
+    "embedSettings": "Embed Settings",
+    "embedTitleLabel": "Title",
+    "embedColorHex": "Color Hex",
+    "embedDescriptionLabel": "Description (Optional)",
+    "embedFooterText": "Footer Text (Optional)",
+    "embedThumbnailUrl": "Thumbnail URL (Optional)",
+    "embedImageUrl": "Image URL (Optional)",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "createCommand": "Create Command"
+  },
+  "registered": {
+    "title": "Registered Commands",
+    "description": "All configured auto-responses for this server.",
+    "newCommand": "New Command",
+    "noCommands": "No Commands Registered",
+    "embed": "Embed",
+    "text": "Text",
+    "channel": "# Channel {id}",
+    "untitledEmbed": "Untitled Embed",
+    "noDescription": "No description provided",
+    "emptyResponse": "Empty response"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "welcomeTitle": "Bienvenido a Pegasus",
+  "signInDescription": "Inicia sesión con Discord para administrar tus servidores",
+  "signInButton": "Iniciar sesión con Discord",
+  "secureAuth": "Autenticación segura a través de NextAuth"
+}

@@ -1,0 +1,18 @@
+{
+  "footerHeading": "Pie de página",
+  "description": "Un bot de Discord de código abierto para moderación, economía y herramientas comunitarias.",
+  "product": "Producto",
+  "features": "Funciones",
+  "changelog": "Historial de cambios",
+  "resources": "Recursos",
+  "documentation": "Documentación",
+  "pegasusGithub": "Pegasus GitHub",
+  "dashboardGithub": "Dashboard GitHub",
+  "legal": "Legal",
+  "privacyPolicy": "Política de privacidad",
+  "termsOfService": "Términos de servicio",
+  "copyright": "© {year} Pegasus Ecosystem. Todos los derechos reservados.",
+  "pegasusRepo": "Repositorio GitHub de Pegasus",
+  "dashboardRepo": "Repositorio GitHub del Dashboard",
+  "mainWebsite": "Sitio web principal"
+}

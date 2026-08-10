@@ -1,0 +1,67 @@
+{
+  "title": "Paramètres du Serveur",
+  "subtitle": "Configurez tous les modules du serveur depuis un tableau de bord unique.",
+  "tabs": {
+    "general": "Général",
+    "ai": "Assistant IA",
+    "welcome": "Bienvenue",
+    "goodbye": "Départs",
+    "moderation": "Modération",
+    "logs": "Logs",
+    "automod": "AutoMod"
+  },
+  "general": {
+    "title": "Paramètres Généraux",
+    "prefix": "Préfixe des Commandes du Bot",
+    "prefixDesc": "Le préfixe personnalisé pour les commandes personnalisées et les commandes textuelles classiques."
+  },
+  "ai": {
+    "title": "Assistant IA",
+    "enable": "Activer l'assistant IA",
+    "enableDesc": "Permettre aux utilisateurs de parler à l'assistant IA en mentionnant le bot",
+    "persona": "Personnalité (System Prompt)",
+    "channel": "Restreindre à un salon (Optionnel)"
+  },
+  "welcome": {
+    "title": "Système de Bienvenue",
+    "enable": "Activer la Bienvenue",
+    "enableDesc": "Envoyer des messages de bienvenue",
+    "dmOnJoin": "DM à l'arrivée",
+    "dmOnJoinDesc": "Envoyer un message privé aux nouveaux membres",
+    "dmContent": "Contenu du Message Privé (DM) (Optionnel)",
+    "dmPlaceholder": "Merci d'avoir rejoint {server} !",
+    "channel": "Salon de Bienvenue",
+    "message": "Message de Bienvenue (Optionnel)",
+    "messagePlaceholder": "Bienvenue {user} sur {server} ! 🎉",
+    "useEmbed": "Utiliser un Embed",
+    "useEmbedDesc": "Envoyer le message de bienvenue sous forme d'embed Discord stylisé",
+    "embedTitle": "Titre de l'Embed (Optionnel)",
+    "embedTitlePlaceholder": "Bienvenue sur le serveur !",
+    "embedColor": "Couleur de l'Embed (Hex) (Optionnel)",
+    "imageUrl": "URL de l'Image (Optionnel)",
+    "thumbnailUrl": "URL de la Miniature (Optionnel)"
+  },
+  "goodbye": {
+    "title": "Système de Départs",
+    "enable": "Activer les Départs",
+    "enableDesc": "Envoyer des messages de départ",
+    "channel": "Salon de Départs",
+    "message": "Message de Départ (Optionnel)",
+    "messagePlaceholder": "{user} a quitté le serveur. 👋",
+    "useEmbed": "Utiliser un Embed",
+    "useEmbedDesc": "Envoyer le message de départ sous forme d'embed Discord stylisé",
+    "embedTitle": "Titre de l'Embed (Optionnel)",
+    "embedTitlePlaceholder": "Un membre nous a quittés",
+    "embedColor": "Couleur de l'Embed (Hex) (Optionnel)",
+    "imageUrl": "URL de l'Image (Optionnel)",
+    "thumbnailUrl": "URL de la Miniature (Optionnel)"
+  },
+  "logs": {
+    "title": "Système de Logs",
+    "enable": "Activer les Logs",
+    "enableDesc": "Enregistrer les événements principaux du serveur",
+    "channel": "Salon des Logs"
+  },
+  "save": "Enregistrer",
+  "cancel": "Annuler"
+}

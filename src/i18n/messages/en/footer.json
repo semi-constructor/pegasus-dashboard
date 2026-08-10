@@ -1,0 +1,18 @@
+{
+  "footerHeading": "Footer",
+  "description": "An open-source Discord bot for moderation, economy, and community tools.",
+  "product": "Product",
+  "features": "Features",
+  "changelog": "Changelog",
+  "resources": "Resources",
+  "documentation": "Documentation",
+  "pegasusGithub": "Pegasus GitHub",
+  "dashboardGithub": "Dashboard GitHub",
+  "legal": "Legal",
+  "privacyPolicy": "Privacy Policy",
+  "termsOfService": "Terms of Service",
+  "copyright": "© {year} Pegasus Ecosystem. All rights reserved.",
+  "pegasusRepo": "Pegasus GitHub Repository",
+  "dashboardRepo": "Dashboard GitHub Repository",
+  "mainWebsite": "Main Website"
+}

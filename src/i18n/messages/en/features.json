@@ -1,0 +1,157 @@
+{
+  "moderation": {
+    "title": "Advanced Moderation & AutoMod",
+    "description": "Keep your community safe with lightning-fast automated moderation, advanced word filtering, and a comprehensive audit log.",
+    "automod": {
+      "title": "AutoMod V2",
+      "desc": "Regex, mention-spam, and attachment-spam triggers instantly quarantine suspicious accounts."
+    },
+    "warning": {
+      "title": "Warning Escalation",
+      "desc": "Automatically kick, mute, or ban users who accrue too many warnings."
+    },
+    "auditing": {
+      "title": "Detailed Auditing",
+      "desc": "Every action is logged in detailed, easy-to-read Discord embeds."
+    },
+    "quarantineTriggered": "AutoMod: Quarantine Triggered",
+    "userQuarantined": "User <username>spammer_99</username> has been quarantined.",
+    "reason": "Reason",
+    "reasonText": "Mention-spam threshold exceeded (15+ mentions)",
+    "actionTaken": "Action Taken",
+    "actionText": "Roles stripped, @Quarantined assigned"
+  },
+  "economy": {
+    "title": "Economy, XP & Leveling",
+    "description": "Transform your server into an engaging RPG. Reward activity with currency, levels, and custom rank cards.",
+    "rankCards": {
+      "title": "Dynamic Rank Cards",
+      "desc": "Beautiful generated images showcasing user level, rank, and progress."
+    },
+    "globalEconomy": {
+      "title": "Global & Local Economy",
+      "desc": "Work, rob, gamble, and claim daily rewards to climb the leaderboards."
+    },
+    "roleRewards": {
+      "title": "Role Rewards",
+      "desc": "Automatically assign Discord roles when users reach specific levels."
+    },
+    "rank": "Rank",
+    "level": "Level",
+    "reputationHigh": "Reputation: High"
+  },
+  "tickets": {
+    "title": "Professional Support Tickets",
+    "description": "Streamline community support with multi-department ticket panels, claims, and full transcripts.",
+    "multiDepartment": {
+      "title": "Multi-Department Panels",
+      "desc": "Let users choose what they need help with (e.g. Support, Billing, Applications)."
+    },
+    "staffTooling": {
+      "title": "Staff Tooling",
+      "desc": "Claim, freeze, lock, and close operations for your moderation team."
+    },
+    "webTranscripts": {
+      "title": "Web Transcripts",
+      "desc": "Automatically generate and save HTML transcripts when a ticket closes."
+    },
+    "supportCenter": "Support Center",
+    "supportCenterDesc": "Need help? Click the button below that matches your inquiry to open a private thread with our staff team.",
+    "generalSupport": "General Support",
+    "billingInquiry": "Billing Inquiry",
+    "staffApplication": "Staff Application"
+  },
+  "giveaways": {
+    "title": "Giveaways & Events",
+    "description": "Host highly configurable giveaways to boost engagement and reward your most active community members.",
+    "multiWinner": {
+      "title": "Multi-Winner Support",
+      "desc": "Select multiple winners automatically when the timer ends."
+    },
+    "entryReqs": {
+      "title": "Entry Requirements",
+      "desc": "Require users to have a specific role or minimum level to enter."
+    },
+    "bonusEntries": {
+      "title": "Bonus Entries",
+      "desc": "Give server boosters or VIP members a higher chance to win."
+    },
+    "giveawayTitle": "GIVEAWAY: Discord Nitro (1 Month)",
+    "reactToEnter": "React with 🎉 to enter!",
+    "ends": "Ends",
+    "endsIn": "in 2 days (48h)",
+    "hostedBy": "Hosted by",
+    "entries": "Entries"
+  },
+  "fun": {
+    "title": "Fun & Minigames",
+    "description": "Keep your chat active even when there's nothing to talk about. Built-in minigames that hook right into the economy.",
+    "interactiveGames": {
+      "title": "Interactive Games",
+      "desc": "Play Tic-Tac-Toe, Trivia, or Russian Roulette directly in Discord channels."
+    },
+    "bettingWagers": {
+      "title": "Betting & Wagers",
+      "desc": "Let users wager their economy coins in games against the bot or each other."
+    },
+    "socialCommands": {
+      "title": "Social Commands",
+      "desc": "Hug, slap, kiss, or pat other users with generated anime GIFs."
+    },
+    "triviaChallenge": "Trivia Challenge!",
+    "triviaQuestion": "What year was Discord officially released to the public?",
+    "triviaDifficulty": "Difficulty: Medium • Reward: 🪙 500",
+    "triviaCorrect": "Correct! You won 🪙 500."
+  },
+  "infrastructure": {
+    "title": "Server Infrastructure",
+    "description": "Automate your server's voice channels. Join-to-Create ensures you never have a cluttered, empty voice channel list again.",
+    "dynamicVoice": {
+      "title": "Dynamic Voice Channels",
+      "desc": "A new channel is created instantly when a user joins the master hub."
+    },
+    "autoCleanup": {
+      "title": "Auto-Cleanup",
+      "desc": "The channel deletes itself the second the last person leaves."
+    },
+    "ownerControls": {
+      "title": "Owner Controls",
+      "desc": "Channel creators get access to a panel to lock, limit, or rename their temporary channel."
+    },
+    "voiceChannels": "Voice Channels",
+    "joinToCreate": "Join to Create",
+    "channelOwner": "Channel Owner"
+  },
+  "engagement": {
+    "title": "Engagement & Statistics",
+    "description": "Track user activity across your server and reward your most active members.",
+    "voiceTracking": {
+      "title": "Voice Tracking",
+      "desc": "Monitor how much time users spend in voice channels."
+    },
+    "messageTracking": {
+      "title": "Message Tracking",
+      "desc": "Count messages sent to find your most active chatters."
+    },
+    "rewards": {
+      "title": "Activity Rewards",
+      "desc": "Automatically grant currency based on activity."
+    }
+  },
+  "customCommands": {
+    "title": "Custom Commands",
+    "description": "Create your own commands and auto-responses tailored to your server's unique needs.",
+    "autoResponders": {
+      "title": "Auto-Responders",
+      "desc": "The bot automatically replies to specific keywords."
+    },
+    "variables": {
+      "title": "Dynamic Variables",
+      "desc": "Use variables like {user} and {server} in your responses."
+    },
+    "embeds": {
+      "title": "Rich Embeds",
+      "desc": "Format your custom responses using beautiful Discord embeds."
+    }
+  }
+}

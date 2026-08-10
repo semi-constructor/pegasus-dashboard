@@ -1,0 +1,93 @@
+{
+  "tabs": {
+    "cases": "Casos Activos",
+    "warnings": "Emitir Advertencia",
+    "automations": "Automatizaciones",
+    "filters": "Filtros de Palabras",
+    "logging": "Registros de Mod"
+  },
+  "cases": {
+    "title": "Casos de Moderación",
+    "description": "Historial de acciones del equipo.",
+    "empty": "Aún no hay casos de moderación registrados.",
+    "number": "Caso #",
+    "action": "Acción",
+    "target": "ID de Usuario",
+    "mod": "ID del Moderador",
+    "reason": "Motivo",
+    "date": "Fecha",
+    "noReason": "Sin motivo"
+  },
+  "issueWarning": {
+    "title": "Emitir Nueva Advertencia",
+    "description": "Asigna una advertencia a un usuario.",
+    "userId": "ID del Usuario",
+    "warnTitle": "Título de la Advertencia",
+    "desc": "Descripción / Detalles",
+    "level": "Severidad (1-5)",
+    "proof": "URL de Prueba",
+    "btn": "Emitir Advertencia"
+  },
+  "activeWarnings": {
+    "title": "Advertencias Activas",
+    "description": "Gestiona las advertencias del servidor.",
+    "empty": "No hay advertencias registradas en la base de datos.",
+    "level": "Nivel {level}",
+    "inactive": "Inactivo",
+    "info": "Usuario: {user} | Mod: {mod} | {date}",
+    "activate": "Activar",
+    "deactivate": "Desactivar"
+  },
+  "createAuto": {
+    "title": "Crear Automatización de Advertencia",
+    "description": "Configura escaladas automáticas al alcanzar límites de advertencias.",
+    "name": "Nombre de la Regla",
+    "triggerType": "Tipo de Activador",
+    "warnCount": "Conteo Total de Advertencias",
+    "warnLevel": "Nivel Acumulado",
+    "triggerValue": "Valor Límite",
+    "action": "Acción de Escalada",
+    "timeout": "Aislar / Mutear",
+    "kick": "Expulsar",
+    "ban": "Banear",
+    "notify": "Canal de Notificaciones",
+    "btn": "Crear Automatización"
+  },
+  "activeAutos": {
+    "title": "Automatizaciones Activas",
+    "description": "Escaladas de sanciones configuradas.",
+    "empty": "No hay automatizaciones activas.",
+    "info": "Activador: {type} >= {value} | Acción: {actions}"
+  },
+  "createFilter": {
+    "title": "Crear Filtro de Palabras",
+    "description": "Bloquea palabras explícitas o patrones.",
+    "pattern": "Patrón / Palabra Clave",
+    "matchType": "Tipo de Coincidencia",
+    "literal": "Texto Literal",
+    "regex": "Expresión Regular",
+    "severity": "Severidad",
+    "sevLow": "Baja",
+    "sevMed": "Media",
+    "sevHigh": "Alta",
+    "sevCrit": "Crítica",
+    "notify": "Canal de Alertas",
+    "autoDelete": "Borrado Automático",
+    "caseSensitive": "Distinguir Mayúsculas",
+    "wholeWord": "Palabra Completa",
+    "btn": "Añadir Regla de Filtro"
+  },
+  "activeFilters": {
+    "title": "Filtros Activos",
+    "description": "Palabras y expresiones bajo monitoreo.",
+    "empty": "No se han definido filtros.",
+    "info": "Borrado Automático: {del} | Palabra Completa: {word}",
+    "yes": "SÍ",
+    "no": "NO"
+  },
+  "logs": {
+    "title": "Rutas de Registros",
+    "description": "Redirige categorías de eventos a canales específicos.",
+    "saveBtn": "Guardar Ruta"
+  }
+}

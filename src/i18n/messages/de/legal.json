@@ -1,0 +1,63 @@
+{
+  "backToHome": "Zurück zur Startseite",
+  "privacy": {
+    "title": "Datenschutzrichtlinie",
+    "lastUpdated": "Zuletzt aktualisiert: 23. Juli 2026",
+    "sections": {
+      "1": {
+        "title": "1. Informationen, die wir sammeln",
+        "p1": "Wenn du Pegasus nutzt, sammeln und speichern wir die folgenden Informationen:",
+        "l1": "Discord User IDs und Guild IDs für den Betrieb und die Speicherung von Konfigurationen.",
+        "l2": "Nachrichten, die speziell vom Server-Administrator protokolliert werden (nur wenn das Logging-Modul aktiv ist).",
+        "l3": "Economy- und XP-Guthaben, die mit deiner User ID verknüpft sind.",
+        "l4": "Anonyme Website-Nutzungsdaten und Analysen via Google Analytics und Google Search Console (vorbehaltlich deiner Cookie-Zustimmung)."
+      },
+      "2": {
+        "title": "2. Wie wir Informationen nutzen",
+        "p1": "Die gesammelten Informationen werden ausschließlich verwendet, um die Funktionen des Bots bereitzustellen, wie das Führen von Economy-Ranglisten, das Erstellen von Moderationsprotokollen für deinen Server und die Gewährleistung der Stabilität der Plattform. Wir verkaufen deine Daten nicht an Dritte."
+      },
+      "3": {
+        "title": "3. Datenspeicherung",
+        "p1": "Wir speichern deine Daten so lange, wie Pegasus auf deinem Discord-Server installiert ist. Wenn der Bot von einem Server entfernt wird, werden alle zugehörigen Konfigurationsdaten zur automatischen Löschung innerhalb von 30 Tagen vorgemerkt. Individuelle Benutzerdaten (XP, Economy) können auf Anfrage gelöscht werden."
+      },
+      "4": {
+        "title": "4. Deine Rechte",
+        "p1": "Du hast das Recht, einen Export all deiner Daten anzufordern oder die vollständige Löschung deiner Daten aus unseren Systemen zu verlangen. Du kannst diese Anfragen direkt über das Dashboard stellen oder den Support kontaktieren."
+      },
+      "5": {
+        "title": "5. Analysen und Tracking",
+        "p1": "Wir verwenden Google Analytics und Google Search Console, um den Website-Traffic zu verstehen und die Benutzererfahrung zu verbessern. Diese Dienste können Cookies verwenden, um anonyme Nutzungsdaten zu sammeln. Du hast die volle Kontrolle und kannst deine Cookie-Einstellungen über unser Cookie-Zustimmungs-Banner verwalten."
+      }
+    }
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "lastUpdated": "Zuletzt aktualisiert: 23. Juli 2026",
+    "sections": {
+      "1": {
+        "title": "1. Zustimmung zu den Bedingungen",
+        "p1": "Durch den Zugriff auf und die Nutzung des Pegasus Discord Bot und Dashboards („Service“) akzeptierst du die Bedingungen dieser Vereinbarung und erklärst dich damit einverstanden, an sie gebunden zu sein."
+      },
+      "2": {
+        "title": "2. Beschreibung des Services",
+        "p1": "Pegasus bietet auf Enterprise-Niveau Discord-Server-Management-Tools einschließlich Economy-Systemen, Moderationswerkzeugen, Ticketing und Logging über einen Discord Bot und ein Web-Dashboard an."
+      },
+      "3": {
+        "title": "3. Verhalten der Nutzer",
+        "p1": "Du erklärst dich damit einverstanden, den Service nicht für Folgendes zu nutzen:",
+        "l1": "Verstoß gegen die Discord-Nutzungsbedingungen oder Community-Richtlinien.",
+        "l2": "Missbrauch der Economy- oder XP-Systeme durch automatisierte Makros oder Bots.",
+        "l3": "Nutzung der Moderationswerkzeuge, um Server-Communitys böswillig zu schaden.",
+        "l4": "Versuch, Ratenbegrenzungen oder Authentifizierungsmechanismen zu umgehen."
+      },
+      "4": {
+        "title": "4. Daten und Datenschutz",
+        "p1": "Unsere Praktiken zur Datensammlung und -nutzung unterliegen unserer Datenschutzrichtlinie. Durch die Nutzung des Services stimmst du der Sammlung und Nutzung dieser Informationen wie in der Datenschutzrichtlinie beschrieben zu."
+      },
+      "5": {
+        "title": "5. Änderungen am Service",
+        "p1": "Wir behalten uns das Recht vor, den Service (oder Teile davon) jederzeit mit oder ohne vorherige Ankündigung vorübergehend oder dauerhaft zu ändern oder einzustellen."
+      }
+    }
+  }
+}

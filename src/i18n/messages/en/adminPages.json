@@ -1,0 +1,143 @@
+{
+  "layout": {
+    "title": "Admin Security Clearance",
+    "description": "Global metrics, audit logs, and system controls."
+  },
+  "loading": {
+    "title": "Loading Admin Area...",
+    "description": "Authenticating and querying database metrics"
+  },
+  "page": {
+    "title": "System Overview",
+    "description": "Real-time metrics from the database.",
+    "metrics": {
+      "totalUsers": "Total Users",
+      "activeGuilds": "Active Guilds",
+      "totalMemberships": "Total Memberships",
+      "databaseStatus": "Database Status",
+      "online": "Online"
+    }
+  },
+  "auditLogs": {
+    "title": "Audit Logs",
+    "description": "Global statistics, recent entries, and detailed analytics from the security audit logs.",
+    "tabs": {
+      "overview": "Overview",
+      "analytics": "Analytics"
+    },
+    "totalEvents": "Total Events",
+    "uniqueActions": "Unique Actions",
+    "uniqueActors": "Unique Actors",
+    "topActions": "Top Actions",
+    "topActionsDesc": "Most frequent events recorded globally.",
+    "recentLogs": "Recent Logs",
+    "recentLogsDesc": "The latest 50 events across all servers.",
+    "topUsers": "Top 5 Active Users",
+    "topUsersDesc": "Users who triggered the most audit events.",
+    "topGuilds": "Top 5 Active Guilds",
+    "topGuildsDesc": "Servers with the highest audit log activity.",
+    "mostUsedActions": "Most Used Actions",
+    "leastUsedActions": "Least Used Actions",
+    "peakUsage": "Peak Usage Times (Full Hours)",
+    "peakUsageDesc": "Busiest hours based on audit log frequency (UTC).",
+    "action": "Action",
+    "guildId": "Guild ID",
+    "userId": "User ID",
+    "targetId": "Target ID",
+    "time": "Time",
+    "actions": "actions",
+    "timeOne": "time",
+    "timesMany": "times"
+  },
+  "bugReports": {
+    "title": "Bug Reports Triage",
+    "description": "Internal developer triage board for reported issues and feedback.",
+    "submittedReports": "Submitted Reports",
+    "submittedReportsDesc": "Manage report status, developer notes, and assignments.",
+    "triageReport": "Triage Report",
+    "status": "Status",
+    "statusOpen": "Open",
+    "statusInProgress": "In Progress",
+    "statusSolved": "Solved",
+    "statusClosed": "Closed",
+    "assignee": "Assignee",
+    "devPlaceholder": "Dev username / ID",
+    "developerNotes": "Developer Notes",
+    "notesPlaceholder": "Root cause, fix commit hash, or resolution details...",
+    "saveTriage": "Save Triage",
+    "cancel": "Cancel",
+    "noReportsSubmitted": "No bug reports submitted.",
+    "submittedByUser": "Submitted By User",
+    "command": "Command",
+    "date": "Date",
+    "steps": "Steps",
+    "devNote": "Dev Note",
+    "triageEdit": "Triage / Edit"
+  },
+  "database": {
+    "title": "Database Browser",
+    "description": "Manage PostgreSQL tables and records.",
+    "tables": "Tables",
+    "selectATable": "Select a table",
+    "records": "records",
+    "filterRecords": "Filter records...",
+    "newRecord": "New Record",
+    "actions": "Actions",
+    "null": "Null",
+    "noRecordsFound": "No records found",
+    "editRecord": "Edit Record",
+    "cancel": "Cancel",
+    "save": "Save",
+    "showing": "Showing {start}-{end} of {total} records"
+  },
+  "metrics": {
+    "title": "Api Metrics",
+    "description": "Real-time system health, API performance, and resource usage.",
+    "resourceUsage": "Resource Usage",
+    "cpuUsage": "Cpu Usage",
+    "memoryUsage": "Memory Usage",
+    "cacheHitRate": "Cache Hit Rate",
+    "fifteenMinAgo": "15m ago",
+    "now": "Now",
+    "botStatus": "Bot Status",
+    "uptime": "Uptime",
+    "activeShards": "Active Shards",
+    "apiLatency": "API Latency",
+    "dbLatency": "DB Latency",
+    "requestVolume": "Request Volume (Last 15m)",
+    "clusterHealth": "Cluster Shard Health"
+  },
+  "security": {
+    "title": "Bot Owner Security Panel",
+    "description": "Restricted staff area: system security logs, global blacklists, audit logs, rate limits & API keys.",
+    "action": "Action",
+    "severity": "Severity",
+    "descriptionHeader": "Description",
+    "date": "Date",
+    "noEvents": "No security events recorded.",
+    "entityType": "Entity Type",
+    "user": "User",
+    "guild": "Guild / Server",
+    "role": "Role",
+    "snowflakeId": "Entity Snowflake ID",
+    "reason": "Reason for Blacklist",
+    "addToBlacklist": "Add To Blacklist",
+    "activeBlacklist": "Active Blacklist",
+    "deactivate": "Deactivate",
+    "activate": "Activate",
+    "markResolved": "Mark Resolved"
+  },
+  "servers": {
+    "title": "Managed Servers",
+    "description": "Select any server Pegasus is in to manage it directly.",
+    "noServers": "No active servers found or bot token not configured.",
+    "configured": "Configured",
+    "unconfigured": "Unconfigured"
+  },
+  "verify": {
+    "title": "Admin Authentication",
+    "description": "Please verify your identity using a registered passkey to access the admin area.",
+    "verifying": "Verifying...",
+    "verifyButton": "Verify with Passkey"
+  }
+}

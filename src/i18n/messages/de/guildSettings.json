@@ -1,0 +1,67 @@
+{
+  "title": "Gildeneinstellungen",
+  "subtitle": "Konfiguriere alle Servermodule über ein einziges Dashboard.",
+  "tabs": {
+    "general": "Allgemein",
+    "ai": "KI-Assistent",
+    "welcome": "Willkommen",
+    "goodbye": "Verabschiedung",
+    "moderation": "Moderation",
+    "logs": "Logs",
+    "automod": "AutoMod"
+  },
+  "general": {
+    "title": "Allgemeine Einstellungen",
+    "prefix": "Bot-Befehlspräfix",
+    "prefixDesc": "Das benutzerdefinierte Präfix für eigene und herkömmliche Textbefehle."
+  },
+  "ai": {
+    "title": "KI-Assistent",
+    "enable": "KI-Assistent aktivieren",
+    "enableDesc": "Erlaube Benutzern, mit dem KI-Assistenten zu sprechen, indem sie den Bot erwähnen",
+    "persona": "KI-Persönlichkeit (System Prompt)",
+    "channel": "KI-Kanal einschränken (Optional)"
+  },
+  "welcome": {
+    "title": "Willkommenssystem",
+    "enable": "Willkommensnachrichten aktivieren",
+    "enableDesc": "Sende Willkommensnachrichten im Kanal",
+    "dmOnJoin": "DM beim Beitritt",
+    "dmOnJoinDesc": "Sende eine DM an neue Mitglieder",
+    "dmContent": "Direct Message (DM) Inhalt (Optional)",
+    "dmPlaceholder": "Danke für deinen Beitritt auf {server}!",
+    "channel": "Willkommenskanal",
+    "message": "Willkommensnachricht (Optional)",
+    "messagePlaceholder": "Willkommen {user} auf {server}! 🎉",
+    "useEmbed": "Rich Embed verwenden",
+    "useEmbedDesc": "Sende die Willkommensnachricht als formatiertes Discord Embed",
+    "embedTitle": "Embed-Titel (Optional)",
+    "embedTitlePlaceholder": "Willkommen auf dem Server!",
+    "embedColor": "Embed-Farbe (Hex) (Optional)",
+    "imageUrl": "Bild-URL (Optional)",
+    "thumbnailUrl": "Thumbnail-URL (Optional)"
+  },
+  "goodbye": {
+    "title": "Verabschiedungssystem",
+    "enable": "Verabschiedungen aktivieren",
+    "enableDesc": "Verabschiedungsnachrichten senden",
+    "channel": "Verabschiedungskanal",
+    "message": "Verabschiedungsnachricht (Optional)",
+    "messagePlaceholder": "{user} hat den Server verlassen. 👋",
+    "useEmbed": "Rich Embed verwenden",
+    "useEmbedDesc": "Sende die Verabschiedungsnachricht als formatiertes Discord Embed",
+    "embedTitle": "Embed-Titel (Optional)",
+    "embedTitlePlaceholder": "Mitglied hat den Server verlassen",
+    "embedColor": "Embed-Farbe (Hex) (Optional)",
+    "imageUrl": "Bild-URL (Optional)",
+    "thumbnailUrl": "Thumbnail-URL (Optional)"
+  },
+  "logs": {
+    "title": "Logging-System",
+    "enable": "Logging aktivieren",
+    "enableDesc": "Wichtige Serverereignisse protokollieren",
+    "channel": "Log-Kanal"
+  },
+  "save": "Änderungen speichern",
+  "cancel": "Abbrechen"
+}

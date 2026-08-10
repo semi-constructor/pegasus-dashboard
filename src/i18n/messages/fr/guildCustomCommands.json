@@ -1,0 +1,45 @@
+{
+  "title": "Commandes Personnalisées",
+  "description": "Définissez des réponses automatiques avec support d'intégration.",
+  "syncing": "Synchronisation...",
+  "saveRegistry": "Sauvegarder le Registre",
+  "generalSettings": {
+    "title": "Paramètres Généraux",
+    "description": "Restrictions globales pour les commandes personnalisées",
+    "restrictChannelLabel": "Restreindre les commandes à l'ID du Salon (Optionnel)",
+    "leaveEmptyText": "Laisser vide pour autoriser dans tous les salons."
+  },
+  "dialog": {
+    "editTitle": "Modifier la Commande",
+    "createTitle": "Créer une Commande",
+    "triggerName": "Nom du Déclencheur",
+    "responseType": "Type de Réponse",
+    "plainText": "Texte Brut",
+    "richEmbed": "Intégration Riche (Embed)",
+    "restrictChannel": "Restreindre au Salon (Optionnel)",
+    "restrictChannelDesc": "Optionnel. Lie cette commande à un salon spécifique.",
+    "plainTextResponse": "Réponse en Texte Brut",
+    "embedSettings": "Paramètres de l'Intégration",
+    "embedTitleLabel": "Titre",
+    "embedColorHex": "Couleur Hex",
+    "embedDescriptionLabel": "Description (Optionnel)",
+    "embedFooterText": "Texte de Pied de Page (Optionnel)",
+    "embedThumbnailUrl": "URL de la Miniature (Optionnel)",
+    "embedImageUrl": "URL de l'Image (Optionnel)",
+    "cancel": "Annuler",
+    "saveChanges": "Sauvegarder les Changements",
+    "createCommand": "Créer la Commande"
+  },
+  "registered": {
+    "title": "Commandes Enregistrées",
+    "description": "Toutes les réponses configurées pour ce serveur.",
+    "newCommand": "Nouvelle Commande",
+    "noCommands": "Aucune commande enregistrée",
+    "embed": "Embed",
+    "text": "Texte",
+    "channel": "# Salon {id}",
+    "untitledEmbed": "Intégration sans titre",
+    "noDescription": "Aucune description fournie",
+    "emptyResponse": "Réponse vide"
+  }
+}

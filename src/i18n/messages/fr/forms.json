@@ -1,0 +1,22 @@
+{
+  "saveBar": {
+    "unsavedChanges": "Modifications non enregistrées",
+    "discard": "Annuler",
+    "saving": "Enregistrement...",
+    "saveChanges": "Enregistrer les modifications"
+  },
+  "pickers": {
+    "selectChannel": "Sélectionner un salon...",
+    "selectChannels": "Sélectionner des salons...",
+    "searchChannels": "Rechercher des salons...",
+    "noChannelsFound": "Aucun salon trouvé.",
+    "clearSelection": "Effacer la sélection",
+    "selectRole": "Sélectionner un rôle...",
+    "selectRoles": "Sélectionner des rôles...",
+    "searchRoles": "Rechercher des rôles...",
+    "noRolesFound": "Aucun rôle trouvé.",
+    "searchUsername": "Rechercher un nom d'utilisateur...",
+    "searching": "Recherche...",
+    "noUsersFound": "Aucun utilisateur trouvé."
+  }
+}

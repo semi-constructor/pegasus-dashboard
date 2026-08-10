@@ -1,0 +1,77 @@
+{
+  "title": "Engagement Hub",
+  "subtitle": "Verwalte Errungenschaften, tägliche Quests und den Ruf-Verlauf der Mitglieder.",
+  "tabs": {
+    "achievements": "Errungenschaften",
+    "quests": "Quests",
+    "reputation": "Ruf-Verlauf"
+  },
+  "achDialog": {
+    "editTitle": "Edit Achievement",
+    "createTitle": "Create Achievement",
+    "id": "Achievement ID",
+    "title": "Title",
+    "description": "Description (Optional)",
+    "reqType": "Requirement Type",
+    "reqTypeValue": {
+      "messages_sent": "Messages Sent",
+      "voice_minutes": "Voice Minutes",
+      "level_reached": "Level Reached",
+      "tickets_opened": "Tickets Opened"
+    },
+    "reqTarget": "Requirement Target Value",
+    "rewardXp": "Reward XP (Optional)",
+    "rewardCoins": "Reward Coins (Optional)",
+    "reqChannel": "Requirement Channel (Optional)",
+    "notifChannel": "Notification Channel (Optional)",
+    "cancel": "Cancel",
+    "saveChanges": "Änderungen speichern",
+    "createAch": "Create Achievement"
+  },
+  "activeAchievements": {
+    "title": "Active Achievements",
+    "description": "Unlockable achievements.",
+    "newBtn": "New Achievement",
+    "noData": "No achievements configured.",
+    "notifies": "Notifies # {channel}",
+    "requires": "Requires # {channel}",
+    "reqReward": "Req: {reqType} ≥ {reqValue} | Reward: {xp} XP + {coins} Coins"
+  },
+  "questDialog": {
+    "createTitle": "Create Quest",
+    "id": "Quest ID",
+    "title": "Quest Title",
+    "type": "Quest Type",
+    "typeValue": {
+      "daily": "Daily Quest",
+      "weekly": "Weekly Quest",
+      "event": "Special Event Quest"
+    },
+    "duration": "Active Duration (Days)",
+    "targetValue": "Target Value",
+    "rewardXp": "Reward XP (Optional)",
+    "reqChannel": "Requirement Channel (Optional)",
+    "notifChannel": "Notification Channel (Optional)",
+    "cancel": "Cancel",
+    "createQuest": "Create Quest"
+  },
+  "activeQuests": {
+    "title": "Active Quests",
+    "description": "Currently active quests.",
+    "newBtn": "New Quest",
+    "noData": "No active quests.",
+    "notifies": "Notifies # {channel}",
+    "requires": "Requires # {channel}",
+    "goal": "Goal: {targetType} ≥ {targetValue} | Expires: {expires}"
+  },
+  "reputation": {
+    "title": "Ruf-Verlauf",
+    "description": "Member reputation history and thanks notes.",
+    "recipient": "Empfänger-ID",
+    "sender": "Absender-ID",
+    "reason": "Begründung",
+    "date": "Datum",
+    "noData": "No reputation history recorded.",
+    "defaultReason": "Hilfreiches Mitglied"
+  }
+}

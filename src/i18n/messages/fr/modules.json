@@ -1,0 +1,154 @@
+{
+  "title": "Explorer les modules Pegasus",
+  "description": "Découvrez les fonctionnalités de Pegasus. Cliquez sur un module pour voir comment le configurer.",
+  "backToModules": "Retour aux modules",
+  "keyFeatures": "Caractéristiques principales",
+  "howToSetUp": "Comment configurer",
+  "configureInDashboard": "Configurer",
+  "modules": {
+    "automod": {
+      "title": "Auto-Modération",
+      "description": "Filtrez automatiquement le spam et le mauvais langage.",
+      "fullDescription": "Gardez votre serveur en sécurité automatiquement.",
+      "features": [
+        "Filtrer les gros mots, liens et spams.",
+        "Avertir, rendre muet ou expulser.",
+        "Liste blanche personnalisable.",
+        "Journaux détaillés."
+      ],
+      "setup": "Activez l'Auto-Modération dans le panel et configurez les filtres."
+    },
+    "economy": {
+      "title": "Système Économique",
+      "description": "Économie virtuelle avec boutiques et récompenses.",
+      "fullDescription": "Boostez l'activité avec une économie virtuelle.",
+      "features": [
+        "Devise personnalisée.",
+        "Récompenses quotidiennes.",
+        "Boutique avec rôles.",
+        "Classements."
+      ],
+      "setup": "Définissez votre monnaie et ajoutez des articles à la boutique."
+    },
+    "engagement": {
+      "title": "Engagement",
+      "description": "Récompensez les membres actifs.",
+      "fullDescription": "Suivez et récompensez l'activité.",
+      "features": [
+        "Suivre les messages et le temps vocal.",
+        "Récompenser avec des pièces.",
+        "Statistiques détaillées.",
+        "Réinitialisation hebdomadaire."
+      ],
+      "setup": "Activez le suivi et définissez le montant de pièces par message."
+    },
+    "giveaways": {
+      "title": "Cadeaux",
+      "description": "Organisez des tirages au sort avec prérequis.",
+      "fullDescription": "Organisez des cadeaux interactifs.",
+      "features": [
+        "Créer et éditer facilement.",
+        "Prérequis de rôle.",
+        "Plusieurs gagnants.",
+        "Sélection automatique."
+      ],
+      "setup": "Lancez un cadeau depuis le panel ou avec la commande /giveaway."
+    },
+    "jtc": {
+      "title": "Join to Create (JTC)",
+      "description": "Canaux vocaux temporaires dynamiques.",
+      "fullDescription": "Des canaux vocaux dynamiques pour plus d'ordre.",
+      "features": [
+        "Rejoindre un hub pour créer un salon.",
+        "Gérer son propre salon.",
+        "Suppression automatique à vide.",
+        "Garde le serveur propre."
+      ],
+      "setup": "Sélectionnez un canal vocal Hub dans le panel."
+    },
+    "moderation": {
+      "title": "Modération",
+      "description": "Outils de base pour bannir, expulser, etc.",
+      "fullDescription": "Outils essentiels pour votre équipe.",
+      "features": [
+        "Bannir, expulser, exclure temporairement.",
+        "Purge de messages.",
+        "Journaux d'audit.",
+        "Permissions par rôle."
+      ],
+      "setup": "Configurez vos rôles modérateurs et vos canaux de journaux."
+    },
+    "schedule": {
+      "title": "Événements Planifiés",
+      "description": "Planifiez des messages et rappels.",
+      "fullDescription": "Automatisez vos messages.",
+      "features": [
+        "Messages récurrents.",
+        "Rappels ponctuels.",
+        "Horaires Cron.",
+        "Messages intégrés."
+      ],
+      "setup": "Créez une nouvelle tâche dans le panel."
+    },
+    "tickets": {
+      "title": "Tickets",
+      "description": "Canaux de support privé.",
+      "fullDescription": "Support 1-à-1 privé.",
+      "features": [
+        "Panneaux personnalisables.",
+        "Réclamer, fermer, supprimer.",
+        "Transcriptions automatiques.",
+        "Plusieurs catégories."
+      ],
+      "setup": "Créez un panneau de tickets et envoyez-le dans un canal."
+    },
+    "warns": {
+      "title": "Avertissements",
+      "description": "Système d'infractions avec punitions.",
+      "fullDescription": "Un système de sanctions avec punitions automatiques.",
+      "features": [
+        "Suivi permanent.",
+        "Seuils (ex. 3 avertissements = timeout).",
+        "Retirer les avertissements.",
+        "Vérification de l'historique."
+      ],
+      "setup": "Définissez vos seuils de sanction dans le panel."
+    },
+    "xp": {
+      "title": "Niveaux & XP",
+      "description": "Récompensez le chat avec de l'XP.",
+      "fullDescription": "Rendez le chat ludique.",
+      "features": [
+        "XP pour les messages.",
+        "Cartes de rang.",
+        "Annonces de niveau.",
+        "Récompenses de rôle."
+      ],
+      "setup": "Activez le système de niveaux et configurez les récompenses."
+    },
+    "custom-commands": {
+      "title": "Commandes sur mesure",
+      "description": "Commandes texte et réponses auto.",
+      "fullDescription": "Ajoutez vos propres commandes.",
+      "features": [
+        "Réponses auto simples.",
+        "Variables (ex. {user}).",
+        "Commandes slash ou préfixe.",
+        "Réponses intégrées."
+      ],
+      "setup": "Cliquez sur 'Ajouter commande' et choisissez un déclencheur."
+    },
+    "settings": {
+      "title": "Paramètres de base",
+      "description": "Configuration du préfixe, de la langue, etc.",
+      "fullDescription": "Configuration générale du serveur.",
+      "features": [
+        "Préfixe personnalisé.",
+        "Langue.",
+        "Rôles d'administration.",
+        "Journaux."
+      ],
+      "setup": "Vérifiez d'abord ces paramètres."
+    }
+  }
+}

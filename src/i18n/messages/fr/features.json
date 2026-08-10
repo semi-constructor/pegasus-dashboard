@@ -1,0 +1,157 @@
+{
+  "moderation": {
+    "title": "Modération avancée et AutoMod",
+    "description": "Protégez votre communauté avec une modération automatisée ultra-rapide, un filtrage de mots avancé et un journal d'audit complet.",
+    "automod": {
+      "title": "AutoMod V2",
+      "desc": "Les déclencheurs regex, spam de mentions et spam de pièces jointes mettent instantanément les comptes suspects en quarantaine."
+    },
+    "warning": {
+      "title": "Escalade des avertissements",
+      "desc": "Expulsez, réduisez au silence ou bannissez automatiquement les utilisateurs qui accumulent trop d'avertissements."
+    },
+    "auditing": {
+      "title": "Audit détaillé",
+      "desc": "Chaque action est enregistrée dans des embeds Discord détaillés et faciles à lire."
+    },
+    "quarantineTriggered": "AutoMod : Quarantaine déclenchée",
+    "userQuarantined": "L'utilisateur <username>spammer_99</username> a été mis en quarantaine.",
+    "reason": "Raison",
+    "reasonText": "Seuil de spam de mentions dépassé (plus de 15 mentions)",
+    "actionTaken": "Action prise",
+    "actionText": "Rôles retirés, @Quarantaine attribué"
+  },
+  "economy": {
+    "title": "Économie, XP et progression",
+    "description": "Transformez votre serveur en un RPG captivant. Récompensez l'activité avec de la monnaie, des niveaux et des cartes de rang personnalisées.",
+    "rankCards": {
+      "title": "Cartes de rang dynamiques",
+      "desc": "De superbes images générées présentant le niveau, le rang et la progression de l'utilisateur."
+    },
+    "globalEconomy": {
+      "title": "Économie globale et locale",
+      "desc": "Travaillez, volez, pariez et réclamez des récompenses quotidiennes pour grimper dans le classement."
+    },
+    "roleRewards": {
+      "title": "Récompenses de rôles",
+      "desc": "Attribuez automatiquement des rôles Discord lorsque les utilisateurs atteignent des niveaux spécifiques."
+    },
+    "rank": "Rang",
+    "level": "Niveau",
+    "reputationHigh": "Réputation : Élevée"
+  },
+  "tickets": {
+    "title": "Tickets de support professionnel",
+    "description": "Rationalisez le support communautaire avec des panneaux de tickets multi-départements, des attributions et des transcriptions complètes.",
+    "multiDepartment": {
+      "title": "Panneaux multi-départements",
+      "desc": "Laissez les utilisateurs choisir le type d'aide dont ils ont besoin (ex. Support, Facturation, Candidatures)."
+    },
+    "staffTooling": {
+      "title": "Outils d'équipe",
+      "desc": "Opérations de prise en charge, gel, verrouillage et fermeture pour votre équipe de modération."
+    },
+    "webTranscripts": {
+      "title": "Transcriptions web",
+      "desc": "Générez et sauvegardez automatiquement des transcriptions HTML à la fermeture d'un ticket."
+    },
+    "supportCenter": "Centre de support",
+    "supportCenterDesc": "Besoin d'aide ? Cliquez sur le bouton correspondant à votre demande pour ouvrir un fil privé avec notre équipe.",
+    "generalSupport": "Support général",
+    "billingInquiry": "Demande de facturation",
+    "staffApplication": "Candidature équipe"
+  },
+  "giveaways": {
+    "title": "Concours et événements",
+    "description": "Organisez des concours hautement configurables pour stimuler l'engagement et récompenser vos membres les plus actifs.",
+    "multiWinner": {
+      "title": "Plusieurs gagnants",
+      "desc": "Sélectionnez automatiquement plusieurs gagnants lorsque le minuteur expire."
+    },
+    "entryReqs": {
+      "title": "Conditions de participation",
+      "desc": "Exigez un rôle spécifique ou un niveau minimum pour participer."
+    },
+    "bonusEntries": {
+      "title": "Participations bonus",
+      "desc": "Offrez aux boosters du serveur ou aux membres VIP une meilleure chance de gagner."
+    },
+    "giveawayTitle": "CONCOURS : Discord Nitro (1 mois)",
+    "reactToEnter": "Réagissez avec 🎉 pour participer !",
+    "ends": "Fin",
+    "endsIn": "dans 2 jours (48h)",
+    "hostedBy": "Organisé par",
+    "entries": "Participations"
+  },
+  "fun": {
+    "title": "Fun et mini-jeux",
+    "description": "Gardez votre chat actif même quand il n'y a rien à dire. Des mini-jeux intégrés directement connectés à l'économie.",
+    "interactiveGames": {
+      "title": "Jeux interactifs",
+      "desc": "Jouez au Morpion, au Trivia ou à la Roulette Russe directement dans les salons Discord."
+    },
+    "bettingWagers": {
+      "title": "Paris et mises",
+      "desc": "Laissez les utilisateurs miser leurs pièces dans des jeux contre le bot ou entre eux."
+    },
+    "socialCommands": {
+      "title": "Commandes sociales",
+      "desc": "Faites un câlin, giflez, embrassez ou caressez d'autres utilisateurs avec des GIFs animés."
+    },
+    "triviaChallenge": "Défi Trivia !",
+    "triviaQuestion": "En quelle année Discord a-t-il été officiellement lancé ?",
+    "triviaDifficulty": "Difficulté : Moyenne • Récompense : 🪙 500",
+    "triviaCorrect": "Correct ! Vous avez gagné 🪙 500."
+  },
+  "infrastructure": {
+    "title": "Infrastructure serveur",
+    "description": "Automatisez les salons vocaux de votre serveur. Join-to-Create garantit que vous n'aurez plus jamais une liste de salons vocaux encombrée et vide.",
+    "dynamicVoice": {
+      "title": "Salons vocaux dynamiques",
+      "desc": "Un nouveau salon est créé instantanément quand un utilisateur rejoint le hub principal."
+    },
+    "autoCleanup": {
+      "title": "Nettoyage automatique",
+      "desc": "Le salon se supprime automatiquement dès que la dernière personne le quitte."
+    },
+    "ownerControls": {
+      "title": "Contrôles du créateur",
+      "desc": "Les créateurs de salons ont accès à un panneau pour verrouiller, limiter ou renommer leur salon temporaire."
+    },
+    "voiceChannels": "Salons vocaux",
+    "joinToCreate": "Join to Create",
+    "channelOwner": "Propriétaire du salon"
+  },
+  "engagement": {
+    "title": "Engagement & Statistiques",
+    "description": "Suivez l'activité des utilisateurs et récompensez vos membres les plus actifs.",
+    "voiceTracking": {
+      "title": "Suivi Vocal",
+      "desc": "Surveillez le temps passé dans les salons vocaux."
+    },
+    "messageTracking": {
+      "title": "Suivi des Messages",
+      "desc": "Trouvez vos membres les plus bavards."
+    },
+    "rewards": {
+      "title": "Récompenses d'activité",
+      "desc": "Accordez de la monnaie en fonction de l'activité."
+    }
+  },
+  "customCommands": {
+    "title": "Commandes sur Mesure",
+    "description": "Créez vos propres commandes et réponses automatiques.",
+    "autoResponders": {
+      "title": "Réponses Automatiques",
+      "desc": "Le bot répond aux mots-clés."
+    },
+    "variables": {
+      "title": "Variables Dynamiques",
+      "desc": "Utilisez des variables comme {user}."
+    },
+    "embeds": {
+      "title": "Embeds Riches",
+      "desc": "Formatez vos réponses avec des embeds Discord."
+    }
+  }
+}

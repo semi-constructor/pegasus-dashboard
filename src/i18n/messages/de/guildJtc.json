@@ -1,0 +1,28 @@
+{
+  "title": "Join To Create",
+  "subtitle": "Konfiguration des dynamischen Generators für temporäre Sprachkanäle.",
+  "config": {
+    "title": "Jtc Systemkonfiguration",
+    "description": "Set up master trigger channel and destination category.",
+    "baseChannel": "Basis-Sprachkanal (Auslöser)",
+    "baseChannelDesc": "Joining this channel spawns a new room.",
+    "category": "Ziel-Kategorie",
+    "categoryDesc": "Where temp channels are created.",
+    "panelChannel": "Textkanal für das Interface",
+    "panelChannelDesc": "Where owner control panel is posted.",
+    "nameFormat": "Channel Naming Template",
+    "nameFormatDesc": "Variable: {user}",
+    "save": "Jtc-Konfiguration speichern"
+  },
+  "active": {
+    "title": "Active Temporary Channels",
+    "description": "Live spawned user voice channels.",
+    "noData": "No active temporary JTC channels online.",
+    "channelId": "Channel ID: {id}",
+    "locked": "Locked",
+    "open": "Open",
+    "details": "Owner: {owner} | User Limit: {limit} | Created: {time}",
+    "unlimited": "Unlimited",
+    "terminate": "Terminate Room"
+  }
+}

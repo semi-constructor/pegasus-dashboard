@@ -1,0 +1,59 @@
+{
+  "title": "Guild Settings",
+  "subtitle": "Configure all server modules from a single dashboard.",
+  "tabs": { "general": "General", "ai": "AI Assistant", "welcome": "Welcome", "goodbye": "Goodbye", "moderation": "Moderation", "logs": "Logs", "automod": "Automod" },
+  "general": {
+    "title": "General Settings",
+    "prefix": "Bot Command Prefix",
+    "prefixDesc": "The custom prefix for custom commands and legacy text commands."
+  },
+  "ai": {
+    "title": "AI Assistant",
+    "enable": "Enable AI Assistant",
+    "enableDesc": "Allow users to talk to the AI assistant by mentioning the bot",
+    "persona": "AI Persona (System Prompt)",
+    "channel": "Restrict AI Channel (Optional)"
+  },
+  "welcome": {
+    "title": "Welcome System",
+    "enable": "Enable Welcome",
+    "enableDesc": "Send welcome messages",
+    "dmOnJoin": "DM on Join",
+    "dmOnJoinDesc": "Send DM to new members",
+    "dmContent": "Direct Message (DM) Content (Optional)",
+    "dmPlaceholder": "Thanks for joining {server}!",
+    "channel": "Welcome Channel",
+    "message": "Welcome Message (Optional)",
+    "messagePlaceholder": "Welcome {user} to {server}! 🎉",
+    "useEmbed": "Use Rich Embed",
+    "useEmbedDesc": "Send the welcome message inside a styled Discord embed",
+    "embedTitle": "Embed Title (Optional)",
+    "embedTitlePlaceholder": "Welcome to the server!",
+    "embedColor": "Embed Color (Hex) (Optional)",
+    "imageUrl": "Image URL (Optional)",
+    "thumbnailUrl": "Thumbnail URL (Optional)"
+  },
+  "goodbye": {
+    "title": "Goodbye System",
+    "enable": "Enable Goodbye",
+    "enableDesc": "Send goodbye messages",
+    "channel": "Goodbye Channel",
+    "message": "Goodbye Message (Optional)",
+    "messagePlaceholder": "{user} has left the server. 👋",
+    "useEmbed": "Use Rich Embed",
+    "useEmbedDesc": "Send the goodbye message inside a styled Discord embed",
+    "embedTitle": "Embed Title (Optional)",
+    "embedTitlePlaceholder": "Member Left",
+    "embedColor": "Embed Color (Hex) (Optional)",
+    "imageUrl": "Image URL (Optional)",
+    "thumbnailUrl": "Thumbnail URL (Optional)"
+  },
+  "logs": {
+    "title": "Logging System",
+    "enable": "Enable Logging",
+    "enableDesc": "Log core server events",
+    "channel": "Log Channel"
+  },
+  "save": "Save Changes",
+  "cancel": "Cancel"
+}

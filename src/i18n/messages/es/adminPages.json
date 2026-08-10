@@ -1,0 +1,143 @@
+{
+  "layout": {
+    "title": "Autorización de Seguridad de Admin",
+    "description": "Métricas globales, registros de auditoría y controles del sistema."
+  },
+  "loading": {
+    "title": "Cargando el área de administración...",
+    "description": "Autenticando y consultando métricas de la base de datos"
+  },
+  "page": {
+    "title": "Resumen del Sistema",
+    "description": "Métricas en tiempo real de la base de datos.",
+    "metrics": {
+      "totalUsers": "Usuarios Totales",
+      "activeGuilds": "Servidores Activos",
+      "totalMemberships": "Membresías Totales",
+      "databaseStatus": "Estado de la Base de Datos",
+      "online": "En línea"
+    }
+  },
+  "auditLogs": {
+    "title": "Registros de Auditoría",
+    "description": "Estadísticas globales, entradas recientes y analíticas detalladas de auditoría.",
+    "tabs": {
+      "overview": "Overview",
+      "analytics": "Analytics"
+    },
+    "totalEvents": "Total Events",
+    "uniqueActions": "Unique Actions",
+    "uniqueActors": "Unique Actors",
+    "topActions": "Top Actions",
+    "topActionsDesc": "Most frequent events recorded globally.",
+    "recentLogs": "Recent Logs",
+    "recentLogsDesc": "The latest 50 events across all servers.",
+    "topUsers": "Top 5 Active Users",
+    "topUsersDesc": "Users who triggered the most audit events.",
+    "topGuilds": "Top 5 Active Guilds",
+    "topGuildsDesc": "Servers with the highest audit log activity.",
+    "mostUsedActions": "Most Used Actions",
+    "leastUsedActions": "Least Used Actions",
+    "peakUsage": "Peak Usage Times (Full Hours)",
+    "peakUsageDesc": "Busiest hours based on audit log frequency (UTC).",
+    "action": "Action",
+    "guildId": "Guild ID",
+    "userId": "User ID",
+    "targetId": "Target ID",
+    "time": "Time",
+    "actions": "actions",
+    "timeOne": "time",
+    "timesMany": "times"
+  },
+  "bugReports": {
+    "title": "Clasificación de Reportes de Errores",
+    "description": "Tablero interno para desarrolladores sobre problemas reportados y comentarios.",
+    "submittedReports": "Submitted Reports",
+    "submittedReportsDesc": "Manage report status, developer notes, and assignments.",
+    "triageReport": "Triage Report",
+    "status": "Status",
+    "statusOpen": "Open",
+    "statusInProgress": "In Progress",
+    "statusSolved": "Solved",
+    "statusClosed": "Closed",
+    "assignee": "Assignee",
+    "devPlaceholder": "Dev username / ID",
+    "developerNotes": "Developer Notes",
+    "notesPlaceholder": "Root cause, fix commit hash, or resolution details...",
+    "saveTriage": "Save Triage",
+    "cancel": "Cancel",
+    "noReportsSubmitted": "No bug reports submitted.",
+    "submittedByUser": "Submitted By User",
+    "command": "Command",
+    "date": "Date",
+    "steps": "Steps",
+    "devNote": "Dev Note",
+    "triageEdit": "Triage / Edit"
+  },
+  "database": {
+    "title": "Navegador de Base de Datos",
+    "description": "Administre tablas y registros de PostgreSQL.",
+    "tables": "Tables",
+    "selectATable": "Select a table",
+    "records": "records",
+    "filterRecords": "Filter records...",
+    "newRecord": "New Record",
+    "actions": "Actions",
+    "null": "Null",
+    "noRecordsFound": "No records found",
+    "editRecord": "Edit Record",
+    "cancel": "Cancel",
+    "save": "Save",
+    "showing": "Showing {start}-{end} of {total} records"
+  },
+  "metrics": {
+    "title": "Métricas de la API",
+    "description": "Estado del sistema en tiempo real, rendimiento de API y uso de recursos.",
+    "resourceUsage": "Resource Usage",
+    "cpuUsage": "Cpu Usage",
+    "memoryUsage": "Memory Usage",
+    "cacheHitRate": "Cache Hit Rate",
+    "fifteenMinAgo": "15m ago",
+    "now": "Now",
+    "botStatus": "Bot Status",
+    "uptime": "Uptime",
+    "activeShards": "Active Shards",
+    "apiLatency": "API Latency",
+    "dbLatency": "DB Latency",
+    "requestVolume": "Request Volume (Last 15m)",
+    "clusterHealth": "Cluster Shard Health"
+  },
+  "security": {
+    "title": "Panel de Seguridad del Dueño del Bot",
+    "description": "Área de personal restringida: registros de seguridad, listas negras globales y claves de API.",
+    "action": "Action",
+    "severity": "Severity",
+    "descriptionHeader": "Description",
+    "date": "Date",
+    "noEvents": "No security events recorded.",
+    "entityType": "Entity Type",
+    "user": "User",
+    "guild": "Guild / Server",
+    "role": "Role",
+    "snowflakeId": "Entity Snowflake ID",
+    "reason": "Reason for Blacklist",
+    "addToBlacklist": "Add To Blacklist",
+    "activeBlacklist": "Active Blacklist",
+    "deactivate": "Deactivate",
+    "activate": "Activate",
+    "markResolved": "Mark Resolved"
+  },
+  "servers": {
+    "title": "Servidores Administrados",
+    "description": "Seleccione cualquier servidor en el que esté Pegasus para administrarlo directamente.",
+    "noServers": "No se encontraron servidores activos o el token del bot no está configurado.",
+    "configured": "Configurado",
+    "unconfigured": "No configurado"
+  },
+  "verify": {
+    "title": "Autenticación de Admin",
+    "description": "Por favor verifique su identidad usando una passkey registrada.",
+    "verifying": "Verificando...",
+    "verifyButton": "Verificar con Passkey"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Sorteos Automatizados",
+  "subtitle": "Organiza concursos con filtros de requisitos y entradas adicionales por rol.",
+  "dialog": {
+    "createTitle": "Create Giveaway",
+    "prizeName": "Prize Name",
+    "announcementChannel": "Announcement Channel",
+    "description": "Description (Optional)",
+    "winnerCount": "Winner Count",
+    "duration": "Duration (Hours)",
+    "reqBuilderTitle": "Entry Requirements Builder",
+    "reqRoles": "Required Roles to Enter",
+    "minLevel": "Minimum Member Level Required",
+    "bonusBuilderTitle": "Bonus Entries Builder",
+    "bonusRole": "Bonus Multiplier Role",
+    "extraEntries": "Extra Entries Granted",
+    "cancel": "Cancel",
+    "start": "Start Giveaway"
+  },
+  "list": {
+    "title": "Sorteos del Servidor",
+    "description": "Active and past giveaways.",
+    "newBtn": "New Giveaway",
+    "noData": "No giveaways hosted.",
+    "status": "STATUS: {status}",
+    "winners": "{count} Winner(s)",
+    "details1": "Channel: {channel} | Total Entries: {entries} | End Time: {endTime}",
+    "details2": "Reqs: {reqs} | Bonus: {bonus}",
+    "endNow": "End Now",
+    "cancelGw": "Cancel"
+  }
+}

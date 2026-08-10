@@ -1,0 +1,77 @@
+{
+  "tabs": {
+    "rules": "AutoMod Rules",
+    "infractions": "Infractions Log",
+    "vault": "Quarantine Vault"
+  },
+  "createRule": {
+    "title": "Create Automod Rule",
+    "description": "Build event-driven automated moderation rules with specialized trigger sub-forms.",
+    "name": "Rule Name",
+    "eventType": "Event Type",
+    "triggerType": "Trigger Type",
+    "actionType": "Action to Take",
+    "metadataConfig": "Trigger Metadata Config ({type})",
+    "keywords": "Keywords (Comma separated)",
+    "regex": "Regex Pattern",
+    "mentionLimit": "Max Mentions Limit",
+    "attachmentLimit": "Max Attachments Limit",
+    "exemptRoles": "Exempt Roles (Optional)",
+    "exemptChannels": "Exempt Channels (Optional)",
+    "btn": "Create Automod Rule",
+    "events": {
+      "msgSend": "Message Send",
+      "msgEdit": "Message Edit",
+      "memberJoin": "Member Join",
+      "memberUpdate": "Member Profile Update"
+    },
+    "triggers": {
+      "keyword": "Keyword Substring Match",
+      "regex": "Regex Pattern Match",
+      "mention": "Mention Spam Threshold",
+      "attachment": "Attachment / Link Spam"
+    },
+    "actions": {
+      "delete": "Delete Message",
+      "warn": "Warn User",
+      "timeout": "Timeout User",
+      "quarantine": "Send to Quarantine Vault",
+      "infraction": "Add Infraction Points"
+    }
+  },
+  "activeRules": {
+    "title": "Active Rules",
+    "description": "Configured AutoMod V2 inspection rules.",
+    "empty": "No AutoMod V2 rules configured.",
+    "disabled": "Disabled",
+    "enableBtn": "Enable",
+    "disableBtn": "Disable",
+    "metadata": "Metadata",
+    "actions": "Actions"
+  },
+  "infractions": {
+    "title": "Automod Infractions Log",
+    "description": "Automated infraction history.",
+    "empty": "No infractions recorded.",
+    "userId": "User ID",
+    "points": "Points",
+    "action": "Action Taken",
+    "reason": "Reason",
+    "active": "Active",
+    "date": "Date",
+    "yes": "YES",
+    "expired": "EXPIRED"
+  },
+  "vault": {
+    "title": "Quarantine Vault",
+    "description": "Isolated accounts with stripped roles pending staff review.",
+    "empty": "Quarantine vault is empty. No accounts isolated.",
+    "user": "User: {id}",
+    "releasedBadge": "Released",
+    "jailedBadge": "Jailed",
+    "reason": "Reason: {reason}",
+    "jailedAt": "Jailed At",
+    "releaseBtn": "Release User",
+    "defaultReason": "AutoMod Security Quarantine"
+  }
+}

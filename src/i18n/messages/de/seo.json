@@ -1,0 +1,120 @@
+{
+  "mee6Alt": {
+    "metaTitle": "Beste MEE6 Alternative 2026 - PegasusBot",
+    "metaDescription": "Suchen Sie eine kostenlose MEE6 Alternative? PegasusBot bietet Premium-Moderation, Wirtschaft, Leveling und Tickets ohne Paywalls. Wechseln Sie heute.",
+    "heroTitle": "Die ultimative MEE6 Alternative",
+    "heroSubtitle": "Warum für Funktionen bezahlen, die kostenlos sein sollten? Wechseln Sie zu PegasusBot für uneingeschränkte Moderation, erweiterte Wirtschaft und leistungsstarkes Logging.",
+    "cta1": "Zu Discord hinzufügen",
+    "cta2": "Funktionen ansehen",
+    "featuresTitle": "Warum PegasusBot besser ist",
+    "feature1": {
+      "title": "100% Kostenloses Leveling",
+      "desc": "Keine Paywalls für benutzerdefinierte Hintergründe oder XP-Multiplikatoren."
+    },
+    "feature2": {
+      "title": "Erweiterte Moderation",
+      "desc": "Schützen Sie Ihren Server mit leistungsstarkem Automod und detailliertem Logging."
+    },
+    "feature3": {
+      "title": "Integrierte Tickets",
+      "desc": "Verwalten Sie Support einfach, ohne einen separaten Bot zu benötigen."
+    },
+    "comparisonTitle": "Funktionsvergleich: MEE6 vs PegasusBot",
+    "comparisonAdvantage": "Vorteil",
+    "migrationTitle": "Wie man in 3 Schritten von MEE6 migriert",
+    "migrationStep1Title": "PegasusBot hinzufügen",
+    "migrationStep1Desc": "Laden Sie PegasusBot mit Administratorrechten ein, um sicherzustellen, dass alle Module perfekt funktionieren.",
+    "migrationStep2Title": "Einstellungen konfigurieren",
+    "migrationStep2Desc": "Richten Sie Ihre Willkommensnachrichten, Automod und Leveling in unserem schlanken Dashboard ein.",
+    "migrationStep3Title": "MEE6 entfernen",
+    "migrationStep3Desc": "Werfen Sie MEE6 von Ihrem Server und genießen Sie Ihre neue, völlig kostenlose Erfahrung."
+  },
+  "moderationFeature": {
+    "metaTitle": "Discord Moderation Bot & Automod - PegasusBot",
+    "metaDescription": "Halten Sie Ihren Discord-Server sicher mit den erweiterten Moderations- und Automod-Funktionen von PegasusBot. Schützen Sie sich vor Raids, Spam und bösartigen Links.",
+    "heroTitle": "Erweiterte Discord-Moderation",
+    "heroSubtitle": "Schützen Sie Ihre Community mit anpassbaren Automod-Regeln, detaillierten Audit-Logs und leistungsstarken manuellen Moderationsbefehlen.",
+    "feature1": {
+      "title": "Automod Regeln",
+      "desc": "Löschen Sie Spam, Schimpfwörter und Phishing-Links automatisch, bevor sie jemand sieht."
+    },
+    "feature2": {
+      "title": "Detailliertes Logging",
+      "desc": "Behalten Sie jede gelöschte Nachricht, jeden Mitgliederbeitritt und jede Rollenänderung in Echtzeit im Auge."
+    },
+    "feature3": {
+      "title": "Raid Schutz",
+      "desc": "Sperren Sie Ihren Server sofort ab und verhindern Sie massenhafte Beitritte während eines Raids."
+    }
+  },
+  "guidesSetup": {
+    "metaTitle": "Wie man einen Discord-Server einrichtet: Der ultimative Leitfaden - PegasusBot",
+    "metaDescription": "Erfahren Sie, wie Sie einen professionellen Discord-Server von Grund auf aufbauen, sichern und verwalten.",
+    "heroTitle": "Der ultimative Discord-Server Einrichtungsleitfaden",
+    "heroSubtitle": "Alles, was Sie wissen müssen, um eine florierende, sichere und engagierte Discord-Community aufzubauen."
+  },
+  "resourcesRules": {
+    "metaTitle": "Discord-Regelvorlagen (Kopieren & Einfügen) - PegasusBot",
+    "metaDescription": "Kostenlose, professionelle Discord-Regelvorlagen, die Sie in Ihren Server kopieren können.",
+    "heroTitle": "Discord-Regelvorlagen kopieren & einfügen",
+    "heroSubtitle": "Schreiben Sie Regeln nicht von Grund auf neu. Verwenden Sie unsere professionell entworfenen Vorlagen."
+  },
+  "dynoAlt": {
+    "metaTitle": "Best Dyno Alternative 2026 - PegasusBot",
+    "metaDescription": "Searching for a modern Dyno alternative? PegasusBot provides faster moderation, better logging, and a stunning dashboard. Upgrade your server today.",
+    "heroTitle": "The Modern Dyno Alternative",
+    "heroSubtitle": "Dyno was great in 2018. It's time for a modern, blazingly fast Discord bot with an interactive dashboard and advanced automod.",
+    "cta1": "Add to Discord",
+    "cta2": "View Features",
+    "featuresTitle": "Why PegasusBot beats Dyno",
+    "feature1": {
+      "title": "Modern Dashboard",
+      "desc": "Manage your server with a lightning-fast, beautiful UI."
+    },
+    "feature2": {
+      "title": "Advanced Logging",
+      "desc": "Never miss a deleted message or member join with real-time logs."
+    },
+    "feature3": {
+      "title": "Built-in Economy",
+      "desc": "Reward active members with an engaging global economy system."
+    },
+    "comparisonTitle": "Feature Comparison: Dyno vs PegasusBot",
+    "migrationTitle": "How to Upgrade from Dyno in 3 Steps",
+    "migrationStep1Title": "Invite PegasusBot",
+    "migrationStep1Desc": "Add PegasusBot with admin permissions.",
+    "migrationStep2Title": "Configure Automod",
+    "migrationStep2Desc": "Set up your automod filters visually in our dashboard.",
+    "migrationStep3Title": "Remove Dyno",
+    "migrationStep3Desc": "Kick Dyno and enjoy a modern, faster experience."
+  },
+  "carlBotAlt": {
+    "metaTitle": "Best Carl-bot Alternative 2026 - PegasusBot",
+    "metaDescription": "Need an alternative to Carl-bot? Get unlimited reaction roles, advanced moderation, and seamless logging with PegasusBot.",
+    "heroTitle": "The Ultimate Carl-bot Alternative",
+    "heroSubtitle": "Why struggle with complicated commands? PegasusBot makes reaction roles and advanced automod incredibly simple through our sleek dashboard.",
+    "cta1": "Add to Discord",
+    "cta2": "View Features",
+    "featuresTitle": "Why PegasusBot beats Carl-bot",
+    "feature1": {
+      "title": "Easy Reaction Roles",
+      "desc": "Set up unlimited self-assignable roles in seconds using our visual builder."
+    },
+    "feature2": {
+      "title": "Simpler Automod",
+      "desc": "No complicated syntax. Just toggle what you want to filter in the dashboard."
+    },
+    "feature3": {
+      "title": "Built-in Tickets",
+      "desc": "Provide top-tier support without needing a dozen different bots."
+    },
+    "comparisonTitle": "Feature Comparison: Carl-bot vs PegasusBot",
+    "migrationTitle": "How to Switch from Carl-bot in 3 Steps",
+    "migrationStep1Title": "Invite PegasusBot",
+    "migrationStep1Desc": "Add PegasusBot to your server.",
+    "migrationStep2Title": "Recreate Reaction Roles",
+    "migrationStep2Desc": "Use our visual dashboard to instantly rebuild your role menus.",
+    "migrationStep3Title": "Remove Carl-bot",
+    "migrationStep3Desc": "Kick Carl-bot and consolidate your server's bots."
+  }
+}

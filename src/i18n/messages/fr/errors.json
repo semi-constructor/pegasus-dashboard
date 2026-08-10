@@ -1,0 +1,23 @@
+{
+  "notFound": {
+    "title": "Cette page s'est envolée",
+    "description": "La page que vous recherchez n'existe pas ou a peut-être été déplacée.",
+    "lines": [
+      "Notre pigeon voyageur a pris un mauvais virage.",
+      "Une commande de bot rebelle semble avoir égaré cette page.",
+      "Nous avons regardé derrière le canapé Discord. Rien."
+    ]
+  },
+  "unexpected": {
+    "title": "Un problème est survenu",
+    "description": "Cette page ne peut pas être chargée pour le moment. Réessayez ou retournez à l'accueil.",
+    "lines": [
+      "Les hamsters redémarrent la roue du serveur.",
+      "Un gremlin a appuyé sur un bouton qu'il ne devait pas toucher.",
+      "Notre gobelin des erreurs a été prévenu. Poliment."
+    ]
+  },
+  "goHome": "Retour à l'accueil",
+  "viewDocs": "Voir la documentation",
+  "tryAgain": "Réessayer"
+}

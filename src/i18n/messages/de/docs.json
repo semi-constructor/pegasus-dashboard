@@ -1,0 +1,12 @@
+{
+  "commandsReference": "Befehlsreferenz",
+  "subtitle": "Pegasus Discord Bot Dokumentation",
+  "categories": "Kategorien",
+  "searchPlaceholder": "Befehle durchsuchen...",
+  "noCommandsFound": "Keine Befehle gefunden für \"{query}\" in {category}.",
+  "options": "Optionen",
+  "subcommands": "{count} Unterbefehle",
+  "group": "Gruppe",
+  "required": "Erf.",
+  "optional": "Opt."
+}

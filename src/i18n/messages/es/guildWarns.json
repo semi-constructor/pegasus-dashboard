@@ -1,0 +1,52 @@
+{
+  "title": "Sistema de Advertencias",
+  "description": "Rastrea infracciones de usuarios y crea escaladas de sanciones automatizadas.",
+  "tabs": {
+    "warnings": "Advertencias Activas",
+    "automations": "Automatizaciones de Advertencia"
+  },
+  "dialog": {
+    "issueTitle": "Emitir Advertencia Manual",
+    "userId": "ID del Usuario de Discord",
+    "warnTitle": "Título de la Advertencia / Motivo",
+    "description": "Descripción Detallada (Opcional)",
+    "level": "Nivel de Severidad (Puntos)",
+    "proof": "Prueba / URL de Imagen (Opcional)",
+    "cancel": "Cancelar",
+    "issueWarn": "Emitir Advertencia",
+    "createAutoTitle": "Crear Automatización de Advertencia",
+    "autoName": "Nombre de la Automatización",
+    "triggerMetric": "Métrica de Activación",
+    "warnCount": "Conteo de Advertencias",
+    "warnPoints": "Puntos de Advertencia (Suma de niveles)",
+    "threshold": "Valor del Límite",
+    "actionToExecute": "Acción a Ejecutar",
+    "timeout": "Aislar Usuario (Timeout)",
+    "kick": "Expulsar Usuario",
+    "ban": "Banear Usuario",
+    "timeoutDuration": "Duración del Aislamiento (Segundos)",
+    "notificationSettings": "Configuración de Notificaciones",
+    "notifyChannel": "Canal de Notificación (Opcional)",
+    "notifyMessage": "Mensaje de Notificación",
+    "saveRule": "Guardar Regla"
+  },
+  "warningsList": {
+    "title": "Registro de Advertencias",
+    "description": "Visualiza y gestiona faltas activas de los usuarios.",
+    "issueWarn": "Emitir Advertencia",
+    "noWarnings": "No hay advertencias registradas.",
+    "user": "Usuario: {id}",
+    "resolved": "Resuelto",
+    "level": "Nivel: {level}",
+    "resolveBtn": "Resolver",
+    "reopenBtn": "Reabrir"
+  },
+  "automationsList": {
+    "title": "Rutas de Escalada",
+    "description": "Castigos automatizados al alcanzar los límites de advertencia.",
+    "addRule": "Añadir Regla",
+    "noAutomations": "No hay automatizaciones configuradas.",
+    "triggerDesc": "Si {type} >= {value}",
+    "actions": "Acciones"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "notFound": {
+    "title": "Diese Seite ist davongeflogen",
+    "description": "Die gesuchte Seite existiert nicht oder wurde möglicherweise verschoben.",
+    "lines": [
+      "Unsere Brieftaube hat sich offenbar verflogen.",
+      "Ein frecher Bot-Befehl hat diese Seite verlegt.",
+      "Wir haben hinter dem Discord-Sofa nachgesehen. Nichts."
+    ]
+  },
+  "unexpected": {
+    "title": "Etwas ist schiefgelaufen",
+    "description": "Diese Seite konnte gerade nicht geladen werden. Bitte versuche es erneut oder kehre zur Startseite zurück.",
+    "lines": [
+      "Die Hamster starten das Serverrad neu.",
+      "Ein Gremlin hat einen Knopf gedrückt, den er nicht hätte drücken sollen.",
+      "Unser Fehlerkobold wurde höflich benachrichtigt."
+    ]
+  },
+  "goHome": "Zur Startseite",
+  "viewDocs": "Dokumentation ansehen",
+  "tryAgain": "Erneut versuchen"
+}

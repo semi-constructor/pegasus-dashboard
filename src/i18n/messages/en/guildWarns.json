@@ -1,0 +1,52 @@
+{
+  "title": "Warns System",
+  "description": "Track user violations and create automated sanction escalations.",
+  "tabs": {
+    "warnings": "Active Warnings",
+    "automations": "Warning Automations"
+  },
+  "dialog": {
+    "issueTitle": "Issue Manual Warning",
+    "userId": "Discord User ID",
+    "warnTitle": "Warning Title / Reason",
+    "description": "Detailed Description (Optional)",
+    "level": "Severity Level (Points)",
+    "proof": "Proof / Image URL (Optional)",
+    "cancel": "Cancel",
+    "issueWarn": "Issue Warning",
+    "createAutoTitle": "Create Warning Automation",
+    "autoName": "Automation Name",
+    "triggerMetric": "Trigger Metric",
+    "warnCount": "Warning Count",
+    "warnPoints": "Warning Points (Level sum)",
+    "threshold": "Threshold Value",
+    "actionToExecute": "Action to Execute",
+    "timeout": "Timeout User",
+    "kick": "Kick User",
+    "ban": "Ban User",
+    "timeoutDuration": "Timeout Duration (Seconds)",
+    "notificationSettings": "Notification Settings",
+    "notifyChannel": "Notify Channel (Optional)",
+    "notifyMessage": "Notification Message",
+    "saveRule": "Save Rule"
+  },
+  "warningsList": {
+    "title": "User Warnings Ledger",
+    "description": "View and manage active strikes against users.",
+    "issueWarn": "Issue Warning",
+    "noWarnings": "No warnings on record.",
+    "user": "User: {id}",
+    "resolved": "Resolved",
+    "level": "Level: {level}",
+    "resolveBtn": "Resolve",
+    "reopenBtn": "Reopen"
+  },
+  "automationsList": {
+    "title": "Escalation Paths",
+    "description": "Automated punishments when warning thresholds are met.",
+    "addRule": "Add Rule",
+    "noAutomations": "No automations configured.",
+    "triggerDesc": "If {type} >= {value}",
+    "actions": "Actions"
+  }
+}

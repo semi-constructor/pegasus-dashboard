@@ -1,0 +1,10 @@
+{
+  "productUpdates": "Product Updates",
+  "title": "Changelog",
+  "subtitle": "New updates, fixes, and improvements to Pegasus.",
+  "allUpdates": "All Updates",
+  "pegasusBot": "Pegasus Bot",
+  "dashboard": "Dashboard",
+  "noUpdates": "No updates found for this project.",
+  "commit": "commit"
+}

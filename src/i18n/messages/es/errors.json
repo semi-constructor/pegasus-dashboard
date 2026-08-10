@@ -1,0 +1,23 @@
+{
+  "notFound": {
+    "title": "Esta página ha salido volando",
+    "description": "La página que buscas no existe o puede que se haya movido.",
+    "lines": [
+      "Nuestra paloma mensajera tomó un desvío.",
+      "Un comando rebelde parece haber extraviado esta página.",
+      "Miramos detrás del sofá de Discord. Nada."
+    ]
+  },
+  "unexpected": {
+    "title": "Algo salió mal",
+    "description": "No hemos podido cargar esta página ahora mismo. Inténtalo de nuevo o vuelve al inicio.",
+    "lines": [
+      "Los hámsteres están reiniciando la rueda del servidor.",
+      "Un duende pulsó un botón que no debía tocar.",
+      "Nuestro duende de errores ha sido avisado. Con educación."
+    ]
+  },
+  "goHome": "Ir al inicio",
+  "viewDocs": "Ver documentación",
+  "tryAgain": "Intentar de nuevo"
+}
