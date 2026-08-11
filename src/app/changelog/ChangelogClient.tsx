@@ -5,7 +5,7 @@ import { GitCommit, GitBranch, ExternalLink, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 
-const itemVariants = {
+const itemVariants: any = {
   hidden: { opacity: 0, x: -20 },
   visible: {
     opacity: 1,

@@ -247,6 +247,11 @@ const Footer = () => {
                   {t('license')}
                 </Link>
               </li>
+              <li>
+                <Link href="/imprint" className="hover:text-white transition-colors">
+                  {t('imprint')}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

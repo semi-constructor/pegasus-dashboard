@@ -59,5 +59,34 @@
         "p1": "We reserve the right at any time to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice."
       }
     }
+  },
+  "imprint": {
+    "title": "Imprint",
+    "subtitle": "Legal Notice pursuant to § 5 TMG (German Telemedia Act)",
+    "responsiblePerson": "Responsible Person",
+    "address": "Address",
+    "contact": "Contact",
+    "email": "E-Mail",
+    "vat": {
+      "title": "VAT Identification Number",
+      "notApplicable": "Not applicable — this site is operated as a private, non-commercial project."
+    },
+    "hrb": {
+      "title": "Commercial Register Entry",
+      "notApplicable": "Not registered — this site is operated as a private, non-commercial project."
+    },
+    "disclaimer": {
+      "title": "Disclaimer — Liability for Content",
+      "p1": "As a service provider, we are responsible for our own content on these pages in accordance with § 7 para. 1 TMG and general law. However, pursuant to §§ 8 to 10 TMG we are not obligated to monitor transmitted or stored third-party information, nor to investigate circumstances that indicate illegal activity.",
+      "p2": "Obligations to remove or block the use of information under general law remain unaffected. However, liability in this regard is only possible from the time of knowledge of a specific infringement. Upon becoming aware of such violations, we will remove the content immediately."
+    },
+    "linksDisclaimer": {
+      "title": "Disclaimer — Liability for Links",
+      "p1": "Our website contains links to external websites of third parties over whose content we have no influence. Therefore, we cannot assume any liability for this third-party content. The respective provider or operator of the linked pages is always responsible for the content. At the time of linking, the pages were checked for possible legal violations and no illegal content was identified. Permanent monitoring of the linked pages is not reasonable without concrete indication of a violation. Upon notification of violations, we will remove such links immediately."
+    },
+    "copyright": {
+      "title": "Copyright",
+      "p1": "The content and works created by the site operators on these pages are subject to German copyright law. Duplication, processing, distribution, or any form of commercialization of such material beyond the scope of copyright law requires the prior written consent of its respective author or creator. Downloads and copies of these pages are only permitted for private, non-commercial use."
+    }
   }
 }

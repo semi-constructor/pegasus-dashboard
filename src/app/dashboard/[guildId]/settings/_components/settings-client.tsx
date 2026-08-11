@@ -53,7 +53,7 @@ export default function SettingsClient({
   autoVault,
 }: SettingsClientProps) {
   const t = useTranslations('guildSettings');
-  const [activeTab, setActiveTab] = useState<"general" | "ai" | "welcome" | "goodbye" | "moderation" | "logs" | "automod" | "visibility">("general");
+  const [activeTab, setActiveTab] = useState<"general" | "ai" | "welcome" | "goodbye" | "moderation" | "logs" | "automod" | "visibility" | "v3">("general");
   const [isPending, startTransition] = useTransition();
 
   const [settings, setSettings] = useState<GuildSettingsFormData>({

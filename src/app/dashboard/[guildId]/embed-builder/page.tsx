@@ -9,7 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Wand2, Send, Save, Palette, Link as LinkIcon, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 
-export default function EmbedBuilderPage() {
+export default function EmbedBuilderPage({ params }: { params: { guildId: string } }) {
+  const [isSending, setIsSending] = useState(false);
   const [embed, setEmbed] = useState({
     authorName: "",
     authorUrl: "",
@@ -31,12 +32,37 @@ export default function EmbedBuilderPage() {
     setEmbed((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!channel) {
       toast.error("Please select a channel first");
       return;
     }
-    toast.success("Embed sent successfully to channel!");
+    
+    setIsSending(true);
+    try {
+      const res = await fetch(`http://localhost:3001/api/guilds/${params.guildId}/embed`, {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token') || ''}` 
+        },
+        body: JSON.stringify({
+          channelId: channel,
+          embed: embed
+        })
+      });
+      
+      const data = await res.json();
+      if (res.ok && data.success) {
+        toast.success("Embed sent successfully to channel!");
+      } else {
+        toast.error(data.error || "Failed to send embed");
+      }
+    } catch (e) {
+      toast.error("Error connecting to bot API");
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -218,9 +244,9 @@ export default function EmbedBuilderPage() {
                   onChange={(e) => setChannel(e.target.value)}
                 />
               </div>
-              <Button onClick={handleSend} className="gap-2" size="lg">
+              <Button onClick={handleSend} disabled={isSending} className="gap-2" size="lg">
                 <Send className="w-4 h-4" />
-                Send Embed
+                {isSending ? "Sending..." : "Send Embed"}
               </Button>
               <Button variant="outline" size="lg" className="gap-2">
                 <Save className="w-4 h-4" />

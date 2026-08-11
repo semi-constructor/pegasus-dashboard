@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { ArrowRight, Compass, TerminalSquare, Activity, Settings, ShieldAlert, Cpu } from 'lucide-react';
 import Link from 'next/link';
 import { MarketingLayout } from '@/components/MarketingLayout';
-
+import * as motion from 'framer-motion/client';
 export const metadata: Metadata = {
   title: 'Dashboard Guide | Pegasus',
   description: 'Learn how to navigate and use the Pegasus Web Dashboard to control your server settings, modules, and economy.',
@@ -19,7 +19,12 @@ export default function DashboardGuidePage() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
         
         {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-24 pt-48 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-7xl mx-auto px-6 lg:px-24 pt-48 relative z-10"
+        >
           <div className="mb-32">
             <Link href="/docs" className="group inline-flex items-center text-xs tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors mb-16">
               <ArrowRight className="w-4 h-4 mr-4 rotate-180 opacity-50 group-hover:-translate-x-2 transition-transform" />
@@ -38,13 +43,19 @@ export default function DashboardGuidePage() {
               Master the Pegasus web interface. Learn how to configure your modules, monitor your server's health, and customize the bot's behavior in real-time through our state-of-the-art control panel.
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Cinematic Content Sections */}
         <div className="space-y-40 relative z-10">
           
           {/* Section 1: Overview Panel */}
-          <section className="border-y border-white/10 bg-[#050505]">
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="border-y border-white/10 bg-[#050505]"
+          >
             <div className="max-w-7xl mx-auto px-6 lg:px-24 py-24">
               <div className="flex flex-col lg:flex-row gap-16 items-center">
                 <div className="lg:w-1/3">
@@ -86,10 +97,16 @@ export default function DashboardGuidePage() {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Section 2: Economy & XP */}
-          <section className="border-y border-white/10 bg-[#020202]">
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="border-y border-white/10 bg-[#020202]"
+          >
             <div className="max-w-7xl mx-auto px-6 lg:px-24 py-24">
               <div className="flex flex-col lg:flex-row-reverse gap-16 items-center">
                 <div className="lg:w-1/3">
@@ -134,10 +151,16 @@ export default function DashboardGuidePage() {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Section 3: Tickets */}
-          <section className="border-y border-white/10 bg-[#050505]">
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="border-y border-white/10 bg-[#050505]"
+          >
             <div className="max-w-7xl mx-auto px-6 lg:px-24 py-24">
               <div className="flex flex-col lg:flex-row gap-16 items-center">
                 <div className="lg:w-1/3">
@@ -169,10 +192,16 @@ export default function DashboardGuidePage() {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Section 4: Moderation */}
-          <section className="border-y border-white/10 bg-[#020202]">
+          <motion.section 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="border-y border-white/10 bg-[#020202]"
+          >
             <div className="max-w-7xl mx-auto px-6 lg:px-24 py-24">
               <div className="flex flex-col lg:flex-row-reverse gap-16 items-center">
                 <div className="lg:w-1/3">
@@ -203,11 +232,17 @@ export default function DashboardGuidePage() {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
           
         </div>
         
-        <div className="mt-40 max-w-7xl mx-auto px-6 lg:px-24">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mt-40 max-w-7xl mx-auto px-6 lg:px-24"
+        >
           <div className="border border-white/10 bg-[#050505] p-12 md:p-24 flex flex-col items-center text-center relative overflow-hidden group">
             <div className="absolute inset-0 bg-white/[0.02] translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-in-out" />
             <TerminalSquare className="w-12 h-12 text-white/30 mb-8 relative z-10" />
@@ -217,7 +252,7 @@ export default function DashboardGuidePage() {
               <ArrowRight className="w-4 h-4 ml-4 group-hover/btn:translate-x-2 transition-transform" />
             </Link>
           </div>
-        </div>
+        </motion.div>
         
       </div>
     </MarketingLayout>

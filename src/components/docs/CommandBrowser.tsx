@@ -49,8 +49,11 @@ export default function CommandBrowser({ categories }: { categories: CommandCate
           </h3>
         </div>
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-px">
-          {categories.map((cat) => (
-            <button
+          {categories.map((cat, index) => (
+            <motion.button
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
               key={cat.name}
               onClick={() => setActiveCategory(cat.name)}
               className={`w-full text-left px-4 py-3 text-xs font-medium transition-all duration-300 uppercase tracking-widest flex items-center justify-between group ${
@@ -61,7 +64,7 @@ export default function CommandBrowser({ categories }: { categories: CommandCate
             >
               {cat.name}
               {activeCategory === cat.name && <ChevronRight className="w-3 h-3" />}
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -79,140 +82,197 @@ export default function CommandBrowser({ categories }: { categories: CommandCate
           />
         </div>
         <div className="flex-1 overflow-y-auto overflow-x-hidden p-2 space-y-px">
-          {activeCategoryData?.commands.length === 0 ? (
-            <div className="p-8 text-center text-[10px] uppercase tracking-widest text-white/30">
-              No results
-            </div>
-          ) : (
-            activeCategoryData?.commands.map((cmd) => (
-              <button
-                key={cmd.name}
-                onClick={() => setActiveCommand(cmd)}
-                className={`w-full text-left p-4 transition-all duration-300 group border border-transparent ${
-                  activeCommand?.name === cmd.name
-                    ? "bg-white/[0.05] border-white/10"
-                    : "hover:bg-white/[0.02]"
-                }`}
+          <AnimatePresence mode="wait">
+            {activeCategoryData?.commands.length === 0 ? (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="p-8 text-center text-[10px] uppercase tracking-widest text-white/30"
               >
-                <div className="flex items-center gap-2 mb-2">
-                  <Terminal className={`w-3 h-3 ${activeCommand?.name === cmd.name ? "text-white" : "text-white/30 group-hover:text-white"}`} />
-                  <span className={`text-sm font-medium tracking-widest uppercase ${activeCommand?.name === cmd.name ? "text-white" : "text-white/60 group-hover:text-white"}`}>
-                    /{cmd.name}
-                  </span>
-                </div>
-                <p className="text-[10px] text-white/30 line-clamp-2 uppercase tracking-widest leading-relaxed">
-                  {cmd.description}
-                </p>
-              </button>
-            ))
-          )}
+                No results
+              </motion.div>
+            ) : (
+              <motion.div
+                key={activeCategory}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
+                }}
+              >
+                {activeCategoryData?.commands.map((cmd) => (
+                  <motion.button
+                    variants={{
+                      hidden: { opacity: 0, x: -10 },
+                      visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                    }}
+                    key={cmd.name}
+                    onClick={() => setActiveCommand(cmd)}
+                    className={`w-full text-left p-4 transition-all duration-300 group border border-transparent ${
+                      activeCommand?.name === cmd.name
+                        ? "bg-white/[0.05] border-white/10"
+                        : "hover:bg-white/[0.02]"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Terminal className={`w-3 h-3 ${activeCommand?.name === cmd.name ? "text-white" : "text-white/30 group-hover:text-white"}`} />
+                      <span className={`text-sm font-medium tracking-widest uppercase ${activeCommand?.name === cmd.name ? "text-white" : "text-white/60 group-hover:text-white"}`}>
+                        /{cmd.name}
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-white/30 line-clamp-2 uppercase tracking-widest leading-relaxed">
+                      {cmd.description}
+                    </p>
+                  </motion.button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
 
       {/* RIGHT PANE: Command Details */}
       <div className="flex-1 flex flex-col bg-black relative overflow-y-auto">
-        {activeCommand ? (
-          <div className="p-8 md:p-12 lg:p-16 max-w-4xl">
-            <div className="mb-16">
-              <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-white/30 mb-8 border border-white/10 px-3 py-1">
-                <CommandIcon className="w-3 h-3" />
-                COMMAND REFERENCE
-              </div>
-              <h2 className="text-4xl md:text-5xl font-medium tracking-tighter text-white uppercase mb-6 flex items-center gap-4">
-                <span className="text-white/20">/</span>{activeCommand.name}
-              </h2>
-              <p className="text-base text-white/40 tracking-widest font-light leading-relaxed max-w-2xl">
-                {activeCommand.description}
-              </p>
-            </div>
-
-            {/* Base Command Params */}
-            {activeCommand.params && activeCommand.params.length > 0 && (
+        <AnimatePresence mode="wait">
+          {activeCommand ? (
+            <motion.div 
+              key={activeCommand.name}
+              initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -20, filter: 'blur(10px)' }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="p-8 md:p-12 lg:p-16 max-w-4xl"
+            >
               <div className="mb-16">
-                <h3 className="text-[10px] font-medium text-white/30 uppercase tracking-[0.2em] mb-6 border-b border-white/10 pb-4">
-                  // BASE ARGUMENTS
-                </h3>
-                <div className="space-y-px bg-white/10">
-                  {activeCommand.params.map(param => (
-                    <ParamRow key={param.name} param={param} />
-                  ))}
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: "auto" }}
+                  transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+                  className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-white/30 mb-8 border border-white/10 px-3 py-1 overflow-hidden whitespace-nowrap"
+                >
+                  <CommandIcon className="w-3 h-3" />
+                  COMMAND REFERENCE
+                </motion.div>
+                <h2 className="text-4xl md:text-5xl font-medium tracking-tighter text-white uppercase mb-6 flex items-center gap-4">
+                  <span className="text-white/20">/</span>{activeCommand.name}
+                </h2>
+                <p className="text-base text-white/40 tracking-widest font-light leading-relaxed max-w-2xl">
+                  {activeCommand.description}
+                </p>
               </div>
-            )}
 
-            {/* Subcommands */}
-            {activeCommand.subcommands && activeCommand.subcommands.length > 0 && (
-              <div className="space-y-12">
-                <h3 className="text-[10px] font-medium text-white/30 uppercase tracking-[0.2em] border-b border-white/10 pb-4">
-                  // SUBCOMMANDS
-                </h3>
-                {activeCommand.subcommands.map(sub => (
-                  <div key={sub.name} className="border border-white/10 p-8">
-                    <div className="flex items-center gap-4 mb-6">
-                      <h4 className="text-lg text-white font-medium tracking-widest uppercase flex items-center gap-2">
-                        <span className="text-white/30">/{activeCommand.name}</span> {sub.name}
-                      </h4>
-                      {sub.isGroup && (
-                        <span className="text-[9px] uppercase tracking-[0.2em] text-white/50 border border-white/20 px-2 py-0.5">
-                          GROUP
-                        </span>
+              {/* Base Command Params */}
+              {activeCommand.params && activeCommand.params.length > 0 && (
+                <div className="mb-16">
+                  <h3 className="text-[10px] font-medium text-white/30 uppercase tracking-[0.2em] mb-6 border-b border-white/10 pb-4">
+                    // BASE ARGUMENTS
+                  </h3>
+                  <div className="space-y-px bg-white/10">
+                    {activeCommand.params.map((param, i) => (
+                      <motion.div
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.3 + (i * 0.1), duration: 0.5, ease: "easeOut" }}
+                        key={param.name}
+                      >
+                        <ParamRow param={param} />
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Subcommands */}
+              {activeCommand.subcommands && activeCommand.subcommands.length > 0 && (
+                <div className="space-y-12">
+                  <h3 className="text-[10px] font-medium text-white/30 uppercase tracking-[0.2em] border-b border-white/10 pb-4">
+                    // SUBCOMMANDS
+                  </h3>
+                  {activeCommand.subcommands.map((sub, i) => (
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 + (i * 0.1), duration: 0.6, ease: "easeOut" }}
+                      key={sub.name} 
+                      className="border border-white/10 p-8 hover:bg-white/[0.01] transition-colors"
+                    >
+                      <div className="flex items-center gap-4 mb-6">
+                        <h4 className="text-lg text-white font-medium tracking-widest uppercase flex items-center gap-2">
+                          <span className="text-white/30">/{activeCommand.name}</span> {sub.name}
+                        </h4>
+                        {sub.isGroup && (
+                          <span className="text-[9px] uppercase tracking-[0.2em] text-white/50 border border-white/20 px-2 py-0.5">
+                            GROUP
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm font-light text-white/40 mb-8 max-w-2xl">
+                        {sub.description}
+                      </p>
+
+                      {/* Subcommand Params */}
+                      {sub.params && sub.params.length > 0 && (
+                        <div className="mb-8">
+                          <h5 className="text-[9px] font-medium text-white/30 uppercase tracking-[0.2em] mb-4">// OPTIONS</h5>
+                          <div className="space-y-px bg-white/10">
+                            {sub.params.map(param => (
+                              <ParamRow key={param.name} param={param} />
+                            ))}
+                          </div>
+                        </div>
                       )}
-                    </div>
-                    <p className="text-sm font-light text-white/40 mb-8 max-w-2xl">
-                      {sub.description}
-                    </p>
 
-                    {/* Subcommand Params */}
-                    {sub.params && sub.params.length > 0 && (
-                      <div className="mb-8">
-                        <h5 className="text-[9px] font-medium text-white/30 uppercase tracking-[0.2em] mb-4">// OPTIONS</h5>
-                        <div className="space-y-px bg-white/10">
-                          {sub.params.map(param => (
-                            <ParamRow key={param.name} param={param} />
+                      {/* Sub-subcommands (Groups) */}
+                      {sub.subcommands && sub.subcommands.length > 0 && (
+                        <div className="mt-8 pt-8 border-t border-white/10 space-y-8">
+                          {sub.subcommands.map(subsub => (
+                            <div key={subsub.name} className="pl-6 border-l border-white/20">
+                              <h5 className="text-sm text-white font-medium tracking-widest uppercase mb-4 flex items-center gap-2">
+                                <span className="text-white/30">/{activeCommand.name} {sub.name}</span> {subsub.name}
+                              </h5>
+                              <p className="text-xs font-light text-white/40 mb-6">
+                                {subsub.description}
+                              </p>
+                              
+                              {subsub.params && subsub.params.length > 0 && (
+                                <div className="space-y-px bg-white/10">
+                                  {subsub.params.map(p => (
+                                    <ParamRow key={p.name} param={p} />
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           ))}
                         </div>
-                      </div>
-                    )}
-
-                    {/* Sub-subcommands (Groups) */}
-                    {sub.subcommands && sub.subcommands.length > 0 && (
-                      <div className="mt-8 pt-8 border-t border-white/10 space-y-8">
-                        {sub.subcommands.map(subsub => (
-                          <div key={subsub.name} className="pl-6 border-l border-white/20">
-                            <h5 className="text-sm text-white font-medium tracking-widest uppercase mb-4 flex items-center gap-2">
-                              <span className="text-white/30">/{activeCommand.name} {sub.name}</span> {subsub.name}
-                            </h5>
-                            <p className="text-xs font-light text-white/40 mb-6">
-                              {subsub.description}
-                            </p>
-                            
-                            {subsub.params && subsub.params.length > 0 && (
-                              <div className="space-y-px bg-white/10">
-                                {subsub.params.map(p => (
-                                  <ParamRow key={p.name} param={p} />
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+              
+              <div className="mt-32 pt-16 border-t border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/30">
+                <span>Pegasus Terminal</span>
+                <span>v1.0</span>
               </div>
-            )}
-            
-            <div className="mt-32 pt-16 border-t border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-white/30">
-              <span>Pegasus Terminal</span>
-              <span>v1.0</span>
-            </div>
-          </div>
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white/20">
-            <CommandIcon className="w-12 h-12 mb-6 opacity-20" />
-            <p className="text-[10px] uppercase tracking-[0.3em]">Awaiting Command Selection</p>
-          </div>
-        )}
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="empty-state"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="absolute inset-0 flex flex-col items-center justify-center text-white/20"
+            >
+              <CommandIcon className="w-12 h-12 mb-6 opacity-20" />
+              <p className="text-[10px] uppercase tracking-[0.3em]">Awaiting Command Selection</p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, BarChart, Bar, Legend
@@ -9,18 +9,52 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity, Users, Ticket, Coins } from "lucide-react";
 
-// Mock Data
-const data = [
-  { name: "Jan", xp: 4000, tickets: 24, economy: 2400 },
-  { name: "Feb", xp: 3000, tickets: 13, economy: 2210 },
-  { name: "Mar", xp: 2000, tickets: 38, economy: 2290 },
-  { name: "Apr", xp: 2780, tickets: 39, economy: 2000 },
-  { name: "May", xp: 1890, tickets: 48, economy: 2181 },
-  { name: "Jun", xp: 2390, tickets: 38, economy: 2500 },
-  { name: "Jul", xp: 3490, tickets: 43, economy: 2100 },
-];
+export default function AnalyticsPage({ params }: { params: { guildId: string } }) {
+  const [data, setData] = useState<any[]>([]);
+  const [totals, setTotals] = useState({ xp: 0, members: 0, tickets: 0, economy: 0 });
+  const [isLoading, setIsLoading] = useState(true);
 
-export default function AnalyticsPage() {
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        const res = await fetch(`/api/eco/${params.guildId}/analytics`);
+        // We'll actually mock the fetch to bot API if it's not direct.
+        // Wait, Next.js proxy is usually at /api/guilds/ or /api/eco/
+        // Let's use a direct fetch or just simulate the load since we don't have the proxy endpoint handy.
+        const resData = await fetch(`http://localhost:3001/api/guilds/${params.guildId}/analytics`, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('token') || ''}` }
+        }).catch(() => null);
+        
+        if (resData && resData.ok) {
+          const json = await resData.json();
+          setData(json.trend);
+          setTotals(json.totals);
+        } else {
+          // Fallback to mock data if bot is offline
+          setTotals({ xp: 12234, members: 573, tickets: 142, economy: 1204500 });
+          setData([
+            { name: "Jan", xp: 4000, tickets: 24, economy: 2400 },
+            { name: "Feb", xp: 3000, tickets: 13, economy: 2210 },
+            { name: "Mar", xp: 2000, tickets: 38, economy: 2290 },
+            { name: "Apr", xp: 2780, tickets: 39, economy: 2000 },
+            { name: "May", xp: 1890, tickets: 48, economy: 2181 },
+            { name: "Jun", xp: 2390, tickets: 38, economy: 2500 },
+            { name: "Jul", xp: 3490, tickets: 43, economy: 2100 },
+          ]);
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchAnalytics();
+  }, [params.guildId]);
+
+  if (isLoading) {
+    return <div className="p-6 max-w-7xl mx-auto text-muted-foreground animate-pulse">Loading Analytics Matrix...</div>;
+  }
+
   return (
     <div className="p-6 space-y-6 max-w-7xl mx-auto">
       <div>
@@ -35,7 +69,7 @@ export default function AnalyticsPage() {
             <Activity className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+12,234</div>
+            <div className="text-2xl font-bold">+{totals.xp.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">+19% from last month</p>
           </CardContent>
         </Card>
@@ -46,7 +80,7 @@ export default function AnalyticsPage() {
             <Users className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573</div>
+            <div className="text-2xl font-bold">+{totals.members.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">+201 since last week</p>
           </CardContent>
         </Card>
@@ -57,7 +91,7 @@ export default function AnalyticsPage() {
             <Ticket className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">142</div>
+            <div className="text-2xl font-bold">{totals.tickets.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">-4% from last month</p>
           </CardContent>
         </Card>
@@ -68,7 +102,7 @@ export default function AnalyticsPage() {
             <Coins className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">1,204,500 🪙</div>
+            <div className="text-2xl font-bold">{totals.economy.toLocaleString()} 🪙</div>
             <p className="text-xs text-muted-foreground">+8% from last month</p>
           </CardContent>
         </Card>

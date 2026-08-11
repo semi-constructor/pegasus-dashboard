@@ -1,63 +1,18 @@
 {
   "backToHome": "Retour à l'accueil",
-  "privacy": {
-    "title": "Politique de confidentialité",
-    "lastUpdated": "Dernière mise à jour : 23 juillet 2026",
-    "sections": {
-      "1": {
-        "title": "1. Les informations que nous collectons",
-        "p1": "Lorsque vous utilisez Pegasus, nous collectons et stockons les informations suivantes :",
-        "l1": "ID utilisateur Discord et ID de serveur (Guild IDs) pour le fonctionnement et le stockage des configurations.",
-        "l2": "Messages spécifiquement enregistrés par l'administrateur du serveur (uniquement lorsque le module Logging est actif).",
-        "l3": "Soldes d'Economy et d'XP associés à votre ID utilisateur.",
-        "l4": "Données d'utilisation anonymes du site web et analyses via Google Analytics et Google Search Console (sous réserve de votre consentement aux cookies)."
-      },
-      "2": {
-        "title": "2. Comment nous utilisons les informations",
-        "p1": "Les informations que nous collectons sont strictement utilisées pour fournir les fonctionnalités du bot, telles que le maintien des classements d'économie, la création de journaux de modération pour votre serveur, et pour assurer la stabilité de la plateforme. Nous ne vendons pas vos données à des tiers."
-      },
-      "3": {
-        "title": "3. Conservation des données",
-        "p1": "Nous conservons vos données tant que Pegasus est installé sur votre serveur Discord. Lorsque le bot est retiré d'un serveur, toutes les données de configuration associées sont programmées pour une suppression automatisée sous 30 jours. Les données individuelles des utilisateurs (XP, Economy) peuvent être supprimées sur demande."
-      },
-      "4": {
-        "title": "4. Vos droits",
-        "p1": "Vous avez le droit de demander une exportation de toutes vos données ou de demander la suppression complète de vos données de nos systèmes. Vous pouvez initier ces demandes directement depuis le Dashboard ou en contactant le support."
-      },
-      "5": {
-        "title": "5. Analyses et Suivi",
-        "p1": "Nous utilisons Google Analytics et Google Search Console pour comprendre le trafic du site web et améliorer l'expérience utilisateur. Ces services peuvent utiliser des cookies pour collecter des données d'utilisation anonymes. Vous avez le contrôle total et pouvez gérer vos préférences en matière de cookies via notre bannière de consentement aux cookies."
-      }
-    }
-  },
-  "terms": {
-    "title": "Conditions d'utilisation",
-    "lastUpdated": "Dernière mise à jour : 23 juillet 2026",
-    "sections": {
-      "1": {
-        "title": "1. Acceptation des conditions",
-        "p1": "En accédant et en utilisant le Pegasus Discord Bot et Dashboard (« Service »), vous acceptez d'être lié par les termes et dispositions de cet accord."
-      },
-      "2": {
-        "title": "2. Description du Service",
-        "p1": "Pegasus fournit des outils de gestion de serveur Discord de niveau entreprise, comprenant des systèmes d'économie, des utilitaires de modération, des tickets et des journaux via un Discord bot et un tableau de bord web."
-      },
-      "3": {
-        "title": "3. Comportement de l'utilisateur",
-        "p1": "Vous acceptez de ne pas utiliser le Service pour :",
-        "l1": "Violer les Conditions d'utilisation ou les Directives communautaires de Discord.",
-        "l2": "Abuser des systèmes d'économie ou d'XP via des macros ou des bots automatisés.",
-        "l3": "Utiliser les outils de modération de manière malveillante pour nuire aux communautés de serveurs.",
-        "l4": "Tenter de contourner les limites de taux ou les mécanismes d'authentification."
-      },
-      "4": {
-        "title": "4. Données et confidentialité",
-        "p1": "Nos pratiques de collecte et d'utilisation des données sont régies par notre Politique de confidentialité. En utilisant le Service, vous consentez à la collecte et à l'utilisation de ces informations telles que détaillées dans la Politique de confidentialité."
-      },
-      "5": {
-        "title": "5. Modifications du Service",
-        "p1": "Nous nous réservons le droit, à tout moment, de modifier ou de suspendre, temporairement ou définitivement, le Service (ou toute partie de celui-ci) avec ou sans préavis."
-      }
-    }
+  "privacy": { "title": "Politique de confidentialité", "lastUpdated": "Dernière mise à jour : 23 juillet 2026", "sections": { "1": { "title": "1. Les informations que nous collectons", "p1": "Lorsque vous utilisez Pegasus, nous collectons et stockons les informations suivantes :", "l1": "ID utilisateur Discord et ID de serveur pour le fonctionnement et les configurations.", "l2": "Messages enregistrés par l'administrateur du serveur.", "l3": "Soldes d'Economy et d'XP associés à votre ID.", "l4": "Données d'utilisation anonymes via Google Analytics." }, "2": { "title": "2. Comment nous utilisons les informations", "p1": "Les informations collectées sont utilisées pour fournir les fonctionnalités du bot. Nous ne vendons pas vos données." }, "3": { "title": "3. Conservation des données", "p1": "Nous conservons vos données tant que Pegasus est installé sur votre serveur Discord. Les données de configuration sont supprimées sous 30 jours après le retrait du bot." }, "4": { "title": "4. Vos droits", "p1": "Vous avez le droit de demander une exportation de vos données ou leur suppression complète." }, "5": { "title": "5. Analyses et Suivi", "p1": "Nous utilisons Google Analytics et Google Search Console pour comprendre le trafic du site." } } },
+  "terms": { "title": "Conditions d'utilisation", "lastUpdated": "Dernière mise à jour : 23 juillet 2026", "sections": { "1": { "title": "1. Acceptation des conditions", "p1": "En accédant au service, vous acceptez d'être lié par ces conditions." }, "2": { "title": "2. Description du Service", "p1": "Pegasus fournit des outils de gestion de serveur Discord de niveau entreprise." }, "3": { "title": "3. Comportement de l'utilisateur", "p1": "Vous acceptez de ne pas utiliser le Service pour :", "l1": "Violer les Conditions d'utilisation de Discord.", "l2": "Abuser des systèmes d'économie ou d'XP via des bots automatisés.", "l3": "Utiliser les outils de modération de manière malveillante.", "l4": "Tenter de contourner les limites de taux ou mécanismes d'authentification." }, "4": { "title": "4. Données et confidentialité", "p1": "Nos pratiques de données sont régies par notre Politique de confidentialité." }, "5": { "title": "5. Modifications du Service", "p1": "Nous nous réservons le droit de modifier ou de suspendre le Service à tout moment." } } },
+  "imprint": {
+    "title": "Mentions Légales",
+    "subtitle": "Informations conformément à l'article § 5 TMG (Loi allemande sur les télémédias)",
+    "responsiblePerson": "Personne responsable",
+    "address": "Adresse",
+    "contact": "Contact",
+    "email": "E-mail",
+    "vat": { "title": "Numéro de TVA intracommunautaire", "notApplicable": "Non applicable — ce site est exploité en tant que projet privé et non commercial." },
+    "hrb": { "title": "Registre du commerce", "notApplicable": "Non enregistré — ce site est exploité en tant que projet privé et non commercial." },
+    "disclaimer": { "title": "Clause de non-responsabilité — Contenu", "p1": "En tant que prestataire de services, nous sommes responsables de nos propres contenus conformément au § 7 al. 1 TMG. Nous ne sommes pas tenus de surveiller les informations tierces.", "p2": "Dès la notification de violations, nous supprimerons immédiatement ces contenus." },
+    "linksDisclaimer": { "title": "Clause de non-responsabilité — Liens", "p1": "Nous ne pouvons assumer aucune responsabilité pour les contenus des sites liés. Dès la notification de violations, nous supprimerons ces liens immédiatement." },
+    "copyright": { "title": "Droits d'auteur", "p1": "Le contenu créé sur ce site est soumis au droit d'auteur allemand. Les téléchargements ne sont autorisés que pour un usage privé et non commercial." }
   }
 }
