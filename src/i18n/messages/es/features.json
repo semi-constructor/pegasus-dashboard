@@ -153,5 +153,37 @@
       "title": "Mensajes Embebidos",
       "desc": "Formatea tus respuestas usando embeds de Discord."
     }
+  },
+  "dashboard": {
+    "title": "Panel Web y Análisis",
+    "description": "Controla cada aspecto de tu bot desde una interfaz web de última generación con sincronización en tiempo real.",
+    "realtime": {
+      "title": "Sincronización en tiempo real",
+      "desc": "La configuración se actualiza al instante en tu servidor sin necesidad de reiniciar el bot."
+    },
+    "analytics": {
+      "title": "Análisis del servidor",
+      "desc": "Obtén información detallada sobre el crecimiento de tu servidor y la circulación económica."
+    },
+    "mobileReady": {
+      "title": "Listo para móviles",
+      "desc": "Administra tu servidor sobre la marcha con nuestro panel totalmente responsivo."
+    }
+  },
+  "roles": {
+    "title": "Gestión avanzada de roles",
+    "description": "Dale a tu comunidad el poder de expresarse con roles de reacción y asignación automática.",
+    "reactionRoles": {
+      "title": "Roles de reacción",
+      "desc": "Permite a los usuarios autoasignarse roles reaccionando a mensajes."
+    },
+    "stickyRoles": {
+      "title": "Roles persistentes",
+      "desc": "Restaura los roles de un usuario automáticamente si se va y vuelve a unirse."
+    },
+    "temporaryRoles": {
+      "title": "Roles temporales",
+      "desc": "Otorga roles VIP o especiales que expiran automáticamente después de un tiempo establecido."
+    }
   }
 }

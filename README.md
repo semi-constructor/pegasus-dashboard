@@ -12,6 +12,7 @@
 
 **Pegasus Dashboard** is the powerful, modern web dashboard designed for managing and monitoring the **Pegasus Discord Bot**. Built with Next.js, TypeScript, TailwindCSS, and Drizzle ORM, the dashboard seamlessly integrates with Pegasus's built-in Express REST API to provide real-time guild analytics, system diagnostics, and direct module management.
 
+![Pegasus Dashboard Overview](public/assets/thumbnail.png)
 ---
 
 ## [Features] Key Features

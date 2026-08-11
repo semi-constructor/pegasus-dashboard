@@ -153,5 +153,37 @@
       "title": "Embeds Riches",
       "desc": "Formatez vos réponses avec des embeds Discord."
     }
+  },
+  "dashboard": {
+    "title": "Tableau de bord Web et Analyses",
+    "description": "Contrôlez chaque aspect de votre bot à partir dune interface web de pointe avec synchronisation en temps réel.",
+    "realtime": {
+      "title": "Synchronisation en temps réel",
+      "desc": "Les paramètres se mettent à jour instantanément sur votre serveur sans avoir besoin de redémarrer le bot."
+    },
+    "analytics": {
+      "title": "Analyses du serveur",
+      "desc": "Obtenez des informations approfondies sur la croissance de votre serveur et la circulation de léconomie."
+    },
+    "mobileReady": {
+      "title": "Prêt pour le mobile",
+      "desc": "Gérez votre serveur en déplacement grâce à notre tableau de bord entièrement réactif."
+    }
+  },
+  "roles": {
+    "title": "Gestion avancée des rôles",
+    "description": "Donnez à votre communauté le pouvoir de sexprimer avec des rôles de réaction et une attribution automatique.",
+    "reactionRoles": {
+      "title": "Rôles de réaction",
+      "desc": "Permettez aux utilisateurs de sattribuer eux-mêmes des rôles en réagissant aux messages."
+    },
+    "stickyRoles": {
+      "title": "Rôles persistants",
+      "desc": "Restaurez automatiquement les rôles dun utilisateur sil quitte et rejoint le serveur."
+    },
+    "temporaryRoles": {
+      "title": "Rôles temporaires",
+      "desc": "Accordez des rôles VIP ou spéciaux qui expirent automatiquement après une durée déterminée."
+    }
   }
 }

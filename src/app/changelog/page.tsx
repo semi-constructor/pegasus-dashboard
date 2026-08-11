@@ -46,17 +46,29 @@ export default async function ChangelogPage() {
 
   return (
     <MarketingLayout>
-      <div className="max-w-4xl mx-auto px-8 py-32 space-y-12">
-        <div className="text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            <Box className="w-4 h-4" />
-            {t("productUpdates")}
+      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+        {/* Architectural background lines */}
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+        
+        <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-24">
+          <div className="mb-24">
+            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+              <Box className="w-4 h-4 mr-3" />
+              // {t("productUpdates")}
+            </div>
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-6 uppercase">
+              {t("title")}
+            </h1>
+            <p className="text-white/40 tracking-[0.1em] text-sm uppercase max-w-2xl">
+              {t("subtitle")}
+            </p>
           </div>
-          <h1 className="text-5xl font-bold tracking-tight text-foreground">{t("title")}</h1>
-          <p className="text-xl text-muted-foreground">{t("subtitle")}</p>
-        </div>
 
-        <ChangelogClient items={changelogItems} />
+          <div className="w-full h-px bg-white/10 mb-24" />
+
+          <ChangelogClient items={changelogItems} />
+        </div>
       </div>
     </MarketingLayout>
   );

@@ -14,5 +14,6 @@
   "copyright": "© {year} Pegasus Ecosystem. All rights reserved.",
   "pegasusRepo": "Pegasus GitHub Repository",
   "dashboardRepo": "Dashboard GitHub Repository",
-  "mainWebsite": "Main Website"
+  "mainWebsite": "Main Website",
+  "license": "License"
 }

@@ -6,6 +6,8 @@ import { db } from "@/lib/db";
 import { guilds, users } from "../../schemas";
 import { sql } from "drizzle-orm";
 
+import { Landing3DProvider } from "@/hooks/useLanding3DPerformance";
+
 export default async function Home() {
   const apiUrl = process.env.API_URL || "http://localhost:2000";
   
@@ -93,8 +95,10 @@ export default async function Home() {
           })
         }}
       />
-      <HeroClient stats={{ users: totalUsers, guilds: totalGuilds, shards: activeShards }} />
-      <LandingFeatures />
+      <Landing3DProvider>
+        <HeroClient stats={{ users: totalUsers, guilds: totalGuilds, shards: activeShards }} />
+        <LandingFeatures />
+      </Landing3DProvider>
     </MarketingLayout>
   );
 }

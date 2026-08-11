@@ -1,46 +1,75 @@
 "use client"
-import * as React from"react"
+import * as React from "react"
+import { cva, type VariantProps } from "class-variance-authority"
 
-import { cn } from"@/lib/utils"
+import { cn } from "@/lib/utils"
 
-const Card = React.forwardRef<
- HTMLDivElement,
- React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
- <div
- ref={ref}
- className={cn(
-"rounded-xl border border-white/10 bg-black/40 text-card-foreground shadow backdrop-blur-md",
- className
- )}
- {...props}
- />
-))
-Card.displayName ="Card"
+const cardVariants = cva("text-card-foreground", {
+  variants: {
+    variant: {
+      default: "rounded-xl border border-white/10 bg-black/40 shadow backdrop-blur-md",
+      brutalist: "rounded-none border border-white/10 bg-black shadow-none backdrop-blur-none",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+})
+
+export interface CardProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants> {}
+
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, variant = "default", ...props }, ref) => (
+    <div
+      ref={ref}
+      data-variant={variant}
+      className={cn(cardVariants({ variant }), className)}
+      {...props}
+    />
+  )
+)
+Card.displayName = "Card"
 
 const CardHeader = React.forwardRef<
- HTMLDivElement,
- React.HTMLAttributes<HTMLDivElement>
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
- <div
- ref={ref}
- className={cn("flex flex-col space-y-1.5 p-6", className)}
- {...props}
- />
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
 ))
-CardHeader.displayName ="CardHeader"
+CardHeader.displayName = "CardHeader"
 
-const CardTitle = React.forwardRef<
- HTMLParagraphElement,
- React.HTMLAttributes<HTMLHeadingElement>
->(({ className, ...props }, ref) => (
- <h3
- ref={ref}
- className={cn("font-semibold leading-none tracking-tight", className)}
- {...props}
- />
-))
-CardTitle.displayName ="CardTitle"
+const cardTitleVariants = cva("leading-none", {
+  variants: {
+    variant: {
+      default: "font-semibold tracking-tight",
+      brutalist: "font-mono text-xl uppercase tracking-widest text-white font-bold",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+})
+
+export interface CardTitleProps
+  extends React.HTMLAttributes<HTMLHeadingElement>,
+    VariantProps<typeof cardTitleVariants> {}
+
+const CardTitle = React.forwardRef<HTMLParagraphElement, CardTitleProps>(
+  ({ className, variant = "default", ...props }, ref) => (
+    <h3
+      ref={ref}
+      className={cn(cardTitleVariants({ variant }), className)}
+      {...props}
+    />
+  )
+)
+CardTitle.displayName = "CardTitle"
 
 const CardDescription = React.forwardRef<
  HTMLParagraphElement,

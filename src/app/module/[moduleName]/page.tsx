@@ -3,72 +3,23 @@ import { getTranslations } from "next-intl/server";
 import { MarketingLayout } from "@/components/MarketingLayout";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Shield, Coins, MessageSquare, Gift, Users, Clock, Hash, AlertTriangle, Settings, Plus, Zap, TrendingUp, Settings2, Check, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowLeft, ExternalLink, Shield, Coins, MessageSquare, Gift, Users, Clock, Hash, AlertTriangle, Settings, Plus, Zap, TrendingUp, Check, ArrowRight } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 const getModulesConfig = (): Record<string, any> => ({
-  "automod": {
-    icon: Shield,
-    color: "text-red-500",
-    bg: "bg-red-500/10",
-  },
-  "economy": {
-    icon: Coins,
-    color: "text-yellow-500",
-    bg: "bg-yellow-500/10",
-  },
-  "engagement": {
-    icon: TrendingUp,
-    color: "text-emerald-500",
-    bg: "bg-emerald-500/10",
-  },
-  "giveaways": {
-    icon: Gift,
-    color: "text-pink-500",
-    bg: "bg-pink-500/10",
-  },
-  "jtc": {
-    icon: Users,
-    color: "text-blue-500",
-    bg: "bg-blue-500/10",
-  },
-  "moderation": {
-    icon: AlertTriangle,
-    color: "text-orange-500",
-    bg: "bg-orange-500/10",
-  },
-  "schedule": {
-    icon: Clock,
-    color: "text-purple-500",
-    bg: "bg-purple-500/10",
-  },
-  "tickets": {
-    icon: MessageSquare,
-    color: "text-cyan-500",
-    bg: "bg-cyan-500/10",
-  },
-  "warns": {
-    icon: Hash,
-    color: "text-amber-500",
-    bg: "bg-amber-500/10",
-  },
-  "xp": {
-    icon: Zap,
-    color: "text-violet-500",
-    bg: "bg-violet-500/10",
-  },
-  "custom-commands": {
-    icon: Plus,
-    color: "text-teal-500",
-    bg: "bg-teal-500/10",
-  },
-  "settings": {
-    icon: Settings,
-    color: "text-gray-400",
-    bg: "bg-gray-400/10",
-  }
+  "automod": { icon: Shield },
+  "economy": { icon: Coins },
+  "engagement": { icon: TrendingUp },
+  "giveaways": { icon: Gift },
+  "jtc": { icon: Users },
+  "moderation": { icon: AlertTriangle },
+  "schedule": { icon: Clock },
+  "tickets": { icon: MessageSquare },
+  "warns": { icon: Hash },
+  "xp": { icon: Zap },
+  "custom-commands": { icon: Plus },
+  "settings": { icon: Settings }
 });
 
 export default async function ModuleDetailsPage({
@@ -92,71 +43,66 @@ export default async function ModuleDetailsPage({
 
   return (
     <MarketingLayout>
-      <div className="container mx-auto px-4 py-24 sm:py-32">
-        <div className="max-w-4xl mx-auto">
-          
-          <Link href="/modules" className="inline-flex items-center text-white/50 hover:text-white transition-colors mb-8 text-sm font-medium">
-            <ArrowLeft className="w-4 h-4 mr-2" />
+      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+
+        <div className="max-w-4xl mx-auto px-6 lg:px-24 relative z-10">
+          <Link href="/modules" className="inline-flex items-center text-white/30 hover:text-white transition-colors mb-12 text-xs uppercase tracking-[0.3em]">
+            <ArrowLeft className="w-3 h-3 mr-2" />
             {t("backToModules")}
           </Link>
 
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 sm:p-12 backdrop-blur-xl relative overflow-hidden">
-            {/* Background Accent */}
-            <div className={`absolute top-0 right-0 w-96 h-96 ${mod.bg} rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 opacity-50 pointer-events-none`} />
-
-            <div className="relative z-10 flex flex-col sm:flex-row gap-6 sm:items-center mb-8">
-              <div className={`w-20 h-20 rounded-2xl ${mod.bg} ${mod.color} flex items-center justify-center shrink-0`}>
-                <Icon className="w-10 h-10" />
-              </div>
+          <div className="border border-white/10 bg-[#050505] p-8 sm:p-12 relative overflow-hidden">
+            <div className="relative z-10 flex flex-col sm:flex-row gap-6 sm:items-start mb-12">
+              <Icon className="w-8 h-8 text-white/30 flex-shrink-0" />
               <div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">
+                <h1 className="text-3xl sm:text-5xl font-medium text-white mb-4 uppercase tracking-tighter">
                   {t(`modules.${moduleName.toLowerCase()}.title`)}
                 </h1>
-                <p className="text-lg text-white/60">
+                <p className="text-white/40 text-sm font-light leading-relaxed">
                   {t(`modules.${moduleName.toLowerCase()}.fullDescription`)}
                 </p>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12 mt-12">
+            <div className="w-full h-px bg-white/10 mb-12" />
+
+            <div className="grid md:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-primary" /> {t("keyFeatures")}
+                <h2 className="text-sm font-medium text-white uppercase tracking-[0.3em] mb-8">
+                  {t("keyFeatures")}
                 </h2>
                 <ul className="space-y-4">
                   {features.map((feature: string, idx: number) => (
-                    <li key={idx} className="flex gap-3 text-white/70">
-                      <div className="mt-1 bg-primary/20 p-1 rounded-full text-primary shrink-0">
-                        <Check className="w-4 h-4" />
-                      </div>
-                      <span className="leading-relaxed">{feature}</span>
+                    <li key={idx} className="flex gap-3 text-white/40">
+                      <Check className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" />
+                      <span className="text-sm font-light leading-relaxed">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               <div>
-                <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                  <Settings2 className="w-5 h-5 text-primary" /> {t("howToSetUp")}
+                <h2 className="text-sm font-medium text-white uppercase tracking-[0.3em] mb-8">
+                  {t("howToSetUp")}
                 </h2>
-                <div className="bg-black/30 border border-white/5 rounded-2xl p-6">
-                  <p className="text-white/70 leading-relaxed mb-6">
+                <div className="border border-white/10 bg-black p-6">
+                  <p className="text-white/40 text-sm font-light leading-relaxed mb-8">
                     {t(`modules.${moduleName.toLowerCase()}.setup`)}
                   </p>
-                  <Link href={`/dashboard?module=${moduleName.toLowerCase()}`}>
-                    <Button className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-bold py-6 px-8 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all">
-                      {t("configureInDashboard")} <ExternalLink className="w-4 h-4 ml-2" />
-                    </Button>
+                  <Link 
+                    href={`/dashboard?module=${moduleName.toLowerCase()}`}
+                    className="group inline-flex items-center px-6 py-3 bg-white text-black text-xs font-bold tracking-[0.3em] uppercase hover:bg-zinc-200 transition-colors"
+                  >
+                    {t("configureInDashboard")} <ExternalLink className="w-3 h-3 ml-3" />
                   </Link>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </MarketingLayout>
   );
 }
-
-

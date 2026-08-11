@@ -1,4 +1,28 @@
 {
+  "license": {
+    "metaTitle": "Licencia de Pegasus | PolyForm Noncommercial 1.0.0",
+    "metaDescription": "Consulta la licencia de software de Pegasus para uso no comercial bajo la licencia PolyForm Noncommercial 1.0.0.",
+    "schemaName": "Licencia de software de Pegasus",
+    "licenseLoadError": "No se pudo cargar el texto completo de la licencia. Consulta la licencia oficial PolyForm Noncommercial 1.0.0.",
+    "breadcrumbs": { "home": "Inicio", "license": "Licencia" },
+    "hero": { "eyebrow": "// Licencia de software", "title": "Licencia de Pegasus", "description": "Software de código disponible con licencia para uso no comercial permitido.", "primaryCta": "PolyForm Noncommercial 1.0.0", "secondaryCta": "Leer la licencia completa" },
+    "overview": { "eyebrow": "// Referencia rápida", "title": "Lo que puedes hacer", "description": "Este resumen es solo orientativo. La licencia completa a continuación es la autorizada." },
+    "permissions": {
+      "allowed": "Permitido", "prohibited": "Prohibido",
+      "clone": { "title": "Clonar", "description": "Puedes obtener y copiar el código fuente de Pegasus para fines no comerciales permitidos." },
+      "modify": { "title": "Modificar", "description": "Puedes modificar Pegasus y crear obras derivadas para fines no comerciales permitidos." },
+      "selfHost": { "title": "Autoalojar", "description": "Puedes ejecutar tu propia instancia para fines personales y otros usos no comerciales permitidos." },
+      "redistribute": { "title": "Redistribuir", "description": "Puedes distribuir Pegasus y las modificaciones permitidas conforme a los términos de la licencia." },
+      "commercialUse": { "title": "Uso comercial", "description": "El uso, despliegue o explotación comercial no está permitido por esta licencia." },
+      "commercialRedistribution": { "title": "Redistribución comercial", "description": "No puedes distribuir comercialmente Pegasus ni versiones derivadas bajo esta licencia." },
+      "paidHosting": { "title": "Alojamiento de pago", "description": "No puedes utilizar Pegasus como parte de un servicio comercial alojado o gestionado." },
+      "brandUsage": { "title": "Uso de marca", "description": "El nombre, logotipo y marca Pegasus no se licencian automáticamente con el código fuente." }
+    },
+    "commercial": { "eyebrow": "// Derechos comerciales", "title": "El uso comercial requiere permiso.", "description": "La licencia PolyForm Noncommercial no concede derechos comerciales. El uso comercial de Pegasus requiere una licencia comercial independiente y por escrito del titular de los derechos de autor correspondiente.", "copyrightHolder": "Titular de los derechos de autor" },
+    "metadata": { "licenseLabel": "Licencia", "modelLabel": "Modelo", "sourceAvailable": "Código disponible", "notOpenSource": "No es código abierto según la OSI", "copyrightLabel": "Derechos de autor", "contributors": "y colaboradores de Pegasus" },
+    "fullLicense": { "eyebrow": "// Documento legal", "title": "Licencia completa", "officialSource": "Fuente oficial de PolyForm" },
+    "footer": { "note": "Esta página proporciona un resumen simplificado por comodidad. La licencia adjunta PolyForm Noncommercial 1.0.0 es el documento legal autorizado.", "officialLink": "Ver la licencia oficial" }
+  },
   "mee6Alt": {
     "metaTitle": "La Mejor Alternativa a MEE6 2026 - PegasusBot",
     "metaDescription": "¿Buscas una alternativa gratuita a MEE6? PegasusBot ofrece moderación premium, economía, niveles y tickets sin muros de pago. Cambia hoy.",

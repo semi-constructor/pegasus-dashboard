@@ -43,6 +43,10 @@ export async function GuildSidebar({ guildId }: { guildId: string }) {
           <p className="px-3 text-xs font-medium text-muted-foreground uppercase tracking-wider">{t('features')}</p>
         </div>
 
+        <Link href={`/dashboard/${guildId}/analytics`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Activity className="w-4 h-4" />
+          Analytics
+        </Link>
         <Link href={`/dashboard/${guildId}/tickets`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
           <Ticket className="w-4 h-4" />
           {t('tickets')}
@@ -91,9 +95,17 @@ export async function GuildSidebar({ guildId }: { guildId: string }) {
           <Send className="w-4 h-4" />
           Control Panel
         </Link>
+        <Link href={`/dashboard/${guildId}/embed-builder`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Wand2 className="w-4 h-4" />
+          Embed Builder
+        </Link>
         <Link href={`/dashboard/${guildId}/warns`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
           <AlertTriangle className="w-4 h-4" />
           {t('warns')}
+        </Link>
+        <Link href={`/dashboard/${guildId}/automod/advanced`} className="flex items-center gap-3 px-3 py-2 rounded-md hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
+          <Shield className="w-4 h-4" />
+          AutoMod
         </Link>
       </nav>
 

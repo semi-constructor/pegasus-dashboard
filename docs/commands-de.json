@@ -1,0 +1,2045 @@
+[
+  {
+    "name": "Admin",
+    "description": "Commands for admin",
+    "commands": [
+      {
+        "name": "socialfeed",
+        "description": "Manage social feeds (RSS/YouTube) for this server (Admin Only)",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "add",
+            "description": "Add a new social feed",
+            "params": [
+              {
+                "name": "type",
+                "type": "String",
+                "required": true,
+                "description": "Feed Type"
+              },
+              {
+                "name": "url",
+                "type": "String",
+                "required": true,
+                "description": "Feed URL or YouTube Channel ID"
+              },
+              {
+                "name": "channel",
+                "type": "Channel",
+                "required": true,
+                "description": "Channel to post updates"
+              },
+              {
+                "name": "role",
+                "type": "Role",
+                "required": false,
+                "description": "Role to ping"
+              },
+              {
+                "name": "message",
+                "type": "String",
+                "required": false,
+                "description": "Custom message"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "list",
+            "description": "List all configured social feeds",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "remove",
+            "description": "Remove a social feed",
+            "params": [
+              {
+                "name": "url",
+                "type": "String",
+                "required": true,
+                "description": "Feed URL to remove"
+              }
+            ],
+            "subcommands": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Configuration",
+    "description": "Commands for configuration",
+    "commands": [
+      {
+        "name": "starboard",
+        "description": "Configure the starboard system",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "setup",
+            "description": "Enable and setup starboard channel",
+            "params": [
+              {
+                "name": "channel",
+                "type": "Channel",
+                "required": true,
+                "description": "The starboard channel"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "disable",
+            "description": "Disable starboard",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "threshold",
+            "description": "Set the number of stars required",
+            "params": [
+              {
+                "name": "count",
+                "type": "Integer",
+                "required": true,
+                "description": "Number of stars"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "emoji",
+            "description": "Set the starboard emoji",
+            "params": [
+              {
+                "name": "emoji",
+                "type": "String",
+                "required": true,
+                "description": "Emoji to use (e.g., ⭐)"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "info",
+            "description": "View current starboard settings",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Economy",
+    "description": "Commands for economy",
+    "commands": [
+      {
+        "name": "balance",
+        "description": "Überprüfe dein Guthaben oder das eines anderen Benutzers",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": false,
+            "description": "Der Benutzer, dessen Guthaben überprüft werden soll"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "daily",
+        "description": "Fordere deine tägliche Belohnung an",
+        "params": [],
+        "subcommands": []
+      },
+      {
+        "name": "eco",
+        "description": "Wirtschaftssystem-Befehle",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "balance",
+            "description": "Überprüfe dein Guthaben oder das eines anderen Benutzers",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": false,
+                "description": "Der Benutzer, dessen Guthaben überprüft werden soll"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "daily",
+            "description": "Fordere deine tägliche Belohnung an",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "work",
+            "description": "Arbeite um Geld zu verdienen",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "rob",
+            "description": "Versuche einen anderen Benutzer auszurauben",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": true,
+                "description": "Der Benutzer zum Ausrauben"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "gamble",
+            "description": "Glücksspiele",
+            "params": [],
+            "subcommands": [
+              {
+                "name": "dice",
+                "description": "Würfle gegen den Dealer",
+                "params": [
+                  {
+                    "name": "bet",
+                    "type": "Integer",
+                    "required": true,
+                    "description": "Einsatzbetrag"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "coinflip",
+                "description": "Wirf eine Münze",
+                "params": [
+                  {
+                    "name": "bet",
+                    "type": "Integer",
+                    "required": true,
+                    "description": "Einsatzbetrag"
+                  },
+                  {
+                    "name": "choice",
+                    "type": "String",
+                    "required": true,
+                    "description": "Kopf oder Zahl"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "slots",
+                "description": "Spiele am Spielautomaten",
+                "params": [
+                  {
+                    "name": "bet",
+                    "type": "Integer",
+                    "required": true,
+                    "description": "Einsatzbetrag"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "blackjack",
+                "description": "Spiele Blackjack gegen den Dealer",
+                "params": [
+                  {
+                    "name": "bet",
+                    "type": "Integer",
+                    "required": true,
+                    "description": "Einsatzbetrag"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "roulette",
+                "description": "Spiele Roulette",
+                "params": [
+                  {
+                    "name": "bet",
+                    "type": "Integer",
+                    "required": true,
+                    "description": "Einsatzbetrag"
+                  },
+                  {
+                    "name": "type",
+                    "type": "String",
+                    "required": true,
+                    "description": "Art der Wette"
+                  },
+                  {
+                    "name": "number",
+                    "type": "Integer",
+                    "required": false,
+                    "description": "Spezifische Zahl zum Setzen (0-36)"
+                  }
+                ],
+                "subcommands": []
+              }
+            ],
+            "isGroup": true
+          },
+          {
+            "name": "shop",
+            "description": "Shop-Befehle",
+            "params": [],
+            "subcommands": [
+              {
+                "name": "view",
+                "description": "Verfügbare Shop-Artikel anzeigen",
+                "params": [],
+                "subcommands": []
+              },
+              {
+                "name": "buy",
+                "description": "Einen Artikel aus dem Shop kaufen",
+                "params": [
+                  {
+                    "name": "item",
+                    "type": "String",
+                    "required": true,
+                    "description": "Der zu kaufende Artikel"
+                  },
+                  {
+                    "name": "quantity",
+                    "type": "Integer",
+                    "required": false,
+                    "description": "Zu kaufende Menge"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "inventory",
+                "description": "Ihre gekauften Artikel anzeigen",
+                "params": [],
+                "subcommands": []
+              }
+            ],
+            "isGroup": true
+          }
+        ]
+      },
+      {
+        "name": "gamble",
+        "description": "Glücksspiele",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "dice",
+            "description": "Würfle gegen den Dealer",
+            "params": [
+              {
+                "name": "bet",
+                "type": "Integer",
+                "required": true,
+                "description": "Einsatzbetrag"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "coinflip",
+            "description": "Wirf eine Münze",
+            "params": [
+              {
+                "name": "bet",
+                "type": "Integer",
+                "required": true,
+                "description": "Einsatzbetrag"
+              },
+              {
+                "name": "choice",
+                "type": "String",
+                "required": true,
+                "description": "Kopf oder Zahl"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "slots",
+            "description": "Spiele am Spielautomaten",
+            "params": [
+              {
+                "name": "bet",
+                "type": "Integer",
+                "required": true,
+                "description": "Einsatzbetrag"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "blackjack",
+            "description": "Spiele Blackjack gegen den Dealer",
+            "params": [
+              {
+                "name": "bet",
+                "type": "Integer",
+                "required": true,
+                "description": "Einsatzbetrag"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "roulette",
+            "description": "Spiele Roulette",
+            "params": [
+              {
+                "name": "bet",
+                "type": "Integer",
+                "required": true,
+                "description": "Einsatzbetrag"
+              },
+              {
+                "name": "type",
+                "type": "String",
+                "required": true,
+                "description": "Art der Wette"
+              },
+              {
+                "name": "number",
+                "type": "Integer",
+                "required": false,
+                "description": "Spezifische Zahl zum Setzen (0-36)"
+              }
+            ],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "market",
+        "description": "Interact with the stock market",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "view",
+            "description": "View available stocks",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "buy",
+            "description": "Buy a stock",
+            "params": [
+              {
+                "name": "symbol",
+                "type": "String",
+                "required": true,
+                "description": "Stock symbol to buy"
+              },
+              {
+                "name": "quantity",
+                "type": "Integer",
+                "required": true,
+                "description": "Amount to buy"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "sell",
+            "description": "Sell a stock",
+            "params": [
+              {
+                "name": "symbol",
+                "type": "String",
+                "required": true,
+                "description": "Stock symbol to sell"
+              },
+              {
+                "name": "quantity",
+                "type": "Integer",
+                "required": true,
+                "description": "Amount to sell"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "portfolio",
+            "description": "View your current stock portfolio",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "rob",
+        "description": "Versuche einen anderen Benutzer auszurauben",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "Der Benutzer zum Ausrauben"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "shop",
+        "description": "Shop-Befehle",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "view",
+            "description": "Verfügbare Shop-Artikel anzeigen",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "buy",
+            "description": "Einen Artikel aus dem Shop kaufen",
+            "params": [
+              {
+                "name": "item",
+                "type": "String",
+                "required": true,
+                "description": "Der zu kaufende Artikel"
+              },
+              {
+                "name": "quantity",
+                "type": "Integer",
+                "required": false,
+                "description": "Zu kaufende Menge"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "inventory",
+            "description": "Ihre gekauften Artikel anzeigen",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "trade",
+        "description": "Trade coins and items with other users",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "offer",
+            "description": "Initiate a 5-minute trade offer with another user",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": true,
+                "description": "The user to trade with"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "open",
+            "description": "Create an open trade that anyone can accept (expires in 24h)",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "gift",
+            "description": "Directly gift coins or items to a user",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": true,
+                "description": "The user to gift"
+              },
+              {
+                "name": "coins",
+                "type": "Integer",
+                "required": false,
+                "description": "Amount of coins to gift"
+              },
+              {
+                "name": "item",
+                "type": "String",
+                "required": false,
+                "description": "Name or ID of the item to gift"
+              },
+              {
+                "name": "quantity",
+                "type": "Integer",
+                "required": false,
+                "description": "Item quantity to gift (default 1)"
+              }
+            ],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "vote",
+        "description": "Vote for Pegasus to get a 1.2x XP multiplier (24h) and 3000-6000 Coins!",
+        "params": [],
+        "subcommands": []
+      },
+      {
+        "name": "work",
+        "description": "Arbeite um Geld zu verdienen",
+        "params": [],
+        "subcommands": []
+      }
+    ]
+  },
+  {
+    "name": "Fun",
+    "description": "Commands for fun",
+    "commands": [
+      {
+        "name": "birthday",
+        "description": "Set or view your birthday for server celebrations",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "set",
+            "description": "Set your birthday",
+            "params": [
+              {
+                "name": "month",
+                "type": "Integer",
+                "required": true,
+                "description": "Birth month"
+              },
+              {
+                "name": "day",
+                "type": "Integer",
+                "required": true,
+                "description": "Birth day"
+              },
+              {
+                "name": "year",
+                "type": "Integer",
+                "required": false,
+                "description": "Birth year (optional)"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "view",
+            "description": "View your registered birthday",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "config",
+            "description": "Configure the server birthday system (Admin Only)",
+            "params": [
+              {
+                "name": "channel",
+                "type": "Channel",
+                "required": true,
+                "description": "Channel to send birthday messages in"
+              },
+              {
+                "name": "enabled",
+                "type": "Boolean",
+                "required": false,
+                "description": "Enable or disable birthday messages"
+              },
+              {
+                "name": "message",
+                "type": "String",
+                "required": false,
+                "description": "Custom birthday message (use {user} to mention)"
+              }
+            ],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "fun",
+        "description": "Spaß- und Unterhaltungsbefehle",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "meme",
+            "description": "Ein zufälliges Meme erhalten",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "fact",
+            "description": "Eine zufällige Tatsache erhalten",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "quote",
+            "description": "Ein zufälliges Zitat erhalten",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "joke",
+            "description": "Einen zufälligen Witz erhalten",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "dadjoke",
+            "description": "Einen zufälligen Dad-Joke erhalten",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Giveaways",
+    "description": "Commands for giveaways",
+    "commands": [
+      {
+        "name": "gw",
+        "description": "commands.giveaway.description",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "start",
+            "description": "commands.giveaway.subcommands.start.description",
+            "params": [
+              {
+                "name": "prize",
+                "type": "String",
+                "required": true,
+                "description": "commands.giveaway.subcommands.start.options.prize"
+              },
+              {
+                "name": "duration",
+                "type": "String",
+                "required": true,
+                "description": "commands.giveaway.subcommands.start.options.duration"
+              },
+              {
+                "name": "winners",
+                "type": "Integer",
+                "required": false,
+                "description": "commands.giveaway.subcommands.start.options.winners"
+              },
+              {
+                "name": "channel",
+                "type": "Channel",
+                "required": false,
+                "description": "commands.giveaway.subcommands.start.options.channel"
+              },
+              {
+                "name": "embed_title",
+                "type": "String",
+                "required": false,
+                "description": "Custom embed title"
+              },
+              {
+                "name": "embed_image",
+                "type": "Attachment",
+                "required": false,
+                "description": "Custom embed image"
+              },
+              {
+                "name": "embed_thumbnail",
+                "type": "Attachment",
+                "required": false,
+                "description": "Custom embed thumbnail"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "simple",
+            "description": "commands.giveaway.subcommands.simple.description",
+            "params": [
+              {
+                "name": "prize",
+                "type": "String",
+                "required": true,
+                "description": "commands.giveaway.subcommands.simple.options.prize"
+              },
+              {
+                "name": "duration",
+                "type": "String",
+                "required": true,
+                "description": "commands.giveaway.subcommands.simple.options.duration"
+              },
+              {
+                "name": "winners",
+                "type": "Integer",
+                "required": true,
+                "description": "commands.giveaway.subcommands.simple.options.winners"
+              },
+              {
+                "name": "embed_title",
+                "type": "String",
+                "required": false,
+                "description": "Custom embed title"
+              },
+              {
+                "name": "embed_image",
+                "type": "Attachment",
+                "required": false,
+                "description": "Custom embed image"
+              },
+              {
+                "name": "embed_thumbnail",
+                "type": "Attachment",
+                "required": false,
+                "description": "Custom embed thumbnail"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "end",
+            "description": "commands.giveaway.subcommands.end.description",
+            "params": [
+              {
+                "name": "giveaway_id",
+                "type": "String",
+                "required": true,
+                "description": "commands.giveaway.subcommands.end.options.giveawayId"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "reroll",
+            "description": "commands.giveaway.subcommands.reroll.description",
+            "params": [
+              {
+                "name": "giveaway_id",
+                "type": "String",
+                "required": true,
+                "description": "commands.giveaway.subcommands.reroll.options.giveawayId"
+              },
+              {
+                "name": "winners",
+                "type": "Integer",
+                "required": false,
+                "description": "commands.giveaway.subcommands.reroll.options.winners"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "configure",
+            "description": "commands.giveaway.subcommands.configure.description",
+            "params": [
+              {
+                "name": "giveaway_id",
+                "type": "String",
+                "required": true,
+                "description": "commands.giveaway.subcommands.configure.options.giveawayId"
+              },
+              {
+                "name": "embed_title",
+                "type": "String",
+                "required": false,
+                "description": "Custom embed title"
+              },
+              {
+                "name": "embed_image",
+                "type": "Attachment",
+                "required": false,
+                "description": "Custom embed image"
+              },
+              {
+                "name": "embed_thumbnail",
+                "type": "Attachment",
+                "required": false,
+                "description": "Custom embed thumbnail"
+              }
+            ],
+            "subcommands": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Moderation",
+    "description": "Commands for moderation",
+    "commands": [
+      {
+        "name": "automod",
+        "description": "Manage AutoMod V2 rules and Quarantine Vault",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "add_rule",
+            "description": "Add a new AutoMod V2 rule",
+            "params": [
+              {
+                "name": "name",
+                "type": "String",
+                "required": true,
+                "description": "Rule name"
+              },
+              {
+                "name": "trigger_type",
+                "type": "String",
+                "required": true,
+                "description": "Type of trigger"
+              },
+              {
+                "name": "action_type",
+                "type": "String",
+                "required": true,
+                "description": "Action to take"
+              },
+              {
+                "name": "keywords",
+                "type": "String",
+                "required": false,
+                "description": "Comma-separated keywords (for KEYWORD trigger)"
+              },
+              {
+                "name": "regex_pattern",
+                "type": "String",
+                "required": false,
+                "description": "Regex pattern (for REGEX trigger)"
+              },
+              {
+                "name": "limit",
+                "type": "Integer",
+                "required": false,
+                "description": "Limit threshold (for MENTION_SPAM or ATTACHMENT_SPAM)"
+              },
+              {
+                "name": "points",
+                "type": "Integer",
+                "required": false,
+                "description": "Infraction points to add (for ADD_INFRACTION)"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "list_rules",
+            "description": "List all AutoMod V2 rules",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "remove_rule",
+            "description": "Remove an AutoMod V2 rule",
+            "params": [
+              {
+                "name": "rule_id",
+                "type": "String",
+                "required": true,
+                "description": "UUID of the rule to remove"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "quarantine_list",
+            "description": "List users currently in the Quarantine Vault",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "quarantine_release",
+            "description": "Release a user from the Quarantine Vault",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": true,
+                "description": "User to release"
+              }
+            ],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "ban",
+        "description": "commands.moderation.subcommands.ban.description",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "commands.moderation.subcommands.ban.options.user"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.ban.options.reason"
+          },
+          {
+            "name": "delete_days",
+            "type": "Integer",
+            "required": false,
+            "description": "commands.moderation.subcommands.ban.options.deleteDays"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "case",
+        "description": "commands.moderation.subcommands.case.description",
+        "params": [],
+        "subcommands": []
+      },
+      {
+        "name": "filter",
+        "description": "commands.filter.description",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "add",
+            "description": "commands.filter.add.description",
+            "params": [
+              {
+                "name": "pattern",
+                "type": "String",
+                "required": true,
+                "description": "commands.filter.add.options.pattern"
+              },
+              {
+                "name": "match_type",
+                "type": "String",
+                "required": false,
+                "description": "commands.filter.add.options.matchType"
+              },
+              {
+                "name": "case_sensitive",
+                "type": "Boolean",
+                "required": false,
+                "description": "commands.filter.add.options.caseSensitive"
+              },
+              {
+                "name": "whole_word",
+                "type": "Boolean",
+                "required": false,
+                "description": "commands.filter.add.options.wholeWord"
+              },
+              {
+                "name": "severity",
+                "type": "String",
+                "required": false,
+                "description": "commands.filter.add.options.severity"
+              },
+              {
+                "name": "auto_delete",
+                "type": "Boolean",
+                "required": false,
+                "description": "commands.filter.add.options.autoDelete"
+              },
+              {
+                "name": "notify_channel",
+                "type": "Channel",
+                "required": false,
+                "description": "commands.filter.add.options.notifyChannel"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "remove",
+            "description": "commands.filter.remove.description",
+            "params": [
+              {
+                "name": "rule_id",
+                "type": "Integer",
+                "required": true,
+                "description": "commands.filter.remove.options.ruleId"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "list",
+            "description": "commands.filter.list.description",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "honeypot",
+        "description": "Configure a honeypot channel to trap scammers.",
+        "params": [
+          {
+            "name": "channel",
+            "type": "Channel",
+            "required": true,
+            "description": "The channel to use as a honeypot"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "kick",
+        "description": "commands.moderation.subcommands.kick.description",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "commands.moderation.subcommands.kick.options.user"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.kick.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "lock",
+        "description": "commands.moderation.subcommands.lock.description",
+        "params": [
+          {
+            "name": "channel",
+            "type": "Channel",
+            "required": false,
+            "description": "commands.moderation.subcommands.lock.options.channel"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.lock.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "modlog",
+        "description": "commands.moderation.subcommands.modlog.description",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": false,
+            "description": "commands.moderation.subcommands.modlog.options.user"
+          },
+          {
+            "name": "limit",
+            "type": "Integer",
+            "required": false,
+            "description": "commands.moderation.subcommands.modlog.options.limit"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "mute",
+        "description": "commands.moderation.subcommands.mute.description",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "commands.moderation.subcommands.mute.options.user"
+          },
+          {
+            "name": "duration",
+            "type": "Integer",
+            "required": false,
+            "description": "commands.moderation.subcommands.mute.options.duration"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.mute.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "purge",
+        "description": "commands.moderation.subcommands.purge.description",
+        "params": [
+          {
+            "name": "amount",
+            "type": "Integer",
+            "required": true,
+            "description": "commands.moderation.subcommands.purge.options.amount"
+          },
+          {
+            "name": "user",
+            "type": "User",
+            "required": false,
+            "description": "commands.moderation.subcommands.purge.options.user"
+          },
+          {
+            "name": "channel",
+            "type": "Channel",
+            "required": false,
+            "description": "commands.moderation.subcommands.purge.options.channel"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "reset-xp",
+        "description": "commands.moderation.subcommands.resetxp.description",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "commands.moderation.subcommands.resetxp.options.user"
+          },
+          {
+            "name": "confirm",
+            "type": "Boolean",
+            "required": true,
+            "description": "commands.moderation.subcommands.resetxp.options.confirm"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "slowmode",
+        "description": "commands.moderation.subcommands.slowmode.description",
+        "params": [
+          {
+            "name": "duration",
+            "type": "Integer",
+            "required": true,
+            "description": "commands.moderation.subcommands.slowmode.options.duration"
+          },
+          {
+            "name": "channel",
+            "type": "Channel",
+            "required": false,
+            "description": "commands.moderation.subcommands.slowmode.options.channel"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.slowmode.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "timeout",
+        "description": "commands.moderation.subcommands.timeout.description",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "commands.moderation.subcommands.timeout.options.user"
+          },
+          {
+            "name": "duration",
+            "type": "Integer",
+            "required": true,
+            "description": "commands.moderation.subcommands.timeout.options.duration"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.timeout.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "unban",
+        "description": "commands.moderation.subcommands.unban.description",
+        "params": [
+          {
+            "name": "user_id",
+            "type": "String",
+            "required": true,
+            "description": "commands.moderation.subcommands.unban.options.userId"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.unban.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "unlock",
+        "description": "commands.moderation.subcommands.unlock.description",
+        "params": [
+          {
+            "name": "channel",
+            "type": "Channel",
+            "required": false,
+            "description": "commands.moderation.subcommands.unlock.options.channel"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.unlock.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "unmute",
+        "description": "commands.moderation.subcommands.unmute.description",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "commands.moderation.subcommands.unmute.options.user"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "commands.moderation.subcommands.unmute.options.reason"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "warn",
+        "description": "Benutzerwarnungen verwalten",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "create",
+            "description": "Eine Warnung an einen Benutzer ausgeben",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": true,
+                "description": "Der Zielbenutzer"
+              },
+              {
+                "name": "title",
+                "type": "String",
+                "required": true,
+                "description": "Titel der Warnung"
+              },
+              {
+                "name": "description",
+                "type": "String",
+                "required": false,
+                "description": "Beschreibung der Warnung"
+              },
+              {
+                "name": "level",
+                "type": "Integer",
+                "required": false,
+                "description": "Warnstufe (1-10)"
+              },
+              {
+                "name": "proof",
+                "type": "Attachment",
+                "required": false,
+                "description": "Beweisanhang für die Warnung"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "edit",
+            "description": "Eine bestehende Warnung bearbeiten",
+            "params": [
+              {
+                "name": "warnid",
+                "type": "String",
+                "required": true,
+                "description": "Die Warnungs-ID"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "lookup",
+            "description": "Eine bestimmte Warnung nachschlagen",
+            "params": [
+              {
+                "name": "warnid",
+                "type": "String",
+                "required": true,
+                "description": "Die Warnungs-ID"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "delete",
+            "description": "Eine Warnung anhand der ID löschen",
+            "params": [
+              {
+                "name": "warnid",
+                "type": "String",
+                "required": true,
+                "description": "Die Warnungs-ID"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "view",
+            "description": "Alle Warnungen für einen Benutzer anzeigen",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": true,
+                "description": "Der Zielbenutzer"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "purge",
+            "description": "Alle Warnungen eines Benutzers entfernen",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": true,
+                "description": "Der Zielbenutzer"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "automation",
+            "description": "Warnungsautomatisierungen verwalten",
+            "params": [],
+            "subcommands": [
+              {
+                "name": "create",
+                "description": "Eine Warnungsautomatisierung erstellen",
+                "params": [
+                  {
+                    "name": "trigger_type",
+                    "type": "String",
+                    "required": true,
+                    "description": "Auslöser-Typ für diese Automatisierung"
+                  },
+                  {
+                    "name": "trigger_value",
+                    "type": "Integer",
+                    "required": true,
+                    "description": "Wert, bei dem die Automatisierung auslöst"
+                  },
+                  {
+                    "name": "notify_channel",
+                    "type": "Channel",
+                    "required": false,
+                    "description": "Kanal für Automatisierungsbenachrichtigungen"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "view",
+                "description": "Alle Warnungsautomatisierungen anzeigen",
+                "params": [],
+                "subcommands": []
+              },
+              {
+                "name": "delete",
+                "description": "Eine Warnungsautomatisierung löschen",
+                "params": [
+                  {
+                    "name": "automationid",
+                    "type": "String",
+                    "required": true,
+                    "description": "Die zu löschende Automatisierungs-ID"
+                  }
+                ],
+                "subcommands": []
+              }
+            ],
+            "isGroup": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Tickets",
+    "description": "Commands for tickets",
+    "commands": [
+      {
+        "name": "ticket",
+        "description": "Support-Ticket-System",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "panel",
+            "description": "Ticket-Panels verwalten",
+            "params": [],
+            "subcommands": [
+              {
+                "name": "create",
+                "description": "Eine neue Ticket-Panel-Konfiguration erstellen",
+                "params": [
+                  {
+                    "name": "panel_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "Unique ID for this panel"
+                  },
+                  {
+                    "name": "title",
+                    "type": "String",
+                    "required": true,
+                    "description": "Panel title"
+                  },
+                  {
+                    "name": "description",
+                    "type": "String",
+                    "required": true,
+                    "description": "Panel description"
+                  },
+                  {
+                    "name": "button_label",
+                    "type": "String",
+                    "required": false,
+                    "description": "Label for the create ticket button"
+                  },
+                  {
+                    "name": "button_style",
+                    "type": "Integer",
+                    "required": false,
+                    "description": "Button style"
+                  },
+                  {
+                    "name": "category",
+                    "type": "Channel",
+                    "required": false,
+                    "description": "Category to create tickets in"
+                  },
+                  {
+                    "name": "support_role",
+                    "type": "Role",
+                    "required": false,
+                    "description": "Support role that can see tickets"
+                  },
+                  {
+                    "name": "max_tickets",
+                    "type": "Integer",
+                    "required": false,
+                    "description": "Maximum tickets per user"
+                  },
+                  {
+                    "name": "welcome_message",
+                    "type": "String",
+                    "required": false,
+                    "description": "Welcome message shown in new tickets"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "load",
+                "description": "Ein Ticket-Panel laden und senden",
+                "params": [
+                  {
+                    "name": "panel_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "ID of the panel to load"
+                  },
+                  {
+                    "name": "channel",
+                    "type": "Channel",
+                    "required": true,
+                    "description": "Channel to send the panel to"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "delete",
+                "description": "Ein Ticket-Panel löschen",
+                "params": [
+                  {
+                    "name": "panel_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "ID of the panel to delete"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "list",
+                "description": "Alle Ticket-Panels auf diesem Server auflisten",
+                "params": [],
+                "subcommands": []
+              },
+              {
+                "name": "edit",
+                "description": "Ein bestehendes Ticket-Panel bearbeiten",
+                "params": [
+                  {
+                    "name": "panel_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "ID of the panel to edit"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "add_dept",
+                "description": "Eine Abteilung zu einem Ticket-Panel hinzufügen",
+                "params": [
+                  {
+                    "name": "panel_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "ID of the panel"
+                  },
+                  {
+                    "name": "dept_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "Unique department ID"
+                  },
+                  {
+                    "name": "name",
+                    "type": "String",
+                    "required": true,
+                    "description": "Department name"
+                  },
+                  {
+                    "name": "description",
+                    "type": "String",
+                    "required": true,
+                    "description": "Department description"
+                  },
+                  {
+                    "name": "support_role",
+                    "type": "Role",
+                    "required": false,
+                    "description": "Support role for this department"
+                  },
+                  {
+                    "name": "category",
+                    "type": "Channel",
+                    "required": false,
+                    "description": "Category for this department"
+                  },
+                  {
+                    "name": "welcome_message",
+                    "type": "String",
+                    "required": false,
+                    "description": "Welcome message for this department"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "list_depts",
+                "description": "Alle Abteilungen für ein Ticket-Panel auflisten",
+                "params": [
+                  {
+                    "name": "panel_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "ID of the panel"
+                  }
+                ],
+                "subcommands": []
+              },
+              {
+                "name": "remove_dept",
+                "description": "Eine Abteilung aus einem Ticket-Panel entfernen",
+                "params": [
+                  {
+                    "name": "panel_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "ID of the panel"
+                  },
+                  {
+                    "name": "dept_id",
+                    "type": "String",
+                    "required": true,
+                    "description": "ID of the department to remove"
+                  }
+                ],
+                "subcommands": []
+              }
+            ],
+            "isGroup": true
+          },
+          {
+            "name": "claim",
+            "description": "Ein Ticket beanspruchen (für Support-Mitarbeiter)",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "close",
+            "description": "Ein Ticket schließen",
+            "params": [
+              {
+                "name": "reason",
+                "type": "String",
+                "required": false,
+                "description": "Reason for closing the ticket"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "stats",
+            "description": "View ticket statistics for this server",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Utility",
+    "description": "Commands for utility",
+    "commands": [
+      {
+        "name": "help",
+        "description": "Get help for commands",
+        "params": [
+          {
+            "name": "command",
+            "type": "String",
+            "required": false,
+            "description": "Der Befehl, für den Hilfe benötigt wird"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "jtc",
+        "description": "commands.jtc.description",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "setup",
+            "description": "commands.jtc.setup.description",
+            "params": [
+              {
+                "name": "base_voice",
+                "type": "Channel",
+                "required": true,
+                "description": "commands.jtc.setup.baseVoice"
+              },
+              {
+                "name": "category",
+                "type": "Channel",
+                "required": true,
+                "description": "commands.jtc.setup.category"
+              },
+              {
+                "name": "panel_channel",
+                "type": "Channel",
+                "required": true,
+                "description": "commands.jtc.setup.panelChannel"
+              },
+              {
+                "name": "name_format",
+                "type": "String",
+                "required": false,
+                "description": "commands.jtc.setup.nameFormat"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "disable",
+            "description": "commands.jtc.disable.description",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "panel",
+            "description": "commands.jtc.panel.description",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "language",
+        "description": "Spracheinstellungen",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "available",
+            "description": "Verfügbare Sprachen auflisten",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "current",
+            "description": "Aktuelle Sprache anzeigen",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "set",
+            "description": "Bevorzugte Sprache festlegen",
+            "params": [
+              {
+                "name": "language",
+                "type": "String",
+                "required": true,
+                "description": "Die auszuwählende Sprache"
+              }
+            ],
+            "subcommands": []
+          }
+        ]
+      },
+      {
+        "name": "ping",
+        "description": "Überprüfe die Latenz des Bots",
+        "params": [],
+        "subcommands": []
+      },
+      {
+        "name": "remind",
+        "description": "Set a reminder",
+        "params": [
+          {
+            "name": "time",
+            "type": "String",
+            "required": true,
+            "description": "When to remind you (e.g., 10m, 1h, 1d)"
+          },
+          {
+            "name": "message",
+            "type": "String",
+            "required": true,
+            "description": "What to remind you about"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "utils",
+        "description": "Nützliche Befehle",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "avatar",
+            "description": "Avatar eines Benutzers abrufen",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": false,
+                "description": "Der Zielbenutzer"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "banner",
+            "description": "Banner eines Benutzers abrufen",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": false,
+                "description": "Der Zielbenutzer"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "steam",
+            "description": "Steam-Profilinformationen abrufen",
+            "params": [
+              {
+                "name": "username",
+                "type": "String",
+                "required": true,
+                "description": "Steam-Benutzername oder Profil-URL"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "userinfo",
+            "description": "Detaillierte Benutzerinformationen abrufen",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": false,
+                "description": "Der Zielbenutzer"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "whois",
+            "description": "Benutzer nach ID suchen",
+            "params": [
+              {
+                "name": "user_id",
+                "type": "String",
+                "required": true,
+                "description": "Die zu suchende Benutzer-ID"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "roleinfo",
+            "description": "Rolleninformationen abrufen",
+            "params": [
+              {
+                "name": "role",
+                "type": "Role",
+                "required": true,
+                "description": "Die Rolle, für die Informationen abgerufen werden sollen"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "serverinfo",
+            "description": "Serverinformationen abrufen",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "support",
+            "description": "Support-Server-Link erhalten",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "stats",
+            "description": "Bot-Statistiken und Systeminformationen anzeigen",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Xp",
+    "description": "Commands for xp",
+    "commands": [
+      {
+        "name": "achievements",
+        "description": "View your unlocked and available achievements",
+        "params": [],
+        "subcommands": []
+      },
+      {
+        "name": "prestige",
+        "description": "Trade in your max level for a prestige rank and exclusive rewards",
+        "params": [],
+        "subcommands": []
+      },
+      {
+        "name": "quests",
+        "description": "View active engagement quests and your progress",
+        "params": [],
+        "subcommands": []
+      },
+      {
+        "name": "thanks",
+        "description": "Give thanks and reputation to another user",
+        "params": [
+          {
+            "name": "user",
+            "type": "User",
+            "required": true,
+            "description": "The user to thank"
+          },
+          {
+            "name": "reason",
+            "type": "String",
+            "required": false,
+            "description": "Reason for thanking them"
+          }
+        ],
+        "subcommands": []
+      },
+      {
+        "name": "xp",
+        "description": "XP- und Levelsystem",
+        "params": [],
+        "subcommands": [
+          {
+            "name": "rank",
+            "description": "Deine XP-Rangkarte anzeigen",
+            "params": [
+              {
+                "name": "user",
+                "type": "User",
+                "required": false,
+                "description": "Der Zielbenutzer"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "leaderboard",
+            "description": "Die Server-XP-Bestenliste anzeigen",
+            "params": [
+              {
+                "name": "page",
+                "type": "Integer",
+                "required": false,
+                "description": "Anzuzeigende Seitennummer"
+              }
+            ],
+            "subcommands": []
+          },
+          {
+            "name": "configuration",
+            "description": "Aktuelle XP-Konfiguration anzeigen",
+            "params": [],
+            "subcommands": []
+          },
+          {
+            "name": "card",
+            "description": "Farben deiner Rangkarte anpassen",
+            "params": [],
+            "subcommands": []
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -87,7 +87,7 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
 
-    --radius: 0.75rem;
+    --radius: 0px;
   }
 
   .dark {
@@ -197,7 +197,7 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.75rem;
+  --radius: 0px;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -234,7 +234,7 @@
   --chart-5: oklch(0.269 0 0);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary: oklch(0.985 0 0);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
@@ -244,13 +244,13 @@
 
 @layer utilities {
   .glass-panel {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl transition-all duration-300 hover:border-white/20;
+    @apply bg-black border border-white/10 rounded-none transition-all duration-300 hover:border-zinc-700;
   }
   .glass-panel-dark {
-    @apply bg-black/40 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl transition-all duration-300 hover:bg-black/50;
+    @apply bg-black border border-zinc-800 rounded-none transition-all duration-300 hover:border-white/20;
   }
   .text-glow {
-    @apply text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.6)];
+    @apply text-white;
   }
   .animate-float {
     animation: float 6s ease-in-out infinite;

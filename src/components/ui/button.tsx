@@ -20,6 +20,9 @@ const buttonVariants = cva(
  destructive:
 "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
  link:"text-primary underline-offset-4 hover:underline",
+ brutalist: "rounded-none border border-white/20 bg-white text-black font-mono uppercase tracking-[0.2em] hover:bg-zinc-200 transition-all shadow-none",
+ "brutalist-outline": "rounded-none border border-white/20 bg-black text-white font-mono uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all shadow-none",
+ "brutalist-ghost": "rounded-none border border-transparent bg-transparent text-white font-mono uppercase tracking-[0.2em] hover:bg-white/10 transition-all shadow-none",
  },
  size: {
  default:

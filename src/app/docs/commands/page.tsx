@@ -1,8 +1,9 @@
 import { parseCommandsDocs } from "@/lib/docs";
 import CommandBrowser from "@/components/docs/CommandBrowser";
-import { Book } from "lucide-react";
+import { Book, ArrowRight } from "lucide-react";
 import { MarketingLayout } from "@/components/MarketingLayout";
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, getLocale } from 'next-intl/server';
+import Link from "next/link";
 
 export const metadata = {
   title: "Commands - Pegasus Bot",
@@ -10,32 +11,46 @@ export const metadata = {
 };
 
 export default async function CommandsDocPage() {
-  const categories = parseCommandsDocs();
+  const locale = await getLocale();
+  const categories = parseCommandsDocs(locale);
   const t = await getTranslations('docs');
   
   return (
     <MarketingLayout>
-      <div className="relative overflow-hidden pt-20">
-      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+        {/* Architectural background lines */}
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+        
+        <div className="max-w-6xl mx-auto px-6 lg:px-24 relative z-10">
+          <div className="mb-24">
+            <Link href="/docs" className="group inline-flex items-center text-xs tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors mb-16">
+              <ArrowRight className="w-4 h-4 mr-4 rotate-180 opacity-50 group-hover:-translate-x-2 transition-transform" />
+              Back to Documentation Index
+            </Link>
 
-      <div className="border-b border-border bg-background/80 backdrop-blur-xl sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-8 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-primary/10 rounded-xl border border-primary/20">
-              <Book className="w-6 h-6 text-primary" />
+            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+              <Book className="w-4 h-4 mr-3 text-white/50" />
+              // {t('commandsReference') || 'COMMAND REFERENCE'}
             </div>
-            <div>
-              <h1 className="font-bold text-xl text-foreground">{t('commandsReference')}</h1>
-              <p className="text-xs text-muted-foreground">{t('subtitle')}</p>
+            
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-6 uppercase leading-[0.9]">
+              {t('commandsReference') || 'COMMANDS'}
+            </h1>
+            <p className="text-white/40 tracking-[0.1em] text-sm uppercase max-w-2xl leading-relaxed">
+              {t('subtitle') || 'Browse all commands available for Pegasus Bot'}
+            </p>
+          </div>
+
+          <div className="w-full h-px bg-white/10 mb-24" />
+
+          {/* Browser */}
+          <div className="border border-white/10 bg-[#050505] p-2">
+            <div className="border border-white/10 p-6 md:p-12">
+              <CommandBrowser categories={categories} />
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="px-4 md:px-8 py-12">
-        <CommandBrowser categories={categories} />
-      </div>
       </div>
     </MarketingLayout>
   );

@@ -1,6 +1,7 @@
 import { getPublishedBlogs } from "@/lib/blogs";
 import Link from "next/link";
 import { ArrowRight, Calendar } from "lucide-react";
+import { MarketingLayout } from "@/components/MarketingLayout";
 
 export const metadata = {
   title: "Blog | Pegasus",
@@ -11,63 +12,68 @@ export default async function BlogIndexPage() {
   const blogs = await getPublishedBlogs();
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden pt-24 pb-16">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/20 blur-[120px] rounded-full pointer-events-none opacity-50" />
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-5xl">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-black text-foreground mb-4 tracking-tight">
-            Pegasus <span className="text-primary">Blog</span>
-          </h1>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto">
-            Latest news, updates, and deep dives into the Pegasus Discord bot ecosystem.
-          </p>
-        </div>
+    <MarketingLayout>
+      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogs.map((blog) => (
-            <Link 
-              key={blog.id} 
-              href={`/blog/${blog.slug}`}
-              className="group bg-card/40 backdrop-blur-xl border border-border/50 rounded-2xl p-6 transition-all duration-300 hover:bg-card/60 hover:shadow-2xl hover:-translate-y-1 hover:border-primary/30 flex flex-col h-full"
-            >
-              <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground mb-4">
-                <Calendar className="w-3.5 h-3.5" />
-                {blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString() : 'Draft'}
-              </div>
-              
-              <h2 className="text-2xl font-bold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                {blog.title}
-              </h2>
-              
-              <p className="text-muted-foreground text-sm line-clamp-3 mb-6 flex-1">
-                {blog.shortDescription}
-              </p>
-              
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
-                <div className="flex items-center gap-2">
-                  {blog.authorImage ? (
-                    <img src={blog.authorImage} alt={blog.authorName || 'Author'} className="w-6 h-6 rounded-full" />
-                  ) : (
-                    <div className="w-6 h-6 rounded-full bg-primary/20" />
-                  )}
-                  <span className="text-xs font-medium text-muted-foreground">{blog.authorName || 'Pegasus Team'}</span>
-                </div>
-                <div className="text-primary group-hover:translate-x-1 transition-transform">
-                  <ArrowRight className="w-4 h-4" />
-                </div>
-              </div>
-            </Link>
-          ))}
-          
-          {blogs.length === 0 && (
-            <div className="col-span-full py-12 text-center text-muted-foreground border border-border/50 rounded-2xl bg-card/20 backdrop-blur-sm">
-              <p>No blogs published yet. Check back later!</p>
+        <div className="max-w-5xl mx-auto px-6 lg:px-24 relative z-10">
+          <div className="mb-24">
+            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+              // TRANSMISSION_LOG
             </div>
-          )}
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-8 uppercase leading-[0.9]">
+              Blog
+            </h1>
+            <p className="text-white/40 text-sm uppercase tracking-[0.1em] max-w-2xl leading-relaxed">
+              Latest news, updates, and deep dives into the Pegasus Discord bot ecosystem.
+            </p>
+          </div>
+
+          <div className="w-full h-px bg-white/10 mb-16" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+            {blogs.map((blog) => (
+              <Link 
+                key={blog.id} 
+                href={`/blog/${blog.slug}`}
+                className="group bg-[#050505] p-8 transition-all duration-500 hover:bg-white/[0.02] flex flex-col h-full"
+              >
+                <div className="flex items-center gap-2 text-[10px] font-mono text-white/30 mb-6 uppercase tracking-[0.3em]">
+                  <Calendar className="w-3 h-3" />
+                  {blog.publishedAt ? new Date(blog.publishedAt).toLocaleDateString() : 'Draft'}
+                </div>
+                
+                <h2 className="text-xl font-medium text-white mb-4 uppercase tracking-[0.05em] line-clamp-2 group-hover:tracking-[0.1em] transition-all duration-500">
+                  {blog.title}
+                </h2>
+                
+                <p className="text-white/40 text-sm line-clamp-3 mb-8 flex-1 font-light leading-relaxed">
+                  {blog.shortDescription}
+                </p>
+                
+                <div className="flex items-center justify-between mt-auto pt-6 border-t border-white/10">
+                  <div className="flex items-center gap-3">
+                    {blog.authorImage ? (
+                      <img src={blog.authorImage} alt={blog.authorName || 'Author'} className="w-5 h-5 grayscale" />
+                    ) : (
+                      <div className="w-5 h-5 bg-white/10" />
+                    )}
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">{blog.authorName || 'Pegasus Team'}</span>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-white/20 group-hover:text-white group-hover:translate-x-1 transition-all duration-500" />
+                </div>
+              </Link>
+            ))}
+            
+            {blogs.length === 0 && (
+              <div className="col-span-full py-20 text-center text-white/30 text-xs uppercase tracking-[0.3em] bg-[#050505]">
+                No transmissions published yet. Check back later.
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </MarketingLayout>
   );
 }

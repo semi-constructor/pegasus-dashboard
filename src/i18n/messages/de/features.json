@@ -153,5 +153,37 @@
       "title": "Embeds",
       "desc": "Formatiere deine Antworten mit Discord Embeds."
     }
+  },
+  "dashboard": {
+    "title": "Web-Dashboard & Analysen",
+    "description": "Steuern Sie jeden Aspekt Ihres Bots über eine hochmoderne Web-Schnittstelle mit Echtzeit-Synchronisation.",
+    "realtime": {
+      "title": "Echtzeit-Synchronisation",
+      "desc": "Einstellungen werden sofort auf Ihrem Server aktualisiert, ohne dass der Bot neu gestartet werden muss."
+    },
+    "analytics": {
+      "title": "Server-Analysen",
+      "desc": "Erhalten Sie tiefe Einblicke in das Wachstum Ihres Servers und den Wirtschaftskreislauf."
+    },
+    "mobileReady": {
+      "title": "Mobilgeräte-bereit",
+      "desc": "Verwalten Sie Ihren Server unterwegs mit unserem vollständig reaktionsfähigen Dashboard."
+    }
+  },
+  "roles": {
+    "title": "Erweitertes Rollenmanagement",
+    "description": "Geben Sie Ihrer Community die Möglichkeit, sich mit Reaktionsrollen und automatischer Zuweisung auszudrücken.",
+    "reactionRoles": {
+      "title": "Reaktionsrollen",
+      "desc": "Ermöglichen Sie es Benutzern, sich durch Reaktionen auf Nachrichten selbst Rollen zuzuweisen."
+    },
+    "stickyRoles": {
+      "title": "Sticky Rollen",
+      "desc": "Stellen Sie die Rollen eines Benutzers automatisch wieder her, wenn er geht und wieder beitritt."
+    },
+    "temporaryRoles": {
+      "title": "Temporäre Rollen",
+      "desc": "Vergeben Sie VIP- oder Sonderrollen, die nach einer bestimmten Zeit automatisch ablaufen."
+    }
   }
 }

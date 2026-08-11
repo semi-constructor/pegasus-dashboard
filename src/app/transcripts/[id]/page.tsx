@@ -13,14 +13,12 @@ interface Props {
 export default async function TicketTranscriptPage({ params }: Props) {
   const { id } = params;
 
-  // Fetch ticket details
   const ticketRes = await db.select().from(tickets).where(eq(tickets.id, id)).limit(1);
   if (!ticketRes || ticketRes.length === 0) {
     return notFound();
   }
   const ticket = ticketRes[0];
 
-  // Fetch all messages for this ticket
   const messages = await db
     .select()
     .from(ticketMessages)
@@ -28,32 +26,32 @@ export default async function TicketTranscriptPage({ params }: Props) {
     .orderBy(asc(ticketMessages.createdAt));
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex justify-center py-12 px-4 sm:px-6">
-      <div className="w-full max-w-4xl space-y-8 glass-panel p-8">
+    <div className="min-h-screen bg-black text-white flex justify-center py-32 px-4 sm:px-6 selection:bg-white selection:text-black">
+      <div className="w-full max-w-4xl">
         
         {/* Header */}
-        <header className="border-b border-white/10 pb-6 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <header className="border-b border-white/10 pb-8 mb-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-glow flex items-center gap-3">
-              <MessageSquare className="text-primary w-8 h-8" />
+            <h1 className="text-2xl font-medium text-white uppercase tracking-tighter flex items-center gap-3">
+              <MessageSquare className="text-white/30 w-6 h-6" />
               Ticket Transcript
             </h1>
-            <p className="text-muted-foreground mt-2 flex items-center gap-2">
-              <span className="bg-primary/20 text-primary px-2 py-0.5 rounded text-sm font-semibold">
+            <div className="text-white/30 mt-3 flex items-center gap-3 text-xs uppercase tracking-[0.3em]">
+              <span className="border border-white/10 px-2 py-0.5 text-[10px] font-mono">
                 #{ticket.ticketNumber}
               </span>
-              <span>•</span>
-              <Clock className="w-4 h-4" />
+              <span>·</span>
+              <Clock className="w-3 h-3" />
               {new Date(ticket.createdAt).toLocaleString()}
-            </p>
+            </div>
           </div>
           <div className="flex items-center gap-3">
-            <button className="glass-panel px-4 py-2 text-sm font-semibold hover:bg-white/10 transition-colors flex items-center gap-2 rounded-xl">
-              <Download className="w-4 h-4" />
+            <button className="border border-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] hover:bg-white/5 transition-colors flex items-center gap-2">
+              <Download className="w-3 h-3" />
               Export HTML
             </button>
-            <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
-              ticket.status === 'closed' ? 'bg-red-500/20 text-red-400' : 'bg-green-500/20 text-green-400'
+            <span className={`px-3 py-1 text-[10px] font-bold uppercase tracking-[0.3em] border ${
+              ticket.status === 'closed' ? 'border-white/10 text-white/40' : 'border-white/20 text-white/60'
             }`}>
               {ticket.status}
             </span>
@@ -61,32 +59,32 @@ export default async function TicketTranscriptPage({ params }: Props) {
         </header>
 
         {/* Message Log */}
-        <div className="space-y-6">
+        <div className="space-y-0 divide-y divide-white/5">
           {messages.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <Shield className="w-12 h-12 mx-auto mb-4 opacity-20" />
-              <p>No messages recorded for this ticket.</p>
+            <div className="text-center py-20">
+              <Shield className="w-8 h-8 mx-auto mb-4 text-white/20" />
+              <p className="text-white/30 text-xs uppercase tracking-[0.3em]">No messages recorded for this ticket.</p>
             </div>
           ) : (
             messages.map((msg) => {
               const isSystem = msg.userId === "SYSTEM";
               
               return (
-                <div key={msg.id} className={`flex gap-4 p-4 rounded-xl ${isSystem ? 'bg-primary/5 border border-primary/10' : 'hover:bg-white/5 transition-colors'}`}>
+                <div key={msg.id} className={`flex gap-4 p-6 ${isSystem ? 'bg-white/[0.02]' : 'hover:bg-white/[0.01] transition-colors'}`}>
                   {/* Avatar */}
                   <div className="flex-shrink-0">
                     {isSystem ? (
-                      <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                        <Shield className="w-5 h-5" />
+                      <div className="w-8 h-8 bg-white/10 flex items-center justify-center border border-white/10">
+                        <Shield className="w-4 h-4 text-white/40" />
                       </div>
                     ) : (
-                      <div className="w-10 h-10 rounded-full bg-secondary overflow-hidden">
+                      <div className="w-8 h-8 border border-white/10 overflow-hidden">
                         <Image 
                           src={`https://cdn.discordapp.com/avatars/${msg.userId}/avatar.png?size=128`} 
                           alt="User" 
-                          width={40} 
-                          height={40} 
-                          className="w-full h-full object-cover"
+                          width={32} 
+                          height={32} 
+                          className="w-full h-full object-cover grayscale"
                           onError={(e) => { (e.target as HTMLImageElement).src = '/favicon.ico' }}
                         />
                       </div>
@@ -95,21 +93,21 @@ export default async function TicketTranscriptPage({ params }: Props) {
                   
                   {/* Content */}
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className={`font-semibold ${isSystem ? 'text-primary' : 'text-foreground'}`}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`text-xs uppercase tracking-[0.2em] ${isSystem ? 'text-white/60' : 'text-white'}`}>
                         {isSystem ? 'System' : `User ${msg.userId}`}
                       </span>
                       {isSystem && (
-                        <span className="text-[10px] bg-primary text-primary-foreground px-1.5 py-0.5 rounded font-bold">
+                        <span className="text-[8px] bg-white text-black px-1.5 py-0.5 font-bold uppercase tracking-[0.2em]">
                           BOT
                         </span>
                       )}
-                      <span className="text-xs text-muted-foreground ml-2">
+                      <span className="text-[10px] text-white/20 uppercase tracking-[0.2em] ml-2">
                         {new Date(msg.createdAt).toLocaleString()}
                       </span>
                     </div>
                     
-                    <div className="text-foreground/90 whitespace-pre-wrap break-words leading-relaxed">
+                    <div className="text-white/60 text-sm whitespace-pre-wrap break-words leading-relaxed font-light">
                       {msg.content}
                     </div>
 
@@ -122,9 +120,9 @@ export default async function TicketTranscriptPage({ params }: Props) {
                             href={att.url} 
                             target="_blank" 
                             rel="noreferrer"
-                            className="flex items-center gap-2 text-sm bg-background border border-white/10 rounded-lg px-3 py-2 hover:bg-white/5 transition-colors"
+                            className="flex items-center gap-2 text-xs border border-white/10 px-3 py-2 hover:bg-white/5 transition-colors text-white/40 uppercase tracking-[0.2em]"
                           >
-                            <Paperclip className="w-4 h-4 text-primary" />
+                            <Paperclip className="w-3 h-3" />
                             <span className="truncate max-w-[200px]">{att.name || 'Attachment'}</span>
                           </a>
                         ))}

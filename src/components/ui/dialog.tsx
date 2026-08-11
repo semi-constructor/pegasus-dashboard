@@ -47,12 +47,31 @@ function DialogOverlay({
  )
 }
 
+import { cva, type VariantProps } from "class-variance-authority"
+
+const dialogContentVariants = cva(
+  "fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-1.5rem)] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 gap-4 p-4 text-sm duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+  {
+    variants: {
+      variant: {
+        default: "rounded-xl bg-popover text-popover-foreground ring-1 ring-foreground/10",
+        brutalist: "rounded-none border border-white/20 bg-black text-white font-mono ring-0",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+)
+
 function DialogContent({
  className,
+ variant = "default",
  children,
  showCloseButton = true,
  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content> & {
+}: React.ComponentProps<typeof DialogPrimitive.Content> &
+ VariantProps<typeof dialogContentVariants> & {
  showCloseButton?: boolean
 }) {
  return (
@@ -60,8 +79,9 @@ function DialogContent({
  <DialogOverlay />
  <DialogPrimitive.Content
  data-slot="dialog-content"
+ data-variant={variant}
  className={cn(
-"fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-1.5rem)] max-h-[90vh] overflow-y-auto -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+ dialogContentVariants({ variant }),
  className
  )}
  {...props}
@@ -97,17 +117,20 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
 
 function DialogFooter({
  className,
+ variant = "default",
  showCloseButton = false,
  children,
  ...props
 }: React.ComponentProps<"div"> & {
+ variant?: "default" | "brutalist"
  showCloseButton?: boolean
 }) {
  return (
  <div
  data-slot="dialog-footer"
  className={cn(
-"-mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t bg-muted/50 p-4 sm:flex-row sm:justify-end",
+ "-mx-4 -mb-4 flex flex-col-reverse gap-2 p-4 sm:flex-row sm:justify-end",
+ variant === "brutalist" ? "rounded-none border-t border-white/20 bg-black" : "rounded-b-xl border-t bg-muted/50",
  className
  )}
  {...props}

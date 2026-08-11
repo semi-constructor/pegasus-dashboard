@@ -1,8 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { GitCommit, Tag, GitBranch, ExternalLink } from "lucide-react";
+import { GitCommit, GitBranch, ExternalLink, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { motion, AnimatePresence } from "framer-motion";
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { type: "spring", stiffness: 100, damping: 20 }
+  },
+  exit: { opacity: 0, x: 20 }
+};
 
 export default function ChangelogClient({ items }: { items: any[] }) {
   const t = useTranslations("changelog");
@@ -14,85 +25,98 @@ export default function ChangelogClient({ items }: { items: any[] }) {
   });
 
   return (
-    <div className="space-y-8 w-full">
-      <div className="flex flex-wrap justify-center gap-2 mb-8 relative z-10">
+    <div className="w-full relative z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="flex flex-wrap gap-4 mb-24 relative z-10 border-b border-white/10 pb-6"
+      >
         <button 
           onClick={() => setFilter("all")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === "all" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"}`}
+          className={`px-6 py-2 text-xs tracking-[0.2em] uppercase transition-colors border ${filter === "all" ? "border-white text-white bg-white/5" : "border-white/10 text-white/30 hover:border-white/30 hover:text-white/70"}`}
         >
           {t("allUpdates")}
         </button>
         <button 
           onClick={() => setFilter("semi-constructor/pegasus")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === "semi-constructor/pegasus" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"}`}
+          className={`px-6 py-2 text-xs tracking-[0.2em] uppercase transition-colors border ${filter === "semi-constructor/pegasus" ? "border-white text-white bg-white/5" : "border-white/10 text-white/30 hover:border-white/30 hover:text-white/70"}`}
         >
           {t("pegasusBot")}
         </button>
         <button 
           onClick={() => setFilter("semi-constructor/pegasus-dashboard")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === "semi-constructor/pegasus-dashboard" ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground hover:text-foreground"}`}
+          className={`px-6 py-2 text-xs tracking-[0.2em] uppercase transition-colors border ${filter === "semi-constructor/pegasus-dashboard" ? "border-white text-white bg-white/5" : "border-white/10 text-white/30 hover:border-white/30 hover:text-white/70"}`}
         >
           {t("dashboard")}
         </button>
-      </div>
+      </motion.div>
 
-      <div className="relative border-l-2 border-border/50 ml-6 pl-8 space-y-16">
-        {filteredItems.map(item => (
-          <div key={item.id} className="relative">
-            {/* Timeline dot */}
-            <div className="absolute -left-[41px] bg-background border-4 border-background p-1 rounded-full">
-              <div className={`w-3 h-3 rounded-full ${item.type === 'release' ? 'bg-primary shadow-[0_0_10px_rgba(var(--primary),0.8)]' : 'bg-muted-foreground'}`} />
-            </div>
+      <div className="relative border-l border-white/10 ml-2 pl-8 md:pl-16 space-y-12">
+        <AnimatePresence mode="popLayout">
+          {filteredItems.map((item) => (
+            <motion.div 
+              key={item.id} 
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              layout
+              className="relative"
+            >
+              {/* Timeline notch */}
+              <div className="absolute -left-[32px] md:-left-[64px] top-4 w-4 border-t border-white/30" />
+              <div className="absolute -left-[34px] md:-left-[66px] top-[14px] w-1.5 h-1.5 bg-white" />
 
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-wrap items-center gap-3 mb-2">
-                <span className="text-sm font-medium text-muted-foreground">{item.date}</span>
-                <a href={`https://github.com/${item.repo}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-muted/50 text-xs font-mono text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-                  <GitBranch className="w-3 h-3" />
-                  {item.repo}
-                </a>
-                {item.labels.map((label: string) => (
-                  <span key={label} className={`px-2 py-0.5 rounded text-xs font-semibold ${
-                    label === 'major' ? 'bg-purple-500/10 text-purple-400' :
-                    label === 'bugfix' ? 'bg-red-500/10 text-red-400' :
-                    label === 'feature' ? 'bg-green-500/10 text-green-400' :
-                    'bg-blue-500/10 text-blue-400'
-                  }`}>
-                    {label}
-                  </span>
-                ))}
-              </div>
-
-              {item.type === "release" ? (
-                <div className="bg-card border border-border/50 rounded-xl p-6 shadow-sm">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Tag className="w-5 h-5 text-primary" />
-                    <h2 className="text-2xl font-bold text-foreground">{item.version} - {item.title}</h2>
-                  </div>
-                  <p className="text-muted-foreground">{item.description}</p>
+              <div className="flex flex-col gap-3 group">
+                <div className="flex flex-wrap items-center gap-4 mb-2">
+                  <span className="text-xs font-mono text-white/40 tracking-widest">{item.date}</span>
+                  <a href={`https://github.com/${item.repo}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1 border border-white/10 text-[10px] font-mono tracking-widest text-white/40 hover:text-white transition-colors uppercase">
+                    <GitBranch className="w-3 h-3" />
+                    {item.repo}
+                  </a>
+                  {item.labels.map((label: string) => (
+                    <span key={label} className="text-[10px] tracking-[0.2em] text-white/30 uppercase">
+                      / {label}
+                    </span>
+                  ))}
                 </div>
-              ) : (
-                <a href={item.url} target="_blank" rel="noopener noreferrer" className="bg-card/50 border border-border/30 rounded-lg p-4 group hover:border-border/80 transition-colors cursor-pointer block">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <GitCommit className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
-                      <h3 className="text-base font-medium text-foreground">{item.title}</h3>
+
+                {item.type === "release" ? (
+                  <div className="border border-white/10 p-8 hover:bg-white/[0.02] transition-colors">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Sparkles className="w-5 h-5 text-white/50" />
+                      <h2 className="text-2xl font-medium text-white tracking-tighter uppercase">{item.version} - {item.title}</h2>
                     </div>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <p className="text-white/50 font-light text-lg leading-relaxed">{item.description}</p>
                   </div>
-                  <div className="mt-2 pl-7 font-mono text-xs text-muted-foreground">
-                    {t("commit")}: {item.hash}
-                  </div>
-                </a>
-              )}
-            </div>
-          </div>
-        ))}
+                ) : (
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="block border border-white/5 p-6 hover:border-white/30 hover:bg-white/[0.02] transition-colors group cursor-pointer">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-4">
+                        <GitCommit className="w-5 h-5 text-white/20 group-hover:text-white transition-colors" />
+                        <h3 className="text-lg font-medium text-white/70 group-hover:text-white transition-colors tracking-tight uppercase">{item.title}</h3>
+                      </div>
+                      <ExternalLink className="w-4 h-4 text-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <div className="mt-4 pl-9 font-mono text-xs text-white/20 tracking-[0.2em]">
+                      COMMIT: <span className="text-white/40 group-hover:text-white transition-colors">{item.hash}</span>
+                    </div>
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
 
         {filteredItems.length === 0 && (
-          <div className="text-center py-12 text-muted-foreground">
+          <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            className="text-white/30 text-sm tracking-widest uppercase py-12"
+          >
             {t("noUpdates")}
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

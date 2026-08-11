@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { MarketingLayout } from "@/components/MarketingLayout";
 
 export async function generateMetadata({ params }: { params: Promise<{ blogId: string }> }) {
   const resolvedParams = await params;
@@ -35,78 +36,80 @@ export default async function BlogPostPage({ params }: { params: Promise<{ blogI
   }
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden pt-24 pb-16">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none opacity-50" />
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10 max-w-4xl">
-        <div className="mb-10">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" />
-            Back to Blog
-          </Link>
-          
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-foreground mb-6 tracking-tight leading-tight">
-            {blog.title}
-          </h1>
-          
-          <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground border-y border-border/50 py-4">
-            <div className="flex items-center gap-3">
-              {blog.authorImage ? (
-                <img src={blog.authorImage} alt={blog.authorName || 'Author'} className="w-8 h-8 rounded-full border border-border" />
-              ) : (
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
-                  <span className="text-primary font-bold text-xs">P</span>
+    <MarketingLayout>
+      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+        
+        <div className="max-w-4xl mx-auto px-6 lg:px-24 relative z-10">
+          <div className="mb-16">
+            <Link href="/blog" className="inline-flex items-center gap-2 text-xs text-white/30 uppercase tracking-[0.3em] hover:text-white transition-colors mb-12">
+              <ArrowLeft className="w-3 h-3" />
+              Back to Blog
+            </Link>
+            
+            <h1 className="text-4xl md:text-6xl font-medium text-white mb-8 tracking-tighter uppercase leading-[0.95]">
+              {blog.title}
+            </h1>
+            
+            <div className="flex flex-wrap items-center gap-6 text-xs border-y border-white/10 py-4">
+              <div className="flex items-center gap-3">
+                {blog.authorImage ? (
+                  <img src={blog.authorImage} alt={blog.authorName || 'Author'} className="w-6 h-6 grayscale border border-white/10" />
+                ) : (
+                  <div className="w-6 h-6 bg-white/10 flex items-center justify-center border border-white/10">
+                    <span className="text-white text-[10px] font-bold">P</span>
+                  </div>
+                )}
+                <div className="flex flex-col">
+                  <span className="text-white text-xs uppercase tracking-[0.2em]">{blog.authorName || 'Pegasus Team'}</span>
+                  <span className="text-white/20 text-[10px] uppercase tracking-[0.3em]">Author</span>
                 </div>
-              )}
-              <div className="flex flex-col">
-                <span className="font-semibold text-foreground">{blog.authorName || 'Pegasus Team'}</span>
-                <span className="text-xs">Author</span>
+              </div>
+              
+              <div className="w-px h-6 bg-white/10 hidden sm:block" />
+              
+              <div className="flex items-center gap-2 text-white/30 uppercase tracking-[0.3em]">
+                <Calendar className="w-3 h-3" />
+                <span>
+                  {blog.publishedAt 
+                    ? new Date(blog.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
+                    : 'Draft'}
+                </span>
               </div>
             </div>
-            
-            <div className="w-px h-8 bg-border/50 hidden sm:block" />
-            
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <span>
-                {blog.publishedAt 
-                  ? new Date(blog.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
-                  : 'Draft'}
-              </span>
-            </div>
+          </div>
+
+          <div className="prose prose-invert prose-lg max-w-none prose-headings:font-medium prose-headings:tracking-tighter prose-headings:uppercase prose-a:text-white prose-a:underline prose-a:underline-offset-4 prose-img:border prose-img:border-white/10 border border-white/10 bg-[#050505] p-8 md:p-12">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                code({ node, inline, className, children, ...props }: any) {
+                  const match = /language-(\w+)/.exec(className || '');
+                  return !inline && match ? (
+                    <SyntaxHighlighter
+                      style={atomDark as any}
+                      language={match[1]}
+                      PreTag="div"
+                      className="my-4 border border-white/10"
+                      {...props}
+                    >
+                      {String(children).replace(/\n$/, '')}
+                    </SyntaxHighlighter>
+                  ) : (
+                    <code className={className} {...props}>
+                      {children}
+                    </code>
+                  );
+                }
+              }}
+            >
+              {blog.content}
+            </ReactMarkdown>
           </div>
         </div>
-
-        <div className="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:text-primary/80 prose-img:rounded-xl prose-img:border prose-img:border-border/50 bg-card/20 backdrop-blur-sm border border-border/50 rounded-3xl p-6 md:p-10 shadow-xl">
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-            components={{
-              code({ node, inline, className, children, ...props }: any) {
-                const match = /language-(\w+)/.exec(className || '');
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    style={atomDark as any}
-                    language={match[1]}
-                    PreTag="div"
-                    className="rounded-xl my-4"
-                    {...props}
-                  >
-                    {String(children).replace(/\n$/, '')}
-                  </SyntaxHighlighter>
-                ) : (
-                  <code className={className} {...props}>
-                    {children}
-                  </code>
-                );
-              }
-            }}
-          >
-            {blog.content}
-          </ReactMarkdown>
-        </div>
       </div>
-    </div>
+    </MarketingLayout>
   );
 }

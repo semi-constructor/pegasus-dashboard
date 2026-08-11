@@ -5,7 +5,7 @@ import path from "path";
 const corePages = [
   "src/app/dashboard/admin/audit-logs/AuditLogsClient.tsx",
   "src/app/dashboard/admin/bug-reports/_components/bug-reports-client.tsx",
-  "src/app/dashboard/admin/database/page.tsx",
+  "src/app/dashboard/admin/page.tsx",
   "src/app/dashboard/admin/metrics/components/MetricsClient.tsx",
   "src/app/dashboard/admin/security/_components/security-client.tsx",
   "src/app/dashboard/profile/reports/_components/user-reports-client.tsx",
@@ -17,12 +17,13 @@ const corePages = [
 ];
 
 describe("TSX Localization Inspection", () => {
-  it("should use next-intl translation hook (useTranslations) in all core pages", () => {
+  it("should use next-intl translation hook or server function in all core pages", () => {
     for (const relativePath of corePages) {
       const fullPath = path.join(process.cwd(), relativePath);
       expect(fs.existsSync(fullPath), `File missing: ${relativePath}`).toBe(true);
       const content = fs.readFileSync(fullPath, "utf-8");
-      expect(content.includes("useTranslations"), `${relativePath} does not use useTranslations`).toBe(true);
+      const hasIntl = content.includes("useTranslations") || content.includes("getTranslations");
+      expect(hasIntl, `${relativePath} does not use useTranslations/getTranslations`).toBe(true);
     }
   });
 });

@@ -1,6 +1,17 @@
 import { getRequestConfig } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { Locale, defaultLocale, locales } from './config';
+import enSeoMessages from './messages/en/seo.json';
+import deSeoMessages from './messages/de/seo.json';
+import esSeoMessages from './messages/es/seo.json';
+import frSeoMessages from './messages/fr/seo.json';
+
+const seoMessages: Record<Locale, typeof enSeoMessages> = {
+  en: enSeoMessages,
+  de: deSeoMessages,
+  es: esSeoMessages,
+  fr: frSeoMessages,
+};
 
 async function loadMessages(locale: Locale) {
   const namespaces = [
@@ -41,6 +52,11 @@ async function loadMessages(locale: Locale) {
   const messages: Record<string, any> = {};
 
   for (const ns of namespaces) {
+    if (ns === 'seo') {
+      messages[ns] = seoMessages[locale];
+      continue;
+    }
+
     try {
       const mod = await import(`./messages/${locale}/${ns}.json`);
       messages[ns] = mod.default;

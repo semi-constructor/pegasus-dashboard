@@ -1,16 +1,14 @@
 import React from 'react';
 import { MarketingLayout } from '@/components/MarketingLayout';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Terminal, Shield, Wallet, Gift, Smile, Settings } from 'lucide-react';
+import { Terminal, Shield, Wallet, Gift, Smile, Settings, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'PegasusBot Commands & Documentation',
   description: 'Explore the full list of PegasusBot commands, organized by category. Learn how to use moderation, economy, and utility commands.',
-  alternates: {
-    canonical: '/commands',
-  },
+  alternates: { canonical: '/commands' },
   openGraph: {
     title: 'PegasusBot Commands & Documentation',
     description: 'Explore the full list of PegasusBot commands, organized by category.',
@@ -27,84 +25,69 @@ export default function CommandsPage() {
   };
 
   const categories = [
-    {
-      name: 'Moderation',
-      icon: <Shield className="w-6 h-6 text-emerald-400" />,
-      description: 'Commands to keep your server safe (ban, kick, mute, warn).',
-      slug: 'moderation'
-    },
-    {
-      name: 'Economy',
-      icon: <Wallet className="w-6 h-6 text-emerald-400" />,
-      description: 'Global and server-specific economy commands (balance, pay, shop).',
-      slug: 'economy'
-    },
-    {
-      name: 'Giveaways',
-      icon: <Gift className="w-6 h-6 text-emerald-400" />,
-      description: 'Host interactive giveaways with ease (gstart, reroll, gend).',
-      slug: 'giveaways'
-    },
-    {
-      name: 'Fun & Utility',
-      icon: <Smile className="w-6 h-6 text-emerald-400" />,
-      description: 'Engage your community with fun commands and useful utilities.',
-      slug: 'fun'
-    },
-    {
-      name: 'Configuration',
-      icon: <Settings className="w-6 h-6 text-emerald-400" />,
-      description: 'Set up welcome messages, automod, and server settings.',
-      slug: 'configuration'
-    }
+    { name: 'Moderation', icon: Shield, description: 'Commands to keep your server safe (ban, kick, mute, warn).', slug: 'moderation' },
+    { name: 'Economy', icon: Wallet, description: 'Global and server-specific economy commands (balance, pay, shop).', slug: 'economy' },
+    { name: 'Giveaways', icon: Gift, description: 'Host interactive giveaways with ease (gstart, reroll, gend).', slug: 'giveaways' },
+    { name: 'Fun & Utility', icon: Smile, description: 'Engage your community with fun commands and useful utilities.', slug: 'fun' },
+    { name: 'Configuration', icon: Settings, description: 'Set up welcome messages, automod, and server settings.', slug: 'configuration' }
   ];
 
   return (
     <MarketingLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
-        <Breadcrumbs items={[
-          { name: 'Home', url: '/' },
-          { name: 'Commands', url: '/commands' }
-        ]} />
+      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
 
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 font-medium mb-8 border border-emerald-500/20">
-            <Terminal className="w-4 h-4" /> Command Reference
+        <div className="max-w-7xl mx-auto px-6 lg:px-24 relative z-10">
+          <Breadcrumbs items={[
+            { name: 'Home', url: '/' },
+            { name: 'Commands', url: '/commands' }
+          ]} />
+
+          <div className="mb-24 mt-12">
+            <div className="inline-flex items-center gap-2 text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+              <Terminal className="w-3 h-3" /> COMMAND_REFERENCE
+            </div>
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-8 uppercase leading-[0.9]">
+              Bot Commands
+            </h1>
+            <p className="text-white/40 text-sm uppercase tracking-[0.1em] max-w-2xl leading-relaxed">
+              Discover everything PegasusBot can do. Select a category below to view detailed command syntax, permissions, and examples.
+            </p>
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
-            Bot Commands
-          </h1>
-          <p className="text-xl text-zinc-400">
-            Discover everything PegasusBot can do. Select a category below to view detailed command syntax, permissions, and examples.
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-          {categories.map((category) => (
-            <Link 
-              key={category.slug} 
-              href={`/docs/commands#${category.slug}`}
-              className="p-8 rounded-3xl bg-zinc-900/50 border border-zinc-800 hover:border-emerald-500/50 transition-all hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(16,185,129,0.1)] group flex flex-col items-start"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-zinc-800 flex items-center justify-center mb-6 group-hover:bg-emerald-500/10 transition-colors">
-                {category.icon}
-              </div>
-              <h3 className="text-2xl font-bold mb-3">{category.name}</h3>
-              <p className="text-zinc-400 leading-relaxed mb-6">{category.description}</p>
-              <span className="mt-auto text-emerald-400 font-medium flex items-center gap-2 group-hover:gap-3 transition-all">
-                View Commands &rarr;
-              </span>
-            </Link>
-          ))}
-        </div>
-        
-        <div className="bg-gradient-to-br from-zinc-900 to-black rounded-3xl p-10 border border-zinc-800 text-center">
-          <h2 className="text-2xl font-bold mb-4">Looking for a specific command?</h2>
-          <p className="text-zinc-400 mb-8 max-w-2xl mx-auto">
-            You can always use the <code>/help</code> command directly within Discord to see a personalized list of commands available to your role.
-          </p>
+          <div className="w-full h-px bg-white/10 mb-16" />
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 mb-32">
+            {categories.map((category, i) => (
+              <Link 
+                key={category.slug} 
+                href={`/docs/commands#${category.slug}`}
+                className="group bg-[#050505] p-8 hover:bg-white/[0.02] transition-all duration-500 flex flex-col items-start"
+              >
+                <div className="flex items-center justify-between w-full mb-8">
+                  <category.icon className="w-6 h-6 text-white/30 group-hover:text-white transition-colors duration-500" />
+                  <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-white/20">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                </div>
+                <h3 className="text-xl font-medium text-white mb-4 uppercase tracking-[0.1em]">{category.name}</h3>
+                <p className="text-white/40 text-sm leading-relaxed font-light mb-8 flex-grow">{category.description}</p>
+                <span className="flex items-center text-xs uppercase tracking-[0.3em] text-white/20 group-hover:text-white transition-colors duration-500">
+                  View Commands <ChevronRight className="w-3 h-3 ml-2 group-hover:translate-x-2 transition-transform duration-500" />
+                </span>
+              </Link>
+            ))}
+          </div>
+          
+          <div className="border border-white/10 bg-[#050505] p-12 text-center">
+            <h2 className="text-2xl font-medium text-white mb-6 uppercase tracking-[0.2em]">Looking for a specific command?</h2>
+            <p className="text-white/40 text-sm font-light max-w-2xl mx-auto">
+              You can always use the <code className="text-white font-mono text-xs border border-white/10 px-2 py-1">/help</code> command directly within Discord to see a personalized list of commands available to your role.
+            </p>
+          </div>
         </div>
       </div>
     </MarketingLayout>

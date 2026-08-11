@@ -2,7 +2,7 @@ import React from 'react';
 import { getTranslations } from 'next-intl/server';
 import { MarketingLayout } from '@/components/MarketingLayout';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { ShieldAlert, Eye, Lock, Activity, Settings, UserX, CheckCircle2 } from 'lucide-react';
+import { ShieldAlert, Eye, Lock, Activity, Settings, UserX, CheckCircle2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { getLocale } from 'next-intl/server';
@@ -43,138 +43,122 @@ export default async function ModerationFeaturePage() {
     }
   };
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is the automod completely free?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, PegasusBot offers full automod capabilities including anti-spam, anti-link, and anti-caps completely free."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I view deleted messages?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, the logging module keeps a detailed audit log of deleted and edited messages, role changes, and joins/leaves."
-        }
-      }
-    ]
-  };
-
   return (
     <MarketingLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
-        <Breadcrumbs items={[
-          { name: 'Home', url: '/' },
-          { name: 'Features', url: '/features' },
-          { name: 'Moderation', url: '/features/moderation' }
-        ]} />
+      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+        {/* Architectural background lines */}
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+        
+        <div className="max-w-6xl mx-auto px-6 lg:px-24 relative z-10">
+          <Breadcrumbs items={[
+            { name: 'Home', url: '/' },
+            { name: 'Features', url: '/features' },
+            { name: 'Moderation', url: '/features/moderation' }
+          ]} />
 
-        {/* Hero Section */}
-        <div className="text-center max-w-4xl mx-auto mb-20 mt-10">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 text-emerald-400 font-medium mb-8 border border-emerald-500/20">
-            <ShieldAlert className="w-4 h-4" /> Server Protection
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-6 drop-shadow-sm leading-tight">
-            {t('heroTitle')}
-          </h1>
-          <p className="text-xl text-zinc-400 mb-10 leading-relaxed max-w-2xl mx-auto">
-            {t('heroSubtitle')}
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/api/auth/signin" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl font-bold transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-              Protect Your Server
-            </Link>
-            <Link href="/docs/commands#moderation" className="px-8 py-4 bg-zinc-800/50 hover:bg-zinc-800 text-white rounded-xl font-medium transition-colors border border-zinc-700 backdrop-blur-sm">
-              View Commands
-            </Link>
-          </div>
-        </div>
-
-        {/* Interactive Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
-          <div className="p-8 rounded-3xl bg-gradient-to-b from-zinc-800/50 to-zinc-900/50 border border-zinc-700/50 hover:border-emerald-500/50 transition-all hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(16,185,129,0.1)] group">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
-              <Settings className="w-7 h-7 text-emerald-400" />
+          {/* Hero Section */}
+          <div className="mb-32 mt-16 max-w-4xl">
+            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+              <ShieldAlert className="w-4 h-4 mr-3 text-red-500/50" />
+              // Server Protection
             </div>
-            <h3 className="text-xl font-bold mb-3">{t('feature1.title')}</h3>
-            <p className="text-zinc-400 leading-relaxed">{t('feature1.desc')}</p>
-          </div>
-          
-          <div className="p-8 rounded-3xl bg-gradient-to-b from-zinc-800/50 to-zinc-900/50 border border-zinc-700/50 hover:border-emerald-500/50 transition-all hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(16,185,129,0.1)] group">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
-              <Activity className="w-7 h-7 text-emerald-400" />
+            
+            <h1 className="text-6xl md:text-8xl font-medium tracking-tighter text-white mb-8 uppercase leading-[0.9]">
+              {t('heroTitle')}
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-white/40 font-light max-w-2xl leading-relaxed mb-12">
+              {t('heroSubtitle')}
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-6">
+              <Link href="/api/auth/signin" className="group flex items-center justify-center px-8 py-4 bg-white text-black text-sm font-bold tracking-[0.2em] uppercase hover:bg-white/90 transition-colors">
+                Protect Your Server
+                <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link href="/docs/commands#moderation" className="group flex items-center justify-center px-8 py-4 bg-transparent border border-white/20 text-white text-sm font-bold tracking-[0.2em] uppercase hover:border-white/50 transition-colors">
+                View Commands
+              </Link>
             </div>
-            <h3 className="text-xl font-bold mb-3">{t('feature2.title')}</h3>
-            <p className="text-zinc-400 leading-relaxed">{t('feature2.desc')}</p>
           </div>
 
-          <div className="p-8 rounded-3xl bg-gradient-to-b from-zinc-800/50 to-zinc-900/50 border border-zinc-700/50 hover:border-emerald-500/50 transition-all hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(16,185,129,0.1)] group">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
-              <Lock className="w-7 h-7 text-emerald-400" />
-            </div>
-            <h3 className="text-xl font-bold mb-3">{t('feature3.title')}</h3>
-            <p className="text-zinc-400 leading-relaxed">{t('feature3.desc')}</p>
-          </div>
-        </div>
+          <div className="w-full h-px bg-white/10 mb-24" />
 
-        {/* Feature Showcase / UI Mockup */}
-        <div className="mb-24 rounded-3xl bg-black border border-zinc-800 overflow-hidden relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none"></div>
-          <div className="p-10 lg:p-16 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+          {/* Interactive Features Grid */}
+          <div className="grid md:grid-cols-3 gap-px bg-white/10 border border-white/10 mb-32">
+            <div className="bg-black p-12 hover:bg-white/[0.02] transition-colors group">
+              <Settings className="w-8 h-8 text-white/30 mb-8 group-hover:text-white transition-colors" />
+              <h3 className="text-2xl font-medium tracking-tighter uppercase text-white mb-4">{t('feature1.title')}</h3>
+              <p className="text-white/40 font-light leading-relaxed">{t('feature1.desc')}</p>
+            </div>
+            
+            <div className="bg-black p-12 hover:bg-white/[0.02] transition-colors group">
+              <Activity className="w-8 h-8 text-white/30 mb-8 group-hover:text-white transition-colors" />
+              <h3 className="text-2xl font-medium tracking-tighter uppercase text-white mb-4">{t('feature2.title')}</h3>
+              <p className="text-white/40 font-light leading-relaxed">{t('feature2.desc')}</p>
+            </div>
+
+            <div className="bg-black p-12 hover:bg-white/[0.02] transition-colors group">
+              <Lock className="w-8 h-8 text-white/30 mb-8 group-hover:text-white transition-colors" />
+              <h3 className="text-2xl font-medium tracking-tighter uppercase text-white mb-4">{t('feature3.title')}</h3>
+              <p className="text-white/40 font-light leading-relaxed">{t('feature3.desc')}</p>
+            </div>
+          </div>
+
+          {/* Feature Showcase / UI Mockup */}
+          <div className="border border-white/10 p-12 lg:p-24 grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold mb-6">Stop trolls before they strike.</h2>
-              <p className="text-lg text-zinc-400 mb-8 leading-relaxed">
+              <div className="text-white/30 text-xs tracking-[0.3em] uppercase mb-8 pb-4 border-b border-white/10 inline-block">
+                // AUTOMATED DEFENSE
+              </div>
+              <h2 className="text-4xl lg:text-5xl font-medium tracking-tighter uppercase text-white mb-8">Stop trolls before they strike.</h2>
+              <p className="text-lg text-white/50 font-light mb-12 leading-relaxed">
                 PegasusBot's automod runs 24/7, catching spam, self-promotion, and malicious links the millisecond they are sent. Configure custom punishment paths based on user offenses.
               </p>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3 text-zinc-300">
-                  <CheckCircle2 className="text-emerald-400 w-5 h-5" /> Anti-Spam & Anti-Raid
+              
+              <ul className="space-y-6">
+                <li className="flex items-center gap-4 text-white/60 font-light tracking-wide uppercase text-sm">
+                  <span className="w-6 shrink-0 text-white/20">/</span> Anti-Spam & Anti-Raid
                 </li>
-                <li className="flex items-center gap-3 text-zinc-300">
-                  <CheckCircle2 className="text-emerald-400 w-5 h-5" /> Word Blacklist & Link Filtering
+                <li className="flex items-center gap-4 text-white/60 font-light tracking-wide uppercase text-sm">
+                  <span className="w-6 shrink-0 text-white/20">/</span> Word Blacklist & Link Filtering
                 </li>
-                <li className="flex items-center gap-3 text-zinc-300">
-                  <CheckCircle2 className="text-emerald-400 w-5 h-5" /> Auto-mute & Auto-ban Escalation
+                <li className="flex items-center gap-4 text-white/60 font-light tracking-wide uppercase text-sm">
+                  <span className="w-6 shrink-0 text-white/20">/</span> Auto-mute & Auto-ban Escalation
                 </li>
               </ul>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-emerald-500/20 blur-[100px] rounded-full"></div>
-              <div className="relative bg-zinc-900 border border-zinc-700 rounded-xl p-6 shadow-2xl">
-                <div className="flex items-center gap-3 mb-6 pb-4 border-b border-zinc-800">
-                  <Eye className="w-5 h-5 text-zinc-400" />
-                  <span className="font-semibold">Live Audit Log</span>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex gap-4 items-start p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                    <UserX className="w-5 h-5 text-red-400 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-red-400">Message Deleted</p>
-                      <p className="text-sm text-zinc-400">User posted a phishing link.</p>
-                    </div>
+            
+            {/* Minimalist Log Display */}
+            <div className="border border-white/10 bg-[#050505] p-8 font-mono text-sm">
+              <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+                <span className="text-white/50 tracking-[0.2em] uppercase">Audit_Log.exe</span>
+                <Eye className="w-4 h-4 text-white/20" />
+              </div>
+              
+              <div className="space-y-6">
+                <div className="flex gap-4 items-start">
+                  <span className="text-red-500/50 mt-1">[-]</span>
+                  <div>
+                    <p className="text-white tracking-widest uppercase">Message_Deleted</p>
+                    <p className="text-white/30 mt-1 text-xs">User posted a phishing link.</p>
                   </div>
-                  <div className="flex gap-4 items-start p-3 rounded-lg bg-zinc-800/50">
-                    <ShieldAlert className="w-5 h-5 text-orange-400 mt-0.5" />
-                    <div>
-                      <p className="font-medium text-orange-400">User Muted (10m)</p>
-                      <p className="text-sm text-zinc-400">Spamming in #general.</p>
-                    </div>
+                </div>
+                
+                <div className="flex gap-4 items-start">
+                  <span className="text-orange-500/50 mt-1">[!]</span>
+                  <div>
+                    <p className="text-white tracking-widest uppercase">User_Muted (10m)</p>
+                    <p className="text-white/30 mt-1 text-xs">Spamming in #general.</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </MarketingLayout>
   );

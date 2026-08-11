@@ -153,5 +153,37 @@
       "title": "Rich Embeds",
       "desc": "Format your custom responses using beautiful Discord embeds."
     }
+  },
+  "dashboard": {
+    "title": "Web Dashboard & Analytics",
+    "description": "Control every aspect of your bot from a state-of-the-art web interface with real-time syncing.",
+    "realtime": {
+      "title": "Real-Time Sync",
+      "desc": "Settings update instantly in your server without needing to restart the bot."
+    },
+    "analytics": {
+      "title": "Server Analytics",
+      "desc": "View deep insights into your server's growth and economy circulation."
+    },
+    "mobileReady": {
+      "title": "Mobile Ready",
+      "desc": "Manage your server on the go with our fully responsive dashboard."
+    }
+  },
+  "roles": {
+    "title": "Advanced Role Management",
+    "description": "Give your community the power to express themselves with reaction roles and automated assigning.",
+    "reactionRoles": {
+      "title": "Reaction Roles",
+      "desc": "Allow users to self-assign roles by reacting to messages."
+    },
+    "stickyRoles": {
+      "title": "Sticky Roles",
+      "desc": "Restore a user's roles automatically if they leave and rejoin."
+    },
+    "temporaryRoles": {
+      "title": "Temporary Roles",
+      "desc": "Grant VIP or special roles that automatically expire after a set time."
+    }
   }
 }
