@@ -3,7 +3,7 @@ import { locales } from '@/i18n/config';
 
 import { db } from '@/lib/db';
 import { guildSettings } from '../../schemas/guilds';
-import { eq } from 'drizzle-orm';
+import { getPublishedBlogs } from '@/lib/blogs';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://pegasusbot.app';
@@ -11,12 +11,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Current public static routes
   const staticRoutes = [
     '',
+    '/blog',
     '/docs',
+    '/docs/commands',
+    '/docs/dashboard',
+    '/docs/installation',
     '/changelog',
     '/terms-of-service',
     '/privacy',
+    '/imprint',
+    '/license',
     '/team',
+    '/levels',
+    '/eco',
     '/modules',
+    '/module/automod',
+    '/module/economy',
+    '/module/engagement',
+    '/module/giveaways',
+    '/module/jtc',
+    '/module/moderation',
+    '/module/schedule',
+    '/module/tickets',
+    '/module/warns',
+    '/module/xp',
+    '/module/custom-commands',
+    '/module/settings',
     '/alternatives/mee6',
     '/alternatives/dyno',
     '/alternatives/carl-bot',
@@ -32,22 +52,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/how-to-add-pegasus-bot'
   ];
 
-  // Fetch dynamic public guilds
-  const publicGuilds = await db.select({
-    guildId: guildSettings.guildId,
-    publicLevels: guildSettings.publicLevels,
-    publicEco: guildSettings.publicEco,
-  }).from(guildSettings);
-
   const dynamicRoutes: string[] = [];
 
-  for (const g of publicGuilds) {
-    if (g.publicLevels) {
-      dynamicRoutes.push(`/levels/${g.guildId}`);
+  // Fetch dynamic public guilds
+  try {
+    const publicGuilds = await db.select({
+      guildId: guildSettings.guildId,
+      publicLevels: guildSettings.publicLevels,
+      publicEco: guildSettings.publicEco,
+    }).from(guildSettings);
+
+    for (const g of publicGuilds) {
+      if (g.publicLevels) {
+        dynamicRoutes.push(`/levels/${g.guildId}`);
+      }
+      if (g.publicEco) {
+        dynamicRoutes.push(`/eco/${g.guildId}`);
+      }
     }
-    if (g.publicEco) {
-      dynamicRoutes.push(`/eco/${g.guildId}`);
+  } catch (error) {
+    console.error('Failed to fetch public guilds for sitemap:', error);
+  }
+
+  // Fetch dynamic published blogs
+  try {
+    const publishedBlogs = await getPublishedBlogs();
+    for (const blog of publishedBlogs) {
+      if (blog.slug) {
+        dynamicRoutes.push(`/blog/${blog.slug}`);
+      }
     }
+  } catch (error) {
+    console.error('Failed to fetch published blogs for sitemap:', error);
   }
 
   const allRoutes = [...staticRoutes, ...dynamicRoutes];
