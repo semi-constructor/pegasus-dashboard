@@ -5,12 +5,14 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  // @ts-expect-error NextConfig types might be incomplete
-  eslint: {
-    ignoreDuringBuilds: true,
+  devIndicators: {
+    buildActivity: false,
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  images: {
+    qualities: [75, 100]
   },
   /* config options here */
 };
