@@ -32,10 +32,10 @@ export default async function DashboardPage(props: {
       <div className="p-8 max-w-6xl mx-auto flex flex-col items-center justify-center min-h-[50vh]">
         <ShieldAlert className="w-12 h-12 text-destructive mb-4" />
         <h1 className="text-2xl font-bold text-foreground">{t('authError')}</h1>
-        <p className="text-white/40 mt-2 text-center max-w-md mb-2">
+        <p className="text-foreground/40 mt-2 text-center max-w-md mb-2">
           {t('authErrorDesc')}
         </p>
-        <div className="bg-black/50 p-4 rounded-lg w-full text-left text-xs text-white/70 mb-6 overflow-auto">
+        <div className="bg-background/50 p-4 rounded-lg w-full text-left text-xs text-foreground/70 mb-6 overflow-auto">
           <p>{t('sessionUserId')}: {session?.user?.id}</p>
           <p>{t('accountFound')}: {account ? tc('yes') : tc('no')}</p>
           <p>{t('accessToken')}: {account?.access_token ? t('exists') : t('nullUndefined')}</p>
@@ -61,7 +61,7 @@ export default async function DashboardPage(props: {
       <div className="p-8 max-w-6xl mx-auto flex flex-col items-center justify-center min-h-[50vh]">
         <ShieldAlert className="w-12 h-12 text-destructive mb-4" />
         <h1 className="text-2xl font-bold text-foreground">{t('fetchError')}</h1>
-        <p className="text-white/40 mt-2 text-center max-w-md">
+        <p className="text-foreground/40 mt-2 text-center max-w-md">
           {t('fetchErrorDesc')}
         </p>
       </div>
@@ -105,7 +105,7 @@ export default async function DashboardPage(props: {
         <h1 className="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">
           {t('selectServer')}
         </h1>
-        <p className="text-white/40 mt-1.5 text-sm sm:text-base">
+        <p className="text-foreground/40 mt-1.5 text-sm sm:text-base">
           {t('manageDescription')}
         </p>
       </div>
@@ -118,7 +118,7 @@ export default async function DashboardPage(props: {
           </h2>
           {invitedGuilds.length === 0 ? (
             <div className="bg-card/50 border border-border/50 rounded-xl p-8 text-center">
-              <p className="text-white/40">{t('noActiveServers')}</p>
+              <p className="text-foreground/40">{t('noActiveServers')}</p>
             </div>
           ) : (
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -141,11 +141,11 @@ export default async function DashboardPage(props: {
                       <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
                         {guild.name}
                       </h3>
-                      <p className="text-xs text-white/40">
+                      <p className="text-xs text-foreground/40">
                         {t('manageSettings')}
                       </p>
                     </div>
- <ChevronRight className="w-5 h-5 text-white/40 group-hover:text-primary transition-colors shrink-0"/>
+ <ChevronRight className="w-5 h-5 text-foreground/40 group-hover:text-primary transition-colors shrink-0"/>
  </div>
  </div>
  </Link>
@@ -157,7 +157,7 @@ export default async function DashboardPage(props: {
         {notInvitedGuilds.length > 0 && (
           <div>
             <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
-              <ShieldAlert className="w-5 h-5 text-white/40" />
+              <ShieldAlert className="w-5 h-5 text-foreground/40" />
               {t('addToServer')}
             </h2>
  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -174,7 +174,7 @@ export default async function DashboardPage(props: {
  className="w-12 h-12 rounded-full object-cover border border-border/50 grayscale opacity-75"
  />
  ) : (
- <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-white/40 font-bold text-lg shrink-0">
+ <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-foreground/40 font-bold text-lg shrink-0">
  {guild.name.charAt(0)}
  </div>
  )}
@@ -182,7 +182,7 @@ export default async function DashboardPage(props: {
                     <h3 className="font-semibold text-foreground truncate">
                       {guild.name}
                     </h3>
-                    <p className="text-xs text-white/40">
+                    <p className="text-xs text-foreground/40">
                       {t('notInvited')}
                     </p>
                   </div>

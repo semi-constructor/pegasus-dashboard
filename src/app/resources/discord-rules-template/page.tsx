@@ -64,9 +64,9 @@ export default async function DiscordRulesTemplatePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       
-      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
-        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
-        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+      <div className="relative min-h-screen bg-background pt-48 pb-32 overflow-hidden selection:bg-foreground selection:text-background">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-foreground/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-foreground/[0.03]" />
 
         <div className="max-w-4xl mx-auto px-6 lg:px-24 relative z-10">
           <Breadcrumbs items={[
@@ -76,32 +76,32 @@ export default async function DiscordRulesTemplatePage() {
           ]} />
 
           <div className="mb-24 mt-12">
-            <div className="inline-flex items-center gap-2 text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+            <div className="inline-flex items-center gap-2 text-foreground/30 text-xs tracking-[0.3em] uppercase mb-8 border border-border px-4 py-2">
               <FileText className="w-3 h-3" /> RESOURCE_ARCHIVE
             </div>
-            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-8 uppercase leading-[0.9]">
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-foreground mb-8 uppercase leading-[0.9]">
               Discord Rules<br/>Templates
             </h1>
-            <p className="text-white/40 text-sm uppercase tracking-[0.1em] max-w-2xl leading-relaxed">
+            <p className="text-foreground/40 text-sm uppercase tracking-[0.1em] max-w-2xl leading-relaxed">
               Setting up a new server? Don&apos;t write rules from scratch. Use our copy-and-paste Discord rules templates for general communities, gaming servers, and strict security policies.
             </p>
           </div>
 
-          <div className="w-full h-px bg-white/10 mb-16" />
+          <div className="w-full h-px bg-foreground/10 mb-16" />
 
           <div className="space-y-12 mb-32">
             {templates.map((tmpl) => (
-              <div key={tmpl.label} className="border border-white/10 bg-[#050505] overflow-hidden">
-                <div className="px-8 py-4 border-b border-white/10 flex items-center justify-between">
-                  <h2 className="text-sm font-medium text-white uppercase tracking-[0.2em]">{tmpl.title}</h2>
-                  <span className="text-[10px] font-mono text-white/20 uppercase tracking-[0.3em]">{tmpl.label}</span>
+              <div key={tmpl.label} className="border border-border bg-[#050505] overflow-hidden">
+                <div className="px-8 py-4 border-b border-border flex items-center justify-between">
+                  <h2 className="text-sm font-medium text-foreground uppercase tracking-[0.2em]">{tmpl.title}</h2>
+                  <span className="text-[10px] font-mono text-foreground/20 uppercase tracking-[0.3em]">{tmpl.label}</span>
                 </div>
                 <div className="p-8">
-                  <pre className="text-white/50 font-mono text-xs whitespace-pre-wrap leading-relaxed">
+                  <pre className="text-foreground/50 font-mono text-xs whitespace-pre-wrap leading-relaxed">
                     {tmpl.content}
                   </pre>
                 </div>
-                <div className="px-8 py-4 border-t border-white/5 text-[10px] text-white/20 uppercase tracking-[0.3em]">
+                <div className="px-8 py-4 border-t border-border text-[10px] text-foreground/20 uppercase tracking-[0.3em]">
                   {tmpl.note}
                 </div>
               </div>
@@ -110,8 +110,8 @@ export default async function DiscordRulesTemplatePage() {
 
           {/* Enforcement section */}
           <section className="mb-32">
-            <h2 className="text-2xl font-medium text-white uppercase tracking-[0.2em] mb-8 border-l-2 border-white pl-6">How to Enforce Rules on Discord</h2>
-            <div className="pl-6 md:pl-12 space-y-4 text-white/40 text-sm font-light leading-relaxed">
+            <h2 className="text-2xl font-medium text-foreground uppercase tracking-[0.2em] mb-8 border-l-2 border-border pl-6">How to Enforce Rules on Discord</h2>
+            <div className="pl-6 md:pl-12 space-y-4 text-foreground/40 text-sm font-light leading-relaxed">
               <p>Copying and pasting rules is only the first step. To maintain a healthy community, you need to enforce them.</p>
               <div className="space-y-6">
                 {[
@@ -119,11 +119,11 @@ export default async function DiscordRulesTemplatePage() {
                   { step: '02', title: 'Create a Verification Gate', desc: "Don't let users see your server until they click an \"I Agree\" button below your rules." },
                   { step: '03', title: 'Assign Moderators', desc: 'Build a team of trusted moderators to enforce the rules manually when bots miss nuance.' },
                 ].map((item) => (
-                  <div key={item.step} className="flex gap-6 items-start border border-white/10 bg-[#050505] p-6">
-                    <span className="text-2xl font-mono font-medium tracking-tighter text-white/20 flex-shrink-0">{item.step}</span>
+                  <div key={item.step} className="flex gap-6 items-start border border-border bg-[#050505] p-6">
+                    <span className="text-2xl font-mono font-medium tracking-tighter text-foreground/20 flex-shrink-0">{item.step}</span>
                     <div>
-                      <strong className="text-white text-xs uppercase tracking-[0.2em]">{item.title}</strong>
-                      <p className="text-white/40 text-sm font-light mt-2">{item.desc}</p>
+                      <strong className="text-foreground text-xs uppercase tracking-[0.2em]">{item.title}</strong>
+                      <p className="text-foreground/40 text-sm font-light mt-2">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -133,16 +133,16 @@ export default async function DiscordRulesTemplatePage() {
 
           {/* FAQ */}
           <section>
-            <h2 className="text-2xl font-medium text-white uppercase tracking-[0.2em] mb-12 border-l-2 border-white pl-6">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-medium text-foreground uppercase tracking-[0.2em] mb-12 border-l-2 border-border pl-6">Frequently Asked Questions</h2>
             <div className="space-y-8 pl-6 md:pl-12">
               {[
                 { q: 'How do I make good Discord server rules?', a: 'Good Discord server rules should be clear, concise, and easy to read. Avoid massive walls of text. Use bullet points and bold important keywords. Most importantly, state the consequences of breaking the rules clearly.' },
                 { q: 'How do I enforce rules automatically on Discord?', a: 'You can enforce rules automatically by using a moderation bot like PegasusBot. You can set up auto-moderation filters to automatically delete bad words, prevent spam, and issue warnings or timeouts to users who violate the rules.' },
                 { q: 'How do I add an agree button to Discord rules?', a: "To add an agree button, you can use Discord's native 'Rules Screening' feature in Server Settings, or use a bot like PegasusBot to create a Reaction Role or Button that assigns a 'Verified' role when clicked, unlocking the rest of the server." },
               ].map((faq) => (
-                <div key={faq.q} className="border-b border-white/5 pb-8 last:border-0">
-                  <h3 className="text-white font-medium text-sm uppercase tracking-[0.1em] mb-3">{faq.q}</h3>
-                  <p className="text-white/40 text-sm font-light leading-relaxed">{faq.a}</p>
+                <div key={faq.q} className="border-b border-border pb-8 last:border-0">
+                  <h3 className="text-foreground font-medium text-sm uppercase tracking-[0.1em] mb-3">{faq.q}</h3>
+                  <p className="text-foreground/40 text-sm font-light leading-relaxed">{faq.a}</p>
                 </div>
               ))}
             </div>

@@ -10,7 +10,7 @@ export default async function MetricsPage() {
  guilds: { total: 0 },
  users: { total: 0 },
  system: { memory_usage: 0, memory_total: 34359738368, cpu_usage: 0, latency: 0, shard_count: 1 },
- commands: { perMinute: 0 },
+ commands: { per_minute: 0 },
  health: {
   components: {
   database: { latency: 0, size: 0 },
@@ -48,7 +48,7 @@ export default async function MetricsPage() {
  data.guilds = stats.guilds;
  data.users = stats.users;
  data.system = stats.system;
- data.commands = stats.commands || { perMinute: 0 };
+ data.commands = stats.commands || { per_minute: 0 };
  } else {
  // Fallback to real DB stats
  const { db } = await import("@/lib/db");
@@ -65,7 +65,7 @@ export default async function MetricsPage() {
  data.guilds = { total: guildCount[0]?.count || 0 };
  data.users = { total: userCount[0]?.count || 0 };
  data.system = { memory_usage: 0, memory_total: 34359738368, cpu_usage: 0, latency: 0, shard_count: 1 };
- data.commands = { perMinute: 0 };
+ data.commands = { per_minute: 0 };
  }
 
  if (healthRes?.ok) {

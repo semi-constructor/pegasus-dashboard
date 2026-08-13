@@ -23,7 +23,7 @@ export default async function AdminBlogPreviewPage({ params }: { params: Promise
       
       <div className="container mx-auto px-2 relative z-10 max-w-4xl pt-8">
         <div className="mb-10">
-          <Link href={`/dashboard/admin/blogs`} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+          <Link href={`/dashboard/admin/blogs`} className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 bg-foreground/5 px-3 py-1.5 rounded-full border border-border">
             <ArrowLeft className="w-4 h-4" />
             Back to Blogs
           </Link>

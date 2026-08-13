@@ -187,24 +187,24 @@ export default function XpClient({
   ];
 
   return (
-    <div className="text-white p-2 sm:p-6 lg:p-10 max-w-[1400px] mx-auto animate-in fade-in duration-500">
-      <div className="flex items-center justify-between border-b border-white/10 pb-4 sm:pb-6 mb-6 sm:mb-8">
+    <div className="text-foreground p-2 sm:p-6 lg:p-10 max-w-[1400px] mx-auto animate-in fade-in duration-500">
+      <div className="flex items-center justify-between border-b border-border pb-4 sm:pb-6 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-white to-white/60 tracking-tight flex items-center gap-3 sm:gap-4">
-            <div className="p-2 sm:p-3 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md shrink-0">
-              <Star className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-foreground to-foreground/60 tracking-tight flex items-center gap-3 sm:gap-4">
+            <div className="p-2 sm:p-3 bg-foreground/5 rounded-2xl border border-border backdrop-blur-md shrink-0">
+              <Star className="w-6 h-6 sm:w-8 sm:h-8 text-foreground" />
             </div>
             {t("title")}
           </h1>
-          <p className="text-white/40 mt-2 sm:mt-3 text-xs sm:text-sm font-medium tracking-wide">
+          <p className="text-foreground/40 mt-2 sm:mt-3 text-xs sm:text-sm font-medium tracking-wide">
             {t("subtitle")}
           </p>
         </div>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl shadow-2xl relative overflow-hidden min-h-[600px] flex flex-col backdrop-blur-md">
+      <div className="bg-foreground/5 border border-border rounded-2xl shadow-2xl relative overflow-hidden min-h-[600px] flex flex-col backdrop-blur-md">
         {/* Browser-style Tabs Header */}
-        <div className="flex overflow-x-auto items-end bg-black/40 pt-3 sm:pt-4 px-2 sm:px-4 border-b border-white/10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden shrink-0 touch-pan-x">
+        <div className="flex overflow-x-auto items-end bg-background/40 pt-3 sm:pt-4 px-2 sm:px-4 border-b border-border [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden shrink-0 touch-pan-x">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -212,11 +212,11 @@ export default function XpClient({
               className={cn(
                 "group relative flex items-center gap-2 px-3.5 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 font-bold text-xs sm:text-sm tracking-wide rounded-t-xl border-t border-x -mb-[1px] shrink-0 whitespace-nowrap",
                 activeTab === tab.id
-                  ? "bg-white/10 border-white/10 text-white z-10 backdrop-blur-xl"
-                  : "bg-transparent border-transparent text-white/40 hover:bg-white/5 hover:text-white/80 hover:border-white/5 z-0"
+                  ? "bg-foreground/10 border-border text-foreground z-10 backdrop-blur-xl"
+                  : "bg-transparent border-transparent text-foreground/40 hover:bg-foreground/5 hover:text-foreground/80 hover:border-border z-0"
               )}
             >
-              <tab.icon className={cn("w-4 h-4 transition-colors shrink-0", activeTab === tab.id ? "text-white" : "text-white/40 group-hover:text-white/60")} />
+              <tab.icon className={cn("w-4 h-4 transition-colors shrink-0", activeTab === tab.id ? "text-foreground" : "text-foreground/40 group-hover:text-foreground/60")} />
               {tab.label}
               {activeTab === tab.id && (
                 <div className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-[#0c0c0c]" />
@@ -227,7 +227,7 @@ export default function XpClient({
 
         {/* Main Content Area */}
         <div className="p-3 sm:p-6 md:p-10 relative flex-1 overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-foreground/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
           
           <AnimatePresence mode="wait">
             <motion.div
@@ -249,7 +249,7 @@ export default function XpClient({
      setNewUserXp({ userId: "", xp: 100, level: 1, prestigeLevel: 0 });
    }
  }}>
-   <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[500px]">
+   <DialogContent className="bg-background/90 border border-border text-foreground backdrop-blur-xl sm:max-w-[500px]">
      <DialogHeader>
        <DialogTitle className="flex items-center gap-2 text-xl font-bold">
          <Users className="w-5 h-5 text-primary" />
@@ -259,7 +259,7 @@ export default function XpClient({
      
      <div className="grid gap-4 py-4">
        <div className="flex flex-col gap-2">
-         <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Target User ID</label>
+         <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Target User ID</label>
          <DiscordUserPicker
            guildId={guildId}
            value={editingUser ? editingUser.userId : newUserXp.userId}
@@ -272,7 +272,7 @@ export default function XpClient({
          />
        </div>
        <div className="flex flex-col gap-2">
-         <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Total XP</label>
+         <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Total XP</label>
          <Input
            type="number"
            min={0}
@@ -282,12 +282,12 @@ export default function XpClient({
                ? setEditingUser({ ...editingUser, xp: Number(e.target.value) })
                : setNewUserXp({ ...newUserXp, xp: Number(e.target.value) })
            }
-           className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+           className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
          />
        </div>
        <div className="grid grid-cols-2 gap-4">
          <div className="flex flex-col gap-2">
-           <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Level</label>
+           <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Level</label>
            <Input
              type="number"
              min={0}
@@ -297,11 +297,11 @@ export default function XpClient({
                  ? setEditingUser({ ...editingUser, level: Number(e.target.value) })
                  : setNewUserXp({ ...newUserXp, level: Number(e.target.value) })
              }
-             className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+             className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
            />
          </div>
          <div className="flex flex-col gap-2">
-           <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Prestige</label>
+           <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Prestige</label>
            <Input
              type="number"
              min={0}
@@ -311,20 +311,20 @@ export default function XpClient({
                  ? setEditingUser({ ...editingUser, prestigeLevel: Number(e.target.value) })
                  : setNewUserXp({ ...newUserXp, prestigeLevel: Number(e.target.value) })
              }
-             className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+             className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
            />
          </div>
        </div>
      </div>
 
      <div className="flex justify-end gap-2">
-       <Button variant="ghost" onClick={() => setIsUserDialogOpen(false)} className="text-white/50 hover:text-white">
+       <Button variant="ghost" onClick={() => setIsUserDialogOpen(false)} className="text-foreground/50 hover:text-foreground">
          Cancel
        </Button>
        <Button
          onClick={editingUser ? handleSaveUserXpOverride : handleCreateUserXpOverride}
          disabled={isPending}
-         className="bg-white/10 hover:bg-white/20 text-white border-0"
+         className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0"
        >
          <Save className="w-4 h-4 mr-2" />
          {editingUser ? "Save Changes" : "Assign XP"}
@@ -344,7 +344,7 @@ export default function XpClient({
        setNewUserXp({ userId: "", xp: 100, level: 1, prestigeLevel: 0 });
        setIsUserDialogOpen(true);
      }}
-     className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+     className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0 shadow-sm font-bold text-xs uppercase"
    >
      <Plus className="w-4 h-4 mr-2" />Assign XP
    </Button>
@@ -353,7 +353,7 @@ export default function XpClient({
 
   <div className="flex items-center justify-between mb-4 gap-4">
     <div className="relative flex-1 max-w-sm">
-      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
       <Input
         placeholder="Search by User ID..."
         value={xpSearch}
@@ -361,14 +361,14 @@ export default function XpClient({
           setXpSearch(e.target.value);
           setXpPage(1);
         }}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] pl-10 pr-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] pl-10 pr-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
       />
     </div>
   </div>
 
   <div className="overflow-x-auto rounded-lg border border-border">
  <table className="w-full text-left border-collapse text-sm">
- <thead className="bg-primary/10 border-b border-white/10 text-xs uppercase text-white/60">
+ <thead className="bg-primary/10 border-b border-border text-xs uppercase text-foreground/60">
  <tr>
  <th className="p-3">Rank</th>
  <th className="p-3">User ID</th>
@@ -381,7 +381,7 @@ export default function XpClient({
  <tbody className="divide-y divide-primary/20">
   {currentUserXp.length === 0 ? (
   <tr>
-  <td colSpan={6} className="p-6 text-center text-white/40 uppercase">
+  <td colSpan={6} className="p-6 text-center text-foreground/40 uppercase">
   No member XP data found.
   </td>
   </tr>
@@ -400,7 +400,7 @@ export default function XpClient({
   <td className="p-3">
    <Button
     size="sm"
-    className="bg-white/5 hover:bg-white/10 text-white border border-white/10"onClick={() => {
+    className="bg-foreground/5 hover:bg-foreground/10 text-foreground border border-border"onClick={() => {
       setEditingUser(u);
       setIsUserDialogOpen(true);
     }}
@@ -426,7 +426,7 @@ export default function XpClient({
       >
         <ChevronLeft className="w-4 h-4" />
       </Button>
-      <span className="text-sm font-medium text-white/40">
+      <span className="text-sm font-medium text-foreground/40">
         Page {xpPage} of {totalXpPages}
       </span>
       <Button
@@ -453,7 +453,7 @@ export default function XpClient({
         setNewReward({ level: 5, roleId: null });
       }
     }}>
-      <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[400px]">
+      <DialogContent className="bg-background/90 border border-border text-foreground backdrop-blur-xl sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl font-bold">
             <Award className="w-5 h-5 text-primary" />
@@ -462,17 +462,17 @@ export default function XpClient({
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="flex flex-col gap-2">
-            <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Required Level</label>
+            <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Required Level</label>
             <Input
               type="number"
               min={1}
               value={newReward.level}
               onChange={(e) => setNewReward({ ...newReward, level: Number(e.target.value) })}
-              className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+              className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Reward Role</label>
+            <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Reward Role</label>
             <DiscordRolePicker
               roles={roles}
               value={newReward.roleId}
@@ -481,13 +481,13 @@ export default function XpClient({
           </div>
         </div>
         <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setIsRewardDialogOpen(false)} className="text-white/50 hover:text-white">
+          <Button variant="ghost" onClick={() => setIsRewardDialogOpen(false)} className="text-foreground/50 hover:text-foreground">
             Cancel
           </Button>
           <Button
             onClick={handleSaveReward}
             disabled={isPending}
-            className="bg-white/10 hover:bg-white/20 text-white border-0"
+            className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0"
           >
             <Save className="w-4 h-4 mr-2" />
             {editingRewardLevel !== null ? "Save Changes" : "Add Reward Role"}
@@ -507,7 +507,7 @@ export default function XpClient({
             setNewReward({ level: 5, roleId: null });
             setIsRewardDialogOpen(true);
           }}
-          className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+          className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0 shadow-sm font-bold text-xs uppercase"
         >
           <Plus className="w-4 h-4 mr-2" />Add Reward
         </Button>
@@ -515,7 +515,7 @@ export default function XpClient({
     >
  <div className="space-y-3">
  {initialRewards.length === 0 ? (
- <p className="text-white/40 text-sm uppercase p-4 border border-white/10 bg-white/5 rounded-xl">
+ <p className="text-foreground/40 text-sm uppercase p-4 border border-border bg-foreground/5 rounded-xl">
  No level rewards configured.
  </p>
  ) : (
@@ -524,7 +524,7 @@ export default function XpClient({
  return (
  <div
  key={`${r.level}-${r.roleId}`}
- className="p-4 rounded-xl bg-black/20 border border-white/5 flex items-center gap-3 justify-between shadow-sm"
+ className="p-4 rounded-xl bg-background/20 border border-border flex items-center gap-3 justify-between shadow-sm"
  >
  <div className="flex items-center gap-3">
  <span className="font-bold text-primary text-lg">
@@ -537,7 +537,7 @@ export default function XpClient({
  <div className="flex items-center gap-2">
                         <Button
                           size="sm"
-                          className="bg-white/5 hover:bg-white/10 text-white border border-white/10"onClick={() => {
+                          className="bg-foreground/5 hover:bg-foreground/10 text-foreground border border-border"onClick={() => {
                             setEditingRewardLevel(r.level);
                             setNewReward({ level: r.level, roleId: r.roleId });
                             setIsRewardDialogOpen(true);
@@ -571,7 +571,7 @@ export default function XpClient({
         setNewMult({ targetId: "", targetType: "role", multiplier: 150 });
       }
     }}>
-      <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[400px]">
+      <DialogContent className="bg-background/90 border border-border text-foreground backdrop-blur-xl sm:max-w-[400px]">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl font-bold">
             <Zap className="w-5 h-5 text-primary" />
@@ -580,18 +580,18 @@ export default function XpClient({
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="flex flex-col gap-2">
-            <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Target Type</label>
+            <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Target Type</label>
             <select
               value={newMult.targetType}
               onChange={(e) => setNewMult({ ...newMult, targetType: e.target.value })}
-              className="w-full min-h-[40px] px-3 py-2 bg-black/40 border border-white/10 rounded-lg text-sm uppercase text-white [&>option]:bg-neutral-900 outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+              className="w-full min-h-[40px] px-3 py-2 bg-background/40 border border-border rounded-lg text-sm uppercase text-foreground [&>option]:bg-neutral-900 outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
             >
               <option value="role">Role Multiplier</option>
               <option value="channel">Channel Multiplier</option>
             </select>
           </div>
           <div className="flex flex-col gap-2">
-            <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Target ID (Role or Channel)</label>
+            <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Target ID (Role or Channel)</label>
             {newMult.targetType === "role" ? (
               <DiscordRolePicker
                 roles={roles}
@@ -607,7 +607,7 @@ export default function XpClient({
             )}
           </div>
           <div className="flex flex-col gap-2">
-            <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Multiplier % (150 = 1.5x)</label>
+            <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Multiplier % (150 = 1.5x)</label>
             <Input
               type="number"
               min={50}
@@ -615,18 +615,18 @@ export default function XpClient({
               step={10}
               value={newMult.multiplier}
               onChange={(e) => setNewMult({ ...newMult, multiplier: Number(e.target.value) })}
-              className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+              className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
             />
           </div>
         </div>
         <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setIsMultDialogOpen(false)} className="text-white/50 hover:text-white">
+          <Button variant="ghost" onClick={() => setIsMultDialogOpen(false)} className="text-foreground/50 hover:text-foreground">
             Cancel
           </Button>
           <Button
             onClick={handleSaveMultiplier}
             disabled={isPending}
-            className="bg-white/10 hover:bg-white/20 text-white border-0"
+            className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0"
           >
             <Save className="w-4 h-4 mr-2" />
             {editingMultId ? "Save Changes" : "Create Multiplier"}
@@ -646,7 +646,7 @@ export default function XpClient({
             setNewMult({ targetId: "", targetType: "role", multiplier: 150 });
             setIsMultDialogOpen(true);
           }}
-          className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+          className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0 shadow-sm font-bold text-xs uppercase"
         >
           <Plus className="w-4 h-4 mr-2" />Add Multiplier
         </Button>
@@ -654,14 +654,14 @@ export default function XpClient({
     >
  <div className="space-y-3">
  {initialMultipliers.length === 0 ? (
- <p className="text-white/40 text-sm uppercase p-4 border border-white/10 bg-white/5 rounded-xl">
+ <p className="text-foreground/40 text-sm uppercase p-4 border border-border bg-foreground/5 rounded-xl">
  No custom XP multipliers configured.
  </p>
  ) : (
  initialMultipliers.map((m) => (
  <div
  key={`${m.targetId}-${m.targetType}`}
- className="p-4 rounded-xl bg-black/20 border border-white/5 flex items-center gap-3 justify-between shadow-sm"
+ className="p-4 rounded-xl bg-background/20 border border-border flex items-center gap-3 justify-between shadow-sm"
  >
  <div>
  <div className="flex items-center gap-2">
@@ -676,7 +676,7 @@ export default function XpClient({
  <div className="flex items-center gap-2">
                         <Button
                           size="sm"
-                          className="bg-white/5 hover:bg-white/10 text-white border border-white/10"onClick={() => {
+                          className="bg-foreground/5 hover:bg-foreground/10 text-foreground border border-border"onClick={() => {
                             setEditingMultId({ id: m.targetId, type: m.targetType });
                             setNewMult({ targetId: m.targetId, targetType: m.targetType, multiplier: m.multiplier });
                             setIsMultDialogOpen(true);
@@ -721,7 +721,7 @@ export default function XpClient({
  <Button
  onClick={handleSaveSettings}
  disabled={isPending}
- className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+ className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0 shadow-sm font-bold text-xs uppercase"
  >
  <Save className="w-4 h-4 mr-2"/>Save Xp Rules</Button>
  </div>

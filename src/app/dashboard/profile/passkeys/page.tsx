@@ -25,7 +25,7 @@ export default async function PasskeyManagementPage() {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <h2 className="text-2xl font-bold text-red-500">{t('passkeys.accessDeniedTitle')}</h2>
-        <p className="text-white/40 mt-2">{t('passkeys.accessDeniedDescription')}</p>
+        <p className="text-foreground/40 mt-2">{t('passkeys.accessDeniedDescription')}</p>
       </div>
     );
   }
@@ -38,7 +38,7 @@ export default async function PasskeyManagementPage() {
  <div className="max-w-4xl mx-auto space-y-6">
  <div>
  <h2 className="text-2xl font-bold tracking-tight">{t('passkeys.title')}</h2>
- <p className="text-white/40">{t('passkeys.description')}</p>
+ <p className="text-foreground/40">{t('passkeys.description')}</p>
  </div>
  
  {userAuthenticators.length === 0 && (

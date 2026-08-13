@@ -87,10 +87,10 @@ export default function TeamPage() {
 
   return (
     <MarketingLayout>
-      <main className="relative min-h-screen overflow-hidden bg-black text-white">
+      <main className="relative min-h-screen overflow-hidden bg-background text-foreground">
         {/* Minimal background */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-0 top-0 h-px w-full bg-white/[0.06]" />
+          <div className="absolute left-0 top-0 h-px w-full bg-foreground/[0.06]" />
 
           <div
             className="absolute inset-0 opacity-[0.025]"
@@ -119,21 +119,21 @@ export default function TeamPage() {
             }}
             className="mb-24 mt-16 max-w-4xl"
           >
-            <div className="mb-8 inline-block border-b border-white/10 pb-4 text-sm uppercase tracking-[0.3em] text-white/30">
+            <div className="mb-8 inline-block border-b border-border pb-4 text-sm uppercase tracking-[0.3em] text-foreground/30">
               // ARCHITECTS
             </div>
 
-            <h1 className="mb-8 text-6xl font-medium leading-[0.9] tracking-tighter text-white md:text-8xl">
+            <h1 className="mb-8 text-6xl font-medium leading-[0.9] tracking-tighter text-foreground md:text-8xl">
               {t("title")}
             </h1>
 
-            <p className="max-w-2xl text-xl font-light leading-relaxed text-white/40 md:text-3xl">
+            <p className="max-w-2xl text-xl font-light leading-relaxed text-foreground/40 md:text-3xl">
               {t("description")}
             </p>
           </motion.div>
 
           {/* Team */}
-          <div className="grid grid-cols-1 gap-px border border-white/10 bg-white/10 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-px border border-border bg-foreground/10 lg:grid-cols-2">
             {members.map((member, index) => (
               <motion.article
                 key={member.username}
@@ -150,26 +150,26 @@ export default function TeamPage() {
                   delay: 0.15 + index * 0.1,
                   ease: "easeOut",
                 }}
-                className="group relative flex min-h-[590px] flex-col justify-between overflow-hidden bg-black p-8 sm:p-12 md:p-16"
+                className="group relative flex min-h-[590px] flex-col justify-between overflow-hidden bg-background p-8 sm:p-12 md:p-16"
               >
                 {/* Minimal hover */}
-                <div className="pointer-events-none absolute inset-0 bg-white/[0.015] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute inset-0 bg-foreground/[0.015] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
                 {/* Top */}
                 <div className="relative z-10">
                   <div className="flex items-start justify-between gap-8">
                     {/* Identity */}
                     <div>
-                      <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-white/25">
+                      <p className="mb-4 font-mono text-xs uppercase tracking-[0.25em] text-foreground/25">
                         @{member.username}
                       </p>
 
-                      <h2 className="text-5xl font-medium tracking-tighter text-white md:text-6xl">
+                      <h2 className="text-5xl font-medium tracking-tighter text-foreground md:text-6xl">
                         {member.name}
                       </h2>
 
-                      <div className="mt-5 inline-block border border-white/15 px-3 py-1.5">
-                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                      <div className="mt-5 inline-block border border-border/15 px-3 py-1.5">
+                        <span className="text-[10px] uppercase tracking-[0.2em] text-foreground/40">
                           {member.role}
                         </span>
                       </div>
@@ -177,9 +177,9 @@ export default function TeamPage() {
 
                     {/* Avatar */}
                     <div className="avatar-wrapper relative h-28 w-28 shrink-0 sm:h-36 sm:w-36 md:h-40 md:w-40">
-                      <div className="pointer-events-none absolute -inset-5 bg-white/[0.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                      <div className="pointer-events-none absolute -inset-5 bg-foreground/[0.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-                      <div className="relative h-full w-full overflow-hidden border border-white/10 bg-[#090909]">
+                      <div className="relative h-full w-full overflow-hidden border border-border bg-[#090909]">
                         <Image
                           src={member.avatarUrl}
                           alt={member.name}
@@ -222,20 +222,20 @@ export default function TeamPage() {
                   </div>
 
                   {/* Person description */}
-                  <p className="mt-12 max-w-xl text-base font-light leading-relaxed text-white/45 md:text-lg">
+                  <p className="mt-12 max-w-xl text-base font-light leading-relaxed text-foreground/45 md:text-lg">
                     {member.description}
                   </p>
                 </div>
 
                 {/* Bottom */}
                 <div className="relative z-10 mt-16">
-                  <div className="mb-7 h-px w-full bg-white/[0.08]" />
+                  <div className="mb-7 h-px w-full bg-foreground/[0.08]" />
 
                   <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
                     {member.email && (
                       <a
                         href={`mailto:${member.email}`}
-                        className="group/link flex items-center text-sm uppercase tracking-widest text-white/35 transition-colors hover:text-white"
+                        className="group/link flex items-center text-sm uppercase tracking-widest text-foreground/35 transition-colors hover:text-foreground"
                       >
                         <Mail className="mr-3 h-4 w-4" />
                         Email
@@ -248,7 +248,7 @@ export default function TeamPage() {
                         href={member.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/link flex items-center text-sm uppercase tracking-widest text-white/35 transition-colors hover:text-white"
+                        className="group/link flex items-center text-sm uppercase tracking-widest text-foreground/35 transition-colors hover:text-foreground"
                       >
                         <Globe className="mr-3 h-4 w-4" />
                         Website
@@ -261,7 +261,7 @@ export default function TeamPage() {
                         href={member.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/link flex items-center text-sm uppercase tracking-widest text-white/35 transition-colors hover:text-white"
+                        className="group/link flex items-center text-sm uppercase tracking-widest text-foreground/35 transition-colors hover:text-foreground"
                       >
                         <Code2 className="mr-3 h-4 w-4" />
                         GitHub
@@ -271,14 +271,14 @@ export default function TeamPage() {
                   </div>
 
                   <div className="mt-6 flex justify-end">
-                    <span className="font-mono text-[9px] tracking-[0.2em] text-white/10">
+                    <span className="font-mono text-[9px] tracking-[0.2em] text-foreground/10">
                       {member.discordId}
                     </span>
                   </div>
                 </div>
 
                 {/* Bottom hover line */}
-                <div className="absolute bottom-0 left-0 h-px w-0 bg-white/30 transition-all duration-700 group-hover:w-full" />
+                <div className="absolute bottom-0 left-0 h-px w-0 bg-foreground/30 transition-all duration-700 group-hover:w-full" />
               </motion.article>
             ))}
           </div>

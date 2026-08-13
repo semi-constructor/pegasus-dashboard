@@ -74,8 +74,8 @@ export function DiscordChannelPicker({
  aria-expanded={open}
  disabled={disabled}
  className={cn(
- "w-full justify-between bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white transition-all backdrop-blur-md shadow-sm",
- !value && "text-white/50",
+ "w-full justify-between bg-foreground/5 border-border text-foreground hover:bg-foreground/10 hover:text-foreground transition-all backdrop-blur-md shadow-sm",
+ !value && "text-foreground/50",
  className
  )}
  >
@@ -172,8 +172,8 @@ export function DiscordChannelMultiPicker({
    aria-expanded={open}
    disabled={disabled}
    className={cn(
-     "w-full justify-between bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white transition-all min-h-[40px] h-auto backdrop-blur-md shadow-sm",
-     !value.length && "text-white/50",
+     "w-full justify-between bg-foreground/5 border-border text-foreground hover:bg-foreground/10 hover:text-foreground transition-all min-h-[40px] h-auto backdrop-blur-md shadow-sm",
+     !value.length && "text-foreground/50",
      className
    )}
  >

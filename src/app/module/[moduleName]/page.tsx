@@ -43,40 +43,40 @@ export default async function ModuleDetailsPage({
 
   return (
     <MarketingLayout>
-      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
-        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
-        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+      <div className="relative min-h-screen bg-background pt-48 pb-32 overflow-hidden selection:bg-foreground selection:text-background">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-foreground/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-foreground/[0.03]" />
 
         <div className="max-w-4xl mx-auto px-6 lg:px-24 relative z-10">
-          <Link href="/modules" className="inline-flex items-center text-white/30 hover:text-white transition-colors mb-12 text-xs uppercase tracking-[0.3em]">
+          <Link href="/modules" className="inline-flex items-center text-foreground/30 hover:text-foreground transition-colors mb-12 text-xs uppercase tracking-[0.3em]">
             <ArrowLeft className="w-3 h-3 mr-2" />
             {t("backToModules")}
           </Link>
 
-          <div className="border border-white/10 bg-[#050505] p-8 sm:p-12 relative overflow-hidden">
+          <div className="border border-border bg-[#050505] p-8 sm:p-12 relative overflow-hidden">
             <div className="relative z-10 flex flex-col sm:flex-row gap-6 sm:items-start mb-12">
-              <Icon className="w-8 h-8 text-white/30 flex-shrink-0" />
+              <Icon className="w-8 h-8 text-foreground/30 flex-shrink-0" />
               <div>
-                <h1 className="text-3xl sm:text-5xl font-medium text-white mb-4 uppercase tracking-tighter">
+                <h1 className="text-3xl sm:text-5xl font-medium text-foreground mb-4 uppercase tracking-tighter">
                   {t(`modules.${moduleName.toLowerCase()}.title`)}
                 </h1>
-                <p className="text-white/40 text-sm font-light leading-relaxed">
+                <p className="text-foreground/40 text-sm font-light leading-relaxed">
                   {t(`modules.${moduleName.toLowerCase()}.fullDescription`)}
                 </p>
               </div>
             </div>
 
-            <div className="w-full h-px bg-white/10 mb-12" />
+            <div className="w-full h-px bg-foreground/10 mb-12" />
 
             <div className="grid md:grid-cols-2 gap-12">
               <div>
-                <h2 className="text-sm font-medium text-white uppercase tracking-[0.3em] mb-8">
+                <h2 className="text-sm font-medium text-foreground uppercase tracking-[0.3em] mb-8">
                   {t("keyFeatures")}
                 </h2>
                 <ul className="space-y-4">
                   {features.map((feature: string, idx: number) => (
-                    <li key={idx} className="flex gap-3 text-white/40">
-                      <Check className="w-4 h-4 text-white/30 mt-0.5 flex-shrink-0" />
+                    <li key={idx} className="flex gap-3 text-foreground/40">
+                      <Check className="w-4 h-4 text-foreground/30 mt-0.5 flex-shrink-0" />
                       <span className="text-sm font-light leading-relaxed">{feature}</span>
                     </li>
                   ))}
@@ -84,16 +84,16 @@ export default async function ModuleDetailsPage({
               </div>
 
               <div>
-                <h2 className="text-sm font-medium text-white uppercase tracking-[0.3em] mb-8">
+                <h2 className="text-sm font-medium text-foreground uppercase tracking-[0.3em] mb-8">
                   {t("howToSetUp")}
                 </h2>
-                <div className="border border-white/10 bg-black p-6">
-                  <p className="text-white/40 text-sm font-light leading-relaxed mb-8">
+                <div className="border border-border bg-background p-6">
+                  <p className="text-foreground/40 text-sm font-light leading-relaxed mb-8">
                     {t(`modules.${moduleName.toLowerCase()}.setup`)}
                   </p>
                   <Link 
                     href={`/dashboard?module=${moduleName.toLowerCase()}`}
-                    className="group inline-flex items-center px-6 py-3 bg-white text-black text-xs font-bold tracking-[0.3em] uppercase hover:bg-zinc-200 transition-colors"
+                    className="group inline-flex items-center px-6 py-3 bg-foreground text-background text-xs font-bold tracking-[0.3em] uppercase hover:bg-zinc-200 transition-colors"
                   >
                     {t("configureInDashboard")} <ExternalLink className="w-3 h-3 ml-3" />
                   </Link>

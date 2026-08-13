@@ -83,10 +83,10 @@ const FALLBACK_CONFIGS = [
     // 5. Smiley Face / Engagement
     color: "#ffffff",
     glowClass: "from-white/20 via-slate-300/10 to-transparent",
-    borderClass: "border-white/30",
+    borderClass: "border-border/30",
     badge: "ENGAGEMENT",
     icon: (
-      <svg className="w-24 h-24 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <svg className="w-24 h-24 text-foreground drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
         <path d="M8 14s1.5 2 4 2 4-2 4-2" />
         <line x1="9" y1="9" x2="9.01" y2="9" />
@@ -143,23 +143,23 @@ export function GlassVisualFallback({ index }: GlassVisualFallbackProps) {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className={`relative w-64 h-64 md:w-80 md:h-80 rounded-3xl bg-white/[0.03] backdrop-blur-xl border ${config.borderClass} shadow-[0_8px_32px_0_rgba(0,0,0,0.5),inset_0_1px_1px_0_rgba(255,255,255,0.15)] flex flex-col items-center justify-center p-8 overflow-hidden`}
+        className={`relative w-64 h-64 md:w-80 md:h-80 rounded-3xl bg-foreground/[0.03] backdrop-blur-xl border ${config.borderClass} shadow-[0_8px_32px_0_rgba(0,0,0,0.5),inset_0_1px_1px_0_rgba(255,255,255,0.15)] flex flex-col items-center justify-center p-8 overflow-hidden`}
       >
         {/* Specular glare reflection across the glass surface */}
         <div className="absolute -top-24 -left-24 w-48 h-48 bg-gradient-to-br from-white/20 via-white/5 to-transparent rounded-full blur-lg pointer-events-none" />
 
         {/* Content inside static glass shape */}
         <div className="relative z-10 flex flex-col items-center justify-center gap-4">
-          <div className="p-4 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-md">
+          <div className="p-4 rounded-2xl bg-background/40 border border-border backdrop-blur-md">
             {config.icon}
           </div>
-          <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-white/50 bg-black/60 px-3 py-1 rounded-full border border-white/10">
+          <span className="text-[10px] tracking-[0.25em] uppercase font-mono text-foreground/50 bg-background/60 px-3 py-1 rounded-full border border-border">
             {config.badge}
           </span>
         </div>
 
         {/* Subtle glass edge highlight */}
-        <div className="absolute inset-0 rounded-3xl border border-white/5 pointer-events-none" />
+        <div className="absolute inset-0 rounded-3xl border border-border pointer-events-none" />
       </motion.div>
     </div>
   );

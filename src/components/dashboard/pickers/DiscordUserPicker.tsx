@@ -81,8 +81,8 @@ export function DiscordUserPicker({
           aria-expanded={open}
           disabled={disabled}
           className={cn(
-            "w-full justify-between bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white transition-all backdrop-blur-md shadow-sm",
-            !value && "text-white/50",
+            "w-full justify-between bg-foreground/5 border-border text-foreground hover:bg-foreground/10 hover:text-foreground transition-all backdrop-blur-md shadow-sm",
+            !value && "text-foreground/50",
             className
           )}
         >
@@ -115,7 +115,7 @@ export function DiscordUserPicker({
             onValueChange={setQuery} 
           />
           <CommandList>
-            {loading && <div className="p-4 text-center text-sm text-white/50 flex items-center justify-center gap-2"><Loader2 className="w-4 h-4 animate-spin"/> {t('pickers.searching')}</div>}
+            {loading && <div className="p-4 text-center text-sm text-foreground/50 flex items-center justify-center gap-2"><Loader2 className="w-4 h-4 animate-spin"/> {t('pickers.searching')}</div>}
             {!loading && debouncedQuery.length > 1 && results.length === 0 && (
               <CommandEmpty>{t('pickers.noUsersFound')}</CommandEmpty>
             )}
@@ -149,7 +149,7 @@ export function DiscordUserPicker({
                     alt=""
                     onError={(e) => { e.currentTarget.src = "/favicon.ico" }}
                   />
-                  <span>{member.user.username} {member.nick && <span className="text-white/40 text-xs ml-1">({member.nick})</span>}</span>
+                  <span>{member.user.username} {member.nick && <span className="text-foreground/40 text-xs ml-1">({member.nick})</span>}</span>
                   <Check
                     className={cn(
                       "ml-auto h-4 w-4",

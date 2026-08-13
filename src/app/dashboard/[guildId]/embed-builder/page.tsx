@@ -165,12 +165,12 @@ export default function EmbedBuilderPage({ params }: { params: { guildId: string
             <CardContent className="p-6">
               <div className="flex gap-4">
                 <div className="w-10 h-10 rounded-full bg-[#5865F2] flex-shrink-0 flex items-center justify-center">
-                  <Wand2 className="w-6 h-6 text-white" />
+                  <Wand2 className="w-6 h-6 text-foreground" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-baseline gap-2 mb-1">
-                    <span className="font-medium text-white">Pegasus</span>
-                    <span className="bg-[#5865F2] text-xs px-1.5 py-0.5 rounded text-white font-medium flex items-center gap-1">
+                    <span className="font-medium text-foreground">Pegasus</span>
+                    <span className="bg-[#5865F2] text-xs px-1.5 py-0.5 rounded text-foreground font-medium flex items-center gap-1">
                       <CheckCircleIcon className="w-3 h-3" /> APP
                     </span>
                     <span className="text-xs text-[#949ba4]">Today at {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
@@ -184,7 +184,7 @@ export default function EmbedBuilderPage({ params }: { params: { guildId: string
                       {(embed.authorName || embed.authorIcon) && (
                         <div className="flex items-center gap-2 mb-2">
                           {embed.authorIcon && <img src={embed.authorIcon} alt="author" className="w-6 h-6 rounded-full object-cover" onError={(e) => e.currentTarget.style.display = 'none'} />}
-                          {embed.authorName && <span className="font-medium text-white text-sm">{embed.authorName}</span>}
+                          {embed.authorName && <span className="font-medium text-foreground text-sm">{embed.authorName}</span>}
                         </div>
                       )}
                       
@@ -192,7 +192,7 @@ export default function EmbedBuilderPage({ params }: { params: { guildId: string
                         <div className="flex-1">
                           {/* Title */}
                           {embed.title && (
-                            <div className="font-semibold text-white mb-2 leading-tight">
+                            <div className="font-semibold text-foreground mb-2 leading-tight">
                               {embed.title}
                             </div>
                           )}

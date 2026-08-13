@@ -152,10 +152,10 @@ export default async function LicensePage() {
         }}
       />
 
-      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+      <div className="relative min-h-screen bg-background pt-48 pb-32 overflow-hidden selection:bg-foreground selection:text-background">
         {/* Architectural background */}
-        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
-        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-foreground/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-foreground/[0.03]" />
 
         <div className="max-w-6xl mx-auto px-6 lg:px-24 relative z-10">
           <Breadcrumbs
@@ -167,16 +167,16 @@ export default async function LicensePage() {
 
           {/* Hero */}
           <div className="mt-16 mb-24 max-w-4xl">
-            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
-              <FileText className="w-4 h-4 mr-3 text-white/40" />
+            <div className="inline-flex items-center text-foreground/30 text-xs tracking-[0.3em] uppercase mb-8 border border-border px-4 py-2">
+              <FileText className="w-4 h-4 mr-3 text-foreground/40" />
               {t('hero.eyebrow')}
             </div>
 
-            <h1 className="text-6xl md:text-8xl font-medium tracking-tighter text-white mb-8 uppercase leading-[0.9]">
+            <h1 className="text-6xl md:text-8xl font-medium tracking-tighter text-foreground mb-8 uppercase leading-[0.9]">
               {t('hero.title')}
             </h1>
 
-            <p className="text-xl md:text-2xl text-white/40 font-light max-w-3xl leading-relaxed">
+            <p className="text-xl md:text-2xl text-foreground/40 font-light max-w-3xl leading-relaxed">
               {t('hero.description')}
             </p>
 
@@ -185,7 +185,7 @@ export default async function LicensePage() {
                 href="https://polyformproject.org/licenses/noncommercial/1.0.0/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center px-7 py-4 bg-white text-black text-sm font-bold tracking-[0.2em] uppercase hover:bg-white/90 transition-colors"
+                className="group inline-flex items-center justify-center px-7 py-4 bg-foreground text-background text-sm font-bold tracking-[0.2em] uppercase hover:bg-foreground/90 transition-colors"
               >
                 {t('hero.primaryCta')}
                 <ExternalLink className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
@@ -193,47 +193,47 @@ export default async function LicensePage() {
 
               <a
                 href="#full-license"
-                className="inline-flex items-center justify-center px-7 py-4 bg-transparent border border-white/20 text-white text-sm font-bold tracking-[0.2em] uppercase hover:border-white/50 transition-colors"
+                className="inline-flex items-center justify-center px-7 py-4 bg-transparent border border-border text-foreground text-sm font-bold tracking-[0.2em] uppercase hover:border-border/50 transition-colors"
               >
                 {t('hero.secondaryCta')}
               </a>
             </div>
           </div>
 
-          <div className="w-full h-px bg-white/10 mb-24" />
+          <div className="w-full h-px bg-foreground/10 mb-24" />
 
           {/* Quick Overview */}
           <section className="mb-32">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
               <div>
-                <div className="text-white/30 text-xs tracking-[0.3em] uppercase mb-5">
+                <div className="text-foreground/30 text-xs tracking-[0.3em] uppercase mb-5">
                   {t('overview.eyebrow')}
                 </div>
 
-                <h2 className="text-4xl lg:text-5xl font-medium tracking-tighter uppercase text-white">
+                <h2 className="text-4xl lg:text-5xl font-medium tracking-tighter uppercase text-foreground">
                   {t('overview.title')}
                 </h2>
               </div>
 
-              <p className="text-white/30 text-sm font-mono uppercase tracking-wider max-w-md leading-relaxed">
+              <p className="text-foreground/30 text-sm font-mono uppercase tracking-wider max-w-md leading-relaxed">
                 {t('overview.description')}
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-foreground/10 border border-border">
               {permissions.map((permission) => {
                 const Icon = permission.icon as React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
                 return (
                   <div
                     key={permission.title}
-                    className="bg-black p-8 lg:p-10 hover:bg-white/[0.02] transition-colors group"
+                    className="bg-background p-8 lg:p-10 hover:bg-foreground/[0.02] transition-colors group"
                   >
                     <div className="flex items-start justify-between mb-10">
                       <Icon
                         className={`w-7 h-7 transition-colors ${
                           permission.allowed
-                            ? 'text-white/30 group-hover:text-white/60'
+                            ? 'text-foreground/30 group-hover:text-foreground/60'
                             : 'text-red-500/40 group-hover:text-red-500/70'
                         }`}
                       />
@@ -241,7 +241,7 @@ export default async function LicensePage() {
                       <div
                         className={`flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase ${
                           permission.allowed
-                            ? 'text-white/30'
+                            ? 'text-foreground/30'
                             : 'text-red-500/50'
                         }`}
                       >
@@ -259,11 +259,11 @@ export default async function LicensePage() {
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-medium tracking-tight uppercase text-white mb-4">
+                    <h3 className="text-xl font-medium tracking-tight uppercase text-foreground mb-4">
                       {permission.title}
                     </h3>
 
-                    <p className="text-sm text-white/35 font-light leading-relaxed">
+                    <p className="text-sm text-foreground/35 font-light leading-relaxed">
                       {permission.description}
                     </p>
                   </div>
@@ -273,34 +273,34 @@ export default async function LicensePage() {
           </section>
 
           {/* Commercial licensing */}
-          <section className="border border-white/10 mb-32">
+          <section className="border border-border mb-32">
             <div className="p-10 lg:p-16 grid lg:grid-cols-[1fr_auto] gap-12 items-center">
               <div>
-                <div className="text-white/30 text-xs tracking-[0.3em] uppercase mb-6">
+                <div className="text-foreground/30 text-xs tracking-[0.3em] uppercase mb-6">
                   {t('commercial.eyebrow')}
                 </div>
 
-                <h2 className="text-3xl lg:text-4xl font-medium tracking-tighter uppercase text-white mb-6">
+                <h2 className="text-3xl lg:text-4xl font-medium tracking-tighter uppercase text-foreground mb-6">
                   {t('commercial.title')}
                 </h2>
 
-                <p className="text-white/40 font-light leading-relaxed max-w-2xl">
+                <p className="text-foreground/40 font-light leading-relaxed max-w-2xl">
                   {t('commercial.description')}
                 </p>
               </div>
 
-              <div className="border border-white/10 bg-[#050505] px-8 py-7 min-w-[240px]">
-                <div className="text-white/20 text-[10px] tracking-[0.25em] uppercase mb-3">
+              <div className="border border-border bg-[#050505] px-8 py-7 min-w-[240px]">
+                <div className="text-foreground/20 text-[10px] tracking-[0.25em] uppercase mb-3">
                   {t('commercial.copyrightHolder')}
                 </div>
 
-                <div className="text-white font-mono text-sm tracking-wider">
+                <div className="text-foreground font-mono text-sm tracking-wider">
                   semiconstructor
                 </div>
 
-                <div className="mt-5 h-px bg-white/10" />
+                <div className="mt-5 h-px bg-foreground/10" />
 
-                <div className="mt-5 text-white/30 text-[10px] tracking-[0.2em] uppercase">
+                <div className="mt-5 text-foreground/30 text-[10px] tracking-[0.2em] uppercase">
                   2026 · Pegasus
                 </div>
               </div>
@@ -309,45 +309,45 @@ export default async function LicensePage() {
 
           {/* License metadata */}
           <section className="mb-16">
-            <div className="grid md:grid-cols-3 gap-px bg-white/10 border border-white/10">
-              <div className="bg-black p-8">
-                <div className="text-white/20 text-[10px] tracking-[0.25em] uppercase mb-4">
+            <div className="grid md:grid-cols-3 gap-px bg-foreground/10 border border-border">
+              <div className="bg-background p-8">
+                <div className="text-foreground/20 text-[10px] tracking-[0.25em] uppercase mb-4">
                   {t('metadata.licenseLabel')}
                 </div>
 
-                <div className="text-white text-lg font-medium uppercase tracking-tight">
+                <div className="text-foreground text-lg font-medium uppercase tracking-tight">
                   PolyForm
                 </div>
 
-                <div className="text-white/30 text-sm mt-2">
+                <div className="text-foreground/30 text-sm mt-2">
                   Noncommercial 1.0.0
                 </div>
               </div>
 
-              <div className="bg-black p-8">
-                <div className="text-white/20 text-[10px] tracking-[0.25em] uppercase mb-4">
+              <div className="bg-background p-8">
+                <div className="text-foreground/20 text-[10px] tracking-[0.25em] uppercase mb-4">
                   {t('metadata.modelLabel')}
                 </div>
 
-                <div className="text-white text-lg font-medium uppercase tracking-tight">
+                <div className="text-foreground text-lg font-medium uppercase tracking-tight">
                   {t('metadata.sourceAvailable')}
                 </div>
 
-                <div className="text-white/30 text-sm mt-2">
+                <div className="text-foreground/30 text-sm mt-2">
                   {t('metadata.notOpenSource')}
                 </div>
               </div>
 
-              <div className="bg-black p-8">
-                <div className="text-white/20 text-[10px] tracking-[0.25em] uppercase mb-4">
+              <div className="bg-background p-8">
+                <div className="text-foreground/20 text-[10px] tracking-[0.25em] uppercase mb-4">
                   {t('metadata.copyrightLabel')}
                 </div>
 
-                <div className="text-white text-lg font-medium uppercase tracking-tight">
+                <div className="text-foreground text-lg font-medium uppercase tracking-tight">
                   semiconstructor
                 </div>
 
-                <div className="text-white/30 text-sm mt-2">
+                <div className="text-foreground/30 text-sm mt-2">
                   {t('metadata.contributors')}
                 </div>
               </div>
@@ -358,11 +358,11 @@ export default async function LicensePage() {
           <section id="full-license" className="scroll-mt-32">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-10">
               <div>
-                <div className="text-white/30 text-xs tracking-[0.3em] uppercase mb-5">
+                <div className="text-foreground/30 text-xs tracking-[0.3em] uppercase mb-5">
                   {t('fullLicense.eyebrow')}
                 </div>
 
-                <h2 className="text-4xl lg:text-5xl font-medium tracking-tighter uppercase text-white">
+                <h2 className="text-4xl lg:text-5xl font-medium tracking-tighter uppercase text-foreground">
                   {t('fullLicense.title')}
                 </h2>
               </div>
@@ -371,32 +371,32 @@ export default async function LicensePage() {
                 href="https://polyformproject.org/licenses/noncommercial/1.0.0/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-white/40 hover:text-white text-xs font-mono uppercase tracking-wider transition-colors"
+                className="inline-flex items-center text-foreground/40 hover:text-foreground text-xs font-mono uppercase tracking-wider transition-colors"
               >
                 {t('fullLicense.officialSource')}
                 <ExternalLink className="w-3.5 h-3.5 ml-2" />
               </a>
             </div>
 
-            <div className="border border-white/10 bg-[#050505]">
+            <div className="border border-border bg-[#050505]">
               {/* Document header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-6 lg:px-10 py-5 border-b border-white/10">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 px-6 lg:px-10 py-5 border-b border-border">
                 <div className="flex items-center gap-4">
-                  <span className="w-2 h-2 bg-white/40" />
+                  <span className="w-2 h-2 bg-foreground/40" />
 
-                  <span className="text-white/50 text-[10px] font-mono tracking-[0.25em] uppercase">
+                  <span className="text-foreground/50 text-[10px] font-mono tracking-[0.25em] uppercase">
                     LICENSE.txt
                   </span>
                 </div>
 
-                <span className="text-white/20 text-[10px] font-mono tracking-wider uppercase">
+                <span className="text-foreground/20 text-[10px] font-mono tracking-wider uppercase">
                   PolyForm Noncommercial 1.0.0
                 </span>
               </div>
 
               {/* License content */}
               <div className="p-6 lg:p-12 overflow-x-auto">
-                <pre className="whitespace-pre-wrap break-words text-white/55 text-sm leading-8 font-mono">
+                <pre className="whitespace-pre-wrap break-words text-foreground/55 text-sm leading-8 font-mono">
                   {licenseText}
                 </pre>
               </div>
@@ -404,8 +404,8 @@ export default async function LicensePage() {
           </section>
 
           {/* Footer legal note */}
-          <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row gap-6 justify-between">
-            <p className="text-white/20 text-xs font-mono uppercase tracking-wider leading-relaxed max-w-2xl">
+          <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row gap-6 justify-between">
+            <p className="text-foreground/20 text-xs font-mono uppercase tracking-wider leading-relaxed max-w-2xl">
               {t('footer.note')}
             </p>
 
@@ -413,7 +413,7 @@ export default async function LicensePage() {
               href="https://polyformproject.org/licenses/noncommercial/1.0.0/"
               target="_blank"
               rel="noopener noreferrer"
-              className="shrink-0 text-white/30 hover:text-white text-xs font-mono uppercase tracking-wider transition-colors"
+              className="shrink-0 text-foreground/30 hover:text-foreground text-xs font-mono uppercase tracking-wider transition-colors"
             >
               {t('footer.officialLink')} ↗
             </a>

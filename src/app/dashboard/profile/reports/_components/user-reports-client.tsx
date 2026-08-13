@@ -47,7 +47,7 @@ export default function UserBugReportsClient({
  <div>
  <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
  <Bug className="w-10 h-10 text-primary"/>{t('bugReports.title')}</h1>
- <p className="text-white/40 mt-2 text-sm">
+ <p className="text-foreground/40 mt-2 text-sm">
  {t('bugReports.description')}
  </p>
  </div>
@@ -56,11 +56,11 @@ export default function UserBugReportsClient({
  <FormSection title={t('bugReports.submitNewReport')} icon={Bug} description={t('bugReports.detailIssue')}>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
  <div className="flex flex-col gap-2">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.category')}</label>
+ <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.category')}</label>
  <select
  value={newReport.category}
  onChange={(e) => setNewReport({ ...newReport, category: e.target.value })}
- className="w-full min-h-[40px] px-3 py-2 bg-black/40 border border-white/10 text-white placeholder:text-white/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full min-h-[40px] px-3 py-2 bg-background/40 border border-border text-foreground placeholder:text-foreground/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  >
  <option value="general">{t('bugReports.categoryGeneral')}</option>
  <option value="moderation">{t('bugReports.categoryModeration')}</option>
@@ -72,43 +72,43 @@ export default function UserBugReportsClient({
  </div>
 
  <div className="flex flex-col gap-2">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.relatedCommand')}</label>
+ <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.relatedCommand')}</label>
  <Input
  placeholder={t('bugReports.commandPlaceholder')}
  value={newReport.command}
  onChange={(e) => setNewReport({ ...newReport, command: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  />
  </div>
 
  <div className="space-y-1 md:col-span-2">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.issueTitle')}</label>
+ <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.issueTitle')}</label>
  <Input
  placeholder={t('bugReports.titlePlaceholder')}
  value={newReport.title}
  onChange={(e) => setNewReport({ ...newReport, title: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  />
  </div>
 
  <div className="space-y-1 md:col-span-2">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.fullDescription')}</label>
+ <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.fullDescription')}</label>
  <Textarea
  placeholder={t('bugReports.descPlaceholder')}
  value={newReport.description}
  onChange={(e) => setNewReport({ ...newReport, description: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg h-10 px-3 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg h-10 px-3 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  rows={3}
  />
  </div>
 
  <div className="space-y-1 md:col-span-2">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.stepsToReproduce')}</label>
+ <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('bugReports.stepsToReproduce')}</label>
  <Textarea
  placeholder={t('bugReports.stepsPlaceholder')}
  value={newReport.stepsToReproduce}
  onChange={(e) => setNewReport({ ...newReport, stepsToReproduce: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg h-10 px-3 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg h-10 px-3 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  rows={2}
  />
  </div>
@@ -125,14 +125,14 @@ export default function UserBugReportsClient({
  <FormSection title={t('bugReports.mySubmittedReports')} icon={Bug} description={t('bugReports.trackStatus')}>
  <div className="space-y-3">
  {initialReports.length === 0 ? (
- <p className="text-white/40 text-sm uppercase p-4 border border-border">
+ <p className="text-foreground/40 text-sm uppercase p-4 border border-border">
  {t('bugReports.noReportsSubmitted')}
  </p>
  ) : (
  initialReports.map((r) => (
  <div
  key={r.id}
- className="p-4 rounded-xl border border-white/5 bg-black/20 text-white backdrop-blur-md hover:bg-white/5 transition-all space-y-2 shadow-sm"
+ className="p-4 rounded-xl border border-border bg-background/20 text-foreground backdrop-blur-md hover:bg-foreground/5 transition-all space-y-2 shadow-sm"
  >
  <div className="flex items-center justify-between">
  <div className="flex items-center gap-2">
@@ -143,7 +143,7 @@ export default function UserBugReportsClient({
  {t('bugReports.status')}: {r.status}
  </span>
  </div>
- <p className="text-sm text-white/40">{r.description}</p>
+ <p className="text-sm text-foreground/40">{r.description}</p>
  {r.developerNote && (
  <p className="text-xs text-primary font-bold bg-primary/10 p-2 border border-primary">
  {t('bugReports.devNote')}: {r.developerNote}

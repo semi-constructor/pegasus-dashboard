@@ -13,7 +13,7 @@ export default function AdminLoading() {
       <h2 className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-indigo-400">
         {t('loading.title')}
       </h2>
-      <p className="text-white/40 mt-2 text-sm">
+      <p className="text-foreground/40 mt-2 text-sm">
         {t('loading.description')}
       </p>
     </div>

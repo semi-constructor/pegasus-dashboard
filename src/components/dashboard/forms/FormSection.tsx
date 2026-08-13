@@ -30,7 +30,7 @@ export function FormSection({
         "rounded-2xl border p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6 shadow-2xl backdrop-blur-md relative overflow-hidden",
         isDanger
           ? "border-red-500/30 bg-red-500/5"
-          : "border-white/10 bg-white/5",
+          : "border-border bg-foreground/5",
         className
       )}
     >
@@ -39,7 +39,7 @@ export function FormSection({
           <h3
             className={cn(
               "text-xl sm:text-2xl font-bold flex items-center gap-2.5 sm:gap-3 tracking-tight",
-              isDanger ? "text-red-400" : "text-white"
+              isDanger ? "text-red-400" : "text-foreground"
             )}
           >
             {Icon && <Icon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0" />}
@@ -51,7 +51,7 @@ export function FormSection({
           <p
             className={cn(
               "text-xs sm:text-sm font-medium mt-1.5 sm:mt-2 max-w-2xl",
-              isDanger ? "text-red-400/80" : "text-white/50"
+              isDanger ? "text-red-400/80" : "text-foreground/50"
             )}
           >
             {description}

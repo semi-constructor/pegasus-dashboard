@@ -77,7 +77,7 @@ export function BlogForm({ initialData, currentUserId }: { initialData?: any, cu
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-bold text-white/70 uppercase tracking-wider">Title</label>
+            <label className="text-sm font-bold text-foreground/70 uppercase tracking-wider">Title</label>
             <Input 
               required
               value={formData.title}
@@ -90,56 +90,56 @@ export function BlogForm({ initialData, currentUserId }: { initialData?: any, cu
                 }));
               }}
               placeholder="e.g. Pegasus 2.0 is Here"
-              className="bg-white/5 border-white/10 text-white min-h-[40px] px-3 py-2"
+              className="bg-foreground/5 border-border text-foreground min-h-[40px] px-3 py-2"
             />
           </div>
           
           <div className="space-y-2">
-            <label className="text-sm font-bold text-white/70 uppercase tracking-wider">URL Slug</label>
+            <label className="text-sm font-bold text-foreground/70 uppercase tracking-wider">URL Slug</label>
             <Input 
               required
               value={formData.slug}
               onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
               placeholder="e.g. pegasus-2-0-release"
-              className="bg-white/5 border-white/10 text-white min-h-[40px] px-3 py-2"
+              className="bg-foreground/5 border-border text-foreground min-h-[40px] px-3 py-2"
             />
           </div>
 
           <div className="space-y-2 md:col-span-2">
-            <label className="text-sm font-bold text-white/70 uppercase tracking-wider">Short Description (SEO & Preview)</label>
+            <label className="text-sm font-bold text-foreground/70 uppercase tracking-wider">Short Description (SEO & Preview)</label>
             <Textarea 
               value={formData.shortDescription}
               onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
               placeholder="Brief summary of the article..."
-              className="bg-white/5 border-white/10 text-white min-h-[40px] px-3 py-2"
+              className="bg-foreground/5 border-border text-foreground min-h-[40px] px-3 py-2"
               rows={2}
             />
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-bold text-white/70 uppercase tracking-wider">Publish / Schedule Date</label>
+            <label className="text-sm font-bold text-foreground/70 uppercase tracking-wider">Publish / Schedule Date</label>
             <Input 
               type="datetime-local"
               required
               value={formData.publishedAt}
               onChange={(e) => setFormData({ ...formData, publishedAt: e.target.value })}
-              className="bg-white/5 border-white/10 text-white min-h-[40px] px-3 py-2 [color-scheme:dark]"
+              className="bg-foreground/5 border-border text-foreground min-h-[40px] px-3 py-2 [color-scheme:dark]"
             />
             <p className="text-xs text-muted-foreground">Setting a future date will schedule the post.</p>
           </div>
         </div>
 
-        <div className="space-y-2 pt-4 border-t border-white/10">
+        <div className="space-y-2 pt-4 border-t border-border">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-bold text-white/70 uppercase tracking-wider">Content (Markdown & HTML)</label>
-            <Button type="button" variant="outline" size="sm" onClick={() => setIsPreview(!isPreview)} className="bg-white/5 border-white/10 hover:bg-white/10">
+            <label className="text-sm font-bold text-foreground/70 uppercase tracking-wider">Content (Markdown & HTML)</label>
+            <Button type="button" variant="outline" size="sm" onClick={() => setIsPreview(!isPreview)} className="bg-foreground/5 border-border hover:bg-foreground/10">
               <Eye className="w-4 h-4 mr-2" />
               {isPreview ? "Edit Content" : "Preview"}
             </Button>
           </div>
           
           {isPreview ? (
-            <div className="prose prose-invert max-w-none p-6 border border-white/10 rounded-xl bg-black/20 min-h-[400px]">
+            <div className="prose prose-invert max-w-none p-6 border border-border rounded-xl bg-background/20 min-h-[400px]">
               <ReactMarkdown 
                 remarkPlugins={[remarkGfm]} 
                 rehypePlugins={[rehypeRaw]}
@@ -173,12 +173,12 @@ export function BlogForm({ initialData, currentUserId }: { initialData?: any, cu
               value={formData.content}
               onChange={(e) => setFormData({ ...formData, content: e.target.value })}
               placeholder="Write your blog post here using Markdown..."
-              className="bg-white/5 border-white/10 text-white min-h-[400px] px-4 py-3 font-mono text-sm"
+              className="bg-foreground/5 border-border text-foreground min-h-[400px] px-4 py-3 font-mono text-sm"
             />
           )}
         </div>
 
-        <div className="flex justify-end pt-4 border-t border-white/10">
+        <div className="flex justify-end pt-4 border-t border-border">
           <Button type="submit" disabled={isPending} className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold">
             <Save className="w-4 h-4 mr-2" />
             {isPending ? "Saving..." : "Save Blog Post"}

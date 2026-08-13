@@ -17,6 +17,7 @@ function getImprintData() {
     streetNumber: process.env.IMP_STRNM ?? "",
     country: process.env.IMP_COUNTRY ?? "",
     email: process.env.IMP_EMAIL ?? "",
+    company: process.env.IMP_COMPANY ?? "",
     // treat the string "false" or empty as not set
     ustid: ustid && ustid !== "false" && ustid !== "" ? ustid : null,
     hrb: hrb && hrb !== "false" && hrb !== "" ? hrb : null,
@@ -29,36 +30,36 @@ export default async function ImprintPage() {
 
   return (
     <MarketingLayout>
-      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+      <div className="relative min-h-screen bg-background pt-48 pb-32 overflow-hidden selection:bg-foreground selection:text-background">
         {/* Architectural background lines */}
-        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
-        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-foreground/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-foreground/[0.03]" />
 
         <div className="max-w-4xl mx-auto px-6 lg:px-24 relative z-10">
           {/* Back link */}
           <div className="mb-24">
             <Link
               href="/"
-              className="group inline-flex items-center text-xs tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors mb-16"
+              className="group inline-flex items-center text-xs tracking-[0.2em] uppercase text-foreground/40 hover:text-foreground transition-colors mb-16"
             >
               <ArrowRight className="w-4 h-4 mr-4 rotate-180 opacity-50 group-hover:-translate-x-2 transition-transform" />
               {t("backToHome")}
             </Link>
 
-            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+            <div className="inline-flex items-center text-foreground/30 text-xs tracking-[0.3em] uppercase mb-8 border border-border px-4 py-2">
               <Scale className="w-4 h-4 mr-3" />
               // Legal / Imprint
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-6 uppercase">
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-foreground mb-6 uppercase">
               {t("imprint.title")}
             </h1>
-            <p className="text-white/40 tracking-[0.1em] text-sm uppercase">
+            <p className="text-foreground/40 tracking-[0.1em] text-sm uppercase">
               {t("imprint.subtitle")}
             </p>
           </div>
 
-          <div className="w-full h-px bg-white/10 mb-24" />
+          <div className="w-full h-px bg-foreground/10 mb-24" />
 
           {/* Content grid */}
           <div className="space-y-20">
@@ -68,32 +69,34 @@ export default async function ImprintPage() {
               {/* Name */}
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <User className="w-4 h-4 text-white/30" />
-                  <h2 className="text-xs tracking-[0.3em] font-medium text-white/50 uppercase">
+                  <User className="w-4 h-4 text-foreground/30" />
+                  <h2 className="text-xs tracking-[0.3em] font-medium text-foreground/50 uppercase">
                     {t("imprint.responsiblePerson")}
+                    
                   </h2>
                 </div>
-                <div className="border-l border-white/10 pl-6">
-                  <p className="text-2xl font-light tracking-tight text-white">{imp.name}</p>
+                <div className="border-l border-border pl-6">
+                  <p className="text-2xl font-light tracking-tight text-foreground">{imp.name}</p>
+                  <p className="text-foreground/60">{imp.company}</p>
                 </div>
               </section>
 
               {/* Address */}
               <section>
                 <div className="flex items-center gap-3 mb-6">
-                  <MapPin className="w-4 h-4 text-white/30" />
-                  <h2 className="text-xs tracking-[0.3em] font-medium text-white/50 uppercase">
+                  <MapPin className="w-4 h-4 text-foreground/30" />
+                  <h2 className="text-xs tracking-[0.3em] font-medium text-foreground/50 uppercase">
                     {t("imprint.address")}
                   </h2>
                 </div>
-                <div className="border-l border-white/10 pl-6 space-y-1">
-                  <p className="text-white/80 font-light">
+                <div className="border-l border-border pl-6 space-y-1">
+                  <p className="text-foreground/80 font-light">
                     {imp.street} {imp.streetNumber}
                   </p>
-                  <p className="text-white/80 font-light">
+                  <p className="text-foreground/80 font-light">
                     {imp.zip} {imp.city}
                   </p>
-                  <p className="text-white/50 text-sm uppercase tracking-widest">
+                  <p className="text-foreground/50 text-sm uppercase tracking-widest">
                     {imp.country}
                   </p>
                 </div>
@@ -103,25 +106,25 @@ export default async function ImprintPage() {
             {/* Contact */}
             <section>
               <div className="flex items-center gap-3 mb-6">
-                <Mail className="w-4 h-4 text-white/30" />
-                <h2 className="text-xs tracking-[0.3em] font-medium text-white/50 uppercase">
+                <Mail className="w-4 h-4 text-foreground/30" />
+                <h2 className="text-xs tracking-[0.3em] font-medium text-foreground/50 uppercase">
                   {t("imprint.contact")}
                 </h2>
               </div>
-              <div className="border-l border-white/10 pl-6">
-                <p className="text-white/40 text-xs tracking-[0.2em] uppercase mb-1">
+              <div className="border-l border-border pl-6">
+                <p className="text-foreground/40 text-xs tracking-[0.2em] uppercase mb-1">
                   {t("imprint.email")}
                 </p>
                 <a
                   href={`mailto:${imp.email}`}
-                  className="text-white hover:text-white/70 transition-colors text-lg font-light tracking-tight"
+                  className="text-foreground hover:text-foreground/70 transition-colors text-lg font-light tracking-tight"
                 >
                   {imp.email}
                 </a>
               </div>
             </section>
 
-            <div className="w-full h-px bg-white/10" />
+            <div className="w-full h-px bg-foreground/10" />
 
             {/* VAT & HRB — conditionally shown */}
             {(imp.ustid || imp.hrb) && (
@@ -129,26 +132,26 @@ export default async function ImprintPage() {
                 {imp.ustid && (
                   <section>
                     <div className="flex items-center gap-3 mb-6">
-                      <Building2 className="w-4 h-4 text-white/30" />
-                      <h2 className="text-xs tracking-[0.3em] font-medium text-white/50 uppercase">
+                      <Building2 className="w-4 h-4 text-foreground/30" />
+                      <h2 className="text-xs tracking-[0.3em] font-medium text-foreground/50 uppercase">
                         {t("imprint.vat.title")}
                       </h2>
                     </div>
-                    <div className="border-l border-white/10 pl-6">
-                      <p className="text-white/80 font-mono">{imp.ustid}</p>
+                    <div className="border-l border-border pl-6">
+                      <p className="text-foreground/80 font-mono">{imp.ustid}</p>
                     </div>
                   </section>
                 )}
                 {imp.hrb && (
                   <section>
                     <div className="flex items-center gap-3 mb-6">
-                      <Building2 className="w-4 h-4 text-white/30" />
-                      <h2 className="text-xs tracking-[0.3em] font-medium text-white/50 uppercase">
+                      <Building2 className="w-4 h-4 text-foreground/30" />
+                      <h2 className="text-xs tracking-[0.3em] font-medium text-foreground/50 uppercase">
                         {t("imprint.hrb.title")}
                       </h2>
                     </div>
-                    <div className="border-l border-white/10 pl-6">
-                      <p className="text-white/80 font-mono">{imp.hrb}</p>
+                    <div className="border-l border-border pl-6">
+                      <p className="text-foreground/80 font-mono">{imp.hrb}</p>
                     </div>
                   </section>
                 )}
@@ -160,43 +163,43 @@ export default async function ImprintPage() {
               <div className="grid md:grid-cols-2 gap-12">
                 <section>
                   <div className="flex items-center gap-3 mb-6">
-                    <Building2 className="w-4 h-4 text-white/30" />
-                    <h2 className="text-xs tracking-[0.3em] font-medium text-white/50 uppercase">
+                    <Building2 className="w-4 h-4 text-foreground/30" />
+                    <h2 className="text-xs tracking-[0.3em] font-medium text-foreground/50 uppercase">
                       {t("imprint.vat.title")}
                     </h2>
                   </div>
-                  <div className="border-l border-white/10 pl-6">
-                    <p className="text-white/30 text-sm italic">{t("imprint.vat.notApplicable")}</p>
+                  <div className="border-l border-border pl-6">
+                    <p className="text-foreground/30 text-sm italic">{t("imprint.vat.notApplicable")}</p>
                   </div>
                 </section>
                 <section>
                   <div className="flex items-center gap-3 mb-6">
-                    <Building2 className="w-4 h-4 text-white/30" />
-                    <h2 className="text-xs tracking-[0.3em] font-medium text-white/50 uppercase">
+                    <Building2 className="w-4 h-4 text-foreground/30" />
+                    <h2 className="text-xs tracking-[0.3em] font-medium text-foreground/50 uppercase">
                       {t("imprint.hrb.title")}
                     </h2>
                   </div>
-                  <div className="border-l border-white/10 pl-6">
-                    <p className="text-white/30 text-sm italic">{t("imprint.hrb.notApplicable")}</p>
+                  <div className="border-l border-border pl-6">
+                    <p className="text-foreground/30 text-sm italic">{t("imprint.hrb.notApplicable")}</p>
                   </div>
                 </section>
               </div>
             )}
 
-            <div className="w-full h-px bg-white/10" />
+            <div className="w-full h-px bg-foreground/10" />
 
             {/* Legal disclaimer sections */}
             <div className="space-y-16">
               {/* Liability for content */}
               <section>
-                <h2 className="text-xl tracking-[0.2em] font-medium text-white mb-8 uppercase border-l-2 border-white pl-6">
+                <h2 className="text-xl tracking-[0.2em] font-medium text-foreground mb-8 uppercase border-l-2 border-border pl-6">
                   {t("imprint.disclaimer.title")}
                 </h2>
                 <div className="pl-6 md:pl-12 space-y-6">
-                  <p className="text-white/50 text-lg leading-relaxed font-light">
+                  <p className="text-foreground/50 text-lg leading-relaxed font-light">
                     {t("imprint.disclaimer.p1")}
                   </p>
-                  <p className="text-white/50 text-lg leading-relaxed font-light">
+                  <p className="text-foreground/50 text-lg leading-relaxed font-light">
                     {t("imprint.disclaimer.p2")}
                   </p>
                 </div>
@@ -204,11 +207,11 @@ export default async function ImprintPage() {
 
               {/* Liability for links */}
               <section>
-                <h2 className="text-xl tracking-[0.2em] font-medium text-white mb-8 uppercase border-l-2 border-white pl-6">
+                <h2 className="text-xl tracking-[0.2em] font-medium text-foreground mb-8 uppercase border-l-2 border-border pl-6">
                   {t("imprint.linksDisclaimer.title")}
                 </h2>
                 <div className="pl-6 md:pl-12">
-                  <p className="text-white/50 text-lg leading-relaxed font-light">
+                  <p className="text-foreground/50 text-lg leading-relaxed font-light">
                     {t("imprint.linksDisclaimer.p1")}
                   </p>
                 </div>
@@ -216,11 +219,11 @@ export default async function ImprintPage() {
 
               {/* Copyright */}
               <section>
-                <h2 className="text-xl tracking-[0.2em] font-medium text-white mb-8 uppercase border-l-2 border-white pl-6">
+                <h2 className="text-xl tracking-[0.2em] font-medium text-foreground mb-8 uppercase border-l-2 border-border pl-6">
                   {t("imprint.copyright.title")}
                 </h2>
                 <div className="pl-6 md:pl-12">
-                  <p className="text-white/50 text-lg leading-relaxed font-light">
+                  <p className="text-foreground/50 text-lg leading-relaxed font-light">
                     {t("imprint.copyright.p1")}
                   </p>
                 </div>

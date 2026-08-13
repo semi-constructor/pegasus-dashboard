@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils"
 const cardVariants = cva("text-card-foreground", {
   variants: {
     variant: {
-      default: "rounded-xl border border-white/10 bg-black/40 shadow backdrop-blur-md",
-      brutalist: "rounded-none border border-white/10 bg-black shadow-none backdrop-blur-none",
+      default: "rounded-xl border border-border bg-background/40 shadow backdrop-blur-md",
+      brutalist: "rounded-none border border-border bg-background shadow-none backdrop-blur-none",
     },
   },
   defaultVariants: {
@@ -48,7 +48,7 @@ const cardTitleVariants = cva("leading-none", {
   variants: {
     variant: {
       default: "font-semibold tracking-tight",
-      brutalist: "font-mono text-xl uppercase tracking-widest text-white font-bold",
+      brutalist: "font-mono text-xl uppercase tracking-widest text-foreground font-bold",
     },
   },
   defaultVariants: {

@@ -44,334 +44,398 @@ export default function SecurityClient({ initialData }: SecurityClientProps) {
  });
  };
 
- return (
- <div className="p-8 max-w-6xl mx-auto space-y-8 animate-in fade-in duration-500 pb-32">
- <div className="flex items-center justify-between border-b border-border pb-4">
- <div>
- <h1 className="text-4xl font-black text-primary tracking-tight uppercase flex items-center gap-3">
- <Shield className="w-10 h-10 text-primary"/>{t('security.title')}</h1>
- <p className="text-white/40 mt-2 text-sm">
- {t('security.description')}
- </p>
- </div>
- </div>
+  return (
+  <div className="space-y-12 pb-32">
+  <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 border-b border-border pb-8">
+  <div className="flex flex-col gap-4">
+  <h1 className="text-lg font-medium tracking-[0.3em] uppercase flex items-center gap-4 text-foreground">
+  <Shield className="w-5 h-5 text-foreground"/>{t('security.title')}</h1>
+  <p className="text-foreground/50 text-sm tracking-wide">
+  {t('security.description')}
+  </p>
+  </div>
+  </div>
 
- {/* Tabs */}
- <div className="flex flex-wrap gap-2 border-b border-border/50 pb-2">
- {[
- { id:"logs", label:"Security Logs", icon: Shield },
- { id:"blacklist", label:"Global Blacklist", icon: Slash },
- { id:"incidents", label:"Security Incidents", icon: AlertTriangle },
- { id:"audits", label:"Audit Logs", icon: Activity },
- { id:"ratelimits", label:"Rate Limits", icon: Lock },
- { id:"apikeys", label:"API Keys", icon: Key },
- ].map((tab) => (
- <Button
- key={tab.id}
- variant={activeTab === tab.id ?"default":"ghost"}
- onClick={() => setActiveTab(tab.id as any)}
- className="rounded-md border border-border font-medium text-xs"
- >
- <tab.icon className="w-4 h-4 mr-2"/>
- {tab.label}
- </Button>
- ))}
- </div>
+  {/* Tabs */}
+  <div className="flex flex-wrap gap-px bg-foreground/10 border border-border p-px">
+  {[
+  { id:"logs", label:"Security Logs", icon: Shield },
+  { id:"blacklist", label:"Global Blacklist", icon: Slash },
+  { id:"incidents", label:"Security Incidents", icon: AlertTriangle },
+  { id:"audits", label:"Audit Logs", icon: Activity },
+  { id:"ratelimits", label:"Rate Limits", icon: Lock },
+  { id:"apikeys", label:"API Keys", icon: Key },
+  ].map((tab) => (
+  <button
+  key={tab.id}
+  onClick={() => setActiveTab(tab.id as any)}
+  className={`flex-1 min-w-[150px] px-4 py-4 flex items-center justify-center gap-2 text-[10px] uppercase tracking-widest transition-colors ${
+    activeTab === tab.id ? "bg-foreground text-background font-medium" : "bg-background text-foreground/50 hover:bg-foreground/5 hover:text-foreground"
+  }`}
+  >
+  <tab.icon className="w-3 h-3"/>
+  {tab.label}
+  </button>
+  ))}
+  </div>
 
- {/* Tab 1: Security Logs */}
- {activeTab ==="logs"&& (
- <FormSection title={t('security.title')} icon={Shield} description={t('security.description')}>
- <div className="overflow-x-auto border border-border">
- <table className="w-full text-left border-collapse text-sm">
- <thead className="bg-primary/10 border-b border-white/10 text-xs uppercase text-white/60">
- <tr>
- <th className="p-3">{t('security.action')}</th>
- <th className="p-3">{t('security.severity')}</th>
- <th className="p-3">Guild / User</th>
- <th className="p-3">{t('security.descriptionHeader')}</th>
- <th className="p-3">{t('security.date')}</th>
- </tr>
- </thead>
- <tbody className="divide-y divide-primary/20">
- {initialData.secLogs.length === 0 ? (
- <tr>
- <td colSpan={5} className="p-6 text-center text-white/40 uppercase">
- {t('security.noEvents')}
- </td>
- </tr>
- ) : (
- initialData.secLogs.map((l) => (
- <tr key={l.id} className="hover:bg-primary/5">
- <td className="p-3 font-bold">{l.action}</td>
- <td className="p-3">
- <span className="px-2 py-0.5 border border-destructive bg-destructive/20 text-destructive font-bold uppercase text-xs">
- {l.severity}
- </span>
- </td>
- <td className="p-3">
- G: {l.guildId} | U: {l.userId ||"N/A"}
- </td>
- <td className="p-3 truncate max-w-xs">{l.description}</td>
- <td className="p-3 text-xs text-white/40">
- {new Date(l.createdAt).toLocaleString()}
- </td>
- </tr>
- ))
- )}
- </tbody>
- </table>
- </div>
- </FormSection>
- )}
+  <div className="space-y-12">
+  {/* Tab 1: Security Logs */}
+  {activeTab ==="logs"&& (
+  <div className="space-y-8">
+  <div className="border-b border-border pb-4">
+  <h3 className="text-sm tracking-[0.2em] uppercase text-foreground flex items-center gap-2">
+  <Shield className="w-4 h-4" />
+  {t('security.title')}
+  </h3>
+  <p className="text-[10px] text-foreground/50 tracking-widest uppercase mt-2">{t('security.description')}</p>
+  </div>
+  
+  <div className="overflow-x-auto">
+  <table className="w-full text-left text-sm">
+  <thead className="text-[10px] uppercase tracking-[0.3em] bg-foreground/5 border-y border-border text-foreground/50">
+  <tr>
+  <th className="px-8 py-4 font-normal">{t('security.action')}</th>
+  <th className="px-8 py-4 font-normal">{t('security.severity')}</th>
+  <th className="px-8 py-4 font-normal">Guild / User</th>
+  <th className="px-8 py-4 font-normal">{t('security.descriptionHeader')}</th>
+  <th className="px-8 py-4 font-normal">{t('security.date')}</th>
+  </tr>
+  </thead>
+  <tbody>
+  {initialData.secLogs.length === 0 ? (
+  <tr>
+  <td colSpan={5} className="p-12 text-center text-[10px] text-foreground/30 uppercase tracking-[0.2em]">
+  {t('security.noEvents')}
+  </td>
+  </tr>
+  ) : (
+  initialData.secLogs.map((l) => (
+  <tr key={l.id} className="border-b border-border hover:bg-foreground/5 transition-colors">
+  <td className="px-8 py-4 font-medium text-foreground/80 font-mono text-xs uppercase">{l.action}</td>
+  <td className="px-8 py-4">
+  <span className="px-2 py-1 border border-rose-500/30 text-rose-500/70 text-[10px] uppercase tracking-widest">
+  {l.severity}
+  </span>
+  </td>
+  <td className="px-8 py-4 text-foreground/50 font-mono text-xs">
+  G: {l.guildId} | U: {l.userId ||"N/A"}
+  </td>
+  <td className="px-8 py-4 text-foreground/70 font-mono text-xs max-w-xs truncate">{l.description}</td>
+  <td className="px-8 py-4 text-[10px] text-foreground/30 uppercase tracking-widest font-mono">
+  {new Date(l.createdAt).toLocaleString()}
+  </td>
+  </tr>
+  ))
+  )}
+  </tbody>
+  </table>
+  </div>
+  </div>
+  )}
 
- {/* Tab 2: Global Blacklist */}
- {activeTab ==="blacklist"&& (
- <div className="space-y-6">
- <FormSection title={t('security.addToBlacklist')} icon={Slash} description="Ban entities globally across all Pegasus instances.">
- <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
- <div className="flex flex-col gap-2">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('security.entityType')}</label>
- <select
- value={newBlacklist.entityType}
- onChange={(e) => setNewBlacklist({ ...newBlacklist, entityType: e.target.value })}
- className="w-full min-h-[40px] px-3 py-2 bg-black/40 border border-white/10 text-white placeholder:text-white/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
- >
- <option value="user">{t('security.user')}</option>
- <option value="guild">{t('security.guild')}</option>
- <option value="role">{t('security.role')}</option>
- </select>
- </div>
+  {/* Tab 2: Global Blacklist */}
+  {activeTab ==="blacklist"&& (
+  <div className="space-y-12">
+  <div className="space-y-8">
+  <div className="border-b border-border pb-4">
+  <h3 className="text-sm tracking-[0.2em] uppercase text-foreground flex items-center gap-2">
+  <Slash className="w-4 h-4" />
+  {t('security.addToBlacklist')}
+  </h3>
+  <p className="text-[10px] text-foreground/50 tracking-widest uppercase mt-2">Ban entities globally across all Pegasus instances.</p>
+  </div>
+  
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+  <div className="flex flex-col gap-4">
+  <label className="block text-[10px] text-foreground/50 uppercase tracking-[0.2em]">{t('security.entityType')}</label>
+  <select
+  value={newBlacklist.entityType}
+  onChange={(e) => setNewBlacklist({ ...newBlacklist, entityType: e.target.value })}
+  className="w-full h-12 px-4 bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-none text-[10px] uppercase tracking-widest outline-none focus-visible:border-border transition-all appearance-none"
+  >
+  <option value="user" className="bg-background">{t('security.user')}</option>
+  <option value="guild" className="bg-background">{t('security.guild')}</option>
+  <option value="role" className="bg-background">{t('security.role')}</option>
+  </select>
+  </div>
 
- <div className="flex flex-col gap-2">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('security.snowflakeId')}</label>
- <Input
- placeholder="ID string..."
- value={newBlacklist.entityId}
- onChange={(e) => setNewBlacklist({ ...newBlacklist, entityId: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
- />
- </div>
+  <div className="flex flex-col gap-4">
+  <label className="block text-[10px] text-foreground/50 uppercase tracking-[0.2em]">{t('security.snowflakeId')}</label>
+  <Input
+  placeholder="ID string..."
+  value={newBlacklist.entityId}
+  onChange={(e) => setNewBlacklist({ ...newBlacklist, entityId: e.target.value })}
+  className="w-full h-12 bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-none px-4 text-[10px] uppercase tracking-widest font-mono focus-visible:border-border transition-all focus-visible:ring-0"
+  />
+  </div>
 
- <div className="space-y-1 md:col-span-3">
- <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('security.reason')}</label>
- <Input
- placeholder="Malicious exploit attempt / Terms violation"
- value={newBlacklist.reason}
- onChange={(e) => setNewBlacklist({ ...newBlacklist, reason: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
- />
- </div>
- </div>
+  <div className="flex flex-col gap-4 md:col-span-3">
+  <label className="block text-[10px] text-foreground/50 uppercase tracking-[0.2em]">{t('security.reason')}</label>
+  <Input
+  placeholder="Malicious exploit attempt / Terms violation"
+  value={newBlacklist.reason}
+  onChange={(e) => setNewBlacklist({ ...newBlacklist, reason: e.target.value })}
+  className="w-full h-12 bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-none px-4 text-xs font-mono focus-visible:border-border transition-all focus-visible:ring-0"
+  />
+  </div>
+  </div>
 
- <Button
- onClick={handleAddBlacklist}
- disabled={isPending}
- className="rounded-md border border-border shadow-sm font-medium text-xs mt-4"
- >
- <Plus className="w-4 h-4 mr-2"/>{t('security.addToBlacklist')}</Button>
- </FormSection>
+  <button
+  onClick={handleAddBlacklist}
+  disabled={isPending}
+  className="px-6 py-3 border border-border text-foreground hover:bg-foreground hover:text-background transition-colors text-[10px] uppercase tracking-widest flex items-center gap-2"
+  >
+  <Plus className="w-3 h-3"/>{t('security.addToBlacklist')}</button>
+  </div>
 
- <FormSection title={t('security.activeBlacklist')} icon={Slash} description="Blacklisted entities.">
- <div className="space-y-3">
- {initialData.blacklists.length === 0 ? (
- <p className="text-white/40 text-sm uppercase p-4 border border-border">
- Blacklist is empty.
- </p>
- ) : (
- initialData.blacklists.map((b) => (
- <div
- key={b.id}
- className="p-4 border border-destructive bg-destructive/10 flex justify-between items-center shadow-[4px_4px_0px_0px_rgba(239,68,68,1)]"
- >
- <div>
- <div className="flex items-center gap-2">
- <span className="font-bold text-destructive uppercase">
- [{b.entityType}] {b.entityId}
- </span>
- {!b.active && (
- <span className="text-xs border px-1 border-primary text-primary font-bold">Inactive</span>
- )}
- </div>
- <p className="text-xs text-white/40 mt-1">
- Reason: {b.reason} | Added By: {b.addedBy}
- </p>
- </div>
+  <div className="space-y-8 pt-8 border-t border-border">
+  <div className="border-b border-border pb-4">
+  <h3 className="text-sm tracking-[0.2em] uppercase text-foreground flex items-center gap-2">
+  <Slash className="w-4 h-4" />
+  {t('security.activeBlacklist')}
+  </h3>
+  <p className="text-[10px] text-foreground/50 tracking-widest uppercase mt-2">Blacklisted entities.</p>
+  </div>
+  
+  <div className="space-y-px bg-foreground/10 border border-border">
+  {initialData.blacklists.length === 0 ? (
+  <div className="bg-background p-12 text-center">
+  <p className="text-foreground/50 text-[10px] tracking-widest uppercase">
+  Blacklist is empty.
+  </p>
+  </div>
+  ) : (
+  initialData.blacklists.map((b) => (
+  <div
+  key={b.id}
+  className={`p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group ${b.active ? 'bg-background border-l-4 border-rose-500' : 'bg-background/50 border-l-4 border-border opacity-70'}`}
+  >
+  <div className="space-y-4">
+  <div className="flex items-center gap-4 flex-wrap">
+  <span className={`font-medium text-sm tracking-widest uppercase font-mono ${b.active ? 'text-rose-500/90' : 'text-foreground/50'}`}>
+  [{b.entityType}] {b.entityId}
+  </span>
+  {!b.active && (
+  <span className="text-[10px] border border-border/30 text-foreground/50 px-2 py-1 uppercase tracking-widest">Inactive</span>
+  )}
+  </div>
+  <p className="text-[10px] text-foreground/50 font-mono tracking-widest uppercase">
+  Reason: {b.reason} | Added By: {b.addedBy}
+  </p>
+  </div>
 
- <Button
- size="sm"
- className="bg-white/5 hover:bg-white/10 text-white border border-white/10"onClick={() =>
- startTransition(async () => { await toggleBlacklistStatus(b.id, !b.active); })
- }
- >
- {b.active ? t('security.deactivate') : t('security.activate')}
- </Button>
- </div>
- ))
- )}
- </div>
- </FormSection>
- </div>
- )}
+  <button
+  onClick={() => startTransition(async () => { await toggleBlacklistStatus(b.id, !b.active); })}
+  className={`px-6 py-3 border transition-colors text-[10px] uppercase tracking-widest shrink-0 ${b.active ? 'border-border/30 text-foreground/70 hover:border-border hover:text-foreground' : 'border-rose-500/30 text-rose-500/70 hover:border-rose-500 hover:text-rose-500'}`}
+  >
+  {b.active ? t('security.deactivate') : t('security.activate')}
+  </button>
+  </div>
+  ))
+  )}
+  </div>
+  </div>
+  </div>
+  )}
 
- {/* Tab 3: Incidents */}
- {activeTab ==="incidents"&& (
- <FormSection title="Security Incidents"icon={AlertTriangle} description="Critical security incident triage.">
- <div className="space-y-3">
- {initialData.incidents.length === 0 ? (
- <p className="text-white/40 text-sm uppercase p-4 border border-border">
- No active security incidents reported.
- </p>
- ) : (
- initialData.incidents.map((inc) => (
- <div
- key={inc.id}
- className="p-4 rounded-xl border border-white/5 bg-black/20 text-white backdrop-blur-md hover:bg-white/5 transition-all flex justify-between items-center shadow-sm"
- >
- <div>
- <div className="flex items-center gap-2">
- <span className="font-bold text-primary">[{inc.type}]</span>
- <span className="font-bold uppercase">{inc.description}</span>
- <span className="text-xs border px-2 py-0.5 border-primary font-bold uppercase">
- STATUS: {inc.status}
- </span>
- </div>
- <p className="text-xs text-white/40 mt-1">
- Guild: {inc.guildId} | Severity: {inc.severity} | Date: {new Date(inc.createdAt).toLocaleString()}
- </p>
- </div>
+  {/* Tab 3: Incidents */}
+  {activeTab ==="incidents"&& (
+  <div className="space-y-8">
+  <div className="border-b border-border pb-4">
+  <h3 className="text-sm tracking-[0.2em] uppercase text-foreground flex items-center gap-2">
+  <AlertTriangle className="w-4 h-4" />
+  Security Incidents
+  </h3>
+  <p className="text-[10px] text-foreground/50 tracking-widest uppercase mt-2">Critical security incident triage.</p>
+  </div>
+  
+  <div className="space-y-px bg-foreground/10 border border-border">
+  {initialData.incidents.length === 0 ? (
+  <div className="bg-background p-12 text-center">
+  <p className="text-foreground/50 text-[10px] tracking-widest uppercase">
+  No active security incidents reported.
+  </p>
+  </div>
+  ) : (
+  initialData.incidents.map((inc) => (
+  <div
+  key={inc.id}
+  className="p-8 bg-background hover:bg-foreground/5 transition-colors flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group"
+  >
+  <div className="space-y-4">
+  <div className="flex items-center gap-4 flex-wrap">
+  <span className="font-medium text-xs tracking-widest uppercase text-foreground/50 border border-border px-2 py-1">[{inc.type}]</span>
+  <span className="font-medium text-sm tracking-wide uppercase text-foreground">{inc.description}</span>
+  <span className="text-[10px] border border-border/30 px-2 py-1 uppercase tracking-widest text-foreground/70">
+  STATUS: {inc.status}
+  </span>
+  </div>
+  <p className="text-[10px] text-foreground/30 uppercase tracking-widest font-mono">
+  Guild: {inc.guildId} | Severity: {inc.severity} | Date: {new Date(inc.createdAt).toLocaleString()}
+  </p>
+  </div>
 
- {inc.status !=="resolved"&& (
- <Button
- size="sm"
- onClick={() =>
- startTransition(async () => { await updateIncidentStatus(inc.id,"resolved"); })
- }
- className="rounded-md border border-border text-xs font-medium"
- >
- Mark Resolved
- </Button>
- )}
- </div>
- ))
- )}
- </div>
- </FormSection>
- )}
+  {inc.status !=="resolved"&& (
+  <button
+  onClick={() => startTransition(async () => { await updateIncidentStatus(inc.id,"resolved"); })}
+  className="px-6 py-3 border border-emerald-500/30 text-emerald-500/70 hover:border-emerald-500 hover:text-emerald-500 transition-colors text-[10px] uppercase tracking-widest shrink-0"
+  >
+  Mark Resolved
+  </button>
+  )}
+  </div>
+  ))
+  )}
+  </div>
+  </div>
+  )}
 
- {/* Tab 4: Audit Logs */}
- {activeTab ==="audits"&& (
- <FormSection title="System Audit Logs"icon={Activity} description="System-wide administration audit trails.">
- <div className="overflow-x-auto border border-border">
- <table className="w-full text-left border-collapse text-sm">
- <thead className="bg-primary/10 border-b border-white/10 text-xs uppercase text-white/60">
- <tr>
- <th className="p-3">Action</th>
- <th className="p-3">User ID</th>
- <th className="p-3">Guild ID</th>
- <th className="p-3">Target</th>
- <th className="p-3">Date</th>
- </tr>
- </thead>
- <tbody className="divide-y divide-primary/20">
- {initialData.audits.length === 0 ? (
- <tr>
- <td colSpan={5} className="p-6 text-center text-white/40 uppercase">
- No audit records available.
- </td>
- </tr>
- ) : (
- initialData.audits.map((a) => (
- <tr key={a.id} className="hover:bg-primary/5">
- <td className="p-3 font-bold">{a.action}</td>
- <td className="p-3">{a.userId}</td>
- <td className="p-3">{a.guildId}</td>
- <td className="p-3">
- {a.targetType}: {a.targetId}
- </td>
- <td className="p-3 text-xs text-white/40">
- {new Date(a.createdAt).toLocaleString()}
- </td>
- </tr>
- ))
- )}
- </tbody>
- </table>
- </div>
- </FormSection>
- )}
+  {/* Tab 4: Audit Logs */}
+  {activeTab ==="audits"&& (
+  <div className="space-y-8">
+  <div className="border-b border-border pb-4">
+  <h3 className="text-sm tracking-[0.2em] uppercase text-foreground flex items-center gap-2">
+  <Activity className="w-4 h-4" />
+  System Audit Logs
+  </h3>
+  <p className="text-[10px] text-foreground/50 tracking-widest uppercase mt-2">System-wide administration audit trails.</p>
+  </div>
+  
+  <div className="overflow-x-auto">
+  <table className="w-full text-left text-sm">
+  <thead className="text-[10px] uppercase tracking-[0.3em] bg-foreground/5 border-y border-border text-foreground/50">
+  <tr>
+  <th className="px-8 py-4 font-normal">Action</th>
+  <th className="px-8 py-4 font-normal">User ID</th>
+  <th className="px-8 py-4 font-normal">Guild ID</th>
+  <th className="px-8 py-4 font-normal">Target</th>
+  <th className="px-8 py-4 font-normal">Date</th>
+  </tr>
+  </thead>
+  <tbody>
+  {initialData.audits.length === 0 ? (
+  <tr>
+  <td colSpan={5} className="p-12 text-center text-[10px] text-foreground/30 uppercase tracking-[0.2em]">
+  No audit records available.
+  </td>
+  </tr>
+  ) : (
+  initialData.audits.map((a) => (
+  <tr key={a.id} className="border-b border-border hover:bg-foreground/5 transition-colors">
+  <td className="px-8 py-4 font-medium text-foreground/80 font-mono text-xs uppercase">{a.action}</td>
+  <td className="px-8 py-4 text-foreground/50 font-mono text-xs">{a.userId}</td>
+  <td className="px-8 py-4 text-foreground/50 font-mono text-xs">{a.guildId}</td>
+  <td className="px-8 py-4 text-foreground/70 font-mono text-xs">
+  {a.targetType}: {a.targetId}
+  </td>
+  <td className="px-8 py-4 text-[10px] text-foreground/30 uppercase tracking-widest font-mono">
+  {new Date(a.createdAt).toLocaleString()}
+  </td>
+  </tr>
+  ))
+  )}
+  </tbody>
+  </table>
+  </div>
+  </div>
+  )}
 
- {/* Tab 5: Rate Limits */}
- {activeTab ==="ratelimits"&& (
- <FormSection title="Rate Limit Violations"icon={Lock} description="Endpoint rate limit exceedances.">
- <div className="overflow-x-auto border border-border">
- <table className="w-full text-left border-collapse text-sm">
- <thead className="bg-primary/10 border-b border-white/10 text-xs uppercase text-white/60">
- <tr>
- <th className="p-3">User ID</th>
- <th className="p-3">Endpoint</th>
- <th className="p-3">Violations</th>
- <th className="p-3">Blocked</th>
- <th className="p-3">Date</th>
- </tr>
- </thead>
- <tbody className="divide-y divide-primary/20">
- {initialData.rateLimits.length === 0 ? (
- <tr>
- <td colSpan={5} className="p-6 text-center text-white/40 uppercase">
- No rate limit violations logged.
- </td>
- </tr>
- ) : (
- initialData.rateLimits.map((r) => (
- <tr key={r.id} className="hover:bg-primary/5">
- <td className="p-3 font-bold">{r.userId}</td>
- <td className="p-3 font-bold text-primary">{r.endpoint}</td>
- <td className="p-3 font-bold text-destructive">{r.violations}</td>
- <td className="p-3">{r.blocked ?"YES":"NO"}</td>
- <td className="p-3 text-xs text-white/40">
- {new Date(r.createdAt).toLocaleString()}
- </td>
- </tr>
- ))
- )}
- </tbody>
- </table>
- </div>
- </FormSection>
- )}
+  {/* Tab 5: Rate Limits */}
+  {activeTab ==="ratelimits"&& (
+  <div className="space-y-8">
+  <div className="border-b border-border pb-4">
+  <h3 className="text-sm tracking-[0.2em] uppercase text-foreground flex items-center gap-2">
+  <Lock className="w-4 h-4" />
+  Rate Limit Violations
+  </h3>
+  <p className="text-[10px] text-foreground/50 tracking-widest uppercase mt-2">Endpoint rate limit exceedances.</p>
+  </div>
+  
+  <div className="overflow-x-auto">
+  <table className="w-full text-left text-sm">
+  <thead className="text-[10px] uppercase tracking-[0.3em] bg-foreground/5 border-y border-border text-foreground/50">
+  <tr>
+  <th className="px-8 py-4 font-normal">User ID</th>
+  <th className="px-8 py-4 font-normal">Endpoint</th>
+  <th className="px-8 py-4 font-normal">Violations</th>
+  <th className="px-8 py-4 font-normal">Blocked</th>
+  <th className="px-8 py-4 font-normal">Date</th>
+  </tr>
+  </thead>
+  <tbody>
+  {initialData.rateLimits.length === 0 ? (
+  <tr>
+  <td colSpan={5} className="p-12 text-center text-[10px] text-foreground/30 uppercase tracking-[0.2em]">
+  No rate limit violations logged.
+  </td>
+  </tr>
+  ) : (
+  initialData.rateLimits.map((r) => (
+  <tr key={r.id} className="border-b border-border hover:bg-foreground/5 transition-colors">
+  <td className="px-8 py-4 font-medium text-foreground/80 font-mono text-xs">{r.userId}</td>
+  <td className="px-8 py-4 text-foreground font-mono text-xs">{r.endpoint}</td>
+  <td className="px-8 py-4 text-rose-500/90 font-mono text-xs font-bold">{r.violations}</td>
+  <td className="px-8 py-4">
+  <span className={`px-2 py-1 text-[10px] uppercase tracking-widest border ${r.blocked ? 'border-rose-500/30 text-rose-500/70' : 'border-border/30 text-foreground/50'}`}>
+  {r.blocked ?"YES":"NO"}
+  </span>
+  </td>
+  <td className="px-8 py-4 text-[10px] text-foreground/30 uppercase tracking-widest font-mono">
+  {new Date(r.createdAt).toLocaleString()}
+  </td>
+  </tr>
+  ))
+  )}
+  </tbody>
+  </table>
+  </div>
+  </div>
+  )}
 
- {/* Tab 6: API Keys */}
- {activeTab ==="apikeys"&& (
- <FormSection title="Registered Api Keys"icon={Key} description="Bot API access keys.">
- <div className="space-y-3">
- {initialData.keys.length === 0 ? (
- <p className="text-white/40 text-sm uppercase p-4 border border-border">
- No active API keys issued.
- </p>
- ) : (
- initialData.keys.map((k) => (
- <div
- key={k.id}
- className="p-4 rounded-xl border border-white/5 bg-black/20 text-white backdrop-blur-md hover:bg-white/5 transition-all flex justify-between items-center shadow-sm"
- >
- <div>
- <div className="flex items-center gap-2">
- <span className="font-bold uppercase text-primary">{k.name}</span>
- <span className="text-xs border px-1 border-primary font-bold">
- User: {k.userId}
- </span>
- </div>
- <p className="text-xs text-white/40 mt-1">
- Rate Limit: {k.rateLimit} req/hr | Status: {k.active ?"Active":"Revoked"}
- </p>
- </div>
- </div>
- ))
- )}
- </div>
- </FormSection>
- )}
- </div>
- );
+  {/* Tab 6: API Keys */}
+  {activeTab ==="apikeys"&& (
+  <div className="space-y-8">
+  <div className="border-b border-border pb-4">
+  <h3 className="text-sm tracking-[0.2em] uppercase text-foreground flex items-center gap-2">
+  <Key className="w-4 h-4" />
+  Registered Api Keys
+  </h3>
+  <p className="text-[10px] text-foreground/50 tracking-widest uppercase mt-2">Bot API access keys.</p>
+  </div>
+  
+  <div className="space-y-px bg-foreground/10 border border-border">
+  {initialData.keys.length === 0 ? (
+  <div className="bg-background p-12 text-center">
+  <p className="text-foreground/50 text-[10px] tracking-widest uppercase">
+  No active API keys issued.
+  </p>
+  </div>
+  ) : (
+  initialData.keys.map((k) => (
+  <div
+  key={k.id}
+  className="p-8 bg-background hover:bg-foreground/5 transition-colors flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group"
+  >
+  <div className="space-y-4">
+  <div className="flex items-center gap-4 flex-wrap">
+  <span className="font-medium text-sm tracking-wide uppercase text-foreground">{k.name}</span>
+  <span className="text-[10px] border border-border/30 px-2 py-1 uppercase tracking-widest text-foreground/70">
+  User: {k.userId}
+  </span>
+  </div>
+  <p className="text-[10px] text-foreground/50 uppercase tracking-widest font-mono">
+  Rate Limit: {k.rateLimit} req/hr | Status: {k.active ?"Active":"Revoked"}
+  </p>
+  </div>
+  </div>
+  ))
+  )}
+  </div>
+  </div>
+  )}
+  </div>
+  </div>
+  );
 }
 

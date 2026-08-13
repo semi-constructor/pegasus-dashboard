@@ -10,7 +10,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "h-8 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
-        brutalist: "h-10 rounded-none border border-white/20 bg-black px-3 py-2 text-sm font-mono text-white placeholder:text-zinc-500 focus-visible:border-white focus-visible:ring-0 focus-visible:ring-offset-0",
+        brutalist: "h-10 rounded-none border border-border bg-background px-3 py-2 text-sm font-mono text-foreground placeholder:text-zinc-500 focus-visible:border-border focus-visible:ring-0 focus-visible:ring-offset-0",
       },
     },
     defaultVariants: {

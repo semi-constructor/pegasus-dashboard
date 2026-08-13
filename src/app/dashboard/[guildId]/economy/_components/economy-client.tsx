@@ -208,17 +208,17 @@ export default function EconomyClient({
   return (
     <div className="p-2 sm:p-6 md:p-10 relative flex-1 overflow-hidden animate-in fade-in duration-500 max-w-[1600px] mx-auto w-full">
       <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight flex items-center gap-3">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-foreground tracking-tight flex items-center gap-3">
           <Coins className="w-8 h-8 sm:w-10 sm:h-10 text-primary shrink-0" />{t("title")}
         </h1>
-        <p className="text-white/60 mt-1.5 sm:mt-2 text-xs sm:text-sm">
+        <p className="text-foreground/60 mt-1.5 sm:mt-2 text-xs sm:text-sm">
           {t("subtitle")}
         </p>
       </div>
 
-      <div className="bg-white/5 border border-white/10 rounded-2xl shadow-2xl relative overflow-hidden min-h-[600px] flex flex-col backdrop-blur-md">
+      <div className="bg-foreground/5 border border-border rounded-2xl shadow-2xl relative overflow-hidden min-h-[600px] flex flex-col backdrop-blur-md">
         {/* Browser-style Tabs Header */}
-        <div className="flex overflow-x-auto items-end bg-black/40 pt-3 sm:pt-4 px-2 sm:px-4 border-b border-white/10 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden shrink-0 touch-pan-x">
+        <div className="flex overflow-x-auto items-end bg-background/40 pt-3 sm:pt-4 px-2 sm:px-4 border-b border-border [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden shrink-0 touch-pan-x">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -226,11 +226,11 @@ export default function EconomyClient({
               className={cn(
                 "group relative flex items-center gap-2 px-3.5 sm:px-6 py-2.5 sm:py-3 transition-all duration-300 font-bold text-xs sm:text-sm tracking-wide rounded-t-xl border-t border-x -mb-[1px] shrink-0 whitespace-nowrap",
                 activeTab === tab.id
-                  ? "bg-white/10 border-white/10 text-white z-10 backdrop-blur-xl"
-                  : "bg-transparent border-transparent text-white/40 hover:bg-white/5 hover:text-white/80 hover:border-white/5 z-0"
+                  ? "bg-foreground/10 border-border text-foreground z-10 backdrop-blur-xl"
+                  : "bg-transparent border-transparent text-foreground/40 hover:bg-foreground/5 hover:text-foreground/80 hover:border-border z-0"
               )}
             >
-              <tab.icon className={cn("w-4 h-4 transition-colors shrink-0", activeTab === tab.id ? "text-white" : "text-white/40 group-hover:text-white/60")} />
+              <tab.icon className={cn("w-4 h-4 transition-colors shrink-0", activeTab === tab.id ? "text-foreground" : "text-foreground/40 group-hover:text-foreground/60")} />
               {tab.label}
               
               {activeTab === tab.id && (
@@ -242,87 +242,87 @@ export default function EconomyClient({
 
         {/* Main Content Area */}
         <div className="p-3 sm:p-6 md:p-10 relative flex-1 overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-foreground/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
    {/* Tab 1: Economy Settings */}
    {activeTab === "settings" && (
     <FormSection title={t("settings.title")} icon={Coins} description={t("settings.desc")}>
      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.symbol")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.symbol")}</label>
        <Input
         value={settings.currencySymbol}
         onChange={(e) => setSettings({ ...settings, currencySymbol: e.target.value })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
 
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.name")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.name")}</label>
        <Input
         value={settings.currencyName}
         onChange={(e) => setSettings({ ...settings, currencyName: e.target.value })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
 
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.startBalance")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.startBalance")}</label>
        <Input
         type="number"
         value={settings.startingBalance}
         onChange={(e) => setSettings({ ...settings, startingBalance: Number(e.target.value) })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
 
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.dailyReward")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.dailyReward")}</label>
        <Input
         type="number"
         value={settings.dailyAmount}
         onChange={(e) => setSettings({ ...settings, dailyAmount: Number(e.target.value) })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
 
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.workMin")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.workMin")}</label>
        <Input
         type="number"
         value={settings.workMinAmount}
         onChange={(e) => setSettings({ ...settings, workMinAmount: Number(e.target.value) })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
 
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.workMax")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.workMax")}</label>
        <Input
         type="number"
         value={settings.workMaxAmount}
         onChange={(e) => setSettings({ ...settings, workMaxAmount: Number(e.target.value) })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
 
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.minBet")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.minBet")}</label>
        <Input
         type="number"
         value={settings.minBet}
         onChange={(e) => setSettings({ ...settings, minBet: Number(e.target.value) })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
 
       <div className="flex flex-col gap-2">
-       <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t("settings.maxBet")}</label>
+       <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t("settings.maxBet")}</label>
        <Input
         type="number"
         value={settings.maxBet}
         onChange={(e) => setSettings({ ...settings, maxBet: Number(e.target.value) })}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
      </div>
@@ -368,7 +368,7 @@ export default function EconomyClient({
           });
         }
       }}>
-        <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[600px]">
+        <DialogContent className="bg-background/90 border border-border text-foreground backdrop-blur-xl sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-xl font-bold">
               <ShoppingBag className="w-5 h-5 text-primary" />
@@ -378,43 +378,43 @@ export default function EconomyClient({
           <div className="grid gap-4 py-4 max-h-[70vh] overflow-y-auto pr-2">
        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="flex flex-col gap-2">
-         <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Item Name</label>
+         <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Item Name</label>
          <Input
           placeholder="2x XP Booster / Shield"
           value={newItem.name}
           onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-          className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+          className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
          />
         </div>
 
         <div className="flex flex-col gap-2">
-         <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Price ({settings.currencySymbol})</label>
+         <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Price ({settings.currencySymbol})</label>
          <Input
           type="number"
           min={1}
           value={newItem.price}
           onChange={(e) => setNewItem({ ...newItem, price: Number(e.target.value) })}
-          className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+          className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
          />
         </div>
 
         <div className="space-y-1 md:col-span-2">
-         <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Item Description</label>
+         <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Item Description</label>
          <Textarea
           placeholder="Protects you against robbery attempts for 24 hours..."
           value={newItem.description}
           onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
-          className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+          className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
           rows={2}
          />
         </div>
 
         <div className="flex flex-col gap-2">
-         <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Effect Type</label>
+         <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Effect Type</label>
          <select
           value={newItem.effectType}
           onChange={(e) => setNewItem({ ...newItem, effectType: e.target.value })}
-          className="w-full min-h-[40px] px-3 py-2 bg-black/40 border border-white/10 rounded-lg text-sm uppercase text-white [&>option]:bg-neutral-900 outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+          className="w-full min-h-[40px] px-3 py-2 bg-background/40 border border-border rounded-lg text-sm uppercase text-foreground [&>option]:bg-neutral-900 outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
          >
           <option value="rob_protection">Robbery Protection Shield</option>
           <option value="xp_boost">XP Multiplier Booster</option>
@@ -424,12 +424,12 @@ export default function EconomyClient({
         </div>
 
         <div className="flex flex-col gap-2">
-         <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Stock Limit (-1 = Unlimited)</label>
+         <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Stock Limit (-1 = Unlimited)</label>
          <Input
           type="number"
           value={newItem.stock}
           onChange={(e) => setNewItem({ ...newItem, stock: Number(e.target.value) })}
-          className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+          className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
          />
         </div>
        </div>
@@ -440,14 +440,14 @@ export default function EconomyClient({
 
         {newItem.effectType === "rob_protection" && (
          <div className="flex flex-col gap-2">
-          <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Shield Protection Duration (Seconds)</label>
+          <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Shield Protection Duration (Seconds)</label>
           <Input
            type="number"
            value={newItem.effectDuration}
            onChange={(e) => setNewItem({ ...newItem, effectDuration: Number(e.target.value) })}
-           className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+           className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
           />
-          <p className="text-xs text-white/50 mt-1">
+          <p className="text-xs text-foreground/50 mt-1">
            86400s = 24 Hours | 604800s = 7 Days
           </p>
          </div>
@@ -456,22 +456,22 @@ export default function EconomyClient({
         {newItem.effectType === "xp_boost" && (
          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
-           <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">XP Multiplier Factor</label>
+           <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">XP Multiplier Factor</label>
            <Input
             type="number"
             step="0.5"
             value={newItem.effectMultiplier}
             onChange={(e) => setNewItem({ ...newItem, effectMultiplier: Number(e.target.value) })}
-            className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+            className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
            />
           </div>
           <div className="flex flex-col gap-2">
-           <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Booster Duration (Seconds)</label>
+           <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Booster Duration (Seconds)</label>
            <Input
             type="number"
             value={newItem.effectDuration}
             onChange={(e) => setNewItem({ ...newItem, effectDuration: Number(e.target.value) })}
-            className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+            className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
            />
           </div>
          </div>
@@ -479,7 +479,7 @@ export default function EconomyClient({
 
         {newItem.effectType === "role" && (
          <div className="flex flex-col gap-2">
-          <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Role Granted Upon Purchase</label>
+          <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Role Granted Upon Purchase</label>
           <DiscordRolePicker
            roles={roles}
            value={newItem.effectRoleId}
@@ -490,12 +490,12 @@ export default function EconomyClient({
 
         {newItem.effectType === "custom" && (
          <div className="flex flex-col gap-2">
-          <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Custom Effect Instructions / Metadata (Optional)</label>
+          <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Custom Effect Instructions / Metadata (Optional)</label>
           <Input
            placeholder="e.g. VIP Lounge Access Badge"
            value={newItem.effectNote}
            onChange={(e) => setNewItem({ ...newItem, effectNote: e.target.value })}
-           className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+           className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
           />
          </div>
         )}
@@ -509,14 +509,14 @@ export default function EconomyClient({
         />
        </div>
           </div>
-          <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
-            <Button variant="ghost" onClick={() => setIsShopItemDialogOpen(false)} className="text-white/50 hover:text-white">
+          <div className="flex justify-end gap-2 border-t border-border pt-4">
+            <Button variant="ghost" onClick={() => setIsShopItemDialogOpen(false)} className="text-foreground/50 hover:text-foreground">
               Cancel
             </Button>
             <Button
               onClick={handleCreateShopItem}
               disabled={isPending}
-              className="bg-white/10 hover:bg-white/20 text-white border-0"
+              className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create Shop Item
@@ -532,7 +532,7 @@ export default function EconomyClient({
        headerAction={
         <Button
          onClick={() => setIsShopItemDialogOpen(true)}
-         className="bg-white/10 hover:bg-white/20 text-white border-0 shadow-sm font-bold text-xs uppercase"
+         className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0 shadow-sm font-bold text-xs uppercase"
         >
          <Plus className="w-4 h-4 mr-2" />Add Item
         </Button>
@@ -540,14 +540,14 @@ export default function EconomyClient({
      >
       <div className="space-y-3">
        {initialShopItems.length === 0 ? (
-        <p className="text-white/40 text-sm uppercase p-4 border border-border">
+        <p className="text-foreground/40 text-sm uppercase p-4 border border-border">
          No shop items added yet.
         </p>
        ) : (
         initialShopItems.map((item) => (
          <div
           key={item.id}
-          className="p-4 rounded-xl border border-white/5 bg-black/20 text-white backdrop-blur-md hover:bg-white/5 transition-all flex items-center gap-3 justify-between shadow-sm"
+          className="p-4 rounded-xl border border-border bg-background/20 text-foreground backdrop-blur-md hover:bg-foreground/5 transition-all flex items-center gap-3 justify-between shadow-sm"
          >
           <div>
            <div className="flex items-center gap-2">
@@ -559,7 +559,7 @@ export default function EconomyClient({
              {item.effectType}
             </Badge>
            </div>
-           <p className="text-xs text-white/40 mt-1">
+           <p className="text-xs text-foreground/40 mt-1">
             Description: {item.description} | Stock: {item.stock === -1 ? "Unlimited" : item.stock} | Effect: {JSON.stringify(item.effectValue)}
            </p>
           </div>
@@ -585,7 +585,7 @@ export default function EconomyClient({
         setIsUserDialogOpen(open);
         if (!open) setEditingUser(null);
       }}>
-        <DialogContent className="bg-black/90 border border-white/10 text-white backdrop-blur-xl sm:max-w-[400px]">
+        <DialogContent className="bg-background/90 border border-border text-foreground backdrop-blur-xl sm:max-w-[400px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-xl font-bold">
               <Users className="w-5 h-5 text-primary" />
@@ -599,34 +599,34 @@ export default function EconomyClient({
                 <p className="text-sm font-bold text-primary break-all">USER ID: {editingUser.userId}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Wallet Balance</label>
+                <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Wallet Balance</label>
                 <Input
                   type="number"
                   value={editingUser.balance}
                   onChange={(e) => setEditingUser({ ...editingUser, balance: Number(e.target.value) })}
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+                  className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">Bank Balance</label>
+                <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">Bank Balance</label>
                 <Input
                   type="number"
                   value={editingUser.bankBalance}
                   onChange={(e) => setEditingUser({ ...editingUser, bankBalance: Number(e.target.value) })}
-                  className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+                  className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
                 />
               </div>
             </div>
           )}
 
-          <div className="flex justify-end gap-2 border-t border-white/10 pt-4">
-            <Button variant="ghost" onClick={() => setIsUserDialogOpen(false)} className="text-white/50 hover:text-white">
+          <div className="flex justify-end gap-2 border-t border-border pt-4">
+            <Button variant="ghost" onClick={() => setIsUserDialogOpen(false)} className="text-foreground/50 hover:text-foreground">
               Cancel
             </Button>
             <Button
               onClick={handleSaveBalanceOverride}
               disabled={isPending}
-              className="bg-white/10 hover:bg-white/20 text-white border-0"
+              className="bg-foreground/10 hover:bg-foreground/20 text-foreground border-0"
             >
               <Save className="w-4 h-4 mr-2" />
               Commit Override
@@ -639,7 +639,7 @@ export default function EconomyClient({
 
      <div className="flex items-center justify-between mb-4 gap-4">
       <div className="relative flex-1 max-w-sm">
-       <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+       <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
        <Input
         placeholder="Search by User ID..."
         value={balanceSearch}
@@ -647,14 +647,14 @@ export default function EconomyClient({
          setBalanceSearch(e.target.value);
          setBalancePage(1);
         }}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] pl-10 pr-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] pl-10 pr-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
      </div>
 
      <div className="overflow-x-auto rounded-lg border border-border">
       <table className="w-full text-left border-collapse text-sm">
-       <thead className="bg-primary/10 border-b border-white/10 text-xs uppercase text-white/60">
+       <thead className="bg-primary/10 border-b border-border text-xs uppercase text-foreground/60">
         <tr>
          <th className="p-3">User ID</th>
          <th className="p-3">Wallet Balance</th>
@@ -666,7 +666,7 @@ export default function EconomyClient({
        <tbody className="divide-y divide-primary/20">
         {currentBalances.length === 0 ? (
          <tr>
-          <td colSpan={5} className="p-6 text-center text-white/40 uppercase">
+          <td colSpan={5} className="p-6 text-center text-foreground/40 uppercase">
            No economy balances found.
           </td>
          </tr>
@@ -680,11 +680,11 @@ export default function EconomyClient({
            <td className="p-3 font-medium text-blue-500">
             {formatNumber(b.bankBalance)} {settings.currencySymbol}
            </td>
-           <td className="p-3 text-white/40">{formatNumber(b.totalEarned)}</td>
+           <td className="p-3 text-foreground/40">{formatNumber(b.totalEarned)}</td>
            <td className="p-3">
             <Button
              size="sm"
-             className="bg-white/5 hover:bg-white/10 text-white border border-white/10"onClick={() => {
+             className="bg-foreground/5 hover:bg-foreground/10 text-foreground border border-border"onClick={() => {
               setEditingUser({
                userId: b.userId,
                balance: b.balance,
@@ -714,7 +714,7 @@ export default function EconomyClient({
        >
         <ChevronLeft className="w-4 h-4" />
        </Button>
-       <span className="text-sm font-medium text-white/40">
+       <span className="text-sm font-medium text-foreground/40">
         Page {balancePage} of {totalBalancePages}
        </span>
        <Button
@@ -736,7 +736,7 @@ export default function EconomyClient({
     <FormSection title="Transaction Audit Log" icon={History} description="Real-time record of all economy operations.">
      <div className="flex items-center justify-between mb-4 gap-4">
       <div className="relative flex-1 max-w-sm">
-       <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+       <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
        <Input
         placeholder="Search transactions..."
         value={txSearch}
@@ -744,14 +744,14 @@ export default function EconomyClient({
          setTxSearch(e.target.value);
          setTxPage(1);
         }}
-        className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] pl-10 pr-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+        className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] pl-10 pr-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
        />
       </div>
      </div>
 
      <div className="overflow-x-auto rounded-lg border border-border">
       <table className="w-full text-left border-collapse text-sm">
-       <thead className="bg-primary/10 border-b border-white/10 text-xs uppercase text-white/60">
+       <thead className="bg-primary/10 border-b border-border text-xs uppercase text-foreground/60">
         <tr>
          <th className="p-3">Type</th>
          <th className="p-3">User ID</th>
@@ -763,7 +763,7 @@ export default function EconomyClient({
        <tbody className="divide-y divide-primary/20">
         {currentTransactions.length === 0 ? (
          <tr>
-          <td colSpan={5} className="p-6 text-center text-white/40 uppercase">
+          <td colSpan={5} className="p-6 text-center text-foreground/40 uppercase">
            No economy transactions found.
           </td>
          </tr>
@@ -780,7 +780,7 @@ export default function EconomyClient({
             {tx.amount > 0 ? `+${formatNumber(tx.amount)}` : formatNumber(tx.amount)}
            </td>
            <td className="p-3 truncate max-w-xs">{tx.description || "N/A"}</td>
-           <td className="p-3 text-xs text-white/40">
+           <td className="p-3 text-xs text-foreground/40">
             {new Date(tx.createdAt).toLocaleString()}
            </td>
           </tr>
@@ -800,7 +800,7 @@ export default function EconomyClient({
        >
         <ChevronLeft className="w-4 h-4" />
        </Button>
-       <span className="text-sm font-medium text-white/40">
+       <span className="text-sm font-medium text-foreground/40">
         Page {txPage} of {totalTxPages}
        </span>
        <Button

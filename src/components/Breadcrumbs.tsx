@@ -26,7 +26,7 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
       <nav aria-label="Breadcrumb" className="mb-6">
-        <ol className="flex items-center space-x-2 text-sm text-zinc-400">
+        <ol className="flex items-center space-x-2 text-sm text-muted-foreground">
           {items.map((item, index) => (
             <li key={item.url} className="flex items-center">
               {index > 0 && <ChevronRight className="h-4 w-4 mx-1 flex-shrink-0" />}

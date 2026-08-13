@@ -1,15 +1,14 @@
 import type { Metadata } from 'next'
-import { Inter, Geist } from 'next/font/google'
+import { Geist } from 'next/font/google'
 import './globals.css';
 import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import CookieBanner from '@/components/Cookie'; 
 import Analytics from '@/components/tools/Analytics'; 
+import { ThemeProvider } from '@/components/ThemeProvider'; 
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
-
-const inter = Inter({ subsets: ['latin'] })
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();
@@ -74,12 +73,14 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={cn("dark", "font-sans", geist.variable)} suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang={locale} className={cn("font-sans", geist.variable)} suppressHydrationWarning>
+      <body className={geist.className}>
         
         <NextIntlClientProvider messages={messages} locale={locale}>
-          <CookieBanner /> 
-          {children}
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+            <CookieBanner /> 
+            {children}
+          </ThemeProvider>
         </NextIntlClientProvider>
 
         <Analytics />

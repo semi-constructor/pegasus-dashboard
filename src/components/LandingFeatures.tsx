@@ -2,9 +2,10 @@
 
 import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
 import { GlassVisual } from "./GlassShapes";
@@ -35,7 +36,7 @@ const FeatureSection = ({ title, description, features, visual, reverse, moduleL
   return (
     <section 
       ref={containerRef}
-      className="py-32 md:py-56 relative bg-black border-t border-white/[0.05] overflow-hidden"
+      className="py-32 md:py-56 relative bg-background border-t border-border/[0.05] overflow-hidden"
     >
       {/* Floating Glass Element placed outside the image in the background */}
       <motion.div 
@@ -52,13 +53,13 @@ const FeatureSection = ({ title, description, features, visual, reverse, moduleL
             className={`flex flex-col space-y-12 ${reverse ? 'lg:order-2' : 'lg:order-1'}`}
           >
             <div>
-              <div className="text-white/30 text-sm tracking-widest uppercase mb-4">
+              <div className="text-foreground/30 text-sm tracking-widest uppercase mb-4">
                 0{index + 1} // Module
               </div>
-              <h2 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-6 leading-[0.9]">
+              <h2 className="text-5xl md:text-7xl font-medium tracking-tighter text-foreground mb-6 leading-[0.9]">
                 {title}
               </h2>
-              <p className="text-xl md:text-2xl text-white/50 font-light leading-relaxed max-w-xl">
+              <p className="text-xl md:text-2xl text-foreground/50 font-light leading-relaxed max-w-xl">
                 {description}
               </p>
             </div>
@@ -66,10 +67,10 @@ const FeatureSection = ({ title, description, features, visual, reverse, moduleL
             <div className="flex flex-col gap-8">
               {features.map((f, i) => (
                 <div key={i} className="flex flex-col gap-2">
-                  <h3 className="text-lg font-medium text-white tracking-tight uppercase">
+                  <h3 className="text-lg font-medium text-foreground tracking-tight uppercase">
                     {f.title}
                   </h3>
-                  <p className="text-base text-white/40 font-light leading-relaxed max-w-md">
+                  <p className="text-base text-foreground/40 font-light leading-relaxed max-w-md">
                     {f.desc}
                   </p>
                 </div>
@@ -77,8 +78,8 @@ const FeatureSection = ({ title, description, features, visual, reverse, moduleL
             </div>
             
             {moduleLink && moduleLinkText && (
-              <div className="pt-8 border-t border-white/10 mt-8">
-                <Link href={moduleLink} className="group flex items-center text-white/70 hover:text-white transition-colors text-sm uppercase tracking-widest font-medium">
+              <div className="pt-8 border-t border-border mt-8">
+                <Link href={moduleLink} className="group flex items-center text-foreground/70 hover:text-foreground transition-colors text-sm uppercase tracking-widest font-medium">
                   {moduleLinkText}
                   <ArrowRight className="w-4 h-4 ml-3 opacity-50 group-hover:translate-x-2 transition-all duration-300 group-hover:opacity-100" />
                 </Link>
@@ -98,22 +99,35 @@ const FeatureSection = ({ title, description, features, visual, reverse, moduleL
   );
 };
 
-const DashboardScreenshot = ({ src, alt }: { src: string, alt: string }) => (
-  <div className="w-full relative border border-white/10 bg-black p-2 overflow-hidden mx-auto group z-20">
-    <div className="p-0 relative bg-black aspect-[16/10]">
-      <Image 
-        src={src} 
-        alt={alt} 
-        fill
-        className="object-cover opacity-50 group-hover:opacity-80 transition-opacity duration-1000 filter contrast-125 saturate-50 grayscale-[20%] group-hover:grayscale-0 z-0"
-        loading="lazy"
-        quality={100}
-        unoptimized
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-100 z-10" />
+const DashboardScreenshot = ({ src, alt }: { src: string, alt: string }) => {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  // Default to dark during SSR to avoid hydration mismatch flashes for most users
+  const theme = mounted ? (resolvedTheme === 'light' ? 'light' : 'dark') : 'dark';
+  
+  const ext = src.substring(src.lastIndexOf('.'));
+  const base = src.substring(0, src.lastIndexOf('.'));
+  const themedSrc = `${base}-${theme}${ext}?v=2`;
+
+  return (
+    <div className="w-full relative border border-border bg-background p-2 overflow-hidden mx-auto group z-20">
+      <div className="p-0 relative bg-background aspect-[16/10]">
+        <Image 
+          src={themedSrc} 
+          alt={alt} 
+          fill
+          className="object-cover opacity-50 group-hover:opacity-80 transition-opacity duration-1000 filter contrast-125 saturate-50 grayscale-[20%] brightness-[0.85] group-hover:grayscale-0 z-0"
+          loading="lazy"
+          quality={100}
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent opacity-100 z-10" />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export function LandingFeatures() {
   const t = useTranslations('features');

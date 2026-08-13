@@ -153,7 +153,7 @@ export default function AutoModClient({
     <div className="space-y-8 animate-in fade-in duration-500">
 
       {/* Navigation Tabs */}
-      <div className="flex overflow-x-auto bg-black/40 p-1 rounded-lg w-full sm:w-fit border border-white/10 shrink-0 touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="flex overflow-x-auto bg-background/40 p-1 rounded-lg w-full sm:w-fit border border-border shrink-0 touch-pan-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {[
           { id: "rules", label: t('tabs.rules'), icon: Wand2 },
           { id: "infractions", label: t('tabs.infractions'), icon: ListFilter },
@@ -165,7 +165,7 @@ export default function AutoModClient({
             onClick={() => setActiveTab(tab.id as any)}
             className={cn(
               "rounded-md font-medium text-xs transition-all shrink-0 whitespace-nowrap flex-1 sm:flex-none",
-              activeTab === tab.id ? "bg-white/10 text-white shadow-sm" : "text-white/60 hover:text-white"
+              activeTab === tab.id ? "bg-foreground/10 text-foreground shadow-sm" : "text-foreground/60 hover:text-foreground"
             )}
           >
             <tab.icon className="w-4 h-4 mr-2 shrink-0" />
@@ -184,21 +184,21 @@ export default function AutoModClient({
   >
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.name')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.name')}</label>
   <Input
  placeholder="e.g. Anti-Crypto Keywords"
  value={newRule.name}
  onChange={(e) => setNewRule({ ...newRule, name: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  />
  </div>
 
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.eventType')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.eventType')}</label>
   <select
   value={newRule.eventType}
   onChange={(e) => setNewRule({ ...newRule, eventType: e.target.value })}
-  className="w-full p-2 bg-black/40 border border-white/10 text-white placeholder:text-white/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+  className="w-full p-2 bg-background/40 border border-border text-foreground placeholder:text-foreground/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
   >
   <option value="MESSAGE_SEND">{t('createRule.events.msgSend')}</option>
   <option value="MESSAGE_EDIT">{t('createRule.events.msgEdit')}</option>
@@ -208,11 +208,11 @@ export default function AutoModClient({
   </div>
 
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.triggerType')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.triggerType')}</label>
   <select
   value={newRule.triggerType}
   onChange={(e) => setNewRule({ ...newRule, triggerType: e.target.value })}
-  className="w-full p-2 bg-black/40 border border-white/10 text-white placeholder:text-white/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+  className="w-full p-2 bg-background/40 border border-border text-foreground placeholder:text-foreground/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
   >
   <option value="keyword_match">{t('createRule.triggers.keyword')}</option>
   <option value="regex_match">{t('createRule.triggers.regex')}</option>
@@ -222,11 +222,11 @@ export default function AutoModClient({
   </div>
 
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.actionType')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.actionType')}</label>
   <select
   value={newRule.actionType}
   onChange={(e) => setNewRule({ ...newRule, actionType: e.target.value })}
-  className="w-full p-2 bg-black/40 border border-white/10 text-white placeholder:text-white/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+  className="w-full p-2 bg-background/40 border border-border text-foreground placeholder:text-foreground/30 rounded-lg text-sm uppercase outline-none focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
   >
   <option value="delete">{t('createRule.actions.delete')}</option>
   <option value="warn">{t('createRule.actions.warn')}</option>
@@ -238,18 +238,18 @@ export default function AutoModClient({
  </div>
 
         {/* Type-Specific Sub-Form Keyed Off TriggerType */}
-        <div className="p-6 rounded-xl border border-white/10 bg-black/20 space-y-4">
-          <h4 className="font-bold text-sm uppercase text-white/80 border-b border-white/10 pb-2">{t('createRule.metadataConfig', { type: newRule.triggerType })}
+        <div className="p-6 rounded-xl border border-border bg-background/20 space-y-4">
+          <h4 className="font-bold text-sm uppercase text-foreground/80 border-b border-border pb-2">{t('createRule.metadataConfig', { type: newRule.triggerType })}
           </h4>
 
   {newRule.triggerType ==="keyword_match"&& (
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.keywords')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.keywords')}</label>
   <Textarea
  placeholder="crypto, free nitro, airdrop, discord.gg/fake"
  value={newRule.keywords}
  onChange={(e) => setNewRule({ ...newRule, keywords: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg h-10 px-3 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg h-10 px-3 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  rows={2}
  />
  </div>
@@ -257,38 +257,38 @@ export default function AutoModClient({
 
   {newRule.triggerType ==="regex_match"&& (
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.regex')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.regex')}</label>
   <Input
  placeholder="(?i)(https?:\/\/)?(www\.)?(discord\.(gg|io|me|li)|discordapp\.com\/invite)\/.+"
  value={newRule.regexPattern}
  onChange={(e) => setNewRule({ ...newRule, regexPattern: e.target.value })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  />
  </div>
  )}
 
   {newRule.triggerType ==="mention_spam"&& (
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.mentionLimit')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.mentionLimit')}</label>
   <Input
  type="number"
  min={1}
  value={newRule.mentionThreshold}
  onChange={(e) => setNewRule({ ...newRule, mentionThreshold: Number(e.target.value) })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  />
  </div>
  )}
 
   {newRule.triggerType ==="attachment_spam"&& (
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.attachmentLimit')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.attachmentLimit')}</label>
   <Input
  type="number"
  min={1}
  value={newRule.attachmentThreshold}
  onChange={(e) => setNewRule({ ...newRule, attachmentThreshold: Number(e.target.value) })}
- className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
+ className="w-full bg-foreground/5 border border-border text-foreground placeholder:text-foreground/30 rounded-lg min-h-[40px] px-3 py-2 focus-visible:ring-1 focus-visible:ring-primary/50 transition-all"
  />
  </div>
  )}
@@ -297,7 +297,7 @@ export default function AutoModClient({
   {/* Exemptions Pickers */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.exemptRoles')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.exemptRoles')}</label>
   <DiscordRoleMultiPicker
  roles={roles}
  value={newRule.exemptRoles}
@@ -305,7 +305,7 @@ export default function AutoModClient({
  />
   </div>
   <div className="flex flex-col gap-2">
-  <label className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.exemptChannels')}</label>
+  <label className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('createRule.exemptChannels')}</label>
   <DiscordChannelMultiPicker
  channels={channels}
  value={newRule.exemptChannels}
@@ -326,18 +326,18 @@ export default function AutoModClient({
   <FormSection title={t('activeRules.title')} icon={Wand2} description={t('activeRules.description')}>
   <div className="space-y-3">
   {initialRules.length === 0 ? (
-  <p className="text-white/40 text-sm uppercase p-4 border border-border">
+  <p className="text-foreground/40 text-sm uppercase p-4 border border-border">
   {t('activeRules.empty')}
   </p>
   ) : (
  initialRules.map((rule) => (
                 <div
                   key={rule.id}
-                  className="p-4 rounded-xl border border-white/10 bg-white/5 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between shadow-lg"
+                  className="p-4 rounded-xl border border-border bg-foreground/5 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between shadow-lg"
                 >
  <div>
  <div className="flex flex-wrap items-center gap-2">
- <span className="font-bold text-white/80 uppercase tracking-wider">{rule.name}</span>
+ <span className="font-bold text-foreground/80 uppercase tracking-wider">{rule.name}</span>
  <span className="text-xs border px-1 border-primary bg-primary/10 uppercase">
  {rule.eventType}
  </span>
@@ -348,7 +348,7 @@ export default function AutoModClient({
   <Badge variant="destructive" className="text-xs uppercase">{t('activeRules.disabled')}</Badge>
   )}
   </div>
-  <p className="text-xs text-white/40 mt-1">
+  <p className="text-xs text-foreground/40 mt-1">
   {t('activeRules.metadata')}: {JSON.stringify(rule.triggerMetadata)} | {t('activeRules.actions')}: {JSON.stringify(rule.actions)}
   </p>
  </div>
@@ -356,7 +356,7 @@ export default function AutoModClient({
  <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
  <Button
  size="sm"
- className="bg-white/5 hover:bg-white/10 text-white border border-white/10"onClick={() =>
+ className="bg-foreground/5 hover:bg-foreground/10 text-foreground border border-border"onClick={() =>
  startTransition(async () => { await toggleAutoModRule(guildId, rule.id, !rule.enabled); })
  }
   >
@@ -382,9 +382,9 @@ export default function AutoModClient({
  {/* Tab 2: Infractions Log */}
  {activeTab ==="infractions"&& (
  <FormSection title={t('infractions.title')} icon={ListFilter} description={t('infractions.description')}>
-        <div className="overflow-x-auto rounded-xl border border-white/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-left border-collapse text-sm">
-            <thead className="bg-black/40 border-b border-white/10 text-xs uppercase text-white/70">
+            <thead className="bg-background/40 border-b border-border text-xs uppercase text-foreground/70">
               <tr>
                 <th className="p-4 font-medium">{t('infractions.userId')}</th>
                 <th className="p-4 font-medium">{t('infractions.points')}</th>
@@ -394,10 +394,10 @@ export default function AutoModClient({
                 <th className="p-4 font-medium">{t('infractions.date')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 bg-black/20">
+            <tbody className="divide-y divide-white/5 bg-background/20">
  {initialInfractions.length === 0 ? (
  <tr>
- <td colSpan={6} className="p-6 text-center text-white/40 uppercase">
+ <td colSpan={6} className="p-6 text-center text-foreground/40 uppercase">
  {t('infractions.empty')}
  </td>
  </tr>
@@ -409,7 +409,7 @@ export default function AutoModClient({
  <td className="p-3 uppercase font-bold">{inf.actionTaken}</td>
  <td className="p-3 truncate max-w-xs">{inf.reason ||"AutoMod Trigger"}</td>
  <td className="p-3">{inf.active ? t('infractions.yes') : t('infractions.expired')}</td>
- <td className="p-3 text-xs text-white/40">
+ <td className="p-3 text-xs text-foreground/40">
  {new Date(inf.createdAt).toLocaleDateString()}
  </td>
  </tr>
@@ -426,7 +426,7 @@ export default function AutoModClient({
  <FormSection title={t('vault.title')} icon={Lock} description={t('vault.description')}>
  <div className="space-y-3">
  {initialVault.length === 0 ? (
- <p className="text-white/40 text-sm uppercase p-4 border border-border">
+ <p className="text-foreground/40 text-sm uppercase p-4 border border-border">
  {t('vault.empty')}
  </p>
  ) : (
@@ -442,10 +442,10 @@ export default function AutoModClient({
  {item.released ? (
  <Badge variant="outline" className="text-xs border-primary font-bold uppercase">{t('vault.releasedBadge')}</Badge>
  ) : (
- <Badge variant="destructive" className="block text-xs font-bold text-white/70 uppercase tracking-wider mb-2 ml-1">{t('vault.jailedBadge')}</Badge>
+ <Badge variant="destructive" className="block text-xs font-bold text-foreground/70 uppercase tracking-wider mb-2 ml-1">{t('vault.jailedBadge')}</Badge>
  )}
  </div>
- <p className="text-xs text-white/40 mt-1">
+ <p className="text-xs text-foreground/40 mt-1">
  {t('vault.reason', { reason: item.reason || t('vault.defaultReason') })} | {t('vault.jailedAt')}: {new Date(item.createdAt).toLocaleString()}
  </p>
  </div>

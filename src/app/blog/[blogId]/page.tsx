@@ -37,39 +37,39 @@ export default async function BlogPostPage({ params }: { params: Promise<{ blogI
 
   return (
     <MarketingLayout>
-      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
-        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
-        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+      <div className="relative min-h-screen bg-background pt-48 pb-32 overflow-hidden selection:bg-foreground selection:text-background">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-foreground/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-foreground/[0.03]" />
         
         <div className="max-w-4xl mx-auto px-6 lg:px-24 relative z-10">
           <div className="mb-16">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-xs text-white/30 uppercase tracking-[0.3em] hover:text-white transition-colors mb-12">
+            <Link href="/blog" className="inline-flex items-center gap-2 text-xs text-foreground/30 uppercase tracking-[0.3em] hover:text-foreground transition-colors mb-12">
               <ArrowLeft className="w-3 h-3" />
               Back to Blog
             </Link>
             
-            <h1 className="text-4xl md:text-6xl font-medium text-white mb-8 tracking-tighter uppercase leading-[0.95]">
+            <h1 className="text-4xl md:text-6xl font-medium text-foreground mb-8 tracking-tighter uppercase leading-[0.95]">
               {blog.title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-6 text-xs border-y border-white/10 py-4">
+            <div className="flex flex-wrap items-center gap-6 text-xs border-y border-border py-4">
               <div className="flex items-center gap-3">
                 {blog.authorImage ? (
-                  <img src={blog.authorImage} alt={blog.authorName || 'Author'} className="w-6 h-6 grayscale border border-white/10" />
+                  <img src={blog.authorImage} alt={blog.authorName || 'Author'} className="w-6 h-6 grayscale border border-border" />
                 ) : (
-                  <div className="w-6 h-6 bg-white/10 flex items-center justify-center border border-white/10">
-                    <span className="text-white text-[10px] font-bold">P</span>
+                  <div className="w-6 h-6 bg-foreground/10 flex items-center justify-center border border-border">
+                    <span className="text-foreground text-[10px] font-bold">P</span>
                   </div>
                 )}
                 <div className="flex flex-col">
-                  <span className="text-white text-xs uppercase tracking-[0.2em]">{blog.authorName || 'Pegasus Team'}</span>
-                  <span className="text-white/20 text-[10px] uppercase tracking-[0.3em]">Author</span>
+                  <span className="text-foreground text-xs uppercase tracking-[0.2em]">{blog.authorName || 'Pegasus Team'}</span>
+                  <span className="text-foreground/20 text-[10px] uppercase tracking-[0.3em]">Author</span>
                 </div>
               </div>
               
-              <div className="w-px h-6 bg-white/10 hidden sm:block" />
+              <div className="w-px h-6 bg-foreground/10 hidden sm:block" />
               
-              <div className="flex items-center gap-2 text-white/30 uppercase tracking-[0.3em]">
+              <div className="flex items-center gap-2 text-foreground/30 uppercase tracking-[0.3em]">
                 <Calendar className="w-3 h-3" />
                 <span>
                   {blog.publishedAt 
@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ blogI
             </div>
           </div>
 
-          <div className="prose prose-invert prose-lg max-w-none prose-headings:font-medium prose-headings:tracking-tighter prose-headings:uppercase prose-a:text-white prose-a:underline prose-a:underline-offset-4 prose-img:border prose-img:border-white/10 border border-white/10 bg-[#050505] p-8 md:p-12">
+          <div className="prose prose-invert prose-lg max-w-none prose-headings:font-medium prose-headings:tracking-tighter prose-headings:uppercase prose-a:text-foreground prose-a:underline prose-a:underline-offset-4 prose-img:border prose-img:border-border border border-border bg-[#050505] p-8 md:p-12">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
@@ -92,7 +92,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ blogI
                       style={atomDark as any}
                       language={match[1]}
                       PreTag="div"
-                      className="my-4 border border-white/10"
+                      className="my-4 border border-border"
                       {...props}
                     >
                       {String(children).replace(/\n$/, '')}

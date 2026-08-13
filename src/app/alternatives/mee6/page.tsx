@@ -44,9 +44,9 @@ export default async function Mee6AlternativePage() {
     <MarketingLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       
-      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
-        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
-        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+      <div className="relative min-h-screen bg-background pt-48 pb-32 overflow-hidden selection:bg-foreground selection:text-background">
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-foreground/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-foreground/[0.03]" />
 
         <div className="max-w-7xl mx-auto px-6 lg:px-24 relative z-10">
           <Breadcrumbs items={[
@@ -57,38 +57,38 @@ export default async function Mee6AlternativePage() {
 
           {/* Hero */}
           <div className="max-w-4xl mb-32 mt-12">
-            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+            <div className="inline-flex items-center text-foreground/30 text-xs tracking-[0.3em] uppercase mb-8 border border-border px-4 py-2">
               // COMPARISON_ANALYSIS
             </div>
-            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-8 uppercase leading-[0.9]">
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-foreground mb-8 uppercase leading-[0.9]">
               {t('heroTitle')}
             </h1>
-            <p className="text-white/40 text-sm uppercase tracking-[0.1em] max-w-2xl leading-relaxed mb-12">
+            <p className="text-foreground/40 text-sm uppercase tracking-[0.1em] max-w-2xl leading-relaxed mb-12">
               {t('heroSubtitle')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/api/auth/signin" className="group inline-flex items-center px-8 py-4 bg-white text-black text-xs font-bold tracking-[0.3em] uppercase hover:bg-zinc-200 transition-colors">
+              <Link href="/api/auth/signin" className="group inline-flex items-center px-8 py-4 bg-foreground text-background text-xs font-bold tracking-[0.3em] uppercase hover:bg-zinc-200 transition-colors">
                 {t('cta1')}
                 <ArrowRight className="w-4 h-4 ml-4 group-hover:translate-x-2 transition-transform" />
               </Link>
-              <Link href="/#features" className="inline-flex items-center px-8 py-4 border border-white/10 text-white/50 text-xs font-bold tracking-[0.3em] uppercase hover:text-white hover:border-white/30 transition-all">
+              <Link href="/#features" className="inline-flex items-center px-8 py-4 border border-border text-foreground/50 text-xs font-bold tracking-[0.3em] uppercase hover:text-foreground hover:border-border/30 transition-all">
                 {t('cta2')}
               </Link>
             </div>
           </div>
 
-          <div className="w-full h-px bg-white/10 mb-24" />
+          <div className="w-full h-px bg-foreground/10 mb-24" />
 
           {/* Comparison Table */}
           <div className="mb-32">
-            <h2 className="text-2xl tracking-[0.2em] font-medium text-white mb-12 uppercase border-l-2 border-white pl-6">{t('comparisonTitle')}</h2>
-            <div className="overflow-x-auto border border-white/10 bg-[#050505]">
+            <h2 className="text-2xl tracking-[0.2em] font-medium text-foreground mb-12 uppercase border-l-2 border-border pl-6">{t('comparisonTitle')}</h2>
+            <div className="overflow-x-auto border border-border bg-[#050505]">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b border-white/10">
-                    <th className="p-6 text-white/30 text-xs font-medium uppercase tracking-[0.3em] w-1/3">Feature</th>
-                    <th className="p-6 text-white/30 text-xs font-medium uppercase tracking-[0.3em] text-center w-1/3">MEE6</th>
-                    <th className="p-6 text-white text-xs font-medium uppercase tracking-[0.3em] text-center w-1/3 border-l border-white/10">Pegasus</th>
+                  <tr className="border-b border-border">
+                    <th className="p-6 text-foreground/30 text-xs font-medium uppercase tracking-[0.3em] w-1/3">Feature</th>
+                    <th className="p-6 text-foreground/30 text-xs font-medium uppercase tracking-[0.3em] text-center w-1/3">MEE6</th>
+                    <th className="p-6 text-foreground text-xs font-medium uppercase tracking-[0.3em] text-center w-1/3 border-l border-border">Pegasus</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -100,13 +100,13 @@ export default async function Mee6AlternativePage() {
                     ['Economy System', 'Basic', 'Advanced'],
                     ['Reaction Roles', 'Paywalled', '100% Free']
                   ].map((row, i) => (
-                    <tr key={i} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                      <td className="p-6 text-sm text-white/60 uppercase tracking-[0.1em]">{row[0]}</td>
+                    <tr key={i} className="border-b border-border hover:bg-foreground/[0.02] transition-colors">
+                      <td className="p-6 text-sm text-foreground/60 uppercase tracking-[0.1em]">{row[0]}</td>
                       <td className="p-6 text-center">
-                        {row[1] === false ? <X className="w-4 h-4 text-white/20 mx-auto" /> : <span className="text-white/30 text-xs uppercase tracking-[0.2em]">{row[1]}</span>}
+                        {row[1] === false ? <X className="w-4 h-4 text-foreground/20 mx-auto" /> : <span className="text-foreground/30 text-xs uppercase tracking-[0.2em]">{row[1]}</span>}
                       </td>
-                      <td className="p-6 text-center border-l border-white/10 bg-white/[0.02]">
-                        {row[2] === true ? <Check className="w-4 h-4 text-white mx-auto" /> : <span className="text-white text-xs uppercase tracking-[0.2em]">{row[2]}</span>}
+                      <td className="p-6 text-center border-l border-border bg-foreground/[0.02]">
+                        {row[2] === true ? <Check className="w-4 h-4 text-foreground mx-auto" /> : <span className="text-foreground text-xs uppercase tracking-[0.2em]">{row[2]}</span>}
                       </td>
                     </tr>
                   ))}
@@ -117,36 +117,36 @@ export default async function Mee6AlternativePage() {
 
           {/* Features Grid */}
           <div className="mb-32">
-            <h2 className="text-2xl tracking-[0.2em] font-medium text-white mb-12 uppercase border-l-2 border-white pl-6">{t('featuresTitle')}</h2>
-            <div className="grid md:grid-cols-3 gap-px bg-white/10">
+            <h2 className="text-2xl tracking-[0.2em] font-medium text-foreground mb-12 uppercase border-l-2 border-border pl-6">{t('featuresTitle')}</h2>
+            <div className="grid md:grid-cols-3 gap-px bg-foreground/10">
               {[
                 { icon: Zap, titleKey: 'feature1.title', descKey: 'feature1.desc' },
                 { icon: Shield, titleKey: 'feature2.title', descKey: 'feature2.desc' },
                 { icon: Ticket, titleKey: 'feature3.title', descKey: 'feature3.desc' },
               ].map((feature) => (
-                <div key={feature.titleKey} className="bg-[#050505] p-8 hover:bg-white/[0.02] transition-colors group">
-                  <feature.icon className="w-6 h-6 text-white/30 group-hover:text-white transition-colors mb-6" />
-                  <h3 className="text-lg font-medium text-white mb-3 uppercase tracking-[0.1em]">{t(feature.titleKey)}</h3>
-                  <p className="text-white/40 text-sm leading-relaxed font-light">{t(feature.descKey)}</p>
+                <div key={feature.titleKey} className="bg-[#050505] p-8 hover:bg-foreground/[0.02] transition-colors group">
+                  <feature.icon className="w-6 h-6 text-foreground/30 group-hover:text-foreground transition-colors mb-6" />
+                  <h3 className="text-lg font-medium text-foreground mb-3 uppercase tracking-[0.1em]">{t(feature.titleKey)}</h3>
+                  <p className="text-foreground/40 text-sm leading-relaxed font-light">{t(feature.descKey)}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Migration Guide */}
-          <div className="border border-white/10 bg-[#050505] p-12 relative overflow-hidden">
-            <h2 className="text-2xl tracking-[0.2em] font-medium text-white mb-12 uppercase">{t('migrationTitle')}</h2>
+          <div className="border border-border bg-[#050505] p-12 relative overflow-hidden">
+            <h2 className="text-2xl tracking-[0.2em] font-medium text-foreground mb-12 uppercase">{t('migrationTitle')}</h2>
             <div className="space-y-8">
               {[
                 { step: '01', titleKey: 'migrationStep1Title', descKey: 'migrationStep1Desc' },
                 { step: '02', titleKey: 'migrationStep2Title', descKey: 'migrationStep2Desc' },
                 { step: '03', titleKey: 'migrationStep3Title', descKey: 'migrationStep3Desc' },
               ].map((item) => (
-                <div key={item.step} className="flex gap-6 items-start border-b border-white/5 pb-8 last:border-0">
-                  <span className="text-3xl font-medium tracking-tighter text-white/20 font-mono flex-shrink-0">{item.step}</span>
+                <div key={item.step} className="flex gap-6 items-start border-b border-border pb-8 last:border-0">
+                  <span className="text-3xl font-medium tracking-tighter text-foreground/20 font-mono flex-shrink-0">{item.step}</span>
                   <div>
-                    <h3 className="text-white font-medium text-sm uppercase tracking-[0.2em] mb-3">{t(item.titleKey)}</h3>
-                    <p className="text-white/40 text-sm font-light leading-relaxed">{t(item.descKey)}</p>
+                    <h3 className="text-foreground font-medium text-sm uppercase tracking-[0.2em] mb-3">{t(item.titleKey)}</h3>
+                    <p className="text-foreground/40 text-sm font-light leading-relaxed">{t(item.descKey)}</p>
                   </div>
                 </div>
               ))}

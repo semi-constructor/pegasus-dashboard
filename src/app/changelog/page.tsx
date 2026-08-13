@@ -46,26 +46,26 @@ export default async function ChangelogPage() {
 
   return (
     <MarketingLayout>
-      <div className="relative min-h-screen bg-black pt-48 pb-32 overflow-hidden selection:bg-white selection:text-black">
+      <div className="relative min-h-screen bg-background pt-48 pb-32 overflow-hidden selection:bg-foreground selection:text-background">
         {/* Architectural background lines */}
-        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-white/[0.03]" />
-        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-white/[0.03]" />
+        <div className="absolute top-0 left-12 md:left-24 w-px h-full bg-foreground/[0.03]" />
+        <div className="absolute top-0 right-12 md:right-24 w-px h-full bg-foreground/[0.03]" />
         
         <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-24">
           <div className="mb-24">
-            <div className="inline-flex items-center text-white/30 text-xs tracking-[0.3em] uppercase mb-8 border border-white/10 px-4 py-2">
+            <div className="inline-flex items-center text-foreground/30 text-xs tracking-[0.3em] uppercase mb-8 border border-border px-4 py-2">
               <Box className="w-4 h-4 mr-3" />
               // {t("productUpdates")}
             </div>
-            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-white mb-6 uppercase">
+            <h1 className="text-5xl md:text-7xl font-medium tracking-tighter text-foreground mb-6 uppercase">
               {t("title")}
             </h1>
-            <p className="text-white/40 tracking-[0.1em] text-sm uppercase max-w-2xl">
+            <p className="text-foreground/40 tracking-[0.1em] text-sm uppercase max-w-2xl">
               {t("subtitle")}
             </p>
           </div>
 
-          <div className="w-full h-px bg-white/10 mb-24" />
+          <div className="w-full h-px bg-foreground/10 mb-24" />
 
           <ChangelogClient items={changelogItems} />
         </div>

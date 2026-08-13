@@ -25,7 +25,7 @@ export default async function PersonalDataPage() {
   <div className="p-8 max-w-5xl mx-auto h-[60vh] flex flex-col items-center justify-center text-center">
   <ShieldAlert className="w-16 h-16 text-destructive mb-4"/>
   <h1 className="text-3xl font-bold text-foreground mb-2">{t('dataExport.accessDeniedTitle')}</h1>
-  <p className="text-white/40 max-w-md">
+  <p className="text-foreground/40 max-w-md">
   {t('dataExport.accessDeniedDescription')}
   </p>
   </div>
@@ -36,7 +36,7 @@ export default async function PersonalDataPage() {
  <div className="p-8 max-w-5xl mx-auto space-y-8">
  <div>
  <h1 className="text-3xl font-bold text-foreground tracking-tight">{t('dataExport.title')}</h1>
- <p className="text-white/40 mt-2">{t('dataExport.description')}</p>
+ <p className="text-foreground/40 mt-2">{t('dataExport.description')}</p>
  </div>
 
  <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 flex gap-4">
@@ -53,7 +53,7 @@ export default async function PersonalDataPage() {
  <Archive className="w-6 h-6 text-primary"/>
  </div>
  <h3 className="text-lg font-bold text-foreground mb-2">{t('dataExport.exportZipTitle')}</h3>
- <p className="text-sm text-white/40 mb-6">
+ <p className="text-sm text-foreground/40 mb-6">
  {t('dataExport.exportZipDescription')}
  </p>
  <Link href="/api/export-data?format=zip"className="w-full py-2.5 bg-primary/10 hover:bg-primary/20 text-primary font-medium rounded-lg flex items-center justify-center gap-2 transition-colors">
@@ -67,7 +67,7 @@ export default async function PersonalDataPage() {
  <FileJson className="w-6 h-6 text-blue-500"/>
  </div>
  <h3 className="text-lg font-bold text-foreground mb-2">{t('dataExport.exportJsonTitle')}</h3>
- <p className="text-sm text-white/40 mb-6">
+ <p className="text-sm text-foreground/40 mb-6">
  {t('dataExport.exportJsonDescription')}
  </p>
  <Link href="/api/export-data?format=json"className="w-full py-2.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 font-medium rounded-lg flex items-center justify-center gap-2 transition-colors">
