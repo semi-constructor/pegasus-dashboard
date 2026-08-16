@@ -5,11 +5,14 @@ FROM base AS builder
 RUN apk add --no-cache libc6-compat git
 WORKDIR /app
 
-# Clone the repository
-RUN git clone https://github.com/semi-constructor/pegasus-dashboard.git .
+# Copy dependencies files
+COPY package.json package-lock.json* ./
 
 # Install dependencies based on the preferred package manager
 RUN npm ci
+
+# Copy local source
+COPY . .
 
 # Next.js telemetry
 ENV NEXT_TELEMETRY_DISABLED=1

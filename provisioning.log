@@ -1,0 +1,17 @@
+[2026-08-16T21:02:55.889Z] [Instance a] Starting provisioning workflow
+[2026-08-16T21:02:55.890Z] [Instance a] 1. Creating Coolify Service...
+[2026-08-16T21:04:16.702Z] [Instance a] Service UUID: a11u6ytviy0uzxsbmz3wmd3x
+[2026-08-16T21:04:16.890Z] [Instance a] 2. Deploying service...
+[2026-08-16T21:04:20.097Z] [Instance a] Deployment queued with UUID: [object Object]
+[2026-08-16T21:09:10.143Z] [Instance a] Waiting for service... Current status: exited (attempt 54/60)
+[2026-08-16T21:09:15.948Z] [Instance a] Waiting for service... Current status: exited (attempt 55/60)
+[2026-08-16T21:09:21.525Z] [Instance a] Waiting for service... Current status: exited (attempt 56/60)
+[2026-08-16T21:09:26.975Z] [Instance a] Waiting for service... Current status: exited (attempt 57/60)
+[2026-08-16T21:09:32.820Z] [Instance a] Waiting for service... Current status: exited (attempt 58/60)
+[2026-08-16T21:09:38.534Z] [Instance a] Waiting for service... Current status: exited (attempt 59/60)
+[2026-08-16T21:09:44.163Z] [Instance a] Waiting for service... Current status: exited (attempt 60/60)
+[2026-08-16T21:09:49.166Z] [Instance a] Provisioning failed
+Error: Health check timed out
+Error: Health check timed out
+    at runProvisioningWorkflow (D:\Projects\Pegasus\dashboard\src\lib\provisioning-worker.ts:117:13)
+    at async test (D:\Projects\Pegasus\dashboard\test-deploy.ts:5:3)

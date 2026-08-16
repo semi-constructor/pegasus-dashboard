@@ -1,0 +1,12 @@
+{
+  "title": "Erstelle deine Pegasus Instanz",
+  "description": "Fast geschafft! Gib deinen Discord-Bot-Token ein, um deine dedizierte Instanz bereitzustellen.",
+  "tokenLabel": "Discord-Bot-Token",
+  "tokenPlaceholder": "MTIw...",
+  "securityNote": "Dein Token wird vor der Speicherung sicher verschlüsselt und ist niemals im Frontend sichtbar.",
+  "btnProvisioning": "Wird überprüft & bereitgestellt...",
+  "btnCreate": "Instanz erstellen",
+  "whereToFind": "Wo finde ich meinen Bot-Token?",
+  "successMessage": "Instanz-Bereitstellung für {botName} gestartet!",
+  "setupFailed": "Fehler beim Einrichten der Instanz"
+}

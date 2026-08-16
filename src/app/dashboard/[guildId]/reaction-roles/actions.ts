@@ -2,6 +2,7 @@
 
 import { requireGuildAdmin } from "@/lib/auth-guard";
 import { getGuildChannels } from "@/lib/discord-api";
+import { sendReactionRolePanelRepo } from "@/lib/repository/reaction-roles";
 
 export async function sendReactionRolePanel(guildId: string, channelId: string, payload: any) {
   await requireGuildAdmin(guildId);
@@ -13,22 +14,7 @@ export async function sendReactionRolePanel(guildId: string, channelId: string, 
       return { success: false, error: "Invalid channel or channel does not belong to this guild." };
     }
 
-    const res = await fetch(`https://discord.com/api/v10/channels/${channelId}/messages`, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error("Discord API Error:", errorText);
-      return { success: false, error: "Failed to send message to Discord." };
-    }
-
-    return { success: true };
+    return await sendReactionRolePanelRepo(guildId, channelId, payload);
   } catch (error) {
     console.error("Failed to send panel:", error);
     return { success: false, error: "Internal server error." };

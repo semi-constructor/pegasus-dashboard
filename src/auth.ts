@@ -62,12 +62,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    jwt: async ({ token, user, account }) => {
+    jwt: async ({ token, user, account, trigger, session }) => {
       if (user) {
         token.id = user.id;
+        token.image = user.image;
       }
       if (account) {
         token.providerAccountId = account.providerAccountId;
+      }
+      if (trigger === "update" && session?.image) {
+        token.image = session.image;
       }
       return token;
     },
@@ -75,6 +79,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (session.user && token) {
         session.user.id = token.id as string;
         session.user.discordId = token.providerAccountId as string;
+        if (token.image || token.picture) {
+          session.user.image = (token.image || token.picture) as string;
+        }
       }
       return session;
     },

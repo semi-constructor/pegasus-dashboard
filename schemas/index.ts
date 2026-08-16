@@ -20,3 +20,5 @@ export * from './trivia';
 export * from './starboard';
 export * from './surveys';
 export * from './blogs';
+export * from './billing';
+export * from './dashboard_tickets';

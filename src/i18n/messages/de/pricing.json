@@ -1,0 +1,35 @@
+{
+  "title": "Pegasus Hosted",
+  "subtitle": "Lass Pegasus unter deiner eigenen Discord-Identität laufen.",
+  "monthly": "Monatlich",
+  "yearly": "Jährlich",
+  "saveMonths": "Spare ~2 Monate",
+  "freeTier": {
+    "title": "Self-Hosted",
+    "price": "Kostenlos",
+    "feature1": "Open Source",
+    "feature2": "Selbst verwaltet",
+    "feature3": "Deine eigene Infrastruktur",
+    "cta": "Auf GitHub ansehen"
+  },
+  "premiumTier": {
+    "title": "VaultScope Hosted",
+    "recommended": "EMPFOHLEN",
+    "saveAmount": "Spare €9.89 gegenüber monatlicher Zahlung",
+    "feature1": "Dein eigener Bot (Name, Avatar, Identität)",
+    "feature2": "Managed Hosting auf VaultScope Infrastruktur",
+    "feature3": "Automatische Updates",
+    "feature4": "Kein Setup erforderlich",
+    "cta": "Pegasus Hosted holen",
+    "processing": "Wird bearbeitet..."
+  },
+  "bringYourOwn": {
+    "title": "Bring deinen eigenen Discord-Bot mit.",
+    "description": "Dein Bot behält seinen eigenen Namen, seinen Avatar, seine Berechtigungen und seine Identität, während Pegasus auf der VaultScope-Infrastruktur läuft. Du erhältst die volle Leistung des Pegasus-Ökosystems, ohne dich jemals um Server, Datenbanken oder Betriebszeiten kümmern zu müssen."
+  },
+  "billingDisabled": "Die Abrechnung ist auf dieser Instanz nicht aktiviert.",
+  "checkoutError": "Beim Checkout ist ein Fehler aufgetreten."
+}
+
+
+

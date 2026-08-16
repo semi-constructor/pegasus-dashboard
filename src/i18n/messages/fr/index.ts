@@ -30,6 +30,8 @@ import profile from './profile.json';
 import profilePages from './profilePages.json';
 import seo from './seo.json';
 import team from './team.json';
+import setupInstance from './setupInstance.json';
+import pricing from './pricing.json';
 
 const frMessages = {
   admin,
@@ -64,6 +66,10 @@ const frMessages = {
   profilePages,
   seo,
   team,
+  setupInstance,
+  pricing,
 };
 
 export default frMessages;
+
+

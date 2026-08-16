@@ -1,0 +1,12 @@
+{
+  "title": "Create your Pegasus Instance",
+  "description": "Almost there! Provide your Discord Bot Token to provision your dedicated instance.",
+  "tokenLabel": "Discord Bot Token",
+  "tokenPlaceholder": "MTIw...",
+  "securityNote": "Your token is securely encrypted before storage and is never exposed to the frontend.",
+  "btnProvisioning": "Verifying & Provisioning...",
+  "btnCreate": "Create Instance",
+  "whereToFind": "Where do I find my bot token?",
+  "successMessage": "Instance provisioning started for {botName}!",
+  "setupFailed": "Failed to setup instance"
+}

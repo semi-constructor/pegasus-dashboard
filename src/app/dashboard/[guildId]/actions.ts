@@ -1,27 +1,19 @@
 "use server";
 
-import { db } from"@/lib/db";
-import { guildSettings } from"schemas/guilds";
-import { eq } from"drizzle-orm";
 import { revalidatePath } from"next/cache";
-import { invalidateCache } from"@/lib/redis";
+import { invalidateCache } from "@/lib/redis";
 import { requireGuildAdmin } from "@/lib/auth-guard";
+import { updateGuildSettings, resetGuildSettings as resetGuildSettingsRepo, updateGuildConfig as updateGuildConfigRepo, getWordFilters as getWordFiltersRepo, createWordFilter as createWordFilterRepo, deleteWordFilter as deleteWordFilterRepo } from "@/lib/repository/guild";
+import { getGiveawaysRepo, createGiveawayRepo, deleteGiveawayRepo } from "@/lib/repository/giveaway";
+import { getJtcConfigRepo, saveJtcConfigRepo as updateJtcConfigRepo } from "@/lib/repository/jtc";
+import { updateStarboardConfigRepo } from "@/lib/repository/starboard";
 
 export async function updateLoggingSettings(guildId: string, data: { logsEnabled: boolean, logsChannel: string }) {
  await requireGuildAdmin(guildId);
  try {
- await db.insert(guildSettings).values({
- guildId,
- logsEnabled: data.logsEnabled,
- logsChannel: data.logsChannel,
- }).onConflictDoUpdate({
- target: guildSettings.guildId,
- set: {
- logsEnabled: data.logsEnabled,
- logsChannel: data.logsChannel,
- updatedAt: new Date(),
- }
- });
+ const success = await updateGuildSettings(guildId, data);
+ if (!success) throw new Error("Failed to update settings via repository");
+ 
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}/settings`);
  revalidatePath(`/dashboard/${guildId}`);
@@ -35,16 +27,8 @@ export async function updateLoggingSettings(guildId: string, data: { logsEnabled
 export async function updateModerationSettings(guildId: string, data: { securityEnabled: boolean, antiRaidEnabled: boolean, antiSpamEnabled: boolean }) {
  await requireGuildAdmin(guildId);
  try {
- await db.insert(guildSettings).values({
- guildId,
- ...data,
- }).onConflictDoUpdate({
- target: guildSettings.guildId,
- set: {
- ...data,
- updatedAt: new Date(),
- }
- });
+ const success = await updateGuildSettings(guildId, data);
+ if (!success) throw new Error("Failed to update settings via repository");
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}/settings`);
  revalidatePath(`/dashboard/${guildId}`);
@@ -73,7 +57,8 @@ export async function getDiscordChannels(guildId: string) {
 export async function resetGuildSettings(guildId: string) {
  await requireGuildAdmin(guildId);
  try {
- await db.delete(guildSettings).where(eq(guildSettings.guildId, guildId));
+ const success = await resetGuildSettingsRepo(guildId);
+ if (!success) throw new Error("Failed");
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}`);
  return { success: true };
@@ -84,12 +69,8 @@ export async function resetGuildSettings(guildId: string) {
 export async function updateGuildConfig(guildId: string, data: { prefix: string, language: string }) {
  await requireGuildAdmin(guildId);
  try {
- const { guilds } = await import("schemas/guilds");
- await db.update(guilds).set({
- prefix: data.prefix,
- language: data.language,
- updatedAt: new Date()
- }).where(eq(guilds.id, guildId));
+ const success = await updateGuildConfigRepo(guildId, data);
+ if (!success) throw new Error("Failed");
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
@@ -102,16 +83,8 @@ export async function updateGuildConfig(guildId: string, data: { prefix: string,
 export async function updateGuildSettingsData(guildId: string, data: any) {
  await requireGuildAdmin(guildId);
  try {
- await db.insert(guildSettings).values({
- guildId,
- ...data,
- }).onConflictDoUpdate({
- target: guildSettings.guildId,
- set: {
- ...data,
- updatedAt: new Date(),
- }
- });
+ const success = await updateGuildSettings(guildId, data);
+ if (!success) throw new Error("Failed");
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
@@ -123,9 +96,8 @@ export async function updateGuildSettingsData(guildId: string, data: any) {
 
 export async function getGiveaways(guildId: string) {
  await requireGuildAdmin(guildId);
- const { giveaways } = await import("schemas/giveaways");
  try {
- return await db.select().from(giveaways).where(eq(giveaways.guildId, guildId));
+ return await getGiveawaysRepo(guildId);
  } catch (e) {
  return [];
  }
@@ -133,13 +105,8 @@ export async function getGiveaways(guildId: string) {
 
 export async function createGiveaway(guildId: string, data: any) {
  await requireGuildAdmin(guildId);
- const { giveaways } = await import("schemas/giveaways");
  try {
- await db.insert(giveaways).values({
- giveawayId: Math.random().toString(36).substring(7),
- guildId,
- ...data,
- });
+ await createGiveawayRepo(guildId, data);
  revalidatePath(`/dashboard/${guildId}/giveaways`);
  return { success: true };
  } catch (error) {
@@ -150,9 +117,8 @@ export async function createGiveaway(guildId: string, data: any) {
 
 export async function deleteGiveaway(guildId: string, giveawayId: string) {
  await requireGuildAdmin(guildId);
- const { giveaways } = await import("schemas/giveaways");
  try {
- await db.delete(giveaways).where(eq(giveaways.giveawayId, giveawayId));
+ await deleteGiveawayRepo(guildId, giveawayId);
  revalidatePath(`/dashboard/${guildId}/giveaways`);
  return { success: true };
  } catch (error) {
@@ -162,9 +128,8 @@ export async function deleteGiveaway(guildId: string, giveawayId: string) {
 
 export async function getWordFilters(guildId: string) {
  await requireGuildAdmin(guildId);
- const { wordFilterRules } = await import("schemas/moderation");
  try {
- return await db.select().from(wordFilterRules).where(eq(wordFilterRules.guildId, guildId));
+ return await getWordFiltersRepo(guildId);
  } catch (e) {
  return [];
  }
@@ -172,12 +137,8 @@ export async function getWordFilters(guildId: string) {
 
 export async function createWordFilter(guildId: string, data: { pattern: string, severity: string, autoDelete: boolean }) {
  await requireGuildAdmin(guildId);
- const { wordFilterRules } = await import("schemas/moderation");
  try {
- await db.insert(wordFilterRules).values({
- guildId,
- ...data,
- });
+ await createWordFilterRepo(guildId, data);
  revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
@@ -187,9 +148,8 @@ export async function createWordFilter(guildId: string, data: { pattern: string,
 
 export async function deleteWordFilter(guildId: string, id: number) {
  await requireGuildAdmin(guildId);
- const { wordFilterRules } = await import("schemas/moderation");
  try {
- await db.delete(wordFilterRules).where(eq(wordFilterRules.id, id));
+ await deleteWordFilterRepo(guildId, id);
  revalidatePath(`/dashboard/${guildId}/settings`);
  return { success: true };
  } catch (error) {
@@ -199,10 +159,8 @@ export async function deleteWordFilter(guildId: string, id: number) {
 
 export async function getJtcConfig(guildId: string) {
  await requireGuildAdmin(guildId);
- const { jtcConfigs } = await import("schemas/jtc");
  try {
- const res = await db.select().from(jtcConfigs).where(eq(jtcConfigs.guildId, guildId)).limit(1);
- return res[0] || null;
+ return await getJtcConfigRepo(guildId);
  } catch (e) {
  return null;
  }
@@ -210,20 +168,8 @@ export async function getJtcConfig(guildId: string) {
 
 export async function updateJtcConfig(guildId: string, data: any) {
  await requireGuildAdmin(guildId);
- const { jtcConfigs } = await import("schemas/jtc");
  try {
- const existing = await getJtcConfig(guildId);
- if (!existing) {
- await db.insert(jtcConfigs).values({
- guildId,
- ...data,
- });
- } else {
- await db.update(jtcConfigs).set({
- ...data,
- updatedAt: new Date(),
- }).where(eq(jtcConfigs.guildId, guildId));
- }
+ await updateJtcConfigRepo(guildId, data);
  revalidatePath(`/dashboard/${guildId}/jtc`);
  return { success: true };
  } catch (error) {
@@ -232,7 +178,7 @@ export async function updateJtcConfig(guildId: string, data: any) {
  }
 }
 
-import { searchGuildMembers, type DiscordMember } from "@/lib/discord-api";
+import { searchGuildMembers, type DiscordMember, getGuild } from "@/lib/discord-api";
 
 export async function searchDiscordMembersAction(guildId: string, query: string): Promise<DiscordMember[]> {
   await requireGuildAdmin(guildId);
@@ -240,7 +186,6 @@ export async function searchDiscordMembersAction(guildId: string, query: string)
   return await searchGuildMembers(guildId, query, 15);
 }
 
-import { getGuild } from "@/lib/discord-api";
 export async function getGuildInfoAction(guildId: string) {
   await requireGuildAdmin(guildId);
   return await getGuild(guildId);
@@ -248,20 +193,8 @@ export async function getGuildInfoAction(guildId: string) {
 
 export async function updateStarboardConfig(guildId: string, data: any) {
   await requireGuildAdmin(guildId);
-  const { starboardSettings } = await import("schemas/starboard");
   try {
-    const existing = await db.select().from(starboardSettings).where(eq(starboardSettings.guildId, guildId)).limit(1);
-    if (existing.length === 0) {
-      await db.insert(starboardSettings).values({
-        guildId,
-        ...data,
-      });
-    } else {
-      await db.update(starboardSettings).set({
-        ...data,
-        updatedAt: new Date(),
-      }).where(eq(starboardSettings.guildId, guildId));
-    }
+    await updateStarboardConfigRepo(guildId, data);
     revalidatePath(`/dashboard/${guildId}/starboard`);
     return { success: true };
   } catch (error) {

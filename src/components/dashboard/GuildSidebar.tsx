@@ -110,6 +110,10 @@ export async function GuildSidebar({ guildId }: { guildId: string }) {
       </nav>
 
       <div className="p-4 border-t border-border/50">
+        <Link href="/dashboard/instances" className="flex items-center gap-3 px-3 py-2 rounded-none hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm mb-1">
+          <Server className="w-4 h-4" />
+          My Instances
+        </Link>
         <Link href={`/dashboard/${guildId}/settings`} className="flex items-center gap-3 px-3 py-2 rounded-none hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm">
           <Settings className="w-4 h-4" />
           {t('serverSettings')}

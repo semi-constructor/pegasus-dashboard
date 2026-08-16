@@ -1,9 +1,7 @@
 "use server";
 
-import { db } from"@/lib/db";
-import { guilds, guildSettings } from"@/../schemas/guilds";
-import { eq } from"drizzle-orm";
-import { revalidatePath } from"next/cache";
+import { revalidatePath } from "next/cache";
+import { saveGuildConfigRepo, saveGuildSettingsRepo, resetGuildSettingsRepo } from "@/lib/repository/settings";
 import { invalidateCache } from"@/lib/redis";
 import { requireGuildAdmin } from"@/lib/auth-guard";
 import { getGuildChannels, getGuildRoles } from"@/lib/discord-api";
@@ -54,14 +52,8 @@ export async function saveGuildConfig(
  await requireGuildAdmin(guildId);
 
  try {
- await db
- .update(guilds)
- .set({
- prefix: data.prefix,
- language: data.language,
- updatedAt: new Date(),
- })
- .where(eq(guilds.id, guildId));
+    const result = await saveGuildConfigRepo(guildId, data);
+    if (!result.success) return result;
 
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}/settings`);
@@ -142,19 +134,8 @@ export async function saveGuildSettings(
  await requireGuildAdmin(guildId);
 
  try {
- await db
- .insert(guildSettings)
- .values({
- guildId,
- ...data,
- })
- .onConflictDoUpdate({
- target: guildSettings.guildId,
- set: {
- ...data,
- updatedAt: new Date(),
- },
- });
+    const result = await saveGuildSettingsRepo(guildId, data);
+    if (!result.success) return result;
 
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}/settings`);
@@ -172,7 +153,8 @@ export async function resetGuildSettingsAction(guildId: string) {
  await requireGuildAdmin(guildId);
 
  try {
- await db.delete(guildSettings).where(eq(guildSettings.guildId, guildId));
+    const result = await resetGuildSettingsRepo(guildId);
+    if (!result?.success) return result;
  await invalidateCache(`guild:${guildId}:settings`);
  revalidatePath(`/dashboard/${guildId}`);
  revalidatePath(`/dashboard/${guildId}/settings`);

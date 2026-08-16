@@ -1,8 +1,17 @@
 "use server";
 
-import { db } from"@/lib/db";
-import { xpSettings, xpRewards, xpMultipliers, userXp } from"@/../schemas/xp";
-import { eq, and, desc } from"drizzle-orm";
+import {
+  repoGetXpSettings,
+  repoSaveXpSettings,
+  repoGetXpRewards,
+  repoCreateXpReward,
+  repoDeleteXpReward,
+  repoGetXpMultipliers,
+  repoCreateXpMultiplier,
+  repoDeleteXpMultiplier,
+  repoGetUserXpList,
+  repoUpdateUserXpOverride
+} from "@/lib/repository/xp";
 import { revalidatePath } from"next/cache";
 import { requireGuildAdmin } from"@/lib/auth-guard";
 
@@ -10,12 +19,8 @@ import { requireGuildAdmin } from"@/lib/auth-guard";
 export async function getXpSettings(guildId: string) {
  await requireGuildAdmin(guildId);
  try {
- const res = await db
- .select()
- .from(xpSettings)
- .where(eq(xpSettings.guildId, guildId))
- .limit(1);
- return res[0] || null;
+ const res = await repoGetXpSettings(guildId);
+ return res || null;
  } catch (error) {
  console.error("Failed to fetch XP settings:", error);
  return null;
@@ -25,19 +30,7 @@ export async function getXpSettings(guildId: string) {
 export async function saveXpSettings(guildId: string, data: any) {
  await requireGuildAdmin(guildId);
  try {
- await db
- .insert(xpSettings)
- .values({
- guildId,
- ...data,
- })
- .onConflictDoUpdate({
- target: xpSettings.guildId,
- set: {
- ...data,
- updatedAt: new Date(),
- },
- });
+ await repoSaveXpSettings(guildId, data);
  revalidatePath(`/dashboard/${guildId}/xp`);
  return { success: true };
  } catch (error) {
@@ -50,11 +43,7 @@ export async function saveXpSettings(guildId: string, data: any) {
 export async function getXpRewards(guildId: string) {
  await requireGuildAdmin(guildId);
  try {
- return await db
- .select()
- .from(xpRewards)
- .where(eq(xpRewards.guildId, guildId))
- .orderBy(xpRewards.level);
+ return await repoGetXpRewards(guildId);
  } catch (error) {
  console.error("Failed to fetch XP rewards:", error);
  return [];
@@ -64,11 +53,7 @@ export async function getXpRewards(guildId: string) {
 export async function createXpReward(guildId: string, level: number, roleId: string) {
  await requireGuildAdmin(guildId);
  try {
- await db.insert(xpRewards).values({
- guildId,
- level,
- roleId,
- });
+ await repoCreateXpReward(guildId, level, roleId);
  revalidatePath(`/dashboard/${guildId}/xp`);
  return { success: true };
  } catch (error) {
@@ -80,15 +65,7 @@ export async function createXpReward(guildId: string, level: number, roleId: str
 export async function deleteXpReward(guildId: string, level: number, roleId: string) {
  await requireGuildAdmin(guildId);
  try {
- await db
- .delete(xpRewards)
- .where(
- and(
- eq(xpRewards.guildId, guildId),
- eq(xpRewards.level, level),
- eq(xpRewards.roleId, roleId)
- )
- );
+ await repoDeleteXpReward(guildId, level, roleId);
  revalidatePath(`/dashboard/${guildId}/xp`);
  return { success: true };
  } catch (error) {
@@ -100,10 +77,7 @@ export async function deleteXpReward(guildId: string, level: number, roleId: str
 export async function getXpMultipliers(guildId: string) {
  await requireGuildAdmin(guildId);
  try {
- return await db
- .select()
- .from(xpMultipliers)
- .where(eq(xpMultipliers.guildId, guildId));
+ return await repoGetXpMultipliers(guildId);
  } catch (error) {
  console.error("Failed to fetch XP multipliers:", error);
  return [];
@@ -118,12 +92,7 @@ export async function createXpMultiplier(
 ) {
  await requireGuildAdmin(guildId);
  try {
- await db.insert(xpMultipliers).values({
- guildId,
- targetId,
- targetType,
- multiplier,
- });
+ await repoCreateXpMultiplier(guildId, targetId, targetType, multiplier);
  revalidatePath(`/dashboard/${guildId}/xp`);
  return { success: true };
  } catch (error) {
@@ -139,15 +108,7 @@ export async function deleteXpMultiplier(
 ) {
  await requireGuildAdmin(guildId);
  try {
- await db
- .delete(xpMultipliers)
- .where(
- and(
- eq(xpMultipliers.guildId, guildId),
- eq(xpMultipliers.targetId, targetId),
- eq(xpMultipliers.targetType, targetType)
- )
- );
+ await repoDeleteXpMultiplier(guildId, targetId, targetType);
  revalidatePath(`/dashboard/${guildId}/xp`);
  return { success: true };
  } catch (error) {
@@ -159,12 +120,7 @@ export async function deleteXpMultiplier(
 export async function getUserXpList(guildId: string) {
  await requireGuildAdmin(guildId);
  try {
- return await db
- .select()
- .from(userXp)
- .where(eq(userXp.guildId, guildId))
- .orderBy(desc(userXp.xp))
- .limit(100);
+ return await repoGetUserXpList(guildId);
  } catch (error) {
  console.error("Failed to fetch user XP list:", error);
  return [];
@@ -180,25 +136,7 @@ export async function updateUserXpOverride(
 ) {
  await requireGuildAdmin(guildId);
  try {
- await db
- .insert(userXp)
- .values({
- userId,
- guildId,
- xp,
- level,
- prestigeLevel,
- lastXpGain: new Date(),
- })
- .onConflictDoUpdate({
- target: [userXp.userId, userXp.guildId],
- set: {
- xp,
- level,
- prestigeLevel,
- updatedAt: new Date(),
- },
- });
+ await repoUpdateUserXpOverride(guildId, userId, xp, level, prestigeLevel);
 
  revalidatePath(`/dashboard/${guildId}/xp`);
  return { success: true };

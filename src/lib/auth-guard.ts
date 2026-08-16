@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { accounts } from "../../schemas/auth";
 import { eq, and } from "drizzle-orm";
 import { getCachedData } from "@/lib/redis";
+import { getGuild } from "@/lib/discord-api";
 
 const DISCORD_API = "https://discord.com/api/v10";
 
@@ -26,6 +27,15 @@ export interface AuthResult {
  * a 403 redirect if the user lacks permission.
  */
 export async function requireGuildAdmin(guildId: string): Promise<AuthResult> {
+  if (!/^\d{17,20}$/.test(guildId)) {
+    redirect("/dashboard");
+  }
+
+  const guildInfo = await getGuild(guildId);
+  if (!guildInfo) {
+    redirect("/dashboard");
+  }
+
   const session = await auth();
 
   if (!session?.user?.id) {

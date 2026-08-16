@@ -56,6 +56,13 @@ const Navbar = () => {
           <span className="absolute bottom-0 left-1/2 w-0 h-px bg-foreground transition-all duration-300 group-hover:w-full group-hover:left-0" />
         </Link>
         <Link 
+          href="/pricing" 
+          className="hover:text-foreground transition-colors py-2 relative group"
+        >
+          {t('pricing')}
+          <span className="absolute bottom-0 left-1/2 w-0 h-px bg-foreground transition-all duration-300 group-hover:w-full group-hover:left-0" />
+        </Link>
+        <Link 
           href="/changelog" 
           className="hover:text-foreground transition-colors py-2 relative group"
         >
@@ -131,6 +138,9 @@ const Navbar = () => {
                 <Link href="/#features" onClick={() => setIsOpen(false)} className="text-sm tracking-wider uppercase text-foreground/50 hover:text-foreground transition-all hover:translate-x-2">
                   {t('features')}
                 </Link>
+                <Link href="/pricing" onClick={() => setIsOpen(false)} className="text-sm tracking-wider uppercase text-foreground/50 hover:text-foreground transition-all hover:translate-x-2">
+                  {t('pricing')}
+                </Link>
                 <Link href="/changelog" onClick={() => setIsOpen(false)} className="text-sm tracking-wider uppercase text-foreground/50 hover:text-foreground transition-all hover:translate-x-2">
                   {t('changelog')}
                 </Link>
@@ -184,9 +194,12 @@ const Footer = () => {
                 <span className="font-medium text-lg tracking-wider uppercase text-foreground">Pegasus</span>
               </Link>
             </div>
-            <p className="text-foreground/40 text-sm max-w-sm leading-relaxed">
+            <p className="text-foreground/40 text-sm max-w-sm leading-relaxed mb-6">
               {t('description')}
             </p>
+            <div className="text-foreground/60 text-sm font-medium">
+              Pegasus by <a href="https://vaultscope.com" target="_blank" rel="noreferrer" className="underline hover:text-foreground">VaultScope</a>
+            </div>
           </div>
           <div>
             <h3 className="font-medium text-xs tracking-wider uppercase text-foreground/30 mb-8">{t('product')}</h3>
@@ -194,6 +207,11 @@ const Footer = () => {
               <li>
                 <Link href="/#features" className="hover:text-foreground transition-colors">
                   {t('features')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/pricing" className="hover:text-foreground transition-colors">
+                  {t('pricing')}
                 </Link>
               </li>
               <li>
@@ -258,7 +276,7 @@ const Footer = () => {
              <a href="https://github.com/semi-constructor/pegasus" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                <GitBranch className="w-4 h-4" />
              </a>
-             <a href="https://pegasus.app" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+             <a href="https://pegasusbot.app" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                <Globe className="w-4 h-4" />
              </a>
           </div>

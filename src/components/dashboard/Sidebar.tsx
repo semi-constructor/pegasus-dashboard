@@ -10,9 +10,9 @@ export async function Sidebar() {
       <div className="p-6">
         <Link href="/dashboard" className="flex items-center gap-2">
           <>
-<img src="/logos/whitemode-logo.png" alt="Pegasus Logo" className="w-8 h-8 rounded-lg dark:hidden block" />
-<img src="/logos/darkmode-logo.png" alt="Pegasus Logo" className="w-8 h-8 rounded-lg hidden dark:block" />
-</>
+            <img src="/logos/whitemode-logo.png" alt="Pegasus Logo" className="w-8 h-8 rounded-lg dark:hidden block" />
+            <img src="/logos/darkmode-logo.png" alt="Pegasus Logo" className="w-8 h-8 rounded-lg hidden dark:block" />
+          </>
           <h2 className="text-xl font-bold text-foreground">Pegasus</h2>
         </Link>
       </div>
@@ -68,6 +68,10 @@ export async function Sidebar() {
       </nav>
 
       <div className="p-4 border-t border-border/50">
+        <Link href="/dashboard/instances" className="flex items-center gap-3 px-3 py-2 rounded-none hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm mb-1">
+          <Server className="w-4 h-4" />
+          My Instances
+        </Link>
         <Link href="/dashboard/profile/surveys" className="flex items-center gap-3 px-3 py-2 rounded-none hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors text-sm mb-1">
           <ClipboardList className="w-4 h-4" />
           My Surveys

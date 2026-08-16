@@ -30,6 +30,7 @@ import {
   FileText,
   Server,
   Calendar,
+  CreditCard,
 } from "lucide-react"
 import { signOut } from "next-auth/react"
 import { useTranslations } from 'next-intl'
@@ -41,7 +42,7 @@ import { ThemeToggle } from "@/components/ThemeToggle"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function DashboardSidebar({ session, isAdmin = false, isMobile = false, onNavigate }: { session: any, isAdmin?: boolean, isMobile?: boolean, onNavigate?: () => void }) {
   const t = useTranslations('guild');
@@ -53,7 +54,8 @@ export function DashboardSidebar({ session, isAdmin = false, isMobile = false, o
   const isPreview = pathname?.startsWith("/preview")
   const basePath = isPreview ? "/preview" : "/dashboard"
   const match = pathname?.match(new RegExp(`^${basePath}\\/([^/]+)(?:\\/(.*))?$`))
-  const guildId = match ? match[1] : null
+  const rawId = match ? match[1] : null
+  const guildId = rawId && !['admin', 'profile', 'instances', 'tickets'].includes(rawId) ? rawId : null
   const [guildName, setGuildName] = React.useState<string | null>(null)
 
   React.useEffect(() => {
@@ -96,10 +98,12 @@ export function DashboardSidebar({ session, isAdmin = false, isMobile = false, o
       { name: ta('bugReports'), href: "/dashboard/admin/bug-reports", icon: MessageSquare },
       { name: "Surveys", href: "/dashboard/admin/surveys", icon: FileText },
       { name: "Blogs", href: "/dashboard/admin/blogs", icon: FileText },
+      { name: "Tickets", href: "/dashboard/admin/tickets", icon: Ticket },
       { name: ta('auditLogs'), href: "/dashboard/admin/audit-logs", icon: FileText },
     ]
   } else if (pathname?.startsWith("/dashboard/profile")) {
     contextItems = [
+      { name: "Billing & Invoices", href: "/dashboard/profile/billing", icon: CreditCard },
       { name: tp('dataExport'), href: "/dashboard/profile/data", icon: Database },
       { name: tp('myBugReports'), href: "/dashboard/profile/reports", icon: MessageSquare },
       ...(isAdmin ? [{ name: tp('myPasskeys'), href: "/dashboard/profile/passkeys", icon: Shield }] : []),
@@ -187,6 +191,18 @@ export function DashboardSidebar({ session, isAdmin = false, isMobile = false, o
               <span>{td('servers')}</span>
             </div>
           </Link>
+          <Link href="/dashboard/tickets" onClick={handleLinkClick}>
+            <div className={cn("flex items-center gap-3 px-3 py-2 rounded-none text-sm font-medium transition-colors", pathname?.startsWith("/dashboard/tickets") ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50")}>
+              <Ticket size={18} />
+              <span>Support Tickets</span>
+            </div>
+          </Link>
+          <Link href="/dashboard/instances" onClick={handleLinkClick}>
+            <div className={cn("flex items-center gap-3 px-3 py-2 rounded-none text-sm font-medium transition-colors", pathname?.startsWith("/dashboard/instances") ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50")}>
+              <Server size={18} />
+              <span>My Instances</span>
+            </div>
+          </Link>
           <Link href="/dashboard/profile/data" onClick={handleLinkClick}>
             <div className={cn("flex items-center gap-3 px-3 py-2 rounded-none text-sm font-medium transition-colors", pathname?.startsWith("/dashboard/profile") ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-secondary/50")}>
               <Settings size={18} />
@@ -198,9 +214,10 @@ export function DashboardSidebar({ session, isAdmin = false, isMobile = false, o
         <LanguageSwitcher variant="compact" />
         
         <div className="flex items-center gap-3 px-3 py-2 rounded-none bg-secondary border border-border mt-2">
-          <div className="h-8 w-8 rounded-full bg-foreground flex items-center justify-center text-xs font-bold text-background shrink-0">
-            {session?.user?.name?.charAt(0) || "U"}
-          </div>
+          <Avatar className="h-8 w-8 rounded-full border border-border shrink-0">
+            <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
+            <AvatarFallback className="bg-foreground text-background text-xs font-bold">{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
+          </Avatar>
           <div className="flex-1 overflow-hidden">
             <p className="text-sm font-medium truncate text-foreground">{session?.user?.name || "User"}</p>
           </div>
@@ -231,7 +248,8 @@ export function FullscreenSidebarContent({
   const isPreview = pathname?.startsWith("/preview");
   const basePath = isPreview ? "/preview" : "/dashboard";
   const match = pathname?.match(new RegExp(`^${basePath}\\/([^/]+)(?:\\/(.*))?$`));
-  const guildId = match ? match[1] : null;
+  const rawId = match ? match[1] : null;
+  const guildId = rawId && !['admin', 'profile', 'instances', 'tickets'].includes(rawId) ? rawId : null;
   const [guildName, setGuildName] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -275,10 +293,12 @@ export function FullscreenSidebarContent({
       { name: ta('bugReports'), href: "/dashboard/admin/bug-reports", icon: MessageSquare },
       { name: "Surveys", href: "/dashboard/admin/surveys", icon: FileText },
       { name: "Blogs", href: "/dashboard/admin/blogs", icon: FileText },
+      { name: "Tickets", href: "/dashboard/admin/tickets", icon: Ticket },
       { name: ta('auditLogs'), href: "/dashboard/admin/audit-logs", icon: FileText },
     ];
   } else if (pathname?.startsWith("/dashboard/profile")) {
     contextItems = [
+      { name: "Billing & Invoices", href: "/dashboard/profile/billing", icon: CreditCard },
       { name: tp('dataExport'), href: "/dashboard/profile/data", icon: Database },
       { name: tp('myBugReports'), href: "/dashboard/profile/reports", icon: MessageSquare },
       ...(isAdmin ? [{ name: tp('myPasskeys'), href: "/dashboard/profile/passkeys", icon: Shield }] : []),
@@ -377,6 +397,18 @@ export function FullscreenSidebarContent({
                   <span className="font-medium text-sm">{td('servers')}</span>
                 </div>
               </Link>
+              <Link href="/dashboard/tickets" onClick={onClose}>
+                <div className={cn("flex items-center gap-3 p-3.5 rounded-none border transition-all hover:scale-[1.02]", pathname?.startsWith("/dashboard/tickets") ? "bg-primary/20 border-primary/50 text-foreground" : "bg-foreground/5 border-border text-foreground/70 hover:bg-foreground/10 hover:text-foreground")}>
+                  <Ticket size={18} className="text-primary shrink-0" />
+                  <span className="font-medium text-sm">Support Tickets</span>
+                </div>
+              </Link>
+              <Link href="/dashboard/instances" onClick={onClose}>
+                <div className={cn("flex items-center gap-3 p-3.5 rounded-none border transition-all hover:scale-[1.02]", pathname?.startsWith("/dashboard/instances") ? "bg-primary/20 border-primary/50 text-foreground" : "bg-foreground/5 border-border text-foreground/70 hover:bg-foreground/10 hover:text-foreground")}>
+                  <Server size={18} className="text-primary shrink-0" />
+                  <span className="font-medium text-sm">My Instances</span>
+                </div>
+              </Link>
               <Link href="/dashboard/profile/data" onClick={onClose}>
                 <div className={cn("flex items-center gap-3 p-3.5 rounded-none border transition-all hover:scale-[1.02]", pathname?.startsWith("/dashboard/profile") ? "bg-primary/20 border-primary/50 text-foreground" : "bg-foreground/5 border-border text-foreground/70 hover:bg-foreground/10 hover:text-foreground")}>
                   <Settings size={18} className="text-primary shrink-0" />
@@ -404,9 +436,10 @@ export function FullscreenSidebarContent({
       {/* Footer User Info */}
       <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-4">
-          <div className="h-10 w-10 rounded-full bg-primary/30 border border-primary/50 flex items-center justify-center text-sm font-bold text-foreground shrink-0">
-            {session?.user?.name?.charAt(0) || "U"}
-          </div>
+          <Avatar className="h-10 w-10 rounded-full border border-primary/50 shrink-0">
+            <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
+            <AvatarFallback className="bg-primary/30 text-foreground text-sm font-bold">{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
+          </Avatar>
           <div>
             <p className="text-sm font-bold text-foreground">{session?.user?.name || "User"}</p>
             <p className="text-xs text-foreground/40">{session?.user?.email || "Discord Account"}</p>
@@ -477,6 +510,7 @@ export function AdminTopNav({ session, onNavigate }: { session: any, onNavigate?
     { name: 'Security', href: "/dashboard/admin/security" },
     { name: 'Metrics', href: "/dashboard/admin/metrics" },
     { name: 'Reports', href: "/dashboard/admin/bug-reports" },
+    { name: 'Tickets', href: "/dashboard/admin/tickets" },
     { name: "Audit Logs", href: "/dashboard/admin/audit-logs" },
   ];
 
@@ -527,9 +561,10 @@ export function AdminTopNav({ session, onNavigate }: { session: any, onNavigate?
             Exit Admin
           </Button>
         </Link>
-        <div className="h-8 w-8 rounded-none bg-foreground/10 flex items-center justify-center border border-border text-xs font-bold text-foreground tracking-widest uppercase cursor-pointer hover:bg-foreground/20 transition-colors">
-          {session?.user?.name?.charAt(0) || "U"}
-        </div>
+        <Avatar className="h-8 w-8 rounded-none border border-border cursor-pointer hover:opacity-80 transition-opacity">
+          <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || "User"} />
+          <AvatarFallback className="bg-foreground/10 text-foreground text-xs font-bold tracking-widest uppercase">{session?.user?.name?.charAt(0) || "U"}</AvatarFallback>
+        </Avatar>
         <ThemeToggle />
       </div>
     </nav>

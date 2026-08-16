@@ -2,49 +2,63 @@
   "backToHome": "Back to Home",
   "privacy": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last updated: July 23, 2026",
+    "lastUpdated": "Last updated: August 16, 2026",
     "sections": {
       "1": {
         "title": "1. Information We Collect",
-        "p1": "When you use Pegasus, we collect and store the following information:",
+        "p1": "Depending on the features you use, Pegasus processes the following information:",
         "l1": "Discord User IDs and Guild IDs for operation and configuration storage.",
         "l2": "Messages logged specifically by the server administrator (only when the Logging module is active).",
         "l3": "Economy and XP balances associated with your User ID.",
-        "l4": "Anonymous website usage data and analytics via Google Analytics and Google Search Console (subject to your cookie consent)."
+        "l4": "Website usage data and analytics via Google Analytics and Google Search Console, only where you have consented to optional cookies.",
+        "l5": "For Pegasus Hosted: account details, instance name and status, encrypted bot credentials, technical identifiers, logs and configuration data needed to create and operate your instance.",
+        "l6": "For subscriptions: Stripe customer, subscription, invoice and payment-status identifiers. Pegasus does not store your full card details."
       },
       "2": {
         "title": "2. How We Use Information",
-        "p1": "The information we collect is strictly used to provide the bot's functionality, such as maintaining economy leaderboards, creating moderation logs for your server, and ensuring the stability of the platform. We do not sell your data to third parties."
+        "p1": "We process data to provide and secure Pegasus, administer accounts and subscriptions, provision and operate Pegasus Hosted instances, provide support, meet legal obligations and prevent misuse. The legal bases under the GDPR are performance of a contract or steps taken before it (Art. 6(1)(b)), legal obligations (Art. 6(1)(c)), our legitimate interests in secure and reliable operation (Art. 6(1)(f)), and consent for optional cookies (Art. 6(1)(a)). We do not sell personal data."
       },
       "3": {
         "title": "3. Data Retention",
-        "p1": "We retain your data as long as your Discord server has Pegasus installed. When the bot is removed from a server, all associated configuration data is scheduled for automated deletion within 30 days. Individual user data (XP, Economy) can be wiped upon request."
+        "p1": "We retain data only for as long as necessary for the stated purposes. Bot configuration is scheduled for deletion within 30 days after removal. Hosted-instance operational data is retained for the subscription term and then deleted or anonymised unless longer retention is required for legal claims, security or statutory record-keeping. Billing records are retained for the applicable statutory retention period."
       },
       "4": {
         "title": "4. Your Rights",
-        "p1": "You have the right to request an export of all your data or request complete deletion of your data from our systems. You can initiate these requests directly through the Dashboard or by contacting support."
+        "p1": "Subject to the GDPR’s requirements, you have the rights of access, rectification, erasure, restriction, objection and data portability, and the right to withdraw consent at any time with future effect. Contact the controller using the details in the Imprint. You may also lodge a complaint with a supervisory authority, in particular the authority at your habitual residence, workplace or the place of the alleged infringement."
       },
       "5": {
         "title": "5. Analytics and Tracking",
-        "p1": "We use Google Analytics and Google Search Console to understand website traffic and improve the user experience. These services may use cookies to collect anonymous usage data. You are in full control and can manage your cookie preferences through our cookie consent banner."
+        "p1": "We use Google Analytics and Google Search Console only to the extent enabled and, for non-essential cookies, after your consent. You can change or withdraw your choice through the cookie banner."
+      },
+      "6": {
+        "title": "6. Pegasus Hosted and Coolify",
+        "p1": "Pegasus Hosted is a paid, managed deployment offered through /pricing. Each purchased instance is provisioned as a separate service. We use a self-hosted Coolify installation solely as a deployment-management tool on infrastructure controlled by us or our hosting provider. Coolify is not an independent recipient of your data; authorised personnel and infrastructure providers may access hosted-instance data only as needed to operate, maintain, secure or support the service."
+      },
+      "7": {
+        "title": "7. Payments with Stripe",
+        "p1": "Payments and subscription management are provided by Stripe Payments Europe, Ltd. Stripe processes payment and billing data as an independent controller for payment services and may process data in the EEA, the United States and other countries in accordance with its privacy notice and applicable transfer safeguards. Stripe’s privacy notice: https://stripe.com/privacy."
+      },
+      "8": {
+        "title": "8. Recipients and international transfers",
+        "p1": "We disclose personal data only where necessary to provide the service, including to hosting and infrastructure providers, Stripe, Discord where you connect Discord, and analytics providers where consented. Where data is transferred outside the EEA, we use an adequacy decision or appropriate safeguards, such as the European Commission’s Standard Contractual Clauses, as applicable."
       }
     }
   },
   "terms": {
     "title": "Terms of Service",
-    "lastUpdated": "Last updated: July 23, 2026",
+    "lastUpdated": "Last updated: August 16, 2026",
     "sections": {
       "1": {
         "title": "1. Acceptance of Terms",
-        "p1": "By accessing and using the Pegasus Discord Bot and Dashboard (\"Service\"), you accept and agree to be bound by the terms and provision of this agreement."
+        "p1": "These terms govern the Pegasus bot, dashboard and Pegasus Hosted service. The operator and contact details are available in the Imprint. By using the service or ordering Pegasus Hosted, you agree to these terms. Mandatory statutory consumer rights remain unaffected."
       },
       "2": {
         "title": "2. Description of Service",
-        "p1": "Pegasus provides enterprise-level Discord server management tools including economy systems, moderation utilities, ticketing, and logging through a Discord bot and web dashboard."
+        "p1": "Pegasus provides Discord server-management tools. Pegasus Hosted is a managed, subscription-based deployment of Pegasus for your own Discord bot identity. It is provisioned through a self-hosted Coolify deployment-management environment; Coolify is not sold to you as a separate service. The precise plan, price, billing period and included features are shown on /pricing before checkout."
       },
       "3": {
         "title": "3. User Conduct",
-        "p1": "You agree to not use the Service to:",
+        "p1": "You agree not to use the Service to:",
         "l1": "Violate any Discord Terms of Service or Community Guidelines.",
         "l2": "Abuse the economy or XP systems through automated macros or bots.",
         "l3": "Use the moderation tools to maliciously harm server communities.",
@@ -52,11 +66,23 @@
       },
       "4": {
         "title": "4. Data and Privacy",
-        "p1": "Our data collection and use practices are governed by our Privacy Policy. By using the Service, you consent to the collection and use of this information as detailed in the Privacy Policy."
+        "p1": "Our processing of personal data is described in the Privacy Policy. When you use Pegasus Hosted, you are responsible for ensuring that your use of the bot and any content you collect through it has a lawful basis and complies with applicable data-protection law."
       },
       "5": {
         "title": "5. Modifications to Service",
-        "p1": "We reserve the right at any time to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice."
+        "p1": "We may update the service where objectively necessary, for example for security, legal compliance, maintenance or technical changes. Material changes to a paid service will be communicated in advance where required by law and will not remove agreed core functionality without a lawful basis."
+      },
+      "6": {
+        "title": "6. Price, payment and subscription",
+        "p1": "Pegasus Hosted is billed in advance on the monthly or annual interval selected at checkout. Prices, applicable taxes and the accepted payment methods are displayed before the order is submitted. Payments, invoices and subscription administration are handled through Stripe. The subscription renews for the selected billing interval unless cancelled before the next renewal date."
+      },
+      "7": {
+        "title": "7. Cancellation, withdrawal and availability",
+        "p1": "You can manage or cancel the subscription through the Stripe customer portal linked from the billing area; cancellation takes effect at the end of the current paid period unless otherwise stated at checkout. Consumers retain any statutory right of withdrawal. If you ask us to begin supplying the digital service during the withdrawal period, statutory rules on withdrawal and any proportionate payment for services already supplied apply. We aim to provide a reliable service but scheduled maintenance, security measures and events outside our reasonable control may affect availability."
+      },
+      "8": {
+        "title": "8. Liability, law and disputes",
+        "p1": "Nothing in these terms limits liability that cannot be excluded or limited under applicable law, including liability for intent, gross negligence, injury to life, body or health, or mandatory consumer rights. German law applies where permitted; consumers retain the mandatory protections of the law of their habitual residence. The European Commission’s online dispute-resolution platform is no longer available. We are neither obliged nor willing to participate in consumer dispute-resolution proceedings unless legally required."
       }
     }
   },
