@@ -236,7 +236,7 @@ export class CoolifyService {
   }
 
   static async deploy(serviceUuid: string): Promise<string> {
-    const res = await this.request(`/api/v1/deploy?uuid=${serviceUuid}`, { method: 'POST' });
+    const res = await this.request<any>(`/api/v1/deploy?uuid=${serviceUuid}`, { method: 'POST' });
     console.log('Deploy Response from Coolify:', res);
     return res.deployment_uuid || res.uuid || res.message || res;
   }
